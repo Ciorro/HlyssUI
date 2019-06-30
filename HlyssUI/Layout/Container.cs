@@ -25,6 +25,7 @@ namespace HlyssUI.Layout
             }
         }
 
+        //TODO: Zostawic fill?
         public bool Fill = false;
 
         public Container(Gui gui) : base(gui)
@@ -97,17 +98,16 @@ namespace HlyssUI.Layout
         {
             int x = W - Pl - Pr;
 
-            for (int i = Children.Count - 1; i >= 0; i--)
+            foreach (var child in Children)
             {
-                x -= Children[i].MarginSize.X;
-                Children[i].Left = $"{x}px";
-                Children[i].Top = "0px";
+                x -= child.MarginSize.X;
+                child.Left = $"{x}px";
+                child.Top = "0px";
 
                 if (Fill)
                 {
-                    Children[i].Height = $"{Size.Y - Children[i].Mt - Children[i].Mb - Pt - Pb}px";
+                    child.Height = $"{Size.Y - child.Mt - child.Mb - Pt - Pb}px";
                 }
-
             }
         }
 
@@ -115,15 +115,15 @@ namespace HlyssUI.Layout
         {
             int y = H - Pt - Pb;
 
-            for (int i = Children.Count - 1; i >= 0; i--)
+            foreach (var child in Children)
             {
-                y -= Children[i].MarginSize.Y;
-                Children[i].Left = "0px";
-                Children[i].Top = $"{y}px";
+                y -= child.MarginSize.Y;
+                child.Left = "0px";
+                child.Top = $"{y}px";
 
                 if (Fill)
                 {
-                    Children[i].Width = $"{Size.X - Children[i].Ml - Children[i].Mr - Pl - Pr}px";
+                    child.Width = $"{Size.X - child.Ml - child.Mr - Pl - Pr}px";
                 }
             }
         }

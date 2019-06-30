@@ -114,8 +114,7 @@ namespace HlyssUIDemo
             Container container = new Container(gui);
             container.Name = "container";
             container.Padding = "1%";
-            container.Layout = Container.LayoutOrientation.ReversedRow;
-            container.Fill = true;
+            container.Layout = Container.LayoutOrientation.ReversedColumn;
             gui.CurrentScene.BaseNode.AddChild(container);
 
             Panel panel1 = new Panel(gui);
