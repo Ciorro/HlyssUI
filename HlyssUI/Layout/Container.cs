@@ -1,9 +1,5 @@
 ﻿using HlyssUI.Components;
-using HlyssUI.Utils;
-using SFML.System;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Layout
 {
@@ -11,7 +7,7 @@ namespace HlyssUI.Layout
     {
         public enum LayoutOrientation
         {
-            Column, Row
+            Column, Row, ReversedColumn, ReversedRow
         }
 
         private LayoutOrientation _layout = LayoutOrientation.Column;
@@ -49,6 +45,12 @@ namespace HlyssUI.Layout
                 case LayoutOrientation.Row:
                     row();
                     break;
+                case LayoutOrientation.ReversedColumn:
+                    reversedColumn();
+                    break;
+                case LayoutOrientation.ReversedRow:
+                    reversedRow();
+                    break;
             }
         }
 
@@ -67,7 +69,7 @@ namespace HlyssUI.Layout
                 child.Top = "0px";
                 x += child.MarginSize.X;
 
-                if(Fill)
+                if (Fill)
                 {
                     child.Height = $"{Size.Y - child.Mt - child.Mb - Pt - Pb}px";
                 }
@@ -87,6 +89,41 @@ namespace HlyssUI.Layout
                 if (Fill)
                 {
                     child.Width = $"{Size.X - child.Ml - child.Mr - Pl - Pr}px";
+                }
+            }
+        }
+
+        private void reversedRow()
+        {
+            int x = W - Pl - Pr;
+
+            for (int i = Children.Count - 1; i >= 0; i--)
+            {
+                x -= Children[i].MarginSize.X;
+                Children[i].Left = $"{x}px";
+                Children[i].Top = "0px";
+
+                if (Fill)
+                {
+                    Children[i].Height = $"{Size.Y - Children[i].Mt - Children[i].Mb - Pt - Pb}px";
+                }
+
+            }
+        }
+
+        private void reversedColumn()
+        {
+            int y = H - Pt - Pb;
+
+            for (int i = Children.Count - 1; i >= 0; i--)
+            {
+                y -= Children[i].MarginSize.Y;
+                Children[i].Left = "0px";
+                Children[i].Top = $"{y}px";
+
+                if (Fill)
+                {
+                    Children[i].Width = $"{Size.X - Children[i].Ml - Children[i].Mr - Pl - Pr}px";
                 }
             }
         }

@@ -19,11 +19,11 @@ namespace HlyssUIDemo
         {
             ContextSettings settings = new ContextSettings(1, 1, 2);
 
-            RenderWindow window = new RenderWindow(new VideoMode(422, 594), "HlyssUI demo", Styles.Default, settings);
+            RenderWindow window = new RenderWindow(new VideoMode(1366, 768), "HlyssUI demo", Styles.Default, settings);
             window.SetFramerateLimit(300);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "light");
+            Theme.Load("theme.ini", "MicrosoftWindows10Dark");
 
             Gui gui = new Gui(window, new Font("C:/Windows/Fonts/segoeui.ttf"));
             GuiScene scene = new GuiScene(gui);
@@ -114,13 +114,14 @@ namespace HlyssUIDemo
             Container container = new Container(gui);
             container.Name = "container";
             container.Padding = "1%";
-            container.Layout = Container.LayoutOrientation.Column;
+            container.Layout = Container.LayoutOrientation.ReversedRow;
+            container.Fill = true;
             gui.CurrentScene.BaseNode.AddChild(container);
 
             Panel panel1 = new Panel(gui);
             container.AddChild(panel1);
-            panel1.Width = "10%";
-            panel1.Height = "10%";
+            panel1.Width = "30%";
+            panel1.Height = "20%";
             panel1.Margin = "10px";
 
             Panel panel2 = new Panel(gui);

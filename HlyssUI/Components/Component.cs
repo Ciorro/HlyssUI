@@ -295,17 +295,16 @@ namespace HlyssUI.Components
         public ClipArea ClipArea { get; private set; }
 
         public bool IsOverlay { get; protected set; }
-        public bool Enabled = true;
-        public bool Visible = true;
-        public bool Active = true;
-        public bool Hovered = false;
+        public bool Enabled { get; set; } = true;
+        public bool Visible { get; set; } = true;
+        public bool Active { get; set; } = true;
+        public bool Hovered { get; set; } = false;
         public bool IsPressed { get; private set; }
         public bool NeedsRefresh { get; protected set; }
-        public bool DisableClipping = false;
-        public bool CoverParent = true;
-        public bool Autosize = false;
+        public bool DisableClipping { get; set; } = false;
+        public bool CoverParent { get; set; } = true;
 
-        public string Name = Guid.NewGuid().ToString();
+        public string Name { get; set; } = Guid.NewGuid().ToString();
         public Gui Gui { get; private set; }
 
         public Component(Gui gui)
