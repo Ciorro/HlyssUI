@@ -23,7 +23,7 @@ namespace HlyssUIDemo
             window.SetFramerateLimit(300);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "dark");
+            Theme.Load("theme.ini", "light");
 
             Gui gui = new Gui(window, new Font("C:/Windows/Fonts/segoeui.ttf"));
             GuiScene scene = new GuiScene(gui);

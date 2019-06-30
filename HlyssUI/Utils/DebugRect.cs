@@ -1,29 +1,27 @@
-﻿using System;
-using HlyssUI.Components;
+﻿using HlyssUI.Components;
 using SFML.Graphics;
 using SFML.System;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace HlyssUI.Utils
 {
-    internal static class DebugRect
+    class DebugRect
     {
-        private static RectangleShape _rect = new RectangleShape();
-        private static RectangleShape _margin = new RectangleShape();
+        private RectangleShape _rect = new RectangleShape();
+        private RectangleShape _margin = new RectangleShape();
 
-        private static RectangleShape _paddingRect1 = new RectangleShape();
-        private static RectangleShape _paddingRect2 = new RectangleShape();
-        private static RectangleShape _paddingRect3 = new RectangleShape();
-        private static RectangleShape _paddingRect4 = new RectangleShape();
-        private static RectangleShape _paddingRect5 = new RectangleShape();
+        private RectangleShape _paddingRect1 = new RectangleShape();
+        private RectangleShape _paddingRect2 = new RectangleShape();
+        private RectangleShape _paddingRect3 = new RectangleShape();
+        private RectangleShape _paddingRect4 = new RectangleShape();
+        private RectangleShape _paddingRect5 = new RectangleShape();
 
-        private static VertexArray _marginLines = new VertexArray(PrimitiveType.Lines);
+        private VertexArray _marginLines = new VertexArray(PrimitiveType.Lines);
 
-        public static void DrawDebug(Component component)
+        public void Draw(Component component)
         {
-            setRect(component);
-            setMargin(component);
-            setPadding(component);
-
             View tmpView = component.Gui.Window.GetView();
             component.Gui.Window.SetView(new View()
             {
@@ -44,7 +42,14 @@ namespace HlyssUI.Utils
             component.Gui.Window.SetView(tmpView);
         }
 
-        private static void setPadding(Component component)
+        public void Update(Component component)
+        {
+            setRect(component);
+            setMargin(component);
+            setPadding(component);
+        }
+
+        private void setPadding(Component component)
         {
             _paddingRect1.Position = (Vector2f)component.GlobalPosition;
             _paddingRect2.Position = (Vector2f)component.GlobalPosition + new Vector2f(component.Size.X - component.Pr, 0);
@@ -63,13 +68,13 @@ namespace HlyssUI.Utils
             _paddingRect1.OutlineThickness = _paddingRect2.OutlineThickness = _paddingRect3.OutlineThickness = _paddingRect4.OutlineThickness = -1;
             _paddingRect5.OutlineThickness = 1;
 
-            if(component.Hovered)
+            if (component.Hovered)
             {
                 _paddingRect1.OutlineColor = _paddingRect2.OutlineColor = _paddingRect3.OutlineColor = _paddingRect4.OutlineColor = _paddingRect5.OutlineColor = Color.Magenta;
             }
         }
 
-        private static void setRect(Component component)
+        private void setRect(Component component)
         {
             _rect.Position = (Vector2f)component.GlobalPosition;
             _rect.Size = (Vector2f)component.Size;
@@ -84,7 +89,7 @@ namespace HlyssUI.Utils
             }
         }
 
-        private static void setMargin(Component component)
+        private void setMargin(Component component)
         {
             _margin.Position = (Vector2f)component.GlobalPosition - new Vector2f(component.Ml, component.Mt);
             _margin.Size = (Vector2f)component.MarginSize;

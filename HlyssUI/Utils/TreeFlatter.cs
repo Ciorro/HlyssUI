@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace HlyssUI
+namespace HlyssUI.Utils
 {
     internal class TreeFlatter
     {

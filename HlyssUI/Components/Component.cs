@@ -44,6 +44,7 @@ namespace HlyssUI.Components
         private Stopwatch _doubleClickTimer = Stopwatch.StartNew();
         private Vector2i _firstClickPos = new Vector2i();
         private bool _doubleClick = false;
+        private DebugRect _debugRect = new DebugRect();
 
         private string _positionX = "0px";
         private string _positionY = "0px";
@@ -480,7 +481,10 @@ namespace HlyssUI.Components
         public void DrawDebug()
         {
             if (Gui.Debug)
-                DebugRect.DrawDebug(this);
+            {
+                _debugRect.Update(this);
+                _debugRect.Draw(this);
+            }
         }
         #endregion
 

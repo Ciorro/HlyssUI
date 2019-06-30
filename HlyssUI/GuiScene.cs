@@ -15,7 +15,6 @@ namespace HlyssUI
     public class GuiScene
     {
         public Component BaseNode;
-
         public Gui Gui;
 
         private Component _hoveredComponent;
