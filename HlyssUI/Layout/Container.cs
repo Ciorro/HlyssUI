@@ -5,14 +5,14 @@ namespace HlyssUI.Layout
 {
     public class Container : Component
     {
-        public enum LayoutOrientation
+        public enum LayoutType
         {
-            Column, Row, ReversedColumn, ReversedRow
+            Column, Row, ReversedColumn, ReversedRow, Wrap
         }
 
-        private LayoutOrientation _layout = LayoutOrientation.Column;
+        private LayoutType _layout = LayoutType.Column;
 
-        public LayoutOrientation Layout
+        public LayoutType Layout
         {
             get
             {
@@ -40,17 +40,20 @@ namespace HlyssUI.Layout
 
             switch (Layout)
             {
-                case LayoutOrientation.Column:
+                case LayoutType.Column:
                     column();
                     break;
-                case LayoutOrientation.Row:
+                case LayoutType.Row:
                     row();
                     break;
-                case LayoutOrientation.ReversedColumn:
+                case LayoutType.ReversedColumn:
                     reversedColumn();
                     break;
-                case LayoutOrientation.ReversedRow:
+                case LayoutType.ReversedRow:
                     reversedRow();
+                    break;
+                case LayoutType.Wrap:
+                    wrap();
                     break;
             }
         }
@@ -124,6 +127,31 @@ namespace HlyssUI.Layout
                 if (Fill)
                 {
                     child.Width = $"{Size.X - child.Ml - child.Mr - Pl - Pr}px";
+                }
+            }
+        }
+
+        private void wrap()
+        {
+            int x = 0, y = 0;
+            int maxY = 0;
+
+            foreach (var child in Children)
+            {
+                if(x + child.W > W - Pl - Pr)
+                {
+                    y += maxY;
+                    x = 0;
+                    maxY = 0;
+                }
+
+                child.Left = $"{x}px";
+                child.Top = $"{y}px";
+                x += child.MarginSize.X;
+
+                if (child.MarginSize.Y > maxY)
+                {
+                    maxY = child.MarginSize.Y;
                 }
             }
         }

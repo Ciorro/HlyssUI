@@ -19,8 +19,8 @@ namespace HlyssUIDemo
         {
             ContextSettings settings = new ContextSettings(1, 1, 2);
 
-            RenderWindow window = new RenderWindow(new VideoMode(1366, 768), "HlyssUI demo", Styles.Default, settings);
-            window.SetFramerateLimit(300);
+            RenderWindow window = new RenderWindow(new VideoMode(500, 768), "HlyssUI demo", Styles.Default, settings);
+            //window.SetFramerateLimit(300);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
             Theme.Load("theme.ini", "MicrosoftWindows10Dark");
@@ -34,8 +34,9 @@ namespace HlyssUIDemo
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
-            addComponents(gui);
+            //addComponents(gui);
             //createClippyUI(gui);
+            testWrap(gui);
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -46,10 +47,10 @@ namespace HlyssUIDemo
                 {
                     Container container = gui.CurrentScene.BaseNode.GetChild("container") as Container;
                     
-                    if (container.Layout == Container.LayoutOrientation.Column)
-                        container.Layout = Container.LayoutOrientation.Row;
+                    if (container.Layout == Container.LayoutType.Column)
+                        container.Layout = Container.LayoutType.Row;
                     else
-                        container.Layout = Container.LayoutOrientation.Column;
+                        container.Layout = Container.LayoutType.Column;
                 }
             };
 
@@ -75,6 +76,26 @@ namespace HlyssUIDemo
             HlyssUI.Utils.Logger.SaveLog();
         }
 
+        private static void testWrap(Gui gui)
+        {
+            Container container = new Container(gui);
+            container.Name = "container";
+            container.Layout = Container.LayoutType.Wrap;
+            gui.CurrentScene.BaseNode.AddChild(container);
+            container.Padding = "0px";
+
+            for (int i = 0; i < 25; i++)
+            {
+                Panel p = new Panel(gui);
+                p.Width = "90px";
+                p.Height = "90px";
+                p.Padding = "10px";
+                p.Margin = "5px";
+
+                container.AddChild(p);
+            }
+        }
+
         private static void createClippyUI(Gui gui)
         {
             Container app = new Container(gui);
@@ -94,7 +115,7 @@ namespace HlyssUIDemo
             Container topBarContainer = new Container(gui);
             topBar.AddChild(topBarContainer);
             topBarContainer.Padding = "10px";
-            topBarContainer.Layout = Container.LayoutOrientation.Row;
+            topBarContainer.Layout = Container.LayoutType.Row;
 
             Panel c1 = new Panel(gui);
             topBarContainer.AddChild(c1);
@@ -114,7 +135,7 @@ namespace HlyssUIDemo
             Container container = new Container(gui);
             container.Name = "container";
             container.Padding = "1%";
-            container.Layout = Container.LayoutOrientation.ReversedColumn;
+            container.Layout = Container.LayoutType.ReversedColumn;
             gui.CurrentScene.BaseNode.AddChild(container);
 
             Panel panel1 = new Panel(gui);
@@ -147,7 +168,7 @@ namespace HlyssUIDemo
             container1.AddChild(panel3);
             container1.AddChild(panel4);
 
-            container1.Layout = Container.LayoutOrientation.Row;
+            container1.Layout = Container.LayoutType.Row;
         }
     }
 }
