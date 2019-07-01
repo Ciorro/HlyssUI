@@ -23,7 +23,7 @@ namespace HlyssUIDemo
             //window.SetFramerateLimit(300);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "MicrosoftWindows10Dark");
+            Theme.Load("theme.ini", "light");
 
             Gui gui = new Gui(window, new Font("C:/Windows/Fonts/segoeui.ttf"));
             GuiScene scene = new GuiScene(gui);
@@ -34,9 +34,9 @@ namespace HlyssUIDemo
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
-            //addComponents(gui);
+            addComponents(gui);
             //createClippyUI(gui);
-            testWrap(gui);
+            //testWrap(gui);
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -135,7 +135,8 @@ namespace HlyssUIDemo
             Container container = new Container(gui);
             container.Name = "container";
             container.Padding = "1%";
-            container.Layout = Container.LayoutType.ReversedColumn;
+            container.Layout = Container.LayoutType.Column;
+            container.CenterContent = true;
             gui.CurrentScene.BaseNode.AddChild(container);
 
             Panel panel1 = new Panel(gui);

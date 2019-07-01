@@ -27,6 +27,7 @@ namespace HlyssUI.Layout
 
         //TODO: Zostawic fill?
         public bool Fill = false;
+        public bool CenterContent = false;
 
         public Container(Gui gui) : base(gui)
         {
@@ -77,6 +78,10 @@ namespace HlyssUI.Layout
                 {
                     child.Height = $"{Size.Y - child.Mt - child.Mb - Pt - Pb}px";
                 }
+                else if (CenterContent)
+                {
+                    child.Top = $"{(PaddingSize.Y - child.H - child.Mt - child.Mb) / 2}px";
+                }
             }
         }
 
@@ -94,12 +99,16 @@ namespace HlyssUI.Layout
                 {
                     child.Width = $"{Size.X - child.Ml - child.Mr - Pl - Pr}px";
                 }
+                else if (CenterContent)
+                {
+                    child.Left = $"{(PaddingSize.X - child.W - child.Ml - child.Mr) / 2}px";
+                }
             }
         }
 
         private void reversedRow()
         {
-            int x = W - Pl - Pr;
+            int x = PaddingSize.X;
 
             foreach (var child in Children)
             {
@@ -116,7 +125,7 @@ namespace HlyssUI.Layout
 
         private void reversedColumn()
         {
-            int y = H - Pt - Pb;
+            int y = PaddingSize.Y;
 
             foreach (var child in Children)
             {

@@ -62,12 +62,21 @@ namespace HlyssUI.Components
         public List<Component> Children { get; private set; } = new List<Component>();
         public Component Parent = null;
 
-        internal Vector2i GlobalPosition;
+        internal Vector2i GlobalPosition { get; set; }
+
         internal Vector2i MarginSize
         {
             get
             {
                 return new Vector2i(Ml + Mr + Size.X, Mt + Size.Y + Mb);
+            }
+        }
+
+        internal Vector2i PaddingSize
+        {
+            get
+            {
+                return new Vector2i(Size.X - Pl - Pr, Size.Y - Pt - Pb);
             }
         }
 
