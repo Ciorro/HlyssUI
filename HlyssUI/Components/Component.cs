@@ -123,13 +123,11 @@ namespace HlyssUI.Components
 
         #region Transform setters
 
-        internal static Regex regex = new Regex(@"^(\d+)(%|px|vw|vh)$");
-
         public string Left
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _positionX = value;
                     NeedsRefresh = true;
@@ -141,7 +139,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _positionY = value;
                     NeedsRefresh = true;
@@ -153,7 +151,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _sizeX = value;
                     NeedsRefresh = true;
@@ -165,7 +163,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _sizeY = value;
                     NeedsRefresh = true;
@@ -177,7 +175,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _marginLeft = value;
                     NeedsRefresh = true;
@@ -189,7 +187,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _marginRight = value;
                     NeedsRefresh = true;
@@ -201,7 +199,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _marginTop = value;
                     NeedsRefresh = true;
@@ -213,7 +211,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _marginBottom = value;
                     NeedsRefresh = true;
@@ -225,7 +223,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _marginLeft = value;
                     _marginRight = value;
@@ -240,7 +238,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _paddingLeft = value;
                     NeedsRefresh = true;
@@ -252,7 +250,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _paddingRight = value;
                     NeedsRefresh = true;
@@ -264,7 +262,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _paddingTop = value;
                     NeedsRefresh = true;
@@ -276,7 +274,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _paddingBottom = value;
                     NeedsRefresh = true;
@@ -288,7 +286,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (regex.IsMatch(value))
+                if (StringDimensionsConverter.DimRegex.IsMatch(value))
                 {
                     _paddingLeft = value;
                     _paddingRight = value;

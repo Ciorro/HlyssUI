@@ -7,11 +7,11 @@ namespace HlyssUI.Utils
 {
     static class StringDimensionsConverter
     {
-        static Regex regex = new Regex(@"^(\d+)(%|px|vw|vh)$");
+        public static Regex DimRegex = new Regex(@"^([+-]?\d+)(%|px|vw|vh)$");
 
         public static int Convert(string inputValue, int parentValue)
         {
-            Match match = regex.Match(inputValue);
+            Match match = DimRegex.Match(inputValue);
             int value = 0;
 
             if(match.Success)

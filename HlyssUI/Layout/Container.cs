@@ -120,6 +120,10 @@ namespace HlyssUI.Layout
                 {
                     child.Height = $"{Size.Y - child.Mt - child.Mb - Pt - Pb}px";
                 }
+                else if (CenterContent)
+                {
+                    child.Top = $"{(PaddingSize.Y - child.H - child.Mt - child.Mb) / 2}px";
+                }
             }
         }
 
@@ -136,6 +140,10 @@ namespace HlyssUI.Layout
                 if (Fill)
                 {
                     child.Width = $"{Size.X - child.Ml - child.Mr - Pl - Pr}px";
+                }
+                else if (CenterContent)
+                {
+                    child.Left = $"{(PaddingSize.X - child.W - child.Ml - child.Mr) / 2}px";
                 }
             }
         }
