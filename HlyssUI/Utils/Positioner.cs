@@ -24,13 +24,12 @@ namespace HlyssUI.Utils
         private void RefreshComponents(Component component)
         {
             refreshPosition(component);
+            component.OnRefresh(); //ostatnio przesuniete z dolu
 
             foreach (var child in component.Children)
             {
                 RefreshComponents(child);
             }
-
-            component.OnRefresh();
         }
 
         private static void refreshPosition(Component component)

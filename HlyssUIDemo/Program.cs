@@ -34,9 +34,10 @@ namespace HlyssUIDemo
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
-            addComponents(gui);
+            //addComponents(gui);
             //createClippyUI(gui);
             //testWrap(gui);
+            testBox(gui);
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -74,6 +75,26 @@ namespace HlyssUIDemo
             }
 
             HlyssUI.Utils.Logger.SaveLog();
+        }
+
+        private static void testBox(Gui gui)
+        {
+            Box box = new Box(gui);
+            gui.CurrentScene.AddChild(box);
+            box.Margin = "20px";
+
+            Panel panel = new Panel(gui);
+            panel.Width = "100px";
+            panel.Height = "100px";
+            panel.MarginRight = "10px";
+            box.AddChild(panel);
+
+            //Panel panel1 = new Panel(gui);
+            //panel1.Width = "100%";
+            //panel1.Height = "100px";
+            //panel1.MarginLeft = "120px";
+            //panel1.MarginTop = "120px";
+            //box.AddChild(panel1);
         }
 
         private static void testWrap(Gui gui)
