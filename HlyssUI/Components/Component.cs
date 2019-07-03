@@ -381,6 +381,16 @@ namespace HlyssUI.Components
             _transitions.Update();
             ClipArea.Update();
         }
+
+        public void ScheduleRefresh()
+        {
+            NeedsRefresh = true;
+        }
+
+        public void ForceRefresh()
+        {
+            OnRefresh();
+        }
         //update positiona jezeli wywolal parent lub ustawic childom nowy pos
         //ale jest Transformed position
         #endregion

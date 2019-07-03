@@ -42,8 +42,8 @@ namespace HlyssUI
 
         public void Update()
         {
-            _positioner.Scan(BaseNode);
             _updater.Update(BaseNode);
+            _positioner.Scan(BaseNode);
         }
 
         public void Draw()

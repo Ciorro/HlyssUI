@@ -20,7 +20,8 @@ namespace HlyssUI.Layout
             {
                 if(child.NeedsRefresh)
                 {
-                    NeedsRefresh = true;
+                    this.ForceRefresh();
+                    Parent.ScheduleRefresh();
                     break;
                 }
             }

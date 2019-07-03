@@ -20,7 +20,7 @@ namespace HlyssUIDemo
             ContextSettings settings = new ContextSettings(1, 1, 2);
 
             RenderWindow window = new RenderWindow(new VideoMode(500, 768), "HlyssUI demo", Styles.Default, settings);
-            //window.SetFramerateLimit(300);
+            window.SetFramerateLimit(300);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
             Theme.Load("theme.ini", "light");
@@ -79,16 +79,19 @@ namespace HlyssUIDemo
 
         private static void testBox(Gui gui)
         {
+            Container container = new Container(gui);
+            container.CenterContent = true;
+            gui.CurrentScene.AddChild(container);
+
             Box box = new Box(gui);
-            gui.CurrentScene.AddChild(box);
             box.Margin = "20px";
+            container.AddChild(box);
 
             Panel panel = new Panel(gui);
             panel.Width = "100px";
             panel.Height = "100px";
             panel.MarginRight = "10px";
             box.AddChild(panel);
-
             //Panel panel1 = new Panel(gui);
             //panel1.Width = "100%";
             //panel1.Height = "100px";
