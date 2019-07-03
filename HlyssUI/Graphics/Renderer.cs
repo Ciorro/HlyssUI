@@ -18,6 +18,9 @@ namespace HlyssUI.Graphics
             if (component.Parent != null && !component.Parent.DisableClipping)
                 component.Gui.Window.SetView(component.Parent.ClipArea.Area);
 
+            if(component.Parent != null && component.Parent.Parent != null && component.Parent.DisableClipping)
+                component.Gui.Window.SetView(component.Parent.Parent.ClipArea.Area);
+
             component.Draw();
             component.DrawDebug();
 
