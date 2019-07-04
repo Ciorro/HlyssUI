@@ -83,7 +83,7 @@ namespace HlyssUI.Layout
                     reversedRow();
                     break;
                 case LayoutType.Wrap:
-                    Logger.Log("Box component does not support Wrap layout type.");
+                    Logger.Log("Box component does not support wrap layout type.");
                     break;
             }
         }

@@ -70,6 +70,7 @@ namespace HlyssUI.Components
         {
             _text = new Text(string.Empty, gui.DefaultFont, gui.DefaultCharacterSize);
             Text = text;
+            updateSize();
         }
 
         public override void Update()
@@ -78,8 +79,7 @@ namespace HlyssUI.Components
 
             if(Autosize && NeedsRefresh)
             {
-                Width = $"{_text.GetGlobalBounds().Width}px";
-                Height = $"{getHeight()}px";
+                updateSize();
             }
         }
 
@@ -105,6 +105,12 @@ namespace HlyssUI.Components
             }
 
             return (int)(_text.Font.GetLineSpacing(_text.CharacterSize) * (newLineCount + 1));
+        }
+
+        private void updateSize()
+        {
+            Width = $"{_text.GetGlobalBounds().Width}px";
+            Height = $"{getHeight()}px";
         }
     }
 }

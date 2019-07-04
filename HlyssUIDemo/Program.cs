@@ -83,8 +83,9 @@ namespace HlyssUIDemo
             container.CenterContent = true;
             gui.CurrentScene.AddChild(container);
 
-            Box box = new Box(gui);
+            Card box = new Card(gui);
             box.Margin = "20px";
+            box.Padding = "20px";
             container.AddChild(box);
             box.Layout = LayoutType.Row;
 
@@ -98,6 +99,14 @@ namespace HlyssUIDemo
             panel1.Width = "100px";
             panel1.Height = "100px";
             box.AddChild(panel1);
+
+            Label label = new Label(gui);
+            label.Text = "I'm a label!";
+            box.AddChild(label);
+            label.MarginLeft = "10px";
+
+            Button button = new Button(gui);
+            box.AddChild(button);
         }
 
         private static void testWrap(Gui gui)
