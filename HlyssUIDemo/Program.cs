@@ -20,10 +20,10 @@ namespace HlyssUIDemo
             ContextSettings settings = new ContextSettings(1, 1, 2);
 
             RenderWindow window = new RenderWindow(new VideoMode(500, 768), "HlyssUI demo", Styles.Default, settings);
-            window.SetFramerateLimit(300);
+            //window.SetFramerateLimit(300);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "light");
+            Theme.Load("theme.ini", "MicrosoftWindows10Dark");
 
             Gui gui = new Gui(window, new Font("C:/Windows/Fonts/segoeui.ttf"));
             GuiScene scene = new GuiScene(gui);
@@ -48,10 +48,10 @@ namespace HlyssUIDemo
                 {
                     Container container = gui.CurrentScene.BaseNode.GetChild("container") as Container;
                     
-                    if (container.Layout == Container.LayoutType.Column)
-                        container.Layout = Container.LayoutType.Row;
+                    if (container.Layout == LayoutType.Column)
+                        container.Layout = LayoutType.Row;
                     else
-                        container.Layout = Container.LayoutType.Column;
+                        container.Layout = LayoutType.Column;
                 }
             };
 
@@ -86,25 +86,25 @@ namespace HlyssUIDemo
             Box box = new Box(gui);
             box.Margin = "20px";
             container.AddChild(box);
+            box.Layout = LayoutType.Row;
 
             Panel panel = new Panel(gui);
             panel.Width = "100px";
             panel.Height = "100px";
             panel.MarginRight = "10px";
             box.AddChild(panel);
-            //Panel panel1 = new Panel(gui);
-            //panel1.Width = "100%";
-            //panel1.Height = "100px";
-            //panel1.MarginLeft = "120px";
-            //panel1.MarginTop = "120px";
-            //box.AddChild(panel1);
+
+            Panel panel1 = new Panel(gui);
+            panel1.Width = "100px";
+            panel1.Height = "100px";
+            box.AddChild(panel1);
         }
 
         private static void testWrap(Gui gui)
         {
             Container container = new Container(gui);
             container.Name = "container";
-            container.Layout = Container.LayoutType.Wrap;
+            container.Layout = LayoutType.Wrap;
             gui.CurrentScene.BaseNode.AddChild(container);
             container.Padding = "0px";
 
@@ -124,11 +124,13 @@ namespace HlyssUIDemo
         {
             Container app = new Container(gui);
             gui.CurrentScene.BaseNode.AddChild(app);
+            gui.CurrentScene.BaseNode.DisableClipping = true;
             app.DisableClipping = true;
 
             Panel topBar = new Panel(gui);
             topBar.Width = "100%";
             topBar.Height = "102px";
+            topBar.DisableClipping = true;
             app.AddChild(topBar);
 
             Panel content = new Panel(gui);
@@ -139,7 +141,8 @@ namespace HlyssUIDemo
             Container topBarContainer = new Container(gui);
             topBar.AddChild(topBarContainer);
             topBarContainer.Padding = "10px";
-            topBarContainer.Layout = Container.LayoutType.Row;
+            topBarContainer.Layout = LayoutType.Row;
+            topBarContainer.DisableClipping = true;
 
             Panel c1 = new Panel(gui);
             topBarContainer.AddChild(c1);
@@ -159,7 +162,7 @@ namespace HlyssUIDemo
             Container container = new Container(gui);
             container.Name = "container";
             container.Padding = "1%";
-            container.Layout = Container.LayoutType.ReversedColumn;
+            container.Layout = LayoutType.ReversedColumn;
             container.CenterContent = true;
             gui.CurrentScene.BaseNode.AddChild(container);
 
@@ -193,7 +196,10 @@ namespace HlyssUIDemo
             container1.AddChild(panel3);
             container1.AddChild(panel4);
 
-            container1.Layout = Container.LayoutType.Row;
+            container1.Layout = LayoutType.Row;
+
+            Label label = new Label(gui, "Label\nno i co");
+            container.AddChild(label);
         }
     }
 }

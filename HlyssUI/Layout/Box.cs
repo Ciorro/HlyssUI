@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Components;
+using HlyssUI.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,21 @@ namespace HlyssUI.Layout
 {
     public class Box : Component
     {
+        private LayoutType _layout = LayoutType.Relative;
+
+        public LayoutType Layout
+        {
+            get
+            {
+                return _layout;
+            }
+            set
+            {
+                _layout = value;
+                NeedsRefresh = true;
+            }
+        }
+
         public Box(Gui gui) : base(gui)
         {
             DisableClipping = true;
@@ -29,6 +45,8 @@ namespace HlyssUI.Layout
 
         public override void OnRefresh()
         {
+            refreshLayout();
+
             Width = $"0px";
             Height = $"0px";
 
@@ -46,6 +64,76 @@ namespace HlyssUI.Layout
             Height = $"{maxY + Pt + Pb}px";
 
             base.OnRefresh();
+        }
+
+        private void refreshLayout()
+        {
+            switch (Layout)
+            {
+                case LayoutType.Column:
+                    column();
+                    break;
+                case LayoutType.Row:
+                    row();
+                    break;
+                case LayoutType.ReversedColumn:
+                    reversedColumn();
+                    break;
+                case LayoutType.ReversedRow:
+                    reversedRow();
+                    break;
+                case LayoutType.Wrap:
+                    Logger.Log("Box component does not support Wrap layout type.");
+                    break;
+            }
+        }
+
+        private void row()
+        {
+            int x = 0;
+
+            foreach (var child in Children)
+            {
+                child.Left = $"{x}px";
+                child.Top = "0px";
+                x += child.MarginSize.X;
+            }
+        }
+
+        private void column()
+        {
+            int y = 0;
+
+            foreach (var child in Children)
+            {
+                child.Left = "0px";
+                child.Top = $"{y}px";
+                y += child.MarginSize.Y;
+            }
+        }
+
+        private void reversedRow()
+        {
+            int x = 0;
+
+            for (int i = Children.Count - 1; i >= 0; i--)
+            {
+                Children[i].Left = $"{x}px";
+                Children[i].Top = "0px";
+                x += Children[i].MarginSize.X;
+            }
+        }
+
+        private void reversedColumn()
+        {
+            int y = 0;
+
+            for (int i = Children.Count - 1; i >= 0; i--)
+            {
+                Children[i].Left = "0px";
+                Children[i].Top = $"{y}px";
+                y += Children[i].MarginSize.Y;
+            }
         }
     }
 }

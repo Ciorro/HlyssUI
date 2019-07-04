@@ -396,7 +396,7 @@ namespace HlyssUI.Components
         #endregion
 
         #region Drawing
-        public virtual void Draw() { }
+        public virtual void Draw(RenderTarget target) { }
         #endregion
 
         #region Event handling

@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Graphics;
 using HlyssUI.Utils;
+using SFML.Graphics;
 using SFML.System;
 
 namespace HlyssUI.Components
@@ -24,9 +25,9 @@ namespace HlyssUI.Components
             _body.Size = (Vector2f)Size;
         }
 
-        public override void Draw()
+        public override void Draw(RenderTarget target)
         {
-            Gui.Window.Draw(_body);
+            target.Draw(_body);
         }
     }
 }

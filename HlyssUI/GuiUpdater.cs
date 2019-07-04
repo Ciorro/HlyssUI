@@ -6,6 +6,7 @@ using System.Text;
 
 namespace HlyssUI
 {
+    //TODO: componet coverparent left entered bug
     class GuiUpdater
     {
         private Component _currentHover;

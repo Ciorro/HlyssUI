@@ -5,11 +5,6 @@ namespace HlyssUI.Layout
 {
     public class Container : Component
     {
-        public enum LayoutType
-        {
-            Column, Row, ReversedColumn, ReversedRow, Wrap
-        }
-
         private LayoutType _layout = LayoutType.Column;
 
         public LayoutType Layout
@@ -101,7 +96,6 @@ namespace HlyssUI.Layout
                 }
                 else if (CenterContent)
                 {
-                    Console.WriteLine($"{PaddingSize.X} - {child.W} - {child.Ml} - {child.Mr}");
                     child.Left = $"{(PaddingSize.X - child.W - child.Ml - child.Mr) / 2}px";
                 }
             }

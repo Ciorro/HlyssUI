@@ -6,6 +6,7 @@ namespace HlyssUI.Graphics
     {
         public void Render(Component component)
         {
+            component.Gui.Window.SetView(component.Gui.Window.DefaultView);
             renderCommonComponents(component, false);
             renderOverlapingComponents(component);
         }
@@ -18,10 +19,7 @@ namespace HlyssUI.Graphics
             if (component.Parent != null && !component.Parent.DisableClipping)
                 component.Gui.Window.SetView(component.Parent.ClipArea.Area);
 
-            if(component.Parent != null && component.Parent.Parent != null && component.Parent.DisableClipping)
-                component.Gui.Window.SetView(component.Parent.Parent.ClipArea.Area);
-
-            component.Draw();
+            component.Draw(component.Gui.Window);
             component.DrawDebug();
 
             component.Gui.Window.SetView(component.Gui.DefaultView);
