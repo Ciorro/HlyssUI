@@ -5,7 +5,7 @@ namespace HlyssUI.Transitions
     public abstract class Transition<T>
     {
         public delegate void FinishHandler();
-        FinishHandler OnFinish;
+        public FinishHandler OnFinish;
 
         protected T value;
 
