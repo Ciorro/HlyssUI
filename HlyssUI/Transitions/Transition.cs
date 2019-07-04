@@ -2,18 +2,18 @@
 
 namespace HlyssUI.Transitions
 {
-    public abstract class Transition
+    public abstract class Transition<T>
     {
         public delegate void FinishHandler();
         FinishHandler OnFinish;
 
-        protected Component component;
+        protected T value;
 
         public bool IsFinished { get; private set; }
 
-        public Transition(Component component)
+        public Transition(T value)
         {
-            this.component = component;
+            this.value = value;
         }
 
         public abstract void Update();

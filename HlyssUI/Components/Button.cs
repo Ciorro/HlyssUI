@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HlyssUI.Components
+﻿namespace HlyssUI.Components
 {
     public class Button : Card
     {
-        Label _label;
+        private Label _label;
 
         public Button(Gui gui) : base(gui)
         {
@@ -17,6 +13,7 @@ namespace HlyssUI.Components
 
             _label = new Label(gui, "Button");
             _label.CharacterSize = gui.DefaultCharacterSize + 1;
+            _label.CoverParent = false;
             AddChild(_label);
         }
     }
