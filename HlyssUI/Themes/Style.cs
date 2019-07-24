@@ -69,7 +69,7 @@ namespace HlyssUI.Themes
             if (baseColor.B >= level)
                 baseColor.B -= level;
             else
-                baseColor.G = 0;
+                baseColor.B = 0;
 
             return baseColor;
         }

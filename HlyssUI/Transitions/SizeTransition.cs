@@ -26,8 +26,8 @@ namespace HlyssUI.Transitions
             base.Update();
 
             Vector2i newSize = new Vector2i();
-            newSize.X = (int)(_from.X + (_from.X - _to.X) * Percentage);
-            newSize.Y = (int)(_from.Y + (_from.Y - _to.Y) * Percentage);
+            newSize.X = (int)(_from.X + (_to.X - _from.X) * Percentage);
+            newSize.Y = (int)(_from.Y + (_to.Y - _from.Y) * Percentage);
 
             _component.Width = $"{newSize.X}{_unit}";
             _component.Height = $"{newSize.Y}{_unit}";

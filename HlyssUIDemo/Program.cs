@@ -16,7 +16,7 @@ namespace HlyssUIDemo
             ContextSettings settings = new ContextSettings(1, 1, 2);
 
             RenderWindow window = new RenderWindow(new VideoMode(1366, 768), "HlyssUI demo", Styles.Default, settings);
-            window.SetFramerateLimit(300);
+            //window.SetFramerateLimit(300);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
             Theme.Load("theme.ini", "dark");
@@ -121,14 +121,17 @@ namespace HlyssUIDemo
                 //    panel.Height = $"{panel.Size.Y - 10}px";
                 //if (e.Code == Keyboard.Key.Down)
                 //    panel.Height = $"{panel.Size.Y + 10}px";
+
+
+
                 if (e.Code == Keyboard.Key.Left)
-                    panel.Resize(panel.Size.X - 500, panel.Size.Y, "px");
+                    panel.Resize(panel.Size.X - 50, panel.Size.Y, "px");
                 if (e.Code == Keyboard.Key.Right)
-                    panel.Resize(panel.Size.X + 500, panel.Size.Y, "px");
+                    panel.Resize(panel.Size.X + 50, panel.Size.Y, "px");
                 if (e.Code == Keyboard.Key.Up)
-                    panel.Resize(panel.Size.X, panel.Size.Y - 500, "px");
+                    panel.Resize(panel.Size.X, panel.Size.Y - 50, "px");
                 if (e.Code == Keyboard.Key.Down)
-                    panel.Resize(panel.Size.X, panel.Size.Y + 500, "px");
+                    panel.Resize(panel.Size.X, panel.Size.Y + 50, "px");
             };
         }
 

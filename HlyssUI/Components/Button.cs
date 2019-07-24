@@ -41,7 +41,7 @@ namespace HlyssUI.Components
             _label = new Label(gui, "Install now");
             _label.CharacterSize = gui.DefaultCharacterSize;
             _label.CoverParent = false;
-            _label.Font = Fonts.MontserratMedium;
+            _label.Font = Fonts.MontserratSemiBold;
             AddChild(_label);
 
             CascadeColor = true;
