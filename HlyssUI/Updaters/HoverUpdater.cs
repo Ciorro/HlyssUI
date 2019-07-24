@@ -1,13 +1,10 @@
 ﻿using HlyssUI.Components;
 using SFML.System;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace HlyssUI
+namespace HlyssUI.Updaters
 {
     //TODO: componet coverparent left entered bug
-    class GuiUpdater
+    class HoverUpdater
     {
         private Component _currentHover;
 
@@ -63,7 +60,7 @@ namespace HlyssUI
 
             bool prevHoverState = component.Hovered;
 
-            if (component.Bounds.Contains(mPos.X, mPos.Y) && component.CoverParent && (component.Parent == null || (component.Parent != null && component.Parent.ClipArea.Bounds.Contains(mPos.X, mPos.Y))))
+            if (component.Bounds.Contains(mPos.X, mPos.Y) && component.CoverParent && (component.Parent == null || component.Parent != null && component.Parent.ClipArea.Bounds.Contains(mPos.X, mPos.Y)))
             {
                 component.Hovered = true;
 

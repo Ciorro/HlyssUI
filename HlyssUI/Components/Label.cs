@@ -90,6 +90,12 @@ namespace HlyssUI.Components
             _text.Position = (Vector2f)GlobalPosition;
         }
 
+        public override void OnStyleChanged()
+        {
+            base.OnStyleChanged();
+            _text.FillColor = base.Style["Text"];
+        }
+
         public override void Draw(RenderTarget target)
         {
             target.Draw(_text);

@@ -1,14 +1,9 @@
 ﻿using HlyssUI.Components;
 using HlyssUI.Graphics;
-using HlyssUI.Layout;
 using HlyssUI.Themes;
-using HlyssUI.Utils;
+using HlyssUI.Updaters;
 using SFML.System;
 using SFML.Window;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace HlyssUI
 {
@@ -19,15 +14,18 @@ namespace HlyssUI
 
         private Component _hoveredComponent;
         private Renderer _renderer = new Renderer();
-        private GuiUpdater _updater = new GuiUpdater();
-        private Positioner _positioner = new Positioner();
+        private HoverUpdater _hoverUpdater = new HoverUpdater();
+        private ColorUpdater _colorUpdater = new ColorUpdater();
+        private PositionUpdater _positionUpdater;
 
         public GuiScene(Gui gui)
         {
             Gui = gui;
 
             BaseNode = new BaseComponent(gui);
-            BaseNode.Colors.PrimaryColor = Theme.BackgroundColor;
+            BaseNode.Style["Primary"] = Theme.GetColor("Primary");
+
+            _positionUpdater = new PositionUpdater(this);
         }
 
         public void Start()
@@ -42,8 +40,9 @@ namespace HlyssUI
 
         public void Update()
         {
-            _updater.Update(BaseNode);
-            _positioner.Scan(BaseNode);
+            _hoverUpdater.Update(BaseNode);
+            _positionUpdater.Update(BaseNode);
+            _colorUpdater.Update(BaseNode);
         }
 
         public void Draw()
@@ -69,12 +68,12 @@ namespace HlyssUI
         public void UpdateTheme()
         {
             updateComponentTheme(BaseNode);
-            BaseNode.Colors.PrimaryColor = Theme.BackgroundColor;
+            BaseNode.Style["Primary"] = Theme.GetColor("Primary");
         }
 
         private void updateComponentTheme(Component component)
         {
-            component.Colors = new Colors();
+            component.Style = new Style();
 
             foreach (var child in component.Children)
             {
@@ -100,7 +99,7 @@ namespace HlyssUI
 
         private void Window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
-            _hoveredComponent = _updater.UpdateHover(BaseNode, Mouse.GetPosition(Gui.Window));
+            _hoveredComponent = _hoverUpdater.UpdateHover(BaseNode, Mouse.GetPosition(Gui.Window));
         }
 
         private void Window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
@@ -125,7 +124,7 @@ namespace HlyssUI
 
         private void Window_MouseWheelScrolled(object sender, MouseWheelScrollEventArgs e)
         {
-            _hoveredComponent = _updater.UpdateHover(BaseNode, Mouse.GetPosition(Gui.Window));
+            _hoveredComponent = _hoverUpdater.UpdateHover(BaseNode, Mouse.GetPosition(Gui.Window));
             sendScrollInfoToAllChildren(BaseNode, e.Delta);
         }
 

@@ -1,8 +1,5 @@
 ﻿using HlyssUI.Components;
 using HlyssUI.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Layout
 {
@@ -34,7 +31,7 @@ namespace HlyssUI.Layout
 
             foreach (var child in Children)
             {
-                if(child.NeedsRefresh)
+                if (child.NeedsRefresh)
                 {
                     this.ForceRefresh();
                     Parent.ScheduleRefresh();

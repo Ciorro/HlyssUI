@@ -15,8 +15,8 @@ namespace HlyssUI.Components
         public Card(Gui gui) : base(gui)
         {
             _body = new RoundedRectangle();
-            _body.FillColor = Colors.PrimaryColor;
-            _body.OutlineColor = Colors.AccentColor;
+            _body.FillColor = Style["Primary"];
+            _body.OutlineColor = Style["Accent"];
             _body.OutlineThickness = -1;
         }
 
@@ -26,6 +26,17 @@ namespace HlyssUI.Components
 
             _body.Position = (Vector2f)GlobalPosition;
             _body.Size = (Vector2f)Size;
+        }
+
+        public override void OnStyleChanged()
+        {
+            base.OnStyleChanged();
+
+            _body.FillColor = Style["Primary"];
+            _body.OutlineColor = Style["Accent"];
+
+            _body.OutlineThickness = Style.BorderThickness * -1;
+            _body.Radius = Style.BorderRadius;
         }
 
         public override void Draw(RenderTarget target)

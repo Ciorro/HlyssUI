@@ -46,9 +46,14 @@ namespace HlyssUI.Transitions
         private void updateTop()
         {
             Transition transition = _transitions.Last();
-            transition.Update();
 
-            if(transition.IsFinished)
+            if (!transition.IsFinished)
+            {
+                if (!transition.IsRunning)
+                    transition.Start();
+                transition.Update();
+            }
+            else
             {
                 _transitions.Remove(transition);
             }
@@ -60,6 +65,8 @@ namespace HlyssUI.Transitions
             {
                 if (!_transitions[i].IsFinished)
                 {
+                    if (!_transitions[i].IsRunning)
+                        _transitions[i].Start();
                     _transitions[i].Update();
                 }
                 else

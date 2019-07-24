@@ -298,18 +298,19 @@ namespace HlyssUI.Components
         }
         #endregion
 
-        public Colors Colors = new Colors();
+        public Style Style = new Style();
         public ClipArea ClipArea { get; private set; }
 
-        public bool IsOverlay { get; protected set; }
         public bool Enabled { get; set; } = true;
         public bool Visible { get; set; } = true;
         public bool Active { get; set; } = true;
-        public bool Hovered { get; set; } = false;
+        public bool CoverParent { get; set; } = true;
+        public bool IsOverlay { get; protected set; }
+        public bool Hovered { get; set; }
         public bool IsPressed { get; private set; }
         public bool NeedsRefresh { get; protected set; }
-        public bool DisableClipping { get; set; } = false;
-        public bool CoverParent { get; set; } = true;
+        public bool DisableClipping { get; set; }
+        public bool CascadeColor { get; set; }
 
         public string Name { get; set; } = Guid.NewGuid().ToString();
         public Gui Gui { get; private set; }
@@ -360,18 +361,7 @@ namespace HlyssUI.Components
         #region Theming
         public void ResetColors()
         {
-            Colors = new Colors();
-        }
-        #endregion
-
-        #region Transforming
-
-        public void Resize(string sizeX, string sizeY)
-        {
-            // TODO: Use transition
-            NeedsRefresh = true;
-            _sizeX = sizeX;
-            _sizeY = sizeY;
+            Style.Reset();
         }
         #endregion
 
@@ -479,6 +469,11 @@ namespace HlyssUI.Components
             NeedsRefresh = false;
         }
 
+        public virtual void OnStyleChanged()
+        {
+
+        }
+
         public virtual void OnMousePressedAnywhere(Vector2i location, Mouse.Button button)
         {
         }
@@ -489,6 +484,22 @@ namespace HlyssUI.Components
 
         public virtual void OnScrolledAnywhere(float scroll)
         {
+        }
+        #endregion
+
+        #region Transitions
+
+        public void Resize(int w, int h, string unit)
+        {
+            Match matchFromW = StringDimensionsConverter.DimRegex.Match(_sizeX);
+            Match matchFromH = StringDimensionsConverter.DimRegex.Match(_sizeY);
+
+            _transitions.RunAll(new SizeTransition(int.Parse(matchFromW.Groups[1].Value), int.Parse(matchFromH.Groups[1].Value), w, h, unit, this));
+        }
+
+        public void ChangeColor(string color, Color to)
+        {
+            _transitions.RunAll(new ColorTransition(Style[color], to, color, this));
         }
         #endregion
 

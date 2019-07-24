@@ -1,15 +1,11 @@
 ﻿using HlyssUI;
 using HlyssUI.Components;
-using HlyssUI.Graphics;
 using HlyssUI.Layout;
 using HlyssUI.Themes;
-using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.Window;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace HlyssUIDemo
 {
@@ -19,13 +15,13 @@ namespace HlyssUIDemo
         {
             ContextSettings settings = new ContextSettings(1, 1, 2);
 
-            RenderWindow window = new RenderWindow(new VideoMode(500, 768), "HlyssUI demo", Styles.Default, settings);
-            //window.SetFramerateLimit(300);
+            RenderWindow window = new RenderWindow(new VideoMode(1366, 768), "HlyssUI demo", Styles.Default, settings);
+            window.SetFramerateLimit(300);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "MicrosoftWindows10Dark");
+            Theme.Load("theme.ini", "dark");
 
-            Gui gui = new Gui(window, new Font("C:/Windows/Fonts/segoeui.ttf"));
+            Gui gui = new Gui(window);
             GuiScene scene = new GuiScene(gui);
             gui.PushScene(scene);
 
@@ -44,10 +40,10 @@ namespace HlyssUIDemo
                 if (e.Code == Keyboard.Key.F3)
                     gui.Debug = !gui.Debug;
 
-                if(e.Code == Keyboard.Key.Enter)
+                if (e.Code == Keyboard.Key.Enter)
                 {
                     Container container = gui.CurrentScene.BaseNode.GetChild("container") as Container;
-                    
+
                     if (container.Layout == LayoutType.Column)
                         container.Layout = LayoutType.Row;
                     else
@@ -57,7 +53,7 @@ namespace HlyssUIDemo
 
             while (window.IsOpen)
             {
-                window.Clear(Theme.BackgroundColor);
+                window.Clear(Theme.GetColor("Primary"));
                 window.DispatchEvents();
 
                 gui.Update();
@@ -66,7 +62,7 @@ namespace HlyssUIDemo
                 window.Display();
 
                 fps++;
-                if(fpsTimer.ElapsedMilliseconds >= 1000)
+                if (fpsTimer.ElapsedMilliseconds >= 1000)
                 {
                     window.SetTitle($"HlyssUI demo ({fps} fps)");
                     fps = 0;
@@ -101,12 +97,39 @@ namespace HlyssUIDemo
             box.AddChild(panel1);
 
             Label label = new Label(gui);
-            label.Text = "I'm a label!";
+            label.Text = "Label";
             box.AddChild(label);
             label.MarginLeft = "10px";
+            label.MarginRight = "10px";
 
             Button button = new Button(gui);
             box.AddChild(button);
+            button.PaddingLeft = "50px";
+            button.PaddingRight = "50px";
+
+            button.ButtonAppearance = Button.ButtonStyle.Filled;
+            button.Style.Round = true;
+            button.DoubleClicked += (object button) => { Environment.Exit(0); };
+
+            gui.Window.KeyPressed += (object sender, KeyEventArgs e) =>
+            {
+                //if (e.Code == Keyboard.Key.Left)
+                //    panel.Width = $"{panel.Size.X - 10}px";
+                //if (e.Code == Keyboard.Key.Right)
+                //    panel.Width = $"{panel.Size.X + 10}px";
+                //if (e.Code == Keyboard.Key.Up)
+                //    panel.Height = $"{panel.Size.Y - 10}px";
+                //if (e.Code == Keyboard.Key.Down)
+                //    panel.Height = $"{panel.Size.Y + 10}px";
+                if (e.Code == Keyboard.Key.Left)
+                    panel.Resize(panel.Size.X - 500, panel.Size.Y, "px");
+                if (e.Code == Keyboard.Key.Right)
+                    panel.Resize(panel.Size.X + 500, panel.Size.Y, "px");
+                if (e.Code == Keyboard.Key.Up)
+                    panel.Resize(panel.Size.X, panel.Size.Y - 500, "px");
+                if (e.Code == Keyboard.Key.Down)
+                    panel.Resize(panel.Size.X, panel.Size.Y + 500, "px");
+            };
         }
 
         private static void testWrap(Gui gui)
@@ -165,7 +188,7 @@ namespace HlyssUIDemo
             c2.Width = "50%";
             c2.Height = "100%";
         }
-        
+
         private static void addComponents(Gui gui)
         {
             Container container = new Container(gui);

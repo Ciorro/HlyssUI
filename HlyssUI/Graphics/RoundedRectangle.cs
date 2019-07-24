@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using HlyssUI.Themes;
+using SFML.Graphics;
 using SFML.System;
 using System;
 
@@ -6,7 +7,7 @@ namespace HlyssUI.Graphics
 {
     internal class RoundedRectangle : Shape
     {
-        private uint _radius = 2;
+        private uint _radius = Theme.BorderRadius;
         private Vector2f _size = new Vector2f(100, 100);
 
         public uint Radius

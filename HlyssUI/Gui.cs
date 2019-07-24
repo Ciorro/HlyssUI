@@ -1,4 +1,5 @@
-﻿using HlyssUI.Themes;
+﻿using HlyssUI.Graphics;
+using HlyssUI.Themes;
 using HlyssUI.Transitions;
 using HlyssUI.Utils;
 using SFML.Graphics;
@@ -10,8 +11,8 @@ namespace HlyssUI
     public class Gui
     {
         public RenderWindow Window { get; private set; }
-        public Font DefaultFont { get; private set; }
-        public uint DefaultCharacterSize = 12;
+        public Font DefaultFont { get; private set; } = Fonts.MontserratRegular;
+        public uint DefaultCharacterSize = 14;
         public float Scale = 1f;
         public bool Debug = false;
 
@@ -43,10 +44,9 @@ namespace HlyssUI
 
         private Stack<GuiScene> _scenes = new Stack<GuiScene>();
 
-        public Gui(RenderWindow window, Font font)
+        public Gui(RenderWindow window)
         {
             Window = window;
-            DefaultFont = font;
             Theme.OnThemeLoaded += Theme_OnThemeLoaded;
         }
 

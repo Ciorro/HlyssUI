@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using System;
+using System.Collections.Generic;
 
 namespace HlyssUI.Themes
 {
@@ -8,35 +9,49 @@ namespace HlyssUI.Themes
         public delegate void ThemeLoadedHandler();
         public static event ThemeLoadedHandler OnThemeLoaded;
 
-        public static Color TextColor = Color.Black;
-        public static Color PrimaryColor = new Color(225, 225, 225);
-        public static Color SecondaryColor = new Color(173, 173, 173);
-        public static Color PrimaryLighter = new Color(242, 242, 242);
-        public static Color SecondaryLighter = new Color(204, 204, 204);
-        public static Color AccentColor = new Color(0, 120, 215);
-        public static Color AccentDarker = new Color(0, 120, 215);
-        public static Color HoverColor = new Color(201, 222, 245);
-        public static Color HoverLighter = new Color(229, 241, 251);
-        public static Color BackgroundColor = Color.White;
-        public static int BorderThickness = -1;
+        private static Dictionary<string, Color> _colors = new Dictionary<string, Color>();
+
+        public static uint BorderThickness = 1;
+        public static uint BorderRadius = 2;
 
         public static string Name { get; private set; }
+
+        public static Color GetColor(string name)
+        {
+            if (_colors.ContainsKey(name))
+                return _colors[name];
+            else
+                return Color.White;
+        }
+
+        public static void SetColor(string name, Color color)
+        {
+            if (_colors.ContainsKey(name))
+                _colors[name] = color;
+        }
+
+        public static void AddColor(string name, Color color)
+        {
+            if (!_colors.ContainsKey(name))
+                _colors.Add(name, color);
+        }
 
         public static void Load(string file, string theme)
         {
             var parser = new IniParser.FileIniDataParser();
             var data = parser.ReadFile(file);
 
-            TextColor = stringToColor(data[theme]["TextColor"]);
-            PrimaryColor = stringToColor(data[theme]["PrimaryColor"]);
-            SecondaryColor = stringToColor(data[theme]["SecondaryColor"]);
-            PrimaryLighter = stringToColor(data[theme]["PrimaryLighter"]);
-            SecondaryLighter = stringToColor(data[theme]["SecondaryLighter"]);
-            AccentColor = stringToColor(data[theme]["AccentColor"]);
-            AccentDarker = stringToColor(data[theme]["AccentDarker"]);
-            HoverColor = stringToColor(data[theme]["HoverColor"]);
-            HoverLighter = stringToColor(data[theme]["HoverLighter"]);
-            BackgroundColor = stringToColor(data[theme]["DialogBackgroundColor"]);
+            _colors = new Dictionary<string, Color>()
+            {
+                {"Text", stringToColor(data[theme]["TextColor"]) },
+                {"Primary", stringToColor(data[theme]["PrimaryColor"]) },
+                {"Secondary", stringToColor(data[theme]["SecondaryColor"]) },
+                {"Accent", stringToColor(data[theme]["AccentColor"]) },
+                {"Success", stringToColor(data[theme]["SuccessColor"]) },
+                {"Error", stringToColor(data[theme]["ErrorColor"]) },
+                {"Warning", stringToColor(data[theme]["WarningColor"]) },
+                {"Info", stringToColor(data[theme]["InformationColor"]) }
+            };
 
             Name = theme;
             OnThemeLoaded?.Invoke();
