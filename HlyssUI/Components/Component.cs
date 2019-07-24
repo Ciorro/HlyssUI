@@ -46,6 +46,8 @@ namespace HlyssUI.Components
         private bool _doubleClick = false;
         private DebugRect _debugRect = new DebugRect();
 
+        //TODO: Max/Min width and height
+
         private string _positionX = "0px";
         private string _positionY = "0px";
         private string _sizeX = "0px";
@@ -319,6 +321,7 @@ namespace HlyssUI.Components
         {
             Gui = gui;
             ClipArea = new ClipArea(this);
+            _transitions.Component = this;
         }
 
         #region Children management
@@ -504,7 +507,7 @@ namespace HlyssUI.Components
 
         public void ChangeColor(string color, Color to)
         {
-            _transitions.RunAll(new ColorTransition(Style[color], to, color, this));
+            _transitions.RunAll(new ColorTransition(to, color));
         }
         #endregion
 

@@ -108,7 +108,6 @@ namespace HlyssUIDemo
             button.PaddingRight = "50px";
 
             button.ButtonAppearance = Button.ButtonStyle.Filled;
-            button.Style.Round = true;
             button.DoubleClicked += (object button) => { Environment.Exit(0); };
             button.Clicked += (object button) => { (button as Button).Style.Round = !(button as Button).Style.Round; };
 

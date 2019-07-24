@@ -10,20 +10,23 @@ namespace HlyssUI.Transitions
         private Color _from;
         private Color _to;
         private string _name;
-        private Component _component;
 
-        public ColorTransition(Color from, Color to, string colorName, Component component)
+        public ColorTransition(Color to, string colorName)
         {
-            _from = from;
             _to = to;
             _name = colorName;
-            _component = component;
+        }
+
+        public override void Start()
+        {
+            base.Start();
+            _from = Engine.Component.Style[_name];
         }
 
         public override void Update()
         {
             base.Update();
-            _component.Style[_name] = calcColor();
+            Engine.Component.Style[_name] = calcColor();
         }
 
         private Color calcColor()

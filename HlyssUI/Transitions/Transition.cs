@@ -19,6 +19,8 @@ namespace HlyssUI.Transitions
             }
         }
 
+        public TransitionEngine Engine;
+
         public bool IsRunning { get; set; }
         public bool IsFinished { get; private set; }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HlyssUI.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,6 +14,8 @@ namespace HlyssUI.Transitions
 
         private UpdateMode _mode = UpdateMode.Simultaneous;
         private List<Transition> _transitions = new List<Transition>();
+
+        public Component Component;
 
         public void RunSequence(params Transition[] transitions)
         {
@@ -50,7 +53,11 @@ namespace HlyssUI.Transitions
             if (!transition.IsFinished)
             {
                 if (!transition.IsRunning)
+                {
+                    transition.Engine = this;
                     transition.Start();
+                }
+
                 transition.Update();
             }
             else
@@ -66,7 +73,11 @@ namespace HlyssUI.Transitions
                 if (!_transitions[i].IsFinished)
                 {
                     if (!_transitions[i].IsRunning)
+                    {
+                        _transitions[i].Engine = this;
                         _transitions[i].Start();
+                    }
+
                     _transitions[i].Update();
                 }
                 else

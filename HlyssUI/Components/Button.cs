@@ -33,6 +33,8 @@ namespace HlyssUI.Components
 
         public Button(Gui gui) : base(gui)
         {
+            Layout = HlyssUI.Layout.LayoutType.Row;
+
             PaddingLeft = "20px";
             PaddingRight = "20px";
             PaddingTop = "10px";
