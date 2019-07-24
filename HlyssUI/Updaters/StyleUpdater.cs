@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HlyssUI.Updaters
 {
-    class ColorUpdater
+    class StyleUpdater
     {
         public void Update(Component baseNode)
         {

@@ -15,7 +15,7 @@ namespace HlyssUI
         private Component _hoveredComponent;
         private Renderer _renderer = new Renderer();
         private HoverUpdater _hoverUpdater = new HoverUpdater();
-        private ColorUpdater _colorUpdater = new ColorUpdater();
+        private StyleUpdater _colorUpdater = new StyleUpdater();
         private PositionUpdater _positionUpdater;
 
         public GuiScene(Gui gui)

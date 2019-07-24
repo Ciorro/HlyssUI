@@ -110,20 +110,10 @@ namespace HlyssUIDemo
             button.ButtonAppearance = Button.ButtonStyle.Filled;
             button.Style.Round = true;
             button.DoubleClicked += (object button) => { Environment.Exit(0); };
+            button.Clicked += (object button) => { (button as Button).Style.Round = !(button as Button).Style.Round; };
 
             gui.Window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
-                //if (e.Code == Keyboard.Key.Left)
-                //    panel.Width = $"{panel.Size.X - 10}px";
-                //if (e.Code == Keyboard.Key.Right)
-                //    panel.Width = $"{panel.Size.X + 10}px";
-                //if (e.Code == Keyboard.Key.Up)
-                //    panel.Height = $"{panel.Size.Y - 10}px";
-                //if (e.Code == Keyboard.Key.Down)
-                //    panel.Height = $"{panel.Size.Y + 10}px";
-
-
-
                 if (e.Code == Keyboard.Key.Left)
                     panel.Resize(panel.Size.X - 50, panel.Size.Y, "px");
                 if (e.Code == Keyboard.Key.Right)

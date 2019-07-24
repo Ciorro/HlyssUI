@@ -325,11 +325,16 @@ namespace HlyssUI.Components
 
         public void AddChild(Component component)
         {
+            InsertChild(Children.Count, component);
+        }
+
+        public void InsertChild(int index, Component component)
+        {
             NeedsRefresh = true;
 
             component.Parent = this;
             component.OnAdded();
-            Children.Add(component);
+            Children.Insert(index, component);
             OnChildAdded(component);
         }
 

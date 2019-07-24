@@ -15,7 +15,13 @@ namespace HlyssUI.Themes
         public bool Round
         {
             get { return BorderRadius == uint.MaxValue; }
-            set { BorderRadius = uint.MaxValue; }
+            set
+            {
+                if (value)
+                    BorderRadius = uint.MaxValue;
+                else
+                    BorderRadius = Theme.BorderRadius;
+            }
         }
 
         public Color this[string name]
