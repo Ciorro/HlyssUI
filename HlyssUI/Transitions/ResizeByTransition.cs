@@ -30,6 +30,7 @@ namespace HlyssUI.Transitions
         {
             base.Start();
             _from = new Vector2f(Engine.Component.Size.X, Engine.Component.Size.Y);
+            _to += _from;
         }
 
         public override void Update()

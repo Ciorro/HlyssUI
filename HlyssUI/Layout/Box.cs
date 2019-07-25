@@ -20,7 +20,7 @@ namespace HlyssUI.Layout
             }
         }
 
-        public Box(Gui gui) : base(gui)
+        public Box(GuiScene scene) : base(scene)
         {
             DisableClipping = true;
         }

@@ -75,58 +75,64 @@ namespace HlyssUIDemo
 
         private static void testBox(Gui gui)
         {
-            Container container = new Container(gui);
+            Container container = new Container(gui.CurrentScene);
             container.CenterContent = true;
             gui.CurrentScene.AddChild(container);
 
-            Card box = new Card(gui);
-            box.Margin = "20px";
-            box.Padding = "20px";
-            container.AddChild(box);
-            box.Layout = LayoutType.Row;
+            Card card = new Card(gui.CurrentScene);
+            card.Margin = "20px";
+            card.Padding = "20px";
+            container.AddChild(card);
+            card.Layout = LayoutType.Row;
 
-            Panel panel = new Panel(gui);
+            Panel panel = new Panel(gui.CurrentScene);
             panel.Width = "100px";
             panel.Height = "100px";
             panel.MarginRight = "10px";
-            box.AddChild(panel);
+            card.AddChild(panel);
 
-            Panel panel1 = new Panel(gui);
+            Panel panel1 = new Panel(gui.CurrentScene);
             panel1.Width = "100px";
             panel1.Height = "100px";
-            box.AddChild(panel1);
+            card.AddChild(panel1);
 
-            Label label = new Label(gui);
+            Label label = new Label(gui.CurrentScene);
             label.Text = "Label";
-            box.AddChild(label);
+            card.AddChild(label);
             label.MarginLeft = "10px";
             label.MarginRight = "10px";
 
-            Button button = new Button(gui);
-            box.AddChild(button);
-            //button.PaddingLeft = "50px";
-            //button.PaddingRight = "50px";
+            Button button = new Button(gui.CurrentScene);
+            button.InsertChild(0, new Icon(gui.CurrentScene, HlyssUI.Utils.Icons.ArrowsV));
+            card.AddChild(button);
 
             button.ButtonAppearance = Button.ButtonStyle.Filled;
             button.DoubleClicked += (object button) => { Environment.Exit(0); };
-            button.Clicked += (object button) => { panel.Transition("size: to 100px 200px", "color: primary to accent"); };
+            button.Clicked += (object button) => 
+            {
+                (button as Button).Style.Round = !(button as Button).Style.Round;
+                if((button as Button).Style.Round)
+                    panel.Transition("size: to 100px 200px", "color: primary to accent");
+                else
+                    panel.Transition("size: to 100px 100px", "color: primary to primary");
+            };
 
             gui.Window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
                 if (e.Code == Keyboard.Key.Left)
-                    panel.Resize(panel.Size.X - 50, panel.Size.Y, "px");
+                    panel.Transition("size: by -50px 0px");
                 if (e.Code == Keyboard.Key.Right)
-                    panel.Resize(panel.Size.X + 50, panel.Size.Y, "px");
+                    panel.Transition("size: by 50px 0px");
                 if (e.Code == Keyboard.Key.Up)
-                    panel.Resize(panel.Size.X, panel.Size.Y - 50, "px");
+                    panel.Transition("size: by 0px -50px");
                 if (e.Code == Keyboard.Key.Down)
-                    panel.Resize(panel.Size.X, panel.Size.Y + 50, "px");
+                    panel.Transition("size: by 0px 50px");
             };
         }
 
         private static void testWrap(Gui gui)
         {
-            Container container = new Container(gui);
+            Container container = new Container(gui.CurrentScene);
             container.Name = "container";
             container.Layout = LayoutType.Wrap;
             gui.CurrentScene.BaseNode.AddChild(container);
@@ -134,7 +140,7 @@ namespace HlyssUIDemo
 
             for (int i = 0; i < 25; i++)
             {
-                Panel p = new Panel(gui);
+                Panel p = new Panel(gui.CurrentScene);
                 p.Width = "90px";
                 p.Height = "90px";
                 p.Padding = "10px";
@@ -146,35 +152,35 @@ namespace HlyssUIDemo
 
         private static void createClippyUI(Gui gui)
         {
-            Container app = new Container(gui);
+            Container app = new Container(gui.CurrentScene);
             gui.CurrentScene.BaseNode.AddChild(app);
             gui.CurrentScene.BaseNode.DisableClipping = true;
             app.DisableClipping = true;
 
-            Panel topBar = new Panel(gui);
+            Panel topBar = new Panel(gui.CurrentScene);
             topBar.Width = "100%";
             topBar.Height = "102px";
             topBar.DisableClipping = true;
             app.AddChild(topBar);
 
-            Panel content = new Panel(gui);
+            Panel content = new Panel(gui.CurrentScene);
             content.Width = "100%";
             content.Height = $"{594 - 102}px";
             app.AddChild(content);
 
-            Container topBarContainer = new Container(gui);
+            Container topBarContainer = new Container(gui.CurrentScene);
             topBar.AddChild(topBarContainer);
             topBarContainer.Padding = "10px";
             topBarContainer.Layout = LayoutType.Row;
             topBarContainer.DisableClipping = true;
 
-            Panel c1 = new Panel(gui);
+            Panel c1 = new Panel(gui.CurrentScene);
             topBarContainer.AddChild(c1);
             c1.Padding = "10px";
             c1.Width = "50%";
             c1.Height = "100%";
 
-            Panel c2 = new Panel(gui);
+            Panel c2 = new Panel(gui.CurrentScene);
             topBarContainer.AddChild(c2);
             c2.Padding = "10px";
             c2.Width = "50%";
@@ -183,36 +189,36 @@ namespace HlyssUIDemo
 
         private static void addComponents(Gui gui)
         {
-            Container container = new Container(gui);
+            Container container = new Container(gui.CurrentScene);
             container.Name = "container";
             container.Padding = "1%";
             container.Layout = LayoutType.ReversedColumn;
             container.CenterContent = true;
             gui.CurrentScene.BaseNode.AddChild(container);
 
-            Panel panel1 = new Panel(gui);
+            Panel panel1 = new Panel(gui.CurrentScene);
             container.AddChild(panel1);
             panel1.Width = "30%";
             panel1.Height = "20%";
             panel1.Margin = "10px";
 
-            Panel panel2 = new Panel(gui);
+            Panel panel2 = new Panel(gui.CurrentScene);
             container.AddChild(panel2);
             panel2.Width = "10%";
             panel2.Height = "5%";
             panel2.Margin = "20px";
 
-            Container container1 = new Container(gui);
+            Container container1 = new Container(gui.CurrentScene);
             panel1.AddChild(container1);
 
             container1.Padding = "10%";
 
-            Panel panel3 = new Panel(gui);
+            Panel panel3 = new Panel(gui.CurrentScene);
             panel3.Width = "40px";
             panel3.Height = "40px";
             panel3.Margin = "5px";
 
-            Panel panel4 = new Panel(gui);
+            Panel panel4 = new Panel(gui.CurrentScene);
             panel4.Width = "40px";
             panel4.Height = "40px";
             panel4.Margin = "5px";
@@ -222,7 +228,7 @@ namespace HlyssUIDemo
 
             container1.Layout = LayoutType.Row;
 
-            Label label = new Label(gui, "Label\nno i co");
+            Label label = new Label(gui.CurrentScene, "Label\nno i co");
             container.AddChild(label);
         }
     }

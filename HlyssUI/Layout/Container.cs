@@ -24,7 +24,7 @@ namespace HlyssUI.Layout
         public bool Fill = false;
         public bool CenterContent = false;
 
-        public Container(Gui gui) : base(gui)
+        public Container(GuiScene scene) : base(scene)
         {
             Width = "100%";
             Height = "100%";

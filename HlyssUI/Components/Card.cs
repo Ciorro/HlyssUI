@@ -12,7 +12,7 @@ namespace HlyssUI.Components
     {
         private RoundedRectangle _body;
 
-        public Card(Gui gui) : base(gui)
+        public Card(GuiScene scene) : base(scene)
         {
             _body = new RoundedRectangle();
             _body.FillColor = Style["Primary"];

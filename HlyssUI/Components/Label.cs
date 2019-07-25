@@ -61,14 +61,15 @@ namespace HlyssUI.Components
         private bool _autosize = true;
         private Text _text;
 
-        public Label(Gui gui) : base(gui)
+        public Label(GuiScene scene) : base(scene)
         {
-            _text = new Text(string.Empty, gui.DefaultFont, gui.DefaultCharacterSize);
+            _text = new Text(string.Empty, scene.Gui.DefaultFont, scene.Gui.DefaultCharacterSize);
+            updateSize();
         }
 
-        public Label(Gui gui, string text) : base(gui)
+        public Label(GuiScene scene, string text) : base(scene)
         {
-            _text = new Text(string.Empty, gui.DefaultFont, gui.DefaultCharacterSize);
+            _text = new Text(string.Empty, scene.Gui.DefaultFont, scene.Gui.DefaultCharacterSize);
             Text = text;
             updateSize();
         }
@@ -86,7 +87,6 @@ namespace HlyssUI.Components
         public override void OnRefresh()
         {
             base.OnRefresh();
-
             _text.Position = (Vector2f)GlobalPosition;
         }
 

@@ -8,7 +8,8 @@ namespace HlyssUI.Transitions.Executers
         private static List<TransitionExecuter> _executers = new List<TransitionExecuter>()
         {
             new ColorTransitionExecuter(),
-            new SizeTransitionExecuter()
+            new SizeTransitionExecuter(),
+            new PositionTransitionExecuter()
         };
 
         public static Transition GetTransition(string transitionStr)

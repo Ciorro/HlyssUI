@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Components;
 using SFML.System;
+using System.Diagnostics;
 
 namespace HlyssUI.Updaters
 {
@@ -30,6 +31,7 @@ namespace HlyssUI.Updaters
             {
                 RefreshComponents(baseComponent);
                 _needsRefresh = true;
+                return;
             }
 
             foreach (var child in baseComponent.Children)
@@ -40,8 +42,8 @@ namespace HlyssUI.Updaters
 
         private void RefreshComponents(Component component)
         {
-            refreshPosition(component);
-            component.OnRefresh(); //ostatnio przesuniete z dolu
+            refresh(component);
+            component.OnRefresh();
 
             foreach (var child in component.Children)
             {
@@ -49,11 +51,14 @@ namespace HlyssUI.Updaters
             }
         }
 
-        private static void refreshPosition(Component component)
+        private static void refresh(Component component)
         {
             Vector2i parentPos = component.Parent != null ? component.Parent.GlobalPosition : new Vector2i();
             Vector2i parentPad = component.Parent != null ? new Vector2i(component.Parent.Pl, component.Parent.Pt) : new Vector2i();
+
             component.GlobalPosition = new Vector2i(component.X + component.Ml, component.Y + component.Mt) + parentPad + parentPos;
+            component.Size = new Vector2i(component.W, component.H);
+            component.Position = new Vector2i(component.X, component.Y);
         }
     }
 }

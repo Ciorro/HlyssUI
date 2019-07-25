@@ -4,6 +4,7 @@ using HlyssUI.Themes;
 using HlyssUI.Updaters;
 using SFML.System;
 using SFML.Window;
+using System.Diagnostics;
 
 namespace HlyssUI
 {
@@ -22,7 +23,7 @@ namespace HlyssUI
         {
             Gui = gui;
 
-            BaseNode = new BaseComponent(gui);
+            BaseNode = new BaseComponent(this);
             BaseNode.Style["Primary"] = Theme.GetColor("Primary");
 
             _positionUpdater = new PositionUpdater(this);

@@ -6,7 +6,9 @@
         {
             get
             {
-                return _deltaTime / 1000f;
+                float dt = _deltaTime / 1000f;
+
+                return (dt > 0.016f) ? 0.016f : dt;
             }
         }
 

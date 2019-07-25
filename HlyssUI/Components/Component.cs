@@ -87,21 +87,8 @@ namespace HlyssUI.Components
 
         #region Transform getters
 
-        public Vector2i Position
-        {
-            get
-            {
-                return new Vector2i(X, Y);
-            }
-        }
-
-        public Vector2i Size
-        {
-            get
-            {
-                return new Vector2i(W, H);
-            }
-        }
+        public Vector2i Size { get; internal set; }
+        public Vector2i Position { get; internal set; }
 
         //Position
         internal int X => StringDimensionsConverter.Convert(_positionX, (Parent != null) ? Parent.Size.X : 0);
@@ -317,10 +304,13 @@ namespace HlyssUI.Components
 
         public string Name { get; set; } = Guid.NewGuid().ToString();
         public Gui Gui { get; private set; }
+        public GuiScene Scene { get; private set; }
 
-        public Component(Gui gui)
+        public Component(GuiScene scene)
         {
-            Gui = gui;
+            Gui = scene.Gui;
+            Scene = scene;
+
             ClipArea = new ClipArea(this);
             _transitions.Component = this;
         }
@@ -403,6 +393,9 @@ namespace HlyssUI.Components
         public virtual void OnAdded()
         {
             Logger.Log($"{this} added to {this.Parent}", Gui.Debug);
+            ForceRefresh();
+            ScheduleRefresh();
+            Scene.BaseNode.ScheduleRefresh();
             Added?.Invoke(this);
         }
 
@@ -497,19 +490,6 @@ namespace HlyssUI.Components
         #endregion
 
         #region Transitions
-
-        public void Resize(int w, int h, string unit)
-        {
-            Match matchFromW = StringDimensionsConverter.DimRegex.Match(_sizeX);
-            Match matchFromH = StringDimensionsConverter.DimRegex.Match(_sizeY);
-
-            //_transitions.RunAll(new SizeTransition(int.Parse(matchFromW.Groups[1].Value), int.Parse(matchFromH.Groups[1].Value), w, h, unit, this));
-        }
-
-        public void ChangeColor(string color, Color to)
-        {
-            _transitions.RunAll(new ColorTransition(to, color));
-        }
 
         public void Transition(params string[] transitions)
         {

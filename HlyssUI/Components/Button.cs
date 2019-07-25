@@ -21,17 +21,19 @@ namespace HlyssUI.Components
             {
                 _style = value;
 
-                base.Style["Accent"] = Color.Transparent;
-                
-                 if (value == ButtonStyle.Filled)
+                if (value != ButtonStyle.Outline)
                 {
-                    base.Style["Primary"] = Theme.GetColor("Accent");
-                    base.Style["Text"] = Themes.Style.GetLegibleColor(Theme.GetColor("Accent"));
+                    Style["Accent"] = Color.Transparent;
+                }
+                if (value == ButtonStyle.Filled)
+                {
+                    Style["Primary"] = Theme.GetColor("Accent");
+                    Style["Text"] = Themes.Style.GetLegibleColor(Theme.GetColor("Accent"));
                 }
             }
         }
 
-        public Button(Gui gui) : base(gui)
+        public Button(GuiScene scene) : base(scene)
         {
             Layout = HlyssUI.Layout.LayoutType.Row;
 
@@ -40,9 +42,8 @@ namespace HlyssUI.Components
             PaddingTop = "10px";
             PaddingBottom = "10px";
 
-            _label = new Label(gui, "Transition");
-            _label.CharacterSize = gui.DefaultCharacterSize;
-            _label.CoverParent = false;
+            _label = new Label(scene, "Transition");
+            _label.CharacterSize = scene.Gui.DefaultCharacterSize;
             _label.Font = Fonts.MontserratSemiBold;
             AddChild(_label);
 
@@ -52,43 +53,44 @@ namespace HlyssUI.Components
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            ChangeColor("Primary", Themes.Style.GetDarker(getStyleColor(), 20));
-            _label.ChangeColor("Text", Themes.Style.GetLegibleColor(Themes.Style.GetDarker(getStyleColor(), 20)));
+            Transition($"color: primary to {getStyleColor()} darken 20");
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-            ChangeColor("Primary", getStyleColor());
-            _label.ChangeColor("Text", Themes.Style.GetLegibleColor(getStyleColor()));
+            Transition($"color: primary to {getStyleColor()}");
         }
 
         public override void OnPressed()
         {
             base.OnPressed();
-            ChangeColor("Primary", Themes.Style.GetDarker(getStyleColor(), 50));
-            _label.ChangeColor("Text", Themes.Style.GetLegibleColor(Themes.Style.GetDarker(getStyleColor(), 50)));
+            Transition($"color: primary to {getStyleColor()} darken 40");
         }
 
         public override void OnReleased()
         {
             base.OnReleased();
-
-            ChangeColor("Primary", Themes.Style.GetDarker(getStyleColor(), 20));
-            _label.ChangeColor("Text", Themes.Style.GetLegibleColor(Themes.Style.GetDarker(getStyleColor(), 20)));
+            Transition($"color: primary to {getStyleColor()} darken 20");
         }
 
-        private Color getStyleColor()
+        public override void OnChildAdded(Component child)
+        {
+            base.OnChildAdded(child);
+            child.CoverParent = false;
+        }
+
+        private string getStyleColor()
         {
             switch (ButtonAppearance)
             {
                 case ButtonStyle.Filled:
-                    return Theme.GetColor("Accent");
+                    return "accent";
                 case ButtonStyle.Flat:
                 case ButtonStyle.Outline:
-                    return Theme.GetColor("Primary");
+                    return "primary";
                 default:
-                    return Theme.GetColor("Primary");
+                    return "primary";
             }
         }
     }

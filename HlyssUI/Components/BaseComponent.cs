@@ -9,16 +9,16 @@ namespace HlyssUI.Components
     {
         private const int DEFAULT_APP_MARGIN = 0;
 
-        public BaseComponent(Gui gui) : base(gui)
+        public BaseComponent(GuiScene scene) : base(scene)
         {
-            gui.Window.Resized += (object sender, SizeEventArgs e) =>
+            scene.Gui.Window.Resized += (object sender, SizeEventArgs e) =>
             {
                 Width = $"{e.Width}px";
                 Height = $"{e.Height}px";
             };
 
-            Width = $"{gui.Window.Size.X - DEFAULT_APP_MARGIN * 2}px";
-            Height = $"{gui.Window.Size.Y - DEFAULT_APP_MARGIN * 2}px";
+            Width = $"{scene.Gui.Window.Size.X - DEFAULT_APP_MARGIN * 2}px";
+            Height = $"{scene.Gui.Window.Size.Y - DEFAULT_APP_MARGIN * 2}px";
 
             Margin = $"{DEFAULT_APP_MARGIN}px";
 

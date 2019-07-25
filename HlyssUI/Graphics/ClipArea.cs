@@ -34,7 +34,7 @@ namespace HlyssUI.Graphics
             makeEven(ref winSize, ref bounds);
 
             _currentBounds = bounds;
-            
+
             Area.Center = new Vector2f((int)(bounds.Left + bounds.Width / 2), (int)(bounds.Top + bounds.Height / 2));
             Area.Size = new Vector2f(bounds.Width, bounds.Height);
             Area.Viewport = new FloatRect(bounds.Left / winSize.X, bounds.Top / winSize.Y, bounds.Width / winSize.X, bounds.Height / winSize.Y);
