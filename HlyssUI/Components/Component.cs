@@ -1,6 +1,7 @@
 ﻿using HlyssUI.Graphics;
 using HlyssUI.Themes;
 using HlyssUI.Transitions;
+using HlyssUI.Transitions.Executers;
 using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.System;
@@ -502,12 +503,24 @@ namespace HlyssUI.Components
             Match matchFromW = StringDimensionsConverter.DimRegex.Match(_sizeX);
             Match matchFromH = StringDimensionsConverter.DimRegex.Match(_sizeY);
 
-            _transitions.RunAll(new SizeTransition(int.Parse(matchFromW.Groups[1].Value), int.Parse(matchFromH.Groups[1].Value), w, h, unit, this));
+            //_transitions.RunAll(new SizeTransition(int.Parse(matchFromW.Groups[1].Value), int.Parse(matchFromH.Groups[1].Value), w, h, unit, this));
         }
 
         public void ChangeColor(string color, Color to)
         {
             _transitions.RunAll(new ColorTransition(to, color));
+        }
+
+        public void Transition(params string[] transitions)
+        {
+            List<Transition> transitionList = new List<Transition>();
+
+            foreach (var transition in transitions)
+            {
+                transitionList.Add(TransitionResolver.GetTransition(transition));
+            }
+
+            _transitions.RunAll(transitionList.ToArray());
         }
         #endregion
 

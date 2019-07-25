@@ -28,6 +28,8 @@ namespace HlyssUI.Themes
         {
             get
             {
+                name = name.ToLower();
+
                 if (_colors.ContainsKey(name))
                     return _colors[name];
                 else
@@ -35,6 +37,8 @@ namespace HlyssUI.Themes
             }
             set
             {
+                name = name.ToLower();
+
                 if (_colors.ContainsKey(name))
                     _colors[name] = value;
             }
@@ -49,14 +53,14 @@ namespace HlyssUI.Themes
         {
             _colors = new Dictionary<string, Color>()
             {
-                {"Text", Theme.GetColor("Text")},
-                {"Primary", Theme.GetColor("Primary")},
-                {"Secondary", Theme.GetColor("Secondary")},
-                {"Accent", Theme.GetColor("Accent")},
-                {"Success", Theme.GetColor("Success")},
-                {"Error", Theme.GetColor("Error")},
-                {"Warning", Theme.GetColor("Warning")},
-                {"Info",  Theme.GetColor("Info")}
+                {"text", Theme.GetColor("Text")},
+                {"primary", Theme.GetColor("Primary")},
+                {"secondary", Theme.GetColor("Secondary")},
+                {"accent", Theme.GetColor("Accent")},
+                {"success", Theme.GetColor("Success")},
+                {"error", Theme.GetColor("Error")},
+                {"warning", Theme.GetColor("Warning")},
+                {"info",  Theme.GetColor("Info")}
             };
         }
 

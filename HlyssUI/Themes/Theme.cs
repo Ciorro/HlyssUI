@@ -16,12 +16,25 @@ namespace HlyssUI.Themes
 
         public static string Name { get; private set; }
 
-        public static Color GetColor(string name)
+        public static Color GetColor(string color)
         {
-            if (_colors.ContainsKey(name))
-                return _colors[name];
+            color = color.ToLower();
+
+            if (_colors.ContainsKey(color))
+            {
+                return _colors[color];
+            }
             else
-                return Color.White;
+            {
+                try
+                {
+                    return stringToColor(color);
+                }
+                catch
+                {
+                    return Color.White;
+                }
+            }
         }
 
         public static void SetColor(string name, Color color)
@@ -43,14 +56,14 @@ namespace HlyssUI.Themes
 
             _colors = new Dictionary<string, Color>()
             {
-                {"Text", stringToColor(data[theme]["TextColor"]) },
-                {"Primary", stringToColor(data[theme]["PrimaryColor"]) },
-                {"Secondary", stringToColor(data[theme]["SecondaryColor"]) },
-                {"Accent", stringToColor(data[theme]["AccentColor"]) },
-                {"Success", stringToColor(data[theme]["SuccessColor"]) },
-                {"Error", stringToColor(data[theme]["ErrorColor"]) },
-                {"Warning", stringToColor(data[theme]["WarningColor"]) },
-                {"Info", stringToColor(data[theme]["InformationColor"]) }
+                {"text", stringToColor(data[theme]["TextColor"]) },
+                {"primary", stringToColor(data[theme]["PrimaryColor"]) },
+                {"secondary", stringToColor(data[theme]["SecondaryColor"]) },
+                {"accent", stringToColor(data[theme]["AccentColor"]) },
+                {"success", stringToColor(data[theme]["SuccessColor"]) },
+                {"error", stringToColor(data[theme]["ErrorColor"]) },
+                {"warning", stringToColor(data[theme]["WarningColor"]) },
+                {"info", stringToColor(data[theme]["InformationColor"]) }
             };
 
             Name = theme;

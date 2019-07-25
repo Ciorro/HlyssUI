@@ -1,11 +1,8 @@
-﻿using HlyssUI.Components;
-using HlyssUI.Utils;
-using SFML.Graphics;
-using System;
+﻿using SFML.Graphics;
 
 namespace HlyssUI.Transitions
 {
-    class ColorTransition:Transition
+    class ColorTransition : Transition
     {
         private Color _from;
         private Color _to;

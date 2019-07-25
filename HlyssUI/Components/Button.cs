@@ -40,7 +40,7 @@ namespace HlyssUI.Components
             PaddingTop = "10px";
             PaddingBottom = "10px";
 
-            _label = new Label(gui, "Install now");
+            _label = new Label(gui, "Transition");
             _label.CharacterSize = gui.DefaultCharacterSize;
             _label.CoverParent = false;
             _label.Font = Fonts.MontserratSemiBold;

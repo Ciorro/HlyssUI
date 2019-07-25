@@ -104,12 +104,12 @@ namespace HlyssUIDemo
 
             Button button = new Button(gui);
             box.AddChild(button);
-            button.PaddingLeft = "50px";
-            button.PaddingRight = "50px";
+            //button.PaddingLeft = "50px";
+            //button.PaddingRight = "50px";
 
             button.ButtonAppearance = Button.ButtonStyle.Filled;
             button.DoubleClicked += (object button) => { Environment.Exit(0); };
-            button.Clicked += (object button) => { (button as Button).Style.Round = !(button as Button).Style.Round; };
+            button.Clicked += (object button) => { panel.Transition("size: to 100px 200px", "color: primary to accent"); };
 
             gui.Window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
