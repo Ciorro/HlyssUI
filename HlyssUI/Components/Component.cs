@@ -393,9 +393,6 @@ namespace HlyssUI.Components
         public virtual void OnAdded()
         {
             Logger.Log($"{this} added to {this.Parent}", Gui.Debug);
-            ForceRefresh();
-            ScheduleRefresh();
-            Scene.BaseNode.ScheduleRefresh();
             Added?.Invoke(this);
         }
 

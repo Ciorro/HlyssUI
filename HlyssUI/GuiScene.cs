@@ -17,6 +17,7 @@ namespace HlyssUI
         private Renderer _renderer = new Renderer();
         private HoverUpdater _hoverUpdater = new HoverUpdater();
         private StyleUpdater _colorUpdater = new StyleUpdater();
+        private ComponentUpdater _componentUpdater = new ComponentUpdater();
         private PositionUpdater _positionUpdater;
 
         public GuiScene(Gui gui)
@@ -41,7 +42,7 @@ namespace HlyssUI
 
         public void Update()
         {
-            _hoverUpdater.Update(BaseNode);
+            _componentUpdater.Update(BaseNode);
             _positionUpdater.Update(BaseNode);
             _colorUpdater.Update(BaseNode);
         }
