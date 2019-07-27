@@ -6,6 +6,7 @@ using SFML.Graphics;
 using SFML.Window;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace HlyssUIDemo
 {
@@ -19,7 +20,7 @@ namespace HlyssUIDemo
             //window.SetFramerateLimit(300);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "dark");
+            Theme.Load("theme.ini", "light");
 
             Gui gui = new Gui(window);
             GuiScene scene = new GuiScene(gui);
@@ -103,10 +104,12 @@ namespace HlyssUIDemo
             label.MarginRight = "10px";
 
             Button button = new Button(gui.CurrentScene);
-            button.InsertChild(0, new Icon(gui.CurrentScene, HlyssUI.Utils.Icons.ArrowsV));
+            button.InsertChild(0, new Icon(gui.CurrentScene, HlyssUI.Utils.Icons.Windows));
+            button.Children.First().MarginRight = "5px";
             card.AddChild(button);
 
             button.ButtonAppearance = Button.ButtonStyle.Filled;
+            button.Label = "Transition";
             button.DoubleClicked += (object button) => { Environment.Exit(0); };
             button.Clicked += (object button) => 
             {
@@ -128,6 +131,49 @@ namespace HlyssUIDemo
                 if (e.Code == Keyboard.Key.Down)
                     panel.Transition("size: by 0px 50px");
             };
+
+            CheckBox checkBox = new CheckBox(gui.CurrentScene);
+            container.AddChild(checkBox);
+            checkBox.Label = "CheckBox";
+
+            PictureBox pictureBox = new PictureBox(gui.CurrentScene, "img.jpg");
+            container.AddChild(pictureBox);
+            pictureBox.StretchMode = PictureBox.Stretch.Fill;
+            pictureBox.Width = "100px";
+            pictureBox.Height = "100px";
+
+            ToggleSwitch toggleSwitch = new ToggleSwitch(gui.CurrentScene);
+            container.AddChild(toggleSwitch);
+            toggleSwitch.Clicked += (object sender) => { pictureBox.Style.Round = !pictureBox.Style.Round; };
+            toggleSwitch.Label = "Zaokrąglony PictureBox";
+            toggleSwitch.Toggled = true;
+
+            TextArea textArea = new TextArea(gui.CurrentScene, "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. Fusce ut porta ipsum, at aliquet tellus. In hac habitasse platea dictumst. Morbi fringilla lectus sed lacinia tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus blandit quis arcu vitae faucibus.");
+            container.AddChild(textArea);
+            textArea.Width = "500px";
+            textArea.Height = "100px";
+
+            ProgressBar progressBar = new ProgressBar(gui.CurrentScene);
+            container.AddChild(progressBar);
+            progressBar.Value = 50;
+
+            for (int i = 0; i < 3; i++)
+            {
+                RadioButton radioButton = new RadioButton(gui.CurrentScene, "Radio Button");
+                container.AddChild(radioButton);
+            }
+
+            HScrollBar hScrollBar = new HScrollBar(gui.CurrentScene, 400);
+            container.AddChild(hScrollBar);
+
+            //VScrollBar vScrollBar = new VScrollBar(gui.CurrentScene, 400);
+            //container.AddChild(vScrollBar);
+
+            //ScrollArea scrollArea = new ScrollArea(gui.CurrentScene);
+            //container.AddChild(scrollArea);
+
+            //Button saBtn = new Button(gui.CurrentScene, "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+            //scrollArea.AddChild(saBtn);
         }
 
         private static void testWrap(Gui gui)

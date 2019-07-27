@@ -11,6 +11,15 @@ namespace HlyssUI.Components
             Outline, Filled, Flat
         }
 
+        public string Label
+        {
+            get { return _label.Text; }
+            set
+            {
+                _label.Text = value;
+            }
+        }
+
         private Label _label;
         private ButtonStyle _style;
 
@@ -23,7 +32,7 @@ namespace HlyssUI.Components
 
                 if (value != ButtonStyle.Outline)
                 {
-                    Style["Accent"] = Color.Transparent;
+                    Style["Secondary"] = Color.Transparent;
                 }
                 if (value == ButtonStyle.Filled)
                 {
@@ -33,7 +42,7 @@ namespace HlyssUI.Components
             }
         }
 
-        public Button(GuiScene scene) : base(scene)
+        public Button(GuiScene scene, string label = "") : base(scene)
         {
             Layout = HlyssUI.Layout.LayoutType.Row;
 
@@ -42,12 +51,12 @@ namespace HlyssUI.Components
             PaddingTop = "10px";
             PaddingBottom = "10px";
 
-            _label = new Label(scene, "Transition");
+            _label = new Label(scene, label);
             _label.CharacterSize = scene.Gui.DefaultCharacterSize;
             _label.Font = Fonts.MontserratSemiBold;
             AddChild(_label);
 
-            CascadeColor = true;
+            CascadeStyle = true;
         }
 
         public override void OnMouseEntered()

@@ -12,6 +12,8 @@ namespace HlyssUI.Themes
         public uint BorderRadius { get; set; } = Theme.BorderRadius;
         public uint BorderThickness { get; set; } = Theme.BorderThickness;
 
+        public bool NeedsRefresh { get; set; } = true;
+
         public bool Round
         {
             get { return BorderRadius == uint.MaxValue; }
@@ -21,6 +23,8 @@ namespace HlyssUI.Themes
                     BorderRadius = uint.MaxValue;
                 else
                     BorderRadius = Theme.BorderRadius;
+
+                NeedsRefresh = true;
             }
         }
 
@@ -41,6 +45,8 @@ namespace HlyssUI.Themes
 
                 if (_colors.ContainsKey(name))
                     _colors[name] = value;
+
+                NeedsRefresh = true;
             }
         }
 
@@ -62,6 +68,8 @@ namespace HlyssUI.Themes
                 {"warning", Theme.GetColor("Warning")},
                 {"info",  Theme.GetColor("Info")}
             };
+
+            NeedsRefresh = true;
         }
 
         public static Color GetDarker(Color baseColor, byte level)

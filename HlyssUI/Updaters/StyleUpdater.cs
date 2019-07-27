@@ -11,10 +11,16 @@ namespace HlyssUI.Updaters
         {
             foreach (var child in baseNode.Children)
             {
-                if (baseNode.CascadeColor)
-                    child.Style = baseNode.Style;
+                if (child.IsOnScreen)
+                {
+                    if (baseNode.CascadeStyle && !child.CascadeStyle)
+                    {
+                        child.Style = baseNode.Style;
+                    }
 
-                child.OnStyleChanged();
+                    child.OnStyleChanged();
+                }
+
                 Update(child);
             }
         }

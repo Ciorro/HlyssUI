@@ -16,7 +16,7 @@ namespace HlyssUI.Components
         {
             _body = new RoundedRectangle();
             _body.FillColor = Style["Primary"];
-            _body.OutlineColor = Style["Accent"];
+            _body.OutlineColor = Style["Secondary"];
             _body.OutlineThickness = -1;
         }
 
@@ -33,7 +33,7 @@ namespace HlyssUI.Components
             base.OnStyleChanged();
 
             _body.FillColor = Style["Primary"];
-            _body.OutlineColor = Style["Accent"];
+            _body.OutlineColor = Style["Secondary"];
 
             _body.OutlineThickness = Style.BorderThickness * -1;
             _body.Radius = Style.BorderRadius;

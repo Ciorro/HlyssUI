@@ -63,7 +63,8 @@ namespace HlyssUI.Themes
                 {"success", stringToColor(data[theme]["SuccessColor"]) },
                 {"error", stringToColor(data[theme]["ErrorColor"]) },
                 {"warning", stringToColor(data[theme]["WarningColor"]) },
-                {"info", stringToColor(data[theme]["InformationColor"]) }
+                {"info", stringToColor(data[theme]["InformationColor"]) },
+                {"transparent", Color.Transparent }
             };
 
             Name = theme;

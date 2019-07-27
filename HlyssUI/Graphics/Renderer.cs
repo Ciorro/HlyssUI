@@ -7,40 +7,28 @@ namespace HlyssUI.Graphics
         public void Render(Component component)
         {
             component.Gui.Window.SetView(component.Gui.Window.DefaultView);
-            renderCommonComponents(component, false);
-            renderOverlapingComponents(component);
+            renderComponents(component);
         }
 
-        private void renderCommonComponents(Component component, bool renderOverlayingComponents)
+        private void renderComponents(Component component)
         {
-            if (!component.Visible || (component.IsOverlay && !renderOverlayingComponents))
-                return;
-
-            if (component.Parent != null && !component.Parent.DisableClipping)
-                component.Gui.Window.SetView(component.Parent.ClipArea.Area);
-
-            component.Draw(component.Gui.Window);
-            component.DrawDebug();
-
-            component.Gui.Window.SetView(component.Gui.DefaultView);
-
-            foreach (var child in component.Children)
+            if (component.IsOnScreen)
             {
-                renderCommonComponents(child, renderOverlayingComponents);
-            }
-        }
+                if (!component.Visible)
+                    return;
 
-        private void renderOverlapingComponents(Component component)
-        {
-            if (!component.Visible)
-                return;
+                if (component.Parent != null && !component.Parent.DisableClipping)
+                    component.Gui.Window.SetView(component.Parent.ClipArea.Area);
 
-            if (component.IsOverlay)
-                renderCommonComponents(component, true);
+                component.Draw(component.Gui.Window);
+                component.DrawDebug();
 
-            foreach (var child in component.Children)
-            {
-                renderOverlapingComponents(child);
+                component.Gui.Window.SetView(component.Gui.DefaultView);
+
+                foreach (var child in component.Children)
+                {
+                    renderComponents(child);
+                }
             }
         }
     }

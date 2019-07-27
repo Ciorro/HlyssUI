@@ -28,6 +28,8 @@ namespace HlyssUI.Layout
         {
             Width = "100%";
             Height = "100%";
+
+
         }
 
         public override void OnRefresh()

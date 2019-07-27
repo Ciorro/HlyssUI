@@ -31,7 +31,7 @@ namespace HlyssUI.Components
         public override void OnRefresh()
         {
             base.OnRefresh();
-            _icon.Position = (Vector2f)GlobalPosition;
+            _icon.Position = new Vector2f(GlobalPosition.X + (Size.X - _icon.GetGlobalBounds().Width) / 2, GlobalPosition.Y);
         }
 
         public override void OnStyleChanged()

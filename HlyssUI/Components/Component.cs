@@ -291,6 +291,11 @@ namespace HlyssUI.Components
         public Style Style = new Style();
         public ClipArea ClipArea { get; private set; }
 
+        public bool IsOnScreen
+        {
+            get { return Bounds.Intersects(Scene.BaseNode.Bounds); }
+        }
+
         public bool Enabled { get; set; } = true;
         public bool Visible { get; set; } = true;
         public bool Active { get; set; } = true;
@@ -300,7 +305,7 @@ namespace HlyssUI.Components
         public bool IsPressed { get; private set; }
         public bool NeedsRefresh { get; protected set; }
         public bool DisableClipping { get; set; }
-        public bool CascadeColor { get; set; }
+        public bool CascadeStyle { get; set; }
 
         public string Name { get; set; } = Guid.NewGuid().ToString();
         public Gui Gui { get; private set; }
@@ -442,11 +447,16 @@ namespace HlyssUI.Components
             {
                 Logger.Log($"{this} clicked", Gui.Debug);
                 Clicked?.Invoke(this);
+                OnClicked();
             }
 
             IsPressed = false;
             Logger.Log($"{this} released", Gui.Debug);
             Released?.Invoke(this);
+        }
+
+        public virtual void OnClicked()
+        {
         }
 
         public virtual void OnMouseEntered()
