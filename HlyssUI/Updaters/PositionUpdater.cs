@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Components;
 using SFML.System;
+using SFML.Window;
 using System.Diagnostics;
 
 namespace HlyssUI.Updaters
@@ -57,13 +58,14 @@ namespace HlyssUI.Updaters
             Vector2i parentPos = component.Parent != null ? component.Parent.GlobalPosition : new Vector2i();
             Vector2i parentPad = component.Parent != null ? new Vector2i(component.Parent.Pl, component.Parent.Pt) : new Vector2i();
 
-            component.GlobalPosition = new Vector2i(component.X + component.Ml, component.Y + component.Mt) + parentPad + parentPos;
+            int x = component.X;
+            int y = component.Y;
+
+            component.GlobalPosition = new Vector2i(x + component.Ml, y + component.Mt) + parentPad + parentPos;
             component.Size = new Vector2i(component.W, component.H);
-            component.Position = new Vector2i(component.X, component.Y);
+            component.Position = new Vector2i(x, y);
 
             component.OnRefresh();
-            //i++;
-            //System.Console.WriteLine(i);
         }
     }
 }

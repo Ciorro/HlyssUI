@@ -1,4 +1,6 @@
-﻿using HlyssUI.Components;
+﻿using System;
+using HlyssUI.Components;
+using SFML.Graphics;
 
 namespace HlyssUI.Graphics
 {
@@ -17,8 +19,10 @@ namespace HlyssUI.Graphics
                 if (!component.Visible)
                     return;
 
-                if (component.Parent != null && !component.Parent.DisableClipping)
-                    component.Gui.Window.SetView(component.Parent.ClipArea.Area);
+                View area = getNearestClipArea(component);
+
+                if (area != null)
+                    component.Gui.Window.SetView(area);
 
                 component.Draw(component.Gui.Window);
                 component.DrawDebug();
@@ -29,6 +33,23 @@ namespace HlyssUI.Graphics
                 {
                     renderComponents(child);
                 }
+            }
+        }
+
+        private View getNearestClipArea(Component component)
+        {
+            while (true)
+            {
+                if (component.Parent != null)
+                {
+                    if (!component.Parent.DisableClipping)
+                        return component.Parent.ClipArea.Area;
+
+                    component = component.Parent;
+                    continue;
+                }
+
+                return null;
             }
         }
     }

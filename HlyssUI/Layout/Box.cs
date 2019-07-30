@@ -59,7 +59,6 @@ namespace HlyssUI.Layout
 
             Width = $"{maxX + Pl + Pr}px";
             Height = $"{maxY + Pt + Pb}px";
-
             base.OnRefresh();
         }
 

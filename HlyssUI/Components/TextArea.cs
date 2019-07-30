@@ -18,6 +18,7 @@ namespace HlyssUI.Components
             get { return _text; }
             set
             {
+                _text = value;
                 _letters.Clear();
 
                 foreach (var letter in value)
@@ -26,6 +27,7 @@ namespace HlyssUI.Components
                 }
 
                 createLines();
+                NeedsRefresh = true;
             }
         }
 
@@ -40,6 +42,7 @@ namespace HlyssUI.Components
                 }
 
                 _characterSize = value;
+                NeedsRefresh = true;
             }
         }
 
@@ -59,8 +62,6 @@ namespace HlyssUI.Components
         public override void OnRefresh()
         {
             base.OnRefresh();
-
-            CharacterSize = _characterSize;
 
             createLines();
             updateLettersLook();

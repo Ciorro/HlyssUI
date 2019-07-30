@@ -43,7 +43,9 @@ namespace HlyssUI
         public void Update()
         {
             _componentUpdater.Update(BaseNode);
+            //Stopwatch s = Stopwatch.StartNew();
             _positionUpdater.Update(BaseNode);
+            //System.Console.WriteLine(s.Elapsed.TotalMilliseconds);
             _colorUpdater.Update(BaseNode);
         }
 

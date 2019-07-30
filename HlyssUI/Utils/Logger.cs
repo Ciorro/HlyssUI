@@ -25,12 +25,6 @@ namespace HlyssUI.Utils
             Console.ForegroundColor = Color;
             Console.WriteLine(message);
             Console.ForegroundColor = tempColor;
-
-            //try
-            //{
-            //    //Debugger.AddLog(message);
-            //}
-            //catch { }
         }
 
         public static void Log(object obj, bool condition = true)

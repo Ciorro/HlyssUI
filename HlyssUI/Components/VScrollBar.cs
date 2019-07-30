@@ -44,11 +44,7 @@ namespace HlyssUI.Components
             _background.Position = (Vector2f)GlobalPosition;
 
             _slider.Size = new Vector2f(Size.X, _slider.Size.Y);
-        }
 
-        public override void Update()
-        {
-            base.Update();
             updateSlider();
             keepInbounds();
         }
@@ -61,6 +57,8 @@ namespace HlyssUI.Components
             {
                 _clickOffset = (int)(mpos.Y - _slider.Position.Y);
                 _active = true;
+
+                ScheduleRefresh();
             }
         }
 
@@ -78,6 +76,8 @@ namespace HlyssUI.Components
                 _slider.Position += new Vector2f(0, (Size.Y / 50) * scroll * Speed) * -1;
                 keepInbounds();
                 Percentage = getPercentageFromSliderPosition();
+
+                ScheduleRefresh();
             }
         }
 
@@ -121,6 +121,8 @@ namespace HlyssUI.Components
                 _slider.Position = new Vector2f(GlobalPosition.X, mpos.Y - _clickOffset);
                 keepInbounds();
                 Percentage = getPercentageFromSliderPosition();
+
+                ScheduleRefresh();
             }
             else
             {

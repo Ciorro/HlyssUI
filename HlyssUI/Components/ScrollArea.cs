@@ -4,7 +4,7 @@ using SFML.System;
 
 namespace HlyssUI.Components
 {
-    public class ScrollArea : Component
+    public class ScrollArea : Box
     {
         private Box _box;
         private Panel _panel;
@@ -12,8 +12,6 @@ namespace HlyssUI.Components
         private VScrollBar _vScroll;
         private bool _disableHScroll;
         private bool _disableVScroll;
-
-        public int Padding = 10;
 
         public bool DisableHorizontalScroll
         {
@@ -54,30 +52,39 @@ namespace HlyssUI.Components
 
             _box = new Box(scene);
             _box.ClipArea.OutlineThickness = 0;
+            _box.Padding = "10px";
             _panel.AddChild(_box);
+            _box.Layout = LayoutType.Column;
 
-            Width = "200px";
-            Height = "200px";
+            _panel.Width = "200px";
+            _panel.Height = "200px";
         }
 
         public override void OnRefresh()
         {
             base.OnRefresh();
 
-            _panel.Size = Size;
             updateAnchor();
 
             _hScroll.Position = new Vector2i(1, _panel.Size.Y - 16);
             _hScroll.Size = new Vector2i(_panel.Size.X - 2, 15);
+            _hScroll.MarginTop = $"{Size.Y - _hScroll.Size.Y}px";
 
             _vScroll.Position = new Vector2i(_panel.Size.X - 16, 1);
             _vScroll.Size = new Vector2i(15, _panel.Size.Y - 2);
+            _vScroll.MarginLeft = $"{Size.X - _vScroll.Size.X}px";
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            //updateAnchor();
         }
 
         private void updateAnchor()
         {
-            int maxX = _box.Size.X + Padding * 2;
-            int maxY = _box.Size.Y + Padding * 2;
+            int maxX = _box.Size.X;
+            int maxY = _box.Size.Y;
 
             _hScroll.Visible = maxX > Size.X && !_disableHScroll;
             _vScroll.Visible = maxY > Size.Y && !_disableVScroll;
@@ -86,7 +93,6 @@ namespace HlyssUI.Components
 
             _box.Left = $"{(int)((maxX - Size.X) * _hScroll.Percentage) * -1}px";
             _box.Top = $"{(int)((maxY - Size.Y) * _vScroll.Percentage) * -1}px";
-            //_box.Position = new Vector2i((int)((maxX - Size.X) * _hScroll.Percentage) * -1, (int)((maxY - Size.Y) * _vScroll.Percentage) * -1) + new Vector2i(Padding, Padding);
         }
 
         public override void OnStyleChanged()
@@ -99,17 +105,41 @@ namespace HlyssUI.Components
 
         public new void AddChild(Component component)
         {
-            _box.AddChild(component);
+            InsertChild(_box.Children.Count, component);
+        }
+
+        public new void InsertChild(int index, Component component)
+        {
+            NeedsRefresh = true;
+
+            component.Parent = this;
+            component.OnAdded();
+            _box.InsertChild(index, component);
+            OnChildAdded(component);
         }
 
         public new void RemoveChild(Component component)
         {
+            component.Parent = null;
+            component.OnRemoved();
             _box.RemoveChild(component);
+            OnChildRemoved(component);
         }
 
         public new void RemoveChild(string name)
         {
-            _box.RemoveChild(name);
+            RemoveChild(GetChild(name));
+        }
+
+        public new Component GetChild(string name)
+        {
+            foreach (var child in _box.Children)
+            {
+                if (child.Name == name)
+                    return child;
+            }
+
+            return null;
         }
         #endregion
     }

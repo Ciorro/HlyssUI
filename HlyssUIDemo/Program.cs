@@ -142,11 +142,10 @@ namespace HlyssUIDemo
             pictureBox.Width = "100px";
             pictureBox.Height = "100px";
 
-            ToggleSwitch toggleSwitch = new ToggleSwitch(gui.CurrentScene);
-            container.AddChild(toggleSwitch);
-            toggleSwitch.Clicked += (object sender) => { pictureBox.Style.Round = !pictureBox.Style.Round; };
-            toggleSwitch.Label = "Zaokrąglony PictureBox";
-            toggleSwitch.Toggled = true;
+            //ToggleSwitch toggleSwitch = new ToggleSwitch(gui.CurrentScene);
+            //container.AddChild(toggleSwitch);
+            //toggleSwitch.Clicked += (object sender) => { pictureBox.Style.Round = !pictureBox.Style.Round; };
+            //toggleSwitch.Label = "Zaokrąglony PictureBox";
 
             TextArea textArea = new TextArea(gui.CurrentScene, "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. Fusce ut porta ipsum, at aliquet tellus. In hac habitasse platea dictumst. Morbi fringilla lectus sed lacinia tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus blandit quis arcu vitae faucibus.");
             container.AddChild(textArea);
@@ -163,17 +162,20 @@ namespace HlyssUIDemo
                 container.AddChild(radioButton);
             }
 
-            HScrollBar hScrollBar = new HScrollBar(gui.CurrentScene, 400);
-            container.AddChild(hScrollBar);
+            //HScrollBar hScrollBar = new HScrollBar(gui.CurrentScene, 400);
+            //container.AddChild(hScrollBar);
 
             //VScrollBar vScrollBar = new VScrollBar(gui.CurrentScene, 400);
             //container.AddChild(vScrollBar);
 
-            //ScrollArea scrollArea = new ScrollArea(gui.CurrentScene);
-            //container.AddChild(scrollArea);
+            ScrollArea scrollArea = new ScrollArea(gui.CurrentScene);
+            container.AddChild(scrollArea);
 
-            //Button saBtn = new Button(gui.CurrentScene, "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
-            //scrollArea.AddChild(saBtn);
+            for (int i = 0; i < 20; i++)
+            {
+                Button saBtn = new Button(gui.CurrentScene, $"Button {i}");
+                scrollArea.AddChild(saBtn);
+            }
         }
 
         private static void testWrap(Gui gui)
