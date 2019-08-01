@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HlyssUIDemo": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

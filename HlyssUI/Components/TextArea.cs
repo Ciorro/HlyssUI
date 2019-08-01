@@ -61,10 +61,11 @@ namespace HlyssUI.Components
 
         public override void OnRefresh()
         {
+            //TODO: Improve performance
             base.OnRefresh();
 
             createLines();
-            updateLettersLook();
+            //updateLettersStyle();
             placeLines();
 
             foreach (var line in _lines)
@@ -98,7 +99,7 @@ namespace HlyssUI.Components
             }
         }
 
-        private void updateLettersLook()
+        private void updateLettersStyle()
         {
             foreach (var letter in _letters)
             {

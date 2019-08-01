@@ -22,5 +22,10 @@ namespace HlyssUI.Utils
 
             return value;
         }
+
+        public static Match Match(string expression)
+        {
+            return DimRegex.Match(expression);
+        }
     }
 }

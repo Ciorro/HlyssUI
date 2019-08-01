@@ -78,7 +78,6 @@ namespace HlyssUI.Components
         public override void Update()
         {
             base.Update();
-            //updateAnchor();
         }
 
         private void updateAnchor()

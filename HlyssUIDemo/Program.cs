@@ -110,7 +110,7 @@ namespace HlyssUIDemo
 
             button.ButtonAppearance = Button.ButtonStyle.Filled;
             button.Label = "Transition";
-            button.DoubleClicked += (object button) => { Environment.Exit(0); };
+            //button.DoubleClicked += (object button) => { Environment.Exit(0); };
             button.Clicked += (object button) => 
             {
                 (button as Button).Style.Round = !(button as Button).Style.Round;
@@ -142,15 +142,15 @@ namespace HlyssUIDemo
             pictureBox.Width = "100px";
             pictureBox.Height = "100px";
 
-            //ToggleSwitch toggleSwitch = new ToggleSwitch(gui.CurrentScene);
-            //container.AddChild(toggleSwitch);
-            //toggleSwitch.Clicked += (object sender) => { pictureBox.Style.Round = !pictureBox.Style.Round; };
-            //toggleSwitch.Label = "Zaokrąglony PictureBox";
+            ToggleSwitch toggleSwitch = new ToggleSwitch(gui.CurrentScene);
+            container.AddChild(toggleSwitch);
+            toggleSwitch.Clicked += (object sender) => { pictureBox.Style.Round = !pictureBox.Style.Round; };
+            toggleSwitch.Label = "Zaokrąglony PictureBox";
 
-            TextArea textArea = new TextArea(gui.CurrentScene, "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. Fusce ut porta ipsum, at aliquet tellus. In hac habitasse platea dictumst. Morbi fringilla lectus sed lacinia tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus blandit quis arcu vitae faucibus.");
-            container.AddChild(textArea);
-            textArea.Width = "500px";
-            textArea.Height = "100px";
+            //TextArea textArea = new TextArea(gui.CurrentScene, "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. Fusce ut porta ipsum, at aliquet tellus. In hac habitasse platea dictumst. Morbi fringilla lectus sed lacinia tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus blandit quis arcu vitae faucibus.");
+            //container.AddChild(textArea);
+            //textArea.Width = "500px";
+            //textArea.Height = "100px";
 
             ProgressBar progressBar = new ProgressBar(gui.CurrentScene);
             container.AddChild(progressBar);
@@ -162,19 +162,17 @@ namespace HlyssUIDemo
                 container.AddChild(radioButton);
             }
 
-            //HScrollBar hScrollBar = new HScrollBar(gui.CurrentScene, 400);
-            //container.AddChild(hScrollBar);
-
-            //VScrollBar vScrollBar = new VScrollBar(gui.CurrentScene, 400);
-            //container.AddChild(vScrollBar);
-
             ScrollArea scrollArea = new ScrollArea(gui.CurrentScene);
             container.AddChild(scrollArea);
 
             for (int i = 0; i < 20; i++)
             {
-                Button saBtn = new Button(gui.CurrentScene, $"Button {i}");
-                scrollArea.AddChild(saBtn);
+                //Button saBtn = new Button(gui.CurrentScene, $"Button {i}");
+                //scrollArea.AddChild(saBtn);
+                //saBtn.InsertChild(0, new Icon(gui.CurrentScene, HlyssUI.Utils.Icons.Adjust));
+
+                CheckBox saCb = new CheckBox(gui.CurrentScene, $"CheckBox {i}");
+                scrollArea.AddChild(saCb);
             }
         }
 
