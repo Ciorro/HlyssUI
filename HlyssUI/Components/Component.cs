@@ -68,7 +68,10 @@ namespace HlyssUI.Components
         public List<Component> Children { get; private set; } = new List<Component>();
         public Component Parent = null;
 
-        public Vector2i GlobalPosition { get; internal set; } = new Vector2i();
+        internal Vector2i GlobalPosition
+        {
+            get { return (Parent != null) ? Parent.GlobalPosition + Position : Position; }
+        }
 
         public Vector2i TargetPosition { get; internal set; } = new Vector2i();
         public Vector2i Position { get; internal set; } = new Vector2i();
@@ -301,7 +304,8 @@ namespace HlyssUI.Components
 
                 foreach (var child in Children)
                 {
-                    child.TransformChanged = value;
+                    if (value)
+                        child.TransformChanged = value;
                 }
             }
         }
@@ -521,7 +525,6 @@ namespace HlyssUI.Components
         public virtual void OnRefresh()
         {
             Logger.Log($"{this} refreshed", Gui.Debug);
-            TransformChanged = false;
         }
 
         public virtual void OnStyleChanged()
@@ -572,6 +575,11 @@ namespace HlyssUI.Components
             TargetPosition = new Vector2i(X, Y);
             Margins = new Spacing(Ml, Mr, Mt, Mb);
             Paddings = new Spacing(Pl, Pr, Pt, Pb);
+
+            foreach (var controller in _controllers)
+            {
+                controller.OnValueChanged();
+            }
 
             TransformChanged = false;
         }

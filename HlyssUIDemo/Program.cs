@@ -63,13 +63,21 @@ namespace HlyssUIDemo
 
         private static void addComponents1(Gui gui)
         {
-            Panel panel = new Panel();
-            gui.CurrentScene.AddChild(panel);
+            Panel panel1 = new Panel();
+            gui.CurrentScene.AddChild(panel1);
 
-            panel.Width = "100px";
-            panel.Height = "100px";
+            panel1.Width = "50%";
+            panel1.Height = "25%";
+            panel1.Left = "10%";
+            panel1.Top = "200px";
 
-            Console.WriteLine(panel.Margins);
+            Panel panel2 = new Panel();
+            panel1.AddChild(panel2);
+
+            panel2.Width = "50px";
+            panel2.Height = "25px";
+            panel2.Left = "50%";
+            panel2.Top = "50%";
         }
     }
 }

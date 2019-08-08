@@ -9,12 +9,17 @@ namespace HlyssUI.Components
     {
         private RoundedRectangle _body = new RoundedRectangle();
 
+        public override void Update()
+        {
+            base.Update();
+        }
+
         public override void OnRefresh()
         {
             base.OnRefresh();
           
             _body.Position = (Vector2f)GlobalPosition;
-            _body.Size = (Vector2f)TargetSize;
+            _body.Size = (Vector2f)Size;
         }
 
         public override void OnStyleChanged()

@@ -5,17 +5,32 @@ namespace HlyssUI.Controllers
 {
     class PositionController : Controller
     {
+        private Vector2i _from;
+
         public PositionController(Component component) : base(component)
         {
         }
 
         public override void OnValueChanged()
         {
-            
+            tween.Start();
+            _from = component.Position;
         }
 
         public override void Update()
         {
+            if (tween.IsFinished)
+                return;
+
+            tween.Update();
+
+            int x = (int)(_from.X + (component.TargetPosition.X - _from.X) * tween.Percentage);
+            int y = (int)(_from.Y + (component.TargetPosition.Y - _from.Y) * tween.Percentage);
+
+            component.Position = new Vector2i(x, y);
+
+            if (component.Position != component.TargetPosition)
+                component.OnRefresh();
         }
     }
 }

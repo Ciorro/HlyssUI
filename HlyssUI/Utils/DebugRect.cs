@@ -52,16 +52,16 @@ namespace HlyssUI.Utils
         private void setPadding(Component component)
         {
             _paddingRect1.Position = (Vector2f)component.GlobalPosition;
-            _paddingRect2.Position = (Vector2f)component.GlobalPosition + new Vector2f(component.TargetSize.X - component.Pr, 0);
-            _paddingRect3.Position = (Vector2f)component.GlobalPosition + new Vector2f(component.TargetSize.X - component.Pr, component.TargetSize.Y - component.Pb);
-            _paddingRect4.Position = (Vector2f)component.GlobalPosition + new Vector2f(0, component.TargetSize.Y - component.Pb);
+            _paddingRect2.Position = (Vector2f)component.GlobalPosition + new Vector2f(component.Size.X - component.Pr, 0);
+            _paddingRect3.Position = (Vector2f)component.GlobalPosition + new Vector2f(component.Size.X - component.Pr, component.Size.Y - component.Pb);
+            _paddingRect4.Position = (Vector2f)component.GlobalPosition + new Vector2f(0, component.Size.Y - component.Pb);
             _paddingRect5.Position = (Vector2f)component.GlobalPosition + new Vector2f(component.Pl, component.Pt);
 
             _paddingRect1.Size = new Vector2f(component.Pl, component.Pt);
             _paddingRect2.Size = new Vector2f(component.Pr, component.Pt);
             _paddingRect3.Size = new Vector2f(component.Pr, component.Pb);
             _paddingRect4.Size = new Vector2f(component.Pl, component.Pb);
-            _paddingRect5.Size = (Vector2f)component.TargetSize - new Vector2f(component.Pl + component.Pr, component.Pt + component.Pb);
+            _paddingRect5.Size = (Vector2f)component.Size - new Vector2f(component.Pl + component.Pr, component.Pt + component.Pb);
 
             _paddingRect1.OutlineColor = _paddingRect2.OutlineColor = _paddingRect3.OutlineColor = _paddingRect4.OutlineColor = _paddingRect5.OutlineColor = Color.Transparent;
             _paddingRect1.FillColor = _paddingRect2.FillColor = _paddingRect3.FillColor = _paddingRect4.FillColor = _paddingRect5.FillColor = Color.Transparent;
@@ -77,7 +77,7 @@ namespace HlyssUI.Utils
         private void setRect(Component component)
         {
             _rect.Position = (Vector2f)component.GlobalPosition;
-            _rect.Size = (Vector2f)component.TargetSize;
+            _rect.Size = (Vector2f)component.Size;
             _rect.OutlineThickness = -1;
             _rect.FillColor = Color.Transparent;
             _rect.OutlineColor = Color.Transparent;
@@ -92,7 +92,7 @@ namespace HlyssUI.Utils
         private void setMargin(Component component)
         {
             _margin.Position = (Vector2f)component.GlobalPosition - new Vector2f(component.Ml, component.Mt);
-            _margin.Size = (Vector2f)component.TargetSize + new Vector2f(component.Margins.Horizontal, component.Margins.Vertical);
+            _margin.Size = (Vector2f)component.Size + new Vector2f(component.Margins.Horizontal, component.Margins.Vertical);
 
             _margin.OutlineThickness = -1;
 
@@ -108,11 +108,11 @@ namespace HlyssUI.Utils
             _marginLines.Append(new Vertex(_margin.Position, _margin.OutlineColor));
             _marginLines.Append(new Vertex((Vector2f)component.GlobalPosition, _margin.OutlineColor));
             _marginLines.Append(new Vertex(_margin.Position + new Vector2f(_margin.Size.X, 0), _margin.OutlineColor));
-            _marginLines.Append(new Vertex((Vector2f)component.GlobalPosition + new Vector2f(component.TargetSize.X, 0), _margin.OutlineColor));
+            _marginLines.Append(new Vertex((Vector2f)component.GlobalPosition + new Vector2f(component.Size.X, 0), _margin.OutlineColor));
             _marginLines.Append(new Vertex(_margin.Position + new Vector2f(0, _margin.Size.Y), _margin.OutlineColor));
-            _marginLines.Append(new Vertex((Vector2f)component.GlobalPosition + new Vector2f(0, component.TargetSize.Y), _margin.OutlineColor));
+            _marginLines.Append(new Vertex((Vector2f)component.GlobalPosition + new Vector2f(0, component.Size.Y), _margin.OutlineColor));
             _marginLines.Append(new Vertex(_margin.Position + _margin.Size, _margin.OutlineColor));
-            _marginLines.Append(new Vertex((Vector2f)component.GlobalPosition + (Vector2f)component.TargetSize, _margin.OutlineColor));
+            _marginLines.Append(new Vertex((Vector2f)component.GlobalPosition + (Vector2f)component.Size, _margin.OutlineColor));
         }
     }
 }

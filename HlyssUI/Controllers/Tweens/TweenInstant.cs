@@ -10,8 +10,10 @@ namespace HlyssUI.Controllers.Tweens
 
         public override void Update()
         {
+            if (progress == 100)
+                Finish();
+
             progress = 100;
-            Finish();
         }
     }
 }

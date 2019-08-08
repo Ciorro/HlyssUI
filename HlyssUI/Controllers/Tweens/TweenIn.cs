@@ -15,7 +15,7 @@ namespace HlyssUI.Controllers.Tweens
 
             float offset = Math.Abs(100 - progress);
 
-            if (Math.Abs(offset) < 1)
+            if (Math.Abs(offset) < 0.01f)
             {
                 progress = 100;
                 Finish();
