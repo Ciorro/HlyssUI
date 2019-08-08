@@ -31,7 +31,7 @@ namespace HlyssUI.Components
         private RectangleShape _fill;
         private int _value = 0;
 
-        public ProgressBar(GuiScene scene) : base(scene)
+        public ProgressBar()
         {
             _background = new RectangleShape();
             _fill = new RectangleShape();
@@ -45,10 +45,10 @@ namespace HlyssUI.Components
             base.OnRefresh();
 
             _background.Position = (Vector2f)GlobalPosition;
-            _background.Size = (Vector2f)Size;
+            _background.Size = (Vector2f)TargetSize;
 
             _fill.Position = (Vector2f)GlobalPosition;
-            _fill.Size = new Vector2f(Size.X * Percentage, Size.Y);
+            _fill.Size = new Vector2f(TargetSize.X * Percentage, TargetSize.Y);
         }
 
         public override void OnStyleChanged()

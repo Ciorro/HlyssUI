@@ -4,7 +4,7 @@ using HlyssUI.Themes;
 using HlyssUI.Updaters;
 using SFML.System;
 using SFML.Window;
-using System.Threading;
+using System.Diagnostics;
 
 namespace HlyssUI
 {
@@ -16,18 +16,20 @@ namespace HlyssUI
         private Component _hoveredComponent;
         private Renderer _renderer = new Renderer();
         private HoverUpdater _hoverUpdater = new HoverUpdater();
-        private StyleUpdater _colorUpdater = new StyleUpdater();
+        private StyleUpdater _styleUpdater = new StyleUpdater();
         private ComponentUpdater _componentUpdater = new ComponentUpdater();
-        private PositionUpdater _positionUpdater;
+        private LayoutUpdater _layoutUpdater = new LayoutUpdater();
 
         public GuiScene(Gui gui)
         {
             Gui = gui;
 
-            BaseNode = new BaseComponent(this);
+            BaseNode = new BaseComponent();
             BaseNode.Style["Primary"] = Theme.GetColor("Primary");
+            BaseNode.Gui = Gui;
+            BaseNode.Scene = this;
 
-            _positionUpdater = new PositionUpdater(this);
+            BaseNode.OnAdded(BaseNode);
         }
 
         public void Start()
@@ -43,13 +45,15 @@ namespace HlyssUI
         public void Update()
         {
             _componentUpdater.Update(BaseNode);
-            _positionUpdater.Update(BaseNode);
-            _colorUpdater.Update(BaseNode);
+            _layoutUpdater.Update(BaseNode);
+            _styleUpdater.Update(BaseNode);
         }
 
         public void Draw()
         {
+            //Stopwatch s = Stopwatch.StartNew();
             _renderer.Render(BaseNode);
+            //System.Console.WriteLine(s.Elapsed.TotalMilliseconds);
         }
 
         public void AddChild(Component component)

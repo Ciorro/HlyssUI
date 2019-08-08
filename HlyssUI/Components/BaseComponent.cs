@@ -1,4 +1,5 @@
-﻿using SFML.Window;
+﻿using HlyssUI.Layout;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,20 +10,26 @@ namespace HlyssUI.Components
     {
         private const int DEFAULT_APP_MARGIN = 0;
 
-        public BaseComponent(GuiScene scene) : base(scene)
+        public override void OnAdded(Component parent)
         {
-            scene.Gui.Window.Resized += (object sender, SizeEventArgs e) =>
+            base.OnAdded(parent);
+
+            Gui.Window.Resized += (object sender, SizeEventArgs e) =>
             {
                 Width = $"{e.Width}px";
                 Height = $"{e.Height}px";
+
+                UpdateLocalTransform();
             };
 
-            Width = $"{scene.Gui.Window.Size.X - DEFAULT_APP_MARGIN * 2}px";
-            Height = $"{scene.Gui.Window.Size.Y - DEFAULT_APP_MARGIN * 2}px";
+            Width = $"{Gui.Window.Size.X - DEFAULT_APP_MARGIN * 2}px";
+            Height = $"{Gui.Window.Size.Y - DEFAULT_APP_MARGIN * 2}px";
 
             Margin = $"{DEFAULT_APP_MARGIN}px";
 
+            UpdateLocalTransform();
             DisableClipping = true;
         }
+
     }
 }

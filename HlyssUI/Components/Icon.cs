@@ -10,11 +10,19 @@ namespace HlyssUI.Components
     public class Icon : Component
     {
         private static Font _iconFont = new Font(HlyssUI.Properties.Resources.Line_Awesome);
-        private Text _icon;
+        private Text _iconTxt;
+        private Icons _icon;
 
-        public Icon(GuiScene scene, Icons icon) : base(scene)
+        public Icon(Icons icon)
         {
-            _icon = new Text(((char)icon).ToString(), _iconFont, scene.Gui.DefaultCharacterSize);
+            _icon = icon;
+        }
+
+        public override void OnAdded(Component parent)
+        {
+            base.OnAdded(parent);
+
+            _iconTxt = new Text(((char)_icon).ToString(), _iconFont, Gui.DefaultCharacterSize);
             updateSize();
         }
 
@@ -22,7 +30,7 @@ namespace HlyssUI.Components
         {
             base.Update();
 
-            if (NeedsRefresh)
+            if (TransformChanged)
             {
                 updateSize();
             }
@@ -31,35 +39,35 @@ namespace HlyssUI.Components
         public override void OnRefresh()
         {
             base.OnRefresh();
-            _icon.Position = new Vector2f(GlobalPosition.X + (Size.X - _icon.GetGlobalBounds().Width) / 2, GlobalPosition.Y);
+            _iconTxt.Position = new Vector2f(GlobalPosition.X + (TargetSize.X - _iconTxt.GetGlobalBounds().Width) / 2, GlobalPosition.Y);
         }
 
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
-            _icon.FillColor = Style["Text"];
+            _iconTxt.FillColor = Style["Text"];
         }
 
         public override void Draw(RenderTarget target)
         {
-            target.Draw(_icon);
+            target.Draw(_iconTxt);
         }
 
         private int getHeight()
         {
             int newLineCount = 0;
-            foreach (var letter in _icon.DisplayedString)
+            foreach (var letter in _iconTxt.DisplayedString)
             {
                 if (letter == '\n' || letter.ToString() == Environment.NewLine)
                     newLineCount++;
             }
 
-            return (int)(_icon.Font.GetLineSpacing(_icon.CharacterSize) * (newLineCount + 1));
+            return (int)(_iconTxt.Font.GetLineSpacing(_iconTxt.CharacterSize) * (newLineCount + 1));
         }
 
         private void updateSize()
         {
-            int size = (int)Math.Max(_icon.GetGlobalBounds().Width, getHeight());
+            int size = (int)Math.Max(_iconTxt.GetGlobalBounds().Width, getHeight());
 
             Width = $"{size}px";
             Height = $"{size}px";

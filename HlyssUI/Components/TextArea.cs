@@ -21,13 +21,17 @@ namespace HlyssUI.Components
                 _text = value;
                 _letters.Clear();
 
+                TransformChanged = true;
+
+                if (Gui == null)
+                    return;
+
                 foreach (var letter in value)
                 {
                     _letters.Add(new Letter(letter, Gui));
                 }
 
                 createLines();
-                NeedsRefresh = true;
             }
         }
 
@@ -42,7 +46,7 @@ namespace HlyssUI.Components
                 }
 
                 _characterSize = value;
-                NeedsRefresh = true;
+                TransformChanged = true;
             }
         }
 
@@ -53,10 +57,10 @@ namespace HlyssUI.Components
         private List<Letter> _letters = new List<Letter>();
         private List<TextLine> _lines = new List<TextLine>();
 
-        public TextArea(GuiScene scene, string text) : base(scene)
+        public override void OnAdded(Component parent)
         {
-            Text = text;
-            CharacterSize = scene.Gui.DefaultCharacterSize;
+            base.OnAdded(parent);
+            CharacterSize = Gui.DefaultCharacterSize;
         }
 
         public override void OnRefresh()
@@ -144,7 +148,7 @@ namespace HlyssUI.Components
 
         private TextLine createLine()
         {
-            return new TextLine(Size.X);
+            return new TextLine(TargetSize.X);
         }
 
         private List<Letter> getWord(int index)

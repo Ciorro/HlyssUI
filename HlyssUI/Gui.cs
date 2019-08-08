@@ -1,6 +1,5 @@
 ﻿using HlyssUI.Graphics;
 using HlyssUI.Themes;
-using HlyssUI.Transitions;
 using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.System;
@@ -14,7 +13,7 @@ namespace HlyssUI
         public Font DefaultFont { get; private set; } = Fonts.MontserratRegular;
         public uint DefaultCharacterSize = 14;
         public float Scale = 1f;
-        public bool Debug = false;
+        public bool Debug = true;
 
         public View DefaultView
         {

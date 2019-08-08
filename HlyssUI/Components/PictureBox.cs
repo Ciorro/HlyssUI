@@ -60,19 +60,19 @@ namespace HlyssUI.Components
         private RectangleShape _background;
         private RoundedRectangle _image;
 
-        public PictureBox(GuiScene scene) : base(scene)
+        public PictureBox()
         {
             create();
         }
 
-        public PictureBox(GuiScene scene, string source) : base(scene)
+        public PictureBox(string source)
         {
             create();
             Source = source;
             setDefaultSize();
         }
 
-        public PictureBox(GuiScene scene, Texture texture) : base(scene)
+        public PictureBox(Texture texture)
         {
             create();
             Image = texture;
@@ -85,10 +85,10 @@ namespace HlyssUI.Components
 
             _background.FillColor = Style["primary"];
             _background.Position = (Vector2f)GlobalPosition;
-            _background.Size = (Vector2f)Size;
+            _background.Size = (Vector2f)TargetSize;
 
             _image.Position = (Vector2f)GlobalPosition;
-            _image.Size = (Vector2f)Size;
+            _image.Size = (Vector2f)TargetSize;
 
             updateStretch();
         }
@@ -148,18 +148,18 @@ namespace HlyssUI.Components
         {
             this.scale();
 
-            float scale = (float)Size.X / _image.Texture.Size.X;
+            float scale = (float)TargetSize.X / _image.Texture.Size.X;
             _image.Size = (Vector2f)_image.Texture.Size;
             _image.Scale = new Vector2f(scale, scale);
 
-            if (_image.GetGlobalBounds().Height > Size.Y)
+            if (_image.GetGlobalBounds().Height > TargetSize.Y)
             {
-                scale = (float)Size.Y / _image.Texture.Size.Y;
+                scale = (float)TargetSize.Y / _image.Texture.Size.Y;
                 _image.Size = (Vector2f)_image.Texture.Size;
                 _image.Scale = new Vector2f(scale, scale);
             }
 
-            _image.Position = (Vector2f)(GlobalPosition + new Vector2i((int)(Size.X - _image.GetGlobalBounds().Width) / 2, (int)(Size.Y - _image.GetGlobalBounds().Height) / 2));
+            _image.Position = (Vector2f)(GlobalPosition + new Vector2i((int)(TargetSize.X - _image.GetGlobalBounds().Width) / 2, (int)(TargetSize.Y - _image.GetGlobalBounds().Height) / 2));
         }
 
         private void scale()

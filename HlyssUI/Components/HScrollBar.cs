@@ -18,7 +18,7 @@ namespace HlyssUI.Components
         public Keyboard.Key ScrollKey = Keyboard.Key.LShift;
         public Component Target = null;
 
-        public HScrollBar(GuiScene scene, int contentWidth) : base(scene)
+        public HScrollBar(int contentWidth)
         {
             this.ContentWidth = contentWidth;
 
@@ -27,7 +27,7 @@ namespace HlyssUI.Components
             _slider = new RectangleShape();
             _slider.Position = (Vector2f)GlobalPosition;
 
-            Width = "200px";
+            Width = "100%";
             Height = "15px";
         }
 
@@ -41,10 +41,10 @@ namespace HlyssUI.Components
         {
             base.OnRefresh();
 
-            _background.Size = (Vector2f)Size;
+            _background.Size = (Vector2f)TargetSize;
             _background.Position = (Vector2f)GlobalPosition;
 
-            _slider.Size = new Vector2f(_slider.Size.X, Size.Y);
+            _slider.Size = new Vector2f(_slider.Size.X, TargetSize.Y);
 
             updateSlider();
             keepInbounds();
@@ -74,7 +74,7 @@ namespace HlyssUI.Components
 
             if (Keyboard.IsKeyPressed(ScrollKey) && ((Target == null && Hovered) || ((Target != null && Target.Bounds.Contains(mPos.X, mPos.Y)) || Hovered)))
             {
-                _slider.Position += new Vector2f((Size.X / 50) * scroll * Speed, 0) * -1;
+                _slider.Position += new Vector2f((TargetSize.X / 50) * scroll * Speed, 0) * -1;
                 keepInbounds();
                 Percentage = getPercentageFromSliderPosition();
 
@@ -95,26 +95,26 @@ namespace HlyssUI.Components
 
         private float getPercentageFromSliderPosition()
         {
-            if (ContentWidth <= Size.X)
+            if (ContentWidth <= TargetSize.X)
             {
                 return 0;
             }
 
             float sliderPos = _slider.Position.X - GlobalPosition.X;
-            float mensurationWidth = Size.X - _slider.Size.X;
+            float mensurationWidth = TargetSize.X - _slider.Size.X;
 
             return sliderPos / mensurationWidth;
         }
 
         private void setSliderPosition(float percentage)
         {
-            float mensurationWidth = Size.X - _slider.Size.X;
+            float mensurationWidth = TargetSize.X - _slider.Size.X;
             _slider.Position = new Vector2f(GlobalPosition.X + mensurationWidth * percentage, GlobalPosition.Y);
         }
 
         private void updateSlider()
         {
-            _slider.Size = new Vector2f((int)System.Math.Max(((float)Size.X / ContentWidth) * Size.X, Size.X * 0.1f), _slider.Size.Y);
+            _slider.Size = new Vector2f((int)System.Math.Max(((float)TargetSize.X / ContentWidth) * TargetSize.X, TargetSize.X * 0.1f), _slider.Size.Y);
 
             if (_active == true)
             {
@@ -137,9 +137,9 @@ namespace HlyssUI.Components
             {
                 _slider.Position = new Vector2f(GlobalPosition.X, GlobalPosition.Y);
             }
-            if (_slider.Position.X + _slider.Size.X > GlobalPosition.X + Size.X)
+            if (_slider.Position.X + _slider.Size.X > GlobalPosition.X + TargetSize.X)
             {
-                _slider.Position = new Vector2f(GlobalPosition.X + Size.X - _slider.Size.X, GlobalPosition.Y);
+                _slider.Position = new Vector2f(GlobalPosition.X + TargetSize.X - _slider.Size.X, GlobalPosition.Y);
             }
         }
     }

@@ -1,9 +1,12 @@
 ﻿using HlyssUI.Components;
 using HlyssUI.Utils;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace HlyssUI.Layout
 {
-    public class Box : Component
+    public class Box : LayoutComponent
     {
         private LayoutType _layout = LayoutType.Relative;
 
@@ -16,54 +19,11 @@ namespace HlyssUI.Layout
             set
             {
                 _layout = value;
-                NeedsRefresh = true;
+                ScheduleRefresh();
             }
         }
 
-        public Box(GuiScene scene) : base(scene)
-        {
-            DisableClipping = true;
-        }
-
-        public override void Update()
-        {
-            base.Update();
-
-            foreach (var child in Children)
-            {
-                if (child.NeedsRefresh)
-                {
-                    this.ForceRefresh();
-                    Parent.ScheduleRefresh();
-                    break;
-                }
-            }
-        }
-
-        public override void OnRefresh()
-        {
-            refreshLayout();
-
-            Width = $"0px";
-            Height = $"0px";
-
-            int maxX = 0, maxY = 0;
-
-            foreach (var child in Children)
-            {
-                if (child.X + child.W + child.Mr + child.Ml > maxX)
-                    maxX = child.X + child.W + child.Mr + child.Ml;
-                if (child.Y + child.H + child.Mb + child.Mt > maxY)
-                    maxY = child.Y + child.H + child.Mb + child.Mt;
-            }
-
-            Width = $"{maxX + Pl + Pr}px";
-            Height = $"{maxY + Pt + Pb}px";
-
-            base.OnRefresh();
-        }
-
-        private void refreshLayout()
+        public override void RefreshLayout()
         {
             switch (Layout)
             {
@@ -83,6 +43,22 @@ namespace HlyssUI.Layout
                     Logger.Log("Box component does not support wrap layout type.");
                     break;
             }
+
+            int maxX = 0, maxY = 0;
+
+            foreach (var child in Children)
+            {
+                if (child.TransformChanged)
+                    child.UpdateLocalTransform();
+
+                if (child.X + child.W + child.Mr + child.Ml > maxX)
+                    maxX = child.X + child.W + child.Mr + child.Ml;
+                if (child.Y + child.H + child.Mb + child.Mt > maxY)
+                    maxY = child.Y + child.H + child.Mb + child.Mt;
+            }
+
+            Width = $"{maxX + Pl + Pr}px";
+            Height = $"{maxY + Pt + Pb}px";
         }
 
         private void row()
@@ -93,7 +69,7 @@ namespace HlyssUI.Layout
             {
                 child.Left = $"{x}px";
                 child.Top = "0px";
-                x += child.MarginSize.X;
+                x += child.Margins.Horizontal + child.TargetSize.X;
             }
         }
 
@@ -105,7 +81,7 @@ namespace HlyssUI.Layout
             {
                 child.Left = "0px";
                 child.Top = $"{y}px";
-                y += child.MarginSize.Y;
+                y += child.Margins.Vertical + child.TargetSize.Y;
             }
         }
 
@@ -117,7 +93,7 @@ namespace HlyssUI.Layout
             {
                 Children[i].Left = $"{x}px";
                 Children[i].Top = "0px";
-                x += Children[i].MarginSize.X;
+                x += Children[i].Margins.Horizontal + Children[i].TargetSize.X;
             }
         }
 
@@ -129,7 +105,7 @@ namespace HlyssUI.Layout
             {
                 Children[i].Left = "0px";
                 Children[i].Top = $"{y}px";
-                y += Children[i].MarginSize.Y;
+                y += Children[i].Margins.Vertical + Children[i].TargetSize.Y;
             }
         }
     }

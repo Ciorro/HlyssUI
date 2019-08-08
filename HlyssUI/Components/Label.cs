@@ -14,7 +14,7 @@ namespace HlyssUI.Components
             set
             {
                 _text.DisplayedString = value;
-                NeedsRefresh = true;
+                TransformChanged = true;
             }
         }
 
@@ -24,7 +24,7 @@ namespace HlyssUI.Components
             set
             {
                 _text.Font = value;
-                NeedsRefresh = true;
+                TransformChanged = true;
             }
         }
 
@@ -34,7 +34,7 @@ namespace HlyssUI.Components
             set
             {
                 _text.CharacterSize = value;
-                NeedsRefresh = true;
+                TransformChanged = true;
             }
         }
 
@@ -44,7 +44,7 @@ namespace HlyssUI.Components
             set
             {
                 _text.Style = value;
-                NeedsRefresh = true;
+                TransformChanged = true;
             }
         }
 
@@ -54,23 +54,24 @@ namespace HlyssUI.Components
             set
             {
                 _autosize = value;
-                NeedsRefresh = true;
+                TransformChanged = true;
             }
         }
 
         private bool _autosize = true;
-        private Text _text;
+        private Text _text = new Text();
 
-        public Label(GuiScene scene) : base(scene)
+        public Label(string text)
         {
-            _text = new Text(string.Empty, scene.Gui.DefaultFont, scene.Gui.DefaultCharacterSize);
-            updateSize();
+            Text = text;
         }
 
-        public Label(GuiScene scene, string text) : base(scene)
+        public override void OnAdded(Component parent)
         {
-            _text = new Text(string.Empty, scene.Gui.DefaultFont, scene.Gui.DefaultCharacterSize);
-            Text = text;
+            base.OnAdded(parent);
+
+            _text.Font = Gui.DefaultFont;
+            _text.CharacterSize = Gui.DefaultCharacterSize;
             updateSize();
         }
 
@@ -78,7 +79,7 @@ namespace HlyssUI.Components
         {
             base.Update();
 
-            if(Autosize && NeedsRefresh)
+            if(Autosize && TransformChanged)
             {
                 updateSize();
             }

@@ -17,7 +17,7 @@ namespace HlyssUI.Components
         public int ContentHeight;
         public Component Target = null;
 
-        public VScrollBar(GuiScene scene, int contentHeight) : base(scene)
+        public VScrollBar(int contentHeight)
         {
             this.ContentHeight = contentHeight;
 
@@ -27,7 +27,7 @@ namespace HlyssUI.Components
             _slider.Position = (Vector2f)GlobalPosition;
 
             Width = "15px";
-            Height = "200px";
+            Height = "100%";
         }
 
         public override void Draw(RenderTarget target)
@@ -40,10 +40,10 @@ namespace HlyssUI.Components
         {
             base.OnRefresh();
 
-            _background.Size = (Vector2f)Size;
+            _background.Size = (Vector2f)TargetSize;
             _background.Position = (Vector2f)GlobalPosition;
 
-            _slider.Size = new Vector2f(Size.X, _slider.Size.Y);
+            _slider.Size = new Vector2f(TargetSize.X, _slider.Size.Y);
 
             updateSlider();
             keepInbounds();
@@ -73,7 +73,7 @@ namespace HlyssUI.Components
 
             if ((Target == null && Hovered) || ((Target != null && Target.Bounds.Contains(mPos.X, mPos.Y)) || Hovered))
             {
-                _slider.Position += new Vector2f(0, (Size.Y / 50) * scroll * Speed) * -1;
+                _slider.Position += new Vector2f(0, (TargetSize.Y / 50) * scroll * Speed) * -1;
                 keepInbounds();
                 Percentage = getPercentageFromSliderPosition();
 
@@ -94,26 +94,26 @@ namespace HlyssUI.Components
 
         public float getPercentageFromSliderPosition()
         {
-            if (ContentHeight <= Size.Y)
+            if (ContentHeight <= TargetSize.Y)
             {
                 return 0;
             }
 
             float sliderPos = _slider.Position.Y - GlobalPosition.Y;
-            float mensurationWidth = Size.Y - _slider.Size.Y;
+            float mensurationWidth = TargetSize.Y - _slider.Size.Y;
 
             return sliderPos / mensurationWidth;
         }
 
         public void setSliderPosition(float percentage)
         {
-            float mensurationWidth = Size.Y - _slider.Size.Y;
+            float mensurationWidth = TargetSize.Y - _slider.Size.Y;
             _slider.Position = new Vector2f(GlobalPosition.X, GlobalPosition.Y + mensurationWidth * percentage);
         }
 
         private void updateSlider()
         {
-            _slider.Size = new Vector2f(_slider.Size.X, (int)System.Math.Max(((float)Size.Y / ContentHeight) * Size.Y, Size.Y * 0.1f));
+            _slider.Size = new Vector2f(_slider.Size.X, (int)System.Math.Max(((float)TargetSize.Y / ContentHeight) * TargetSize.Y, TargetSize.Y * 0.1f));
 
             if (_active == true)
             {
@@ -136,9 +136,9 @@ namespace HlyssUI.Components
             {
                 _slider.Position = new Vector2f(GlobalPosition.X, GlobalPosition.Y);
             }
-            if (_slider.Position.Y + _slider.Size.Y > GlobalPosition.Y + Size.Y)
+            if (_slider.Position.Y + _slider.Size.Y > GlobalPosition.Y + TargetSize.Y)
             {
-                _slider.Position = new Vector2f(GlobalPosition.X, GlobalPosition.Y + Size.Y - _slider.Size.Y);
+                _slider.Position = new Vector2f(GlobalPosition.X, GlobalPosition.Y + TargetSize.Y - _slider.Size.Y);
             }
         }
     }

@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Updaters\GlobalTransformUpdater.cs" />
+    <Compile Remove="Updaters\LocalTransformUpdater.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CSFML" Version="2.5.0" />
     <PackageReference Include="ini-parser" Version="2.5.2" />
     <PackageReference Include="SFML.Audio" Version="2.5.0" />

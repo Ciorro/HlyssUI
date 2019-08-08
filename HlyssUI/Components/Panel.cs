@@ -7,22 +7,14 @@ namespace HlyssUI.Components
 {
     public class Panel : Component
     {
-        private RoundedRectangle _body;
-
-        public Panel(GuiScene scene) : base(scene)
-        {
-            _body = new RoundedRectangle();
-            _body.FillColor = Style["Primary"];
-            _body.OutlineColor = Style["Secondary"];
-            _body.OutlineThickness = -1;
-        }
+        private RoundedRectangle _body = new RoundedRectangle();
 
         public override void OnRefresh()
         {
             base.OnRefresh();
           
             _body.Position = (Vector2f)GlobalPosition;
-            _body.Size = (Vector2f)Size;
+            _body.Size = (Vector2f)TargetSize;
         }
 
         public override void OnStyleChanged()
