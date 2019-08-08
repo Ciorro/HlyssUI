@@ -70,7 +70,11 @@ namespace HlyssUI.Components
 
         internal Vector2i GlobalPosition
         {
-            get { return (Parent != null) ? Parent.GlobalPosition + Position : Position; }
+            get
+            {
+                Vector2i parentPad = (Parent != null) ? Parent.Paddings.TopLeft : new Vector2i();
+                return (Parent != null) ? Parent.GlobalPosition + Position + parentPad + Margins.TopLeft : Position;
+            }
         }
 
         public Vector2i TargetPosition { get; internal set; } = new Vector2i();
@@ -414,10 +418,16 @@ namespace HlyssUI.Components
         #region Updating
         public virtual void Update()
         {
+            bool anyTransitionApplied = false;
+
             foreach (var controller in _controllers)
             {
-                controller.Update();
+                if (controller.Update())
+                    anyTransitionApplied = true;
             }
+
+            if(anyTransitionApplied)
+            OnRefresh();
 
             ClipArea.Update();
         }
@@ -575,7 +585,10 @@ namespace HlyssUI.Components
             TargetPosition = new Vector2i(X, Y);
             Margins = new Spacing(Ml, Mr, Mt, Mb);
             Paddings = new Spacing(Pl, Pr, Pt, Pb);
+        }
 
+        public void ApplyTransform()
+        {
             foreach (var controller in _controllers)
             {
                 controller.OnValueChanged();

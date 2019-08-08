@@ -17,7 +17,9 @@ namespace HlyssUI.Components
         public override void OnRefresh()
         {
             base.OnRefresh();
-          
+
+            //System.Console.WriteLine(GlobalPosition);
+
             _body.Position = (Vector2f)GlobalPosition;
             _body.Size = (Vector2f)Size;
         }

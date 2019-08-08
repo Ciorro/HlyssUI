@@ -22,6 +22,6 @@ namespace HlyssUI.Controllers
         }
 
         public abstract void OnValueChanged();
-        public abstract void Update();
+        public abstract bool Update();
     }
 }

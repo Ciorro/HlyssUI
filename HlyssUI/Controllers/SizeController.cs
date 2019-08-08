@@ -17,10 +17,10 @@ namespace HlyssUI.Controllers
             _from = component.Size;
         }
 
-        public override void Update()
+        public override bool Update()
         {
             if (tween.IsFinished)
-                return;
+                return false;
 
             tween.Update();
 
@@ -28,7 +28,10 @@ namespace HlyssUI.Controllers
             int height = (int)(_from.Y + (component.TargetSize.Y - _from.Y) * tween.Percentage);
 
             component.Size = new Vector2i(width, height);
-            component.OnRefresh();
+
+            if (component.Size != component.TargetSize)
+                return true;
+            return false;
         }
     }
 }

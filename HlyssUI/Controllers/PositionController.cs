@@ -17,10 +17,10 @@ namespace HlyssUI.Controllers
             _from = component.Position;
         }
 
-        public override void Update()
+        public override bool Update()
         {
             if (tween.IsFinished)
-                return;
+                return false;
 
             tween.Update();
 
@@ -30,7 +30,8 @@ namespace HlyssUI.Controllers
             component.Position = new Vector2i(x, y);
 
             if (component.Position != component.TargetPosition)
-                component.OnRefresh();
+                return true;
+            return false;
         }
     }
 }

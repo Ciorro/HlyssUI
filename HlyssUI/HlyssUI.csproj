@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Updaters\GlobalTransformUpdater.cs" />
     <Compile Remove="Updaters\LocalTransformUpdater.cs" />
   </ItemGroup>
 

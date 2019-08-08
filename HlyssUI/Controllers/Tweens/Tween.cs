@@ -9,7 +9,7 @@ namespace HlyssUI.Controllers.Tweens
         public FinishHandler OnFinish;
 
         public readonly string Name;
-        public float Speed { get; set; } = 2;
+        public float Speed { get; set; } = 25;
 
         protected float progress;
 

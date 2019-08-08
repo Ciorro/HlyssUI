@@ -23,6 +23,11 @@ namespace HlyssUI.Layout
             }
         }
 
+        public Box()
+        {
+            DisableClipping = true;
+        }
+
         public override void RefreshLayout()
         {
             switch (Layout)

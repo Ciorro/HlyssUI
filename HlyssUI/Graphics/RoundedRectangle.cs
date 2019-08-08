@@ -12,10 +12,10 @@ namespace HlyssUI.Graphics
 
         public uint Radius
         {
-            get { return _radius; }
+            get { return (uint)Math.Min(Math.Min(_size.X, _size.Y) / 2, _radius); }
             set
             {
-                _radius = (uint)Math.Min(Math.Min(_size.X, _size.Y) / 2, value);
+                _radius = value;
                 Update();
             }
         }

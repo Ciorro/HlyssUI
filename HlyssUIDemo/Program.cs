@@ -20,7 +20,7 @@ namespace HlyssUIDemo
             //window.SetFramerateLimit(300);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "light");
+            Theme.Load("theme.ini", "dark");
 
             Gui gui = new Gui(window);
             GuiScene scene = new GuiScene(gui);
@@ -70,14 +70,15 @@ namespace HlyssUIDemo
             panel1.Height = "25%";
             panel1.Left = "10%";
             panel1.Top = "200px";
+            panel1.Padding = "50px";
 
             Panel panel2 = new Panel();
             panel1.AddChild(panel2);
 
             panel2.Width = "50px";
             panel2.Height = "25px";
-            panel2.Left = "50%";
-            panel2.Top = "50%";
+            //panel2.MarginLeft = "50%";
+            //panel2.MarginTop = "50%";
         }
     }
 }
