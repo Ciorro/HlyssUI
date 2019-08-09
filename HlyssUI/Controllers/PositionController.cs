@@ -19,7 +19,7 @@ namespace HlyssUI.Controllers
 
         public override bool Update()
         {
-            if (tween.IsFinished)
+            if (!tween.IsRunning)
                 return false;
 
             tween.Update();
@@ -29,9 +29,7 @@ namespace HlyssUI.Controllers
 
             component.Position = new Vector2i(x, y);
 
-            if (component.Position != component.TargetPosition)
-                return true;
-            return false;
+            return tween.IsRunning;
         }
     }
 }

@@ -74,7 +74,7 @@ namespace HlyssUI.Layout
             {
                 child.Left = $"{x}px";
                 child.Top = "0px";
-                x += child.Margins.Horizontal + child.TargetSize.X;
+                x += child.TargetMargins.Horizontal + child.TargetSize.X;
             }
         }
 
@@ -86,7 +86,7 @@ namespace HlyssUI.Layout
             {
                 child.Left = "0px";
                 child.Top = $"{y}px";
-                y += child.Margins.Vertical + child.TargetSize.Y;
+                y += child.TargetMargins.Vertical + child.TargetSize.Y;
             }
         }
 
@@ -98,7 +98,7 @@ namespace HlyssUI.Layout
             {
                 Children[i].Left = $"{x}px";
                 Children[i].Top = "0px";
-                x += Children[i].Margins.Horizontal + Children[i].TargetSize.X;
+                x += Children[i].TargetMargins.Horizontal + Children[i].TargetSize.X;
             }
         }
 
@@ -110,7 +110,7 @@ namespace HlyssUI.Layout
             {
                 Children[i].Left = "0px";
                 Children[i].Top = $"{y}px";
-                y += Children[i].Margins.Vertical + Children[i].TargetSize.Y;
+                y += Children[i].TargetMargins.Vertical + Children[i].TargetSize.Y;
             }
         }
     }

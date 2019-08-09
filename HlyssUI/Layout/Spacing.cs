@@ -1,8 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Layout
 {
@@ -53,6 +51,23 @@ namespace HlyssUI.Layout
             Bottom = bottom;
         }
 
+        public static bool operator ==(Spacing s1, Spacing s2)
+        {
+            return s1.Left == s2.Left &&
+                   s1.Right == s2.Right &&
+                   s1.Top == s2.Top &&
+                   s1.Bottom == s2.Bottom;
+        }
+
+        public static bool operator !=(Spacing s1, Spacing s2)
+        {
+            return s1.Left != s2.Left ||
+                   s1.Right != s2.Right ||
+                   s1.Top != s2.Top ||
+                   s1.Bottom != s2.Bottom;
+        }
+
+        //TODO: Move Intersects method from Spacing class
         public static bool Intersects(IntRect r1, IntRect r2)
         {
             int r1MinX = Math.Min(r1.Left, r1.Left + r1.Width);

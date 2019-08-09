@@ -82,7 +82,9 @@ namespace HlyssUI.Components
         public Vector2i TargetSize { get; internal set; } = new Vector2i();
         public Vector2i Size { get; internal set; } = new Vector2i();
 
+        public Spacing TargetMargins { get; internal set; } = new Spacing();
         public Spacing Margins { get; internal set; } = new Spacing();
+        public Spacing TargetPaddings { get; internal set; } = new Spacing();
         public Spacing Paddings { get; internal set; } = new Spacing();
 
         public IntRect Bounds => new IntRect(GlobalPosition, Size);
@@ -294,7 +296,6 @@ namespace HlyssUI.Components
         {
             get
             {
-                //TODO: Move Intersects method from Spacing class
                 return Spacing.Intersects(Bounds, (Parent != null) ? Parent.Bounds : Scene.BaseNode.Bounds);
             }
         }
@@ -348,7 +349,9 @@ namespace HlyssUI.Components
 
             _controllers = new Controller[] {
                 new PositionController(this),
-                new SizeController(this)
+                new SizeController(this),
+                new MarginController(this),
+                new PaddingController(this)
             };
         }
 
@@ -583,8 +586,8 @@ namespace HlyssUI.Components
 
             TargetSize = new Vector2i(W, H);
             TargetPosition = new Vector2i(X, Y);
-            Margins = new Spacing(Ml, Mr, Mt, Mb);
-            Paddings = new Spacing(Pl, Pr, Pt, Pb);
+            TargetMargins = new Spacing(Ml, Mr, Mt, Mb);
+            TargetPaddings = new Spacing(Pl, Pr, Pt, Pb);
         }
 
         public void ApplyTransform()
