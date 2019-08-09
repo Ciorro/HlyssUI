@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Layout;
+using System.Collections.Generic;
 
 namespace HlyssUI.Components
 {
@@ -31,10 +32,16 @@ namespace HlyssUI.Components
             }
         }
 
+        public Component Content
+        {
+            get { return Children[0]; }
+            set { InsertChild(0, value); }
+        }
+
         public override void OnAdded(Component parent)
         {
             base.OnAdded(parent);
-            
+
             _hBar = new HScrollBar(400);
             _vBar = new VScrollBar(400);
             AddChild(_hBar);
@@ -43,7 +50,7 @@ namespace HlyssUI.Components
             _hBar.Target = this;
             _vBar.Target = this;
 
-            //ClipArea.OutlineThickness = -1;
+            ClipArea.OutlineThickness = 0;
         }
 
         public override void OnRefresh()
@@ -56,13 +63,10 @@ namespace HlyssUI.Components
 
         public override void RefreshLayout()
         {
-            if (Children.Count < 3)
-                return;
+            Children[0].UpdateLocalTransform();
 
-            Children[2].UpdateLocalTransform();
-
-            int maxX = Children[2].TargetSize.X;
-            int maxY = Children[2].TargetSize.Y;
+            int maxX = Children[0].TargetSize.X;
+            int maxY = Children[0].TargetSize.Y;
             
             _hBar.Visible = maxX > TargetSize.X && !_disableHScroll;
             _vBar.Visible = maxY > TargetSize.Y && !_disableVScroll;
@@ -72,8 +76,8 @@ namespace HlyssUI.Components
             int x = (int)((maxX - TargetSize.X) * _hBar.Percentage) * -1;
             int y = (int)((maxY - TargetSize.Y) * _vBar.Percentage) * -1;
 
-            Children[2].Left = $"{x}px";
-            Children[2].Top = $"{y}px";
+            Children[0].Left = $"{x}px";
+            Children[0].Top = $"{y}px";
         }
     }
 }
