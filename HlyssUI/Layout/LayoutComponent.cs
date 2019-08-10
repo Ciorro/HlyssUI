@@ -7,6 +7,7 @@ namespace HlyssUI.Layout
 {
     public abstract class LayoutComponent : Component
     {
+        public bool LayoutChanged;
         public abstract void RefreshLayout();
     }
 }

@@ -17,7 +17,6 @@ namespace HlyssUI.Controllers
         public override void OnValueChanged()
         {
             tween.Start();
-            Console.WriteLine(component.Margins);
             _from = component.Margins;
         }
 

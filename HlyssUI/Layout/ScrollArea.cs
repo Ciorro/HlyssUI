@@ -1,7 +1,6 @@
-﻿using HlyssUI.Layout;
-using System.Collections.Generic;
+﻿using HlyssUI.Components;
 
-namespace HlyssUI.Components
+namespace HlyssUI.Layout
 {
     public class ScrollArea : LayoutComponent
     {
@@ -50,7 +49,7 @@ namespace HlyssUI.Components
             _hBar.Target = this;
             _vBar.Target = this;
 
-            ClipArea.OutlineThickness = 0;
+            ClipArea.OutlineThickness = -1;
         }
 
         public override void OnRefresh()
@@ -67,7 +66,7 @@ namespace HlyssUI.Components
 
             int maxX = Children[0].TargetSize.X;
             int maxY = Children[0].TargetSize.Y;
-            
+
             _hBar.Visible = maxX > TargetSize.X && !_disableHScroll;
             _vBar.Visible = maxY > TargetSize.Y && !_disableVScroll;
             _hBar.ContentWidth = maxX;

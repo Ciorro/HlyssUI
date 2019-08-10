@@ -429,8 +429,8 @@ namespace HlyssUI.Components
                     anyTransitionApplied = true;
             }
 
-            if(anyTransitionApplied)
-            OnRefresh();
+            if(anyTransitionApplied && IsOnScreen)
+                OnRefresh();
 
             ClipArea.Update();
         }

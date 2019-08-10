@@ -4,7 +4,6 @@ using HlyssUI.Themes;
 using HlyssUI.Updaters;
 using SFML.System;
 using SFML.Window;
-using System.Diagnostics;
 
 namespace HlyssUI
 {
@@ -53,9 +52,7 @@ namespace HlyssUI
 
         public void Draw()
         {
-            //Stopwatch s = Stopwatch.StartNew();
             _renderer.Render(BaseNode);
-            //System.Console.WriteLine(s.Elapsed.TotalMilliseconds);
         }
 
         public void AddChild(Component component)

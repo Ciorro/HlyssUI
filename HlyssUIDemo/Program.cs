@@ -20,7 +20,7 @@ namespace HlyssUIDemo
             //window.SetFramerateLimit(300);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "dark");
+            Theme.Load("theme.ini", "light");
 
             Gui gui = new Gui(window);
             GuiScene scene = new GuiScene(gui);
@@ -79,6 +79,16 @@ namespace HlyssUIDemo
             panel2.Height = "200px";
             panel2.Margin = "20px";
             box.AddChild(panel2);
+
+            gui.Window.KeyPressed += (object sender, KeyEventArgs e) =>
+            {
+                if (e.Code == Keyboard.Key.Right)
+                    panel2.Width = $"{panel2.Size.X + 2}px";
+                else if (e.Code == Keyboard.Key.Left)
+                    panel2.Width = $"{panel2.Size.X - 2}px";
+                else if (e.Code == Keyboard.Key.C)
+                    Console.Clear();
+            };
         }
 
         private static void addComponents2(Gui gui)
@@ -109,15 +119,34 @@ namespace HlyssUIDemo
 
         private static void addComponents3(Gui gui)
         {
-            Box box = new Box();
-            gui.CurrentScene.AddChild(box);
-            box.Padding = "5px";
-            box.Layout = LayoutType.Row;
+            ScrollArea scrollArea = new ScrollArea();
+            scrollArea.Width = "200px";
+            scrollArea.Height = "200px";
+            gui.CurrentScene.AddChild(scrollArea);
 
-            Button button = new Button("Button");
-            box.AddChild(button);
-            button.ButtonAppearance = Button.ButtonStyle.Filled;
-            button.InsertChild(0, new Icon(HlyssUI.Utils.Icons.Windows));
+            CheckBox checkBox = new CheckBox($"CheckBox");
+            gui.CurrentScene.AddChild(checkBox);
+
+            Box box = new Box();
+            box.Padding = "5px";
+            box.Layout = LayoutType.Column;
+            scrollArea.Content = box;
+
+            for (int i = 0; i < 20; i++)
+            {
+                RadioButton radioButton = new RadioButton($"Radio button {i + 1}");
+                box.AddChild(radioButton);
+            }
+
+            ToggleSwitch toggleSwitch = new ToggleSwitch("ToggleSwitch");
+            gui.CurrentScene.AddChild(toggleSwitch);
+            toggleSwitch.Top = "100px";
+
+            scrollArea.Left = "50%";
+            scrollArea.Top = "50%";
+
+            HScrollBar h = new HScrollBar(4000);
+            gui.CurrentScene.AddChild(h);
         }
     }
 }
