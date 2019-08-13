@@ -103,12 +103,12 @@ namespace HlyssUI.Components
             switch (ButtonAppearance)
             {
                 case ButtonStyle.Filled:
-                    return Style["accent"];
+                    return Theme.GetColor("accent");
                 case ButtonStyle.Flat:
                 case ButtonStyle.Outline:
-                    return Style["primary"];
+                    return Theme.GetColor("primary");
                 default:
-                    return Style["primary"];
+                    return Theme.GetColor("primary");
             }
         }
     }

@@ -56,10 +56,10 @@ namespace HlyssUI.Layout
                 if (child.TransformChanged)
                     child.UpdateLocalTransform();
 
-                if (child.X + child.W + child.Mr + child.Ml > maxX)
-                    maxX = child.X + child.W + child.Mr + child.Ml;
-                if (child.Y + child.H + child.Mb + child.Mt > maxY)
-                    maxY = child.Y + child.H + child.Mb + child.Mt;
+                if (child.TargetPosition.X + child.TargetSize.X + child.TargetMargins.Horizontal > maxX)
+                    maxX = child.TargetPosition.X + child.TargetSize.X + child.TargetMargins.Horizontal;
+                if (child.TargetPosition.Y + child.TargetSize.Y + child.TargetMargins.Vertical > maxY)
+                    maxY = child.TargetPosition.Y + child.TargetSize.Y + child.TargetMargins.Vertical;
             }
 
             Width = $"{maxX + Pl + Pr}px";

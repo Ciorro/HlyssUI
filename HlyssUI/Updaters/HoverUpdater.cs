@@ -3,7 +3,6 @@ using SFML.System;
 
 namespace HlyssUI.Updaters
 {
-    //TODO: componet coverparent left entered bug
     class HoverUpdater
     {
         private Component _currentHover;

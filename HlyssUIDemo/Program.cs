@@ -31,7 +31,7 @@ namespace HlyssUIDemo
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
-            addComponents3(gui);
+            addComponents4(gui);
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -123,30 +123,60 @@ namespace HlyssUIDemo
             scrollArea.Width = "200px";
             scrollArea.Height = "200px";
             gui.CurrentScene.AddChild(scrollArea);
+            scrollArea.Name = "scroll area";
 
             CheckBox checkBox = new CheckBox($"CheckBox");
             gui.CurrentScene.AddChild(checkBox);
+            checkBox.Name = "checkbox";
 
             Box box = new Box();
             box.Padding = "5px";
             box.Layout = LayoutType.Column;
             scrollArea.Content = box;
+            box.Name = "box";
 
             for (int i = 0; i < 20; i++)
             {
                 RadioButton radioButton = new RadioButton($"Radio button {i + 1}");
                 box.AddChild(radioButton);
+                radioButton.Name = $"Radio button {i + 1}";
             }
 
             ToggleSwitch toggleSwitch = new ToggleSwitch("ToggleSwitch");
             gui.CurrentScene.AddChild(toggleSwitch);
             toggleSwitch.Top = "100px";
+            toggleSwitch.Name = "toggle";
 
             scrollArea.Left = "50%";
             scrollArea.Top = "50%";
 
             HScrollBar h = new HScrollBar(4000);
             gui.CurrentScene.AddChild(h);
+            h.Name = "h";
+        }
+
+        private static void addComponents4(Gui gui)
+        {
+            Container container = new Container();
+            gui.CurrentScene.AddChild(container);
+            container.Width = "100%";
+            container.Height = "100%";
+            container.Padding = "10px";
+            container.CenterContent = true;
+            container.Layout = LayoutType.Wrap;
+
+            Button button = new Button("Button");
+            container.AddChild(button);
+
+            ToggleSwitch toggle = new ToggleSwitch("Toggle Switch");
+            container.AddChild(toggle);
+            toggle.Margin = "50px";
+
+            TextArea textArea = new TextArea();
+            container.AddChild(textArea);
+            textArea.Text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset";
+            textArea.Width = "300px";
+            textArea.Height = "100px";
         }
     }
 }

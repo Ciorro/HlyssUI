@@ -16,10 +16,7 @@ namespace HlyssUI.Updaters
         {
             if(!isLayout && component.TransformChanged)
             {
-                if (component is LayoutComponent)
-                    (component as LayoutComponent).RefreshLayout();
                 component.UpdateLocalTransform();
-
                 _branchNeedsRefresh = true;
             }
 

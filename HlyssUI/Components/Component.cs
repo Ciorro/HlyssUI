@@ -429,10 +429,12 @@ namespace HlyssUI.Components
                     anyTransitionApplied = true;
             }
 
-            if(anyTransitionApplied && IsOnScreen)
+            if (anyTransitionApplied && IsOnScreen)
+            {
                 OnRefresh();
 
-            ClipArea.Update();
+                ClipArea.Update();
+            }
         }
 
         public void ScheduleRefresh()
@@ -582,6 +584,9 @@ namespace HlyssUI.Components
 
         internal void UpdateLocalTransform()
         {
+            if (!TransformChanged)
+                return;
+
             Logger.Log($"{this} updated transform.", Gui.Debug);
 
             TargetSize = new Vector2i(W, H);

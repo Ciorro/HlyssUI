@@ -69,7 +69,7 @@ namespace HlyssUI.Components
             base.OnRefresh();
 
             createLines();
-            //updateLettersStyle();
+            updateLettersStyle();
             placeLines();
 
             foreach (var line in _lines)
