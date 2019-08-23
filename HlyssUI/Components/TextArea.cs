@@ -65,11 +65,9 @@ namespace HlyssUI.Components
 
         public override void OnRefresh()
         {
-            //TODO: Improve performance
             base.OnRefresh();
 
             createLines();
-            updateLettersStyle();
             placeLines();
 
             foreach (var line in _lines)
@@ -95,19 +93,21 @@ namespace HlyssUI.Components
             }
         }
 
+        public override void OnStyleChanged()
+        {
+            base.OnStyleChanged();
+
+            foreach (var letter in _letters)
+            {
+                letter.Color = Style["text"];
+            }
+        }
+
         public override void Draw(RenderTarget target)
         {
             foreach (var letter in _letters)
             {
                 letter.Draw();
-            }
-        }
-
-        private void updateLettersStyle()
-        {
-            foreach (var letter in _letters)
-            {
-                letter.Color = Style["text"];
             }
         }
 

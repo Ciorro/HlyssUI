@@ -96,8 +96,8 @@ namespace HlyssUI.Components
         internal int Y => StringDimensionsConverter.Convert(_positionY, (Parent != null) ? Parent.TargetSize.Y : 0);
 
         //Size
-        internal int W => StringDimensionsConverter.Convert(_width, (Parent != null) ? Parent.TargetSize.X - Parent.Pl - Parent.Pr : 0);
-        internal int H => StringDimensionsConverter.Convert(_height, (Parent != null) ? Parent.TargetSize.Y - Parent.Pt - Parent.Pb : 0);
+        internal int W => StringDimensionsConverter.Convert(_width, (Parent != null) ? Parent.TargetSize.X : 0);
+        internal int H => StringDimensionsConverter.Convert(_height, (Parent != null) ? Parent.TargetSize.Y : 0);
 
         //Margin
         internal int Ml => StringDimensionsConverter.Convert(_marginLeft, (Parent != null) ? Parent.TargetSize.X : 0);
@@ -118,11 +118,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _positionX = value;
-                    TransformChanged = true;
-                }
+                _positionX = value;
+                TransformChanged = true;
             }
         }
 
@@ -130,11 +127,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _positionY = value;
-                    TransformChanged = true;
-                }
+                _positionY = value;
+                TransformChanged = true;
             }
         }
 
@@ -142,11 +136,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _width = value;
-                    TransformChanged = true;
-                }
+                _width = value;
+                TransformChanged = true;
             }
         }
 
@@ -154,11 +145,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _height = value;
-                    TransformChanged = true;
-                }
+                _height = value;
+                TransformChanged = true;
             }
         }
 
@@ -166,11 +154,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _marginLeft = value;
-                    TransformChanged = true;
-                }
+                _marginLeft = value;
+                TransformChanged = true;
             }
         }
 
@@ -178,11 +163,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _marginRight = value;
-                    TransformChanged = true;
-                }
+                _marginRight = value;
+                TransformChanged = true;
             }
         }
 
@@ -190,11 +172,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _marginTop = value;
-                    TransformChanged = true;
-                }
+                _marginTop = value;
+                TransformChanged = true;
             }
         }
 
@@ -202,11 +181,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _marginBottom = value;
-                    TransformChanged = true;
-                }
+                _marginBottom = value;
+                TransformChanged = true;
             }
         }
 
@@ -214,14 +190,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _marginLeft = value;
-                    _marginRight = value;
-                    _marginTop = value;
-                    _marginBottom = value;
-                    TransformChanged = true;
-                }
+                _marginLeft = value;
+                _marginRight = value;
+                _marginTop = value;
+                _marginBottom = value;
+                TransformChanged = true;
             }
         }
 
@@ -229,11 +202,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _paddingLeft = value;
-                    TransformChanged = true;
-                }
+                _paddingLeft = value;
+                TransformChanged = true;
             }
         }
 
@@ -241,11 +211,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _paddingRight = value;
-                    TransformChanged = true;
-                }
+                _paddingRight = value;
+                TransformChanged = true;
             }
         }
 
@@ -253,11 +220,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _paddingTop = value;
-                    TransformChanged = true;
-                }
+                _paddingTop = value;
+                TransformChanged = true;
             }
         }
 
@@ -265,11 +229,8 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _paddingBottom = value;
-                    TransformChanged = true;
-                }
+                _paddingBottom = value;
+                TransformChanged = true;
             }
         }
 
@@ -277,20 +238,28 @@ namespace HlyssUI.Components
         {
             set
             {
-                if (StringDimensionsConverter.DimRegex.IsMatch(value))
-                {
-                    _paddingLeft = value;
-                    _paddingRight = value;
-                    _paddingTop = value;
-                    _paddingBottom = value;
-                    TransformChanged = true;
-                }
+                _paddingLeft = value;
+                _paddingRight = value;
+                _paddingTop = value;
+                _paddingBottom = value;
+                TransformChanged = true;
             }
         }
         #endregion
 
         public Style Style = new Style();
         public ClipArea ClipArea { get; private set; }
+
+        public string Transition
+        {
+            set
+            {
+                foreach (var controller in _controllers)
+                {
+                    controller.TweenType = value;
+                }
+            }
+        }
 
         public bool IsOnScreen
         {
@@ -307,11 +276,8 @@ namespace HlyssUI.Components
             {
                 _transformChanged = value;
 
-                foreach (var child in Children)
-                {
-                    if (value)
-                        child.TransformChanged = value;
-                }
+                if (Parent != null)
+                    Parent.ScheduleRefresh();
             }
         }
 
@@ -338,6 +304,11 @@ namespace HlyssUI.Components
         public bool IsPressed { get; private set; }
         public bool DisableClipping { get; set; }
         public bool CascadeStyle { get; set; }
+        public bool CenterContent { get; set; }
+        public bool Autosize { get; set; }
+        public bool Reversed { get; set; }
+
+        public LayoutType Layout = LayoutType.Row;
 
         public string Name { get; set; } = Guid.NewGuid().ToString();
         public Gui Gui { get; set; }
@@ -353,6 +324,9 @@ namespace HlyssUI.Components
                 new MarginController(this),
                 new PaddingController(this)
             };
+
+            TransformChanged = true;
+            StyleChanged = true;
         }
 
         #region Children management
@@ -432,7 +406,6 @@ namespace HlyssUI.Components
             if (anyTransitionApplied && IsOnScreen)
             {
                 OnRefresh();
-
                 ClipArea.Update();
             }
         }
@@ -445,6 +418,54 @@ namespace HlyssUI.Components
         public void ForceRefresh()
         {
             OnRefresh();
+        }
+        #endregion
+
+        #region Updating Transform
+
+        internal void UpdateLocalTransform()
+        {
+            UpdateLocalPosition();
+            UpdateLocalSize();
+            UpdateLocalSpacing();
+        }
+
+        internal void UpdateLocalPosition()
+        {
+            //if (!TransformChanged)
+            //return;
+            TargetPosition = new Vector2i(X, Y);
+            Logger.Log($"{this} updated position {TargetPosition}", Gui.Debug);
+        }
+
+        internal void UpdateLocalSize()
+        {
+            //if (!TransformChanged)
+                //return;
+
+            TargetSize = new Vector2i(W, H);
+            Logger.Log($"{this} updated size {TargetSize}", Gui.Debug);
+        }
+
+        internal void UpdateLocalSpacing()
+        {
+            //if (!TransformChanged)
+                //return;
+
+            TargetMargins = new Spacing(Ml, Mr, Mt, Mb);
+            TargetPaddings = new Spacing(Pl, Pr, Pt, Pb);
+
+            Logger.Log($"{this} updated margins {TargetMargins} and paddings {TargetPaddings}", Gui.Debug);
+        }
+
+        public void ApplyTransform()
+        {
+            foreach (var controller in _controllers)
+            {
+                controller.OnValueChanged();
+            }
+
+            TransformChanged = false;
         }
         #endregion
 
@@ -539,7 +560,7 @@ namespace HlyssUI.Components
 
         public virtual void OnRefresh()
         {
-            Logger.Log($"{this} refreshed", Gui.Debug);
+            //Logger.Log($"{this} refreshed", Gui.Debug);
         }
 
         public virtual void OnStyleChanged()
@@ -580,29 +601,6 @@ namespace HlyssUI.Components
         public string ToString(bool showFullNames)
         {
             return $"[name: {((Name.Length > 10 && !showFullNames) ? Name.Substring(0, 10) + "..." : Name)}, type: {GetType()}]";
-        }
-
-        internal void UpdateLocalTransform()
-        {
-            if (!TransformChanged)
-                return;
-
-            Logger.Log($"{this} updated transform.", Gui.Debug);
-
-            TargetSize = new Vector2i(W, H);
-            TargetPosition = new Vector2i(X, Y);
-            TargetMargins = new Spacing(Ml, Mr, Mt, Mb);
-            TargetPaddings = new Spacing(Pl, Pr, Pt, Pb);
-        }
-
-        public void ApplyTransform()
-        {
-            foreach (var controller in _controllers)
-            {
-                controller.OnValueChanged();
-            }
-
-            TransformChanged = false;
         }
     }
 }

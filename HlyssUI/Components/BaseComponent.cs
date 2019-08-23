@@ -6,7 +6,7 @@ using System.Text;
 
 namespace HlyssUI.Components
 {
-    class BaseComponent : LayoutComponent
+    class BaseComponent : Component
     {
         private const int DEFAULT_APP_MARGIN = 0;
 
@@ -29,11 +29,6 @@ namespace HlyssUI.Components
 
             UpdateLocalTransform();
             DisableClipping = true;
-        }
-
-        public override void RefreshLayout()
-        {
-            
         }
     }
 }

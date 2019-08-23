@@ -8,7 +8,7 @@ namespace HlyssUI.Controllers
 {
     class PaddingController : Controller
     {
-        private Spacing _from;
+        private Spacing _from = new Spacing();
 
         public PaddingController(Component component) : base(component)
         {
@@ -22,9 +22,6 @@ namespace HlyssUI.Controllers
 
         public override bool Update()
         {
-            if (!tween.IsRunning)
-                return false;
-
             tween.Update();
 
             int left = (int)(_from.Left + (component.TargetPaddings.Left - _from.Left) * tween.Percentage);

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace HlyssUI.Components
 {
-    public class Card : Box
+    public class Card : Component
     {
         private RoundedRectangle _body;
 
@@ -18,6 +18,8 @@ namespace HlyssUI.Components
             _body.FillColor = Style["Primary"];
             _body.OutlineColor = Style["Secondary"];
             _body.OutlineThickness = -1;
+
+            Autosize = true;
         }
 
         public override void OnRefresh()

@@ -2,6 +2,7 @@
 using HlyssUI.Graphics;
 using HlyssUI.Themes;
 using HlyssUI.Updaters;
+using HlyssUI.Utils;
 using SFML.System;
 using SFML.Window;
 
@@ -18,7 +19,6 @@ namespace HlyssUI
         private StyleUpdater _styleUpdater = new StyleUpdater();
         private ComponentUpdater _componentUpdater = new ComponentUpdater();
         private LayoutUpdater _layoutUpdater = new LayoutUpdater();
-        private GlobalTransformUpdater _transformUpdater = new GlobalTransformUpdater();
 
         public GuiScene(Gui gui)
         {
@@ -44,9 +44,9 @@ namespace HlyssUI
 
         public void Update()
         {
+            Logger.Log("-----------------------------------------------------------", Gui.Debug);
             _componentUpdater.Update(BaseNode);
             _layoutUpdater.Update(BaseNode);
-            _transformUpdater.Update(BaseNode);
             _styleUpdater.Update(BaseNode);
         }
 

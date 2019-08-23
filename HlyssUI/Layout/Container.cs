@@ -63,6 +63,8 @@ namespace HlyssUI.Layout
 
             foreach (var child in Children)
             {
+                child.UpdateLocalTransform();
+
                 child.Left = $"{x}px";
                 child.Top = "0px";
                 x += child.TargetMargins.Horizontal + child.TargetSize.X;
@@ -80,6 +82,8 @@ namespace HlyssUI.Layout
 
             foreach (var child in Children)
             {
+                child.UpdateLocalTransform();
+
                 child.Left = "0px";
                 child.Top = $"{y}px";
                 y += child.TargetMargins.Vertical + child.TargetSize.Y;
@@ -97,6 +101,8 @@ namespace HlyssUI.Layout
 
             foreach (var child in Children)
             {
+                child.UpdateLocalTransform();
+
                 x -= child.TargetMargins.Horizontal + child.TargetSize.X;
                 child.Left = $"{x}px";
                 child.Top = "0px";
@@ -114,6 +120,8 @@ namespace HlyssUI.Layout
 
             foreach (var child in Children)
             {
+                child.UpdateLocalTransform();
+
                 y -= child.TargetMargins.Vertical + child.TargetSize.Y;
                 child.Left = "0px";
                 child.Top = $"{y}px";
@@ -132,6 +140,8 @@ namespace HlyssUI.Layout
 
             foreach (var child in Children)
             {
+                child.UpdateLocalTransform();
+
                 if(x + child.TargetSize.X + child.TargetMargins.Horizontal > TargetSize.X - TargetPaddings.Horizontal)
                 {
                     y += maxY;

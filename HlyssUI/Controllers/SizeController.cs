@@ -5,7 +5,7 @@ namespace HlyssUI.Controllers
 {
     class SizeController : Controller
     {
-        private Vector2i _from;
+        private Vector2i _from = new Vector2i();
 
         public SizeController(Component component) : base(component)
         {
@@ -19,9 +19,6 @@ namespace HlyssUI.Controllers
 
         public override bool Update()
         {
-            if (!tween.IsRunning)
-                return false;
-
             tween.Update();
 
             int width = (int)(_from.X + (component.TargetSize.X - _from.X) * tween.Percentage);

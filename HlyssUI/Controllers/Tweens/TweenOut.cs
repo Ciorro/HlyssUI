@@ -19,7 +19,7 @@ namespace HlyssUI.Controllers.Tweens
                 Finish();
                 return;
             }
-
+         
             offset *= DeltaTime.Current * Speed;
             progress += offset;
         }

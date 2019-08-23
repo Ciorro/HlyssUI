@@ -1,37 +1,42 @@
 ﻿using HlyssUI.Components;
 using HlyssUI.Layout;
+using HlyssUI.Layout.LayoutControllers;
 
 namespace HlyssUI.Updaters
 {
     class LayoutUpdater
     {
-        private bool _branchNeedsRefresh = false;
-
         public void Update(Component component)
         {
-            updateBranch(component, component is LayoutComponent);
+            Compose(component);
+            Refresh(component);
         }
 
-        private void updateBranch(Component component, bool isLayout)
+        private void Compose(Component component)
         {
-            if(!isLayout && component.TransformChanged)
-            {
-                component.UpdateLocalTransform();
-                _branchNeedsRefresh = true;
-            }
+            component.UpdateLocalSize();
+            component.UpdateLocalSpacing();
 
             foreach (var child in component.Children)
             {
-                updateBranch(child, child is LayoutComponent);
+                Compose(child);
             }
 
-            if (isLayout && (component.TransformChanged || _branchNeedsRefresh))
-            {
-                _branchNeedsRefresh = false;
+            LayoutController layout = LayoutResolver.GetLayout(component.Layout);
 
-                if (component is LayoutComponent)
-                    (component as LayoutComponent).RefreshLayout();
-                component.UpdateLocalTransform();
+            System.Console.WriteLine(layout);
+
+            layout.ApplyLayout(component);
+            layout.ApplyAutosize(component);
+        }
+
+        private void Refresh(Component component)
+        {
+            component.ApplyTransform();
+
+            foreach (var child in component.Children)
+            {
+                Refresh(child);
             }
         }
     }
