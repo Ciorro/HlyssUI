@@ -15,9 +15,6 @@ namespace HlyssUI.Controllers
         {
             tween.Start();
             _from = component.Size;
-
-            if(component.Name == "panel6")
-            System.Console.WriteLine(_from);
         }
 
         public override bool Update()

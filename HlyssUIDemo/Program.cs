@@ -28,8 +28,6 @@ namespace HlyssUIDemo
             GuiScene scene = new GuiScene(gui);
             gui.PushScene(scene);
 
-            gui.DefaultCharacterSize = 14;
-
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
@@ -143,6 +141,11 @@ namespace HlyssUIDemo
                 else if (e.Code == Keyboard.Key.C)
                     Console.Clear();
             };
+
+            ScrollArea scrollArea = new ScrollArea();
+            scrollArea.Width = "200px";
+            scrollArea.Height = "200px";
+            gui.CurrentScene.AddChild(scrollArea);
         }
 
         public static void addComponents2(Gui gui)
@@ -157,8 +160,17 @@ namespace HlyssUIDemo
                 PictureBox pictureBox = new PictureBox(texture);
                 pictureBox.Width = "100px";
                 pictureBox.Height = "100px";
+                pictureBox.Margin = "1px";
 
                 gui.CurrentScene.Root.AddChild(pictureBox);
+
+                Icon icon = new Icon(Icons.Heart);
+                icon.Margin = "5px";
+                icon.Style["text"] = Color.White;
+                icon.Style.CharacterSize = 18;
+
+                pictureBox.AddChild(icon);
+                pictureBox.Reversed = true;
             }
         }
 

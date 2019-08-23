@@ -11,7 +11,6 @@ namespace HlyssUI
     {
         public RenderWindow Window { get; private set; }
         public Font DefaultFont { get; private set; } = Fonts.MontserratRegular;
-        public uint DefaultCharacterSize = 14;
         public float Scale = 1f;
         public bool Debug = false;
 

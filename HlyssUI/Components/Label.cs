@@ -38,7 +38,7 @@ namespace HlyssUI.Components
             }
         }
 
-        public Text.Styles Style
+        public Text.Styles TextStyle
         {
             get { return _text.Style; }
             set
@@ -60,7 +60,7 @@ namespace HlyssUI.Components
             base.OnAdded(parent);
 
             _text.Font = Gui.DefaultFont;
-            _text.CharacterSize = Gui.DefaultCharacterSize;
+            _text.CharacterSize = Style.CharacterSize;
             updateSize();
         }
 

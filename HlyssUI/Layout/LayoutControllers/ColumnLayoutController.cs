@@ -12,7 +12,7 @@ namespace HlyssUI.Layout.LayoutControllers
 
         public override void ApplyLayout(Component component)
         {
-            if (!component.Reversed)
+            if (!component.ReversedVertical)
                 Apply(component);
             else
                 ApplyReversed(component);

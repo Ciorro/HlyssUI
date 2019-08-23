@@ -60,7 +60,7 @@ namespace HlyssUI.Components
             base.OnAdded(parent);
 
             AddChild(_label);
-            _label.CharacterSize = Gui.DefaultCharacterSize;
+            _label.CharacterSize = Style.CharacterSize;
             _label.Font = Fonts.MontserratMedium;
 
             CascadeStyle = true;

@@ -11,6 +11,7 @@ namespace HlyssUI.Themes
 
         public uint BorderRadius { get; set; } = Theme.BorderRadius;
         public uint BorderThickness { get; set; } = Theme.BorderThickness;
+        public uint CharacterSize { get; set; } = Theme.CharacterSize;
 
         public bool NeedsRefresh { get; set; } = true;
 

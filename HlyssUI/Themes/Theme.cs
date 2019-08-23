@@ -13,6 +13,7 @@ namespace HlyssUI.Themes
 
         public static uint BorderThickness = 1;
         public static uint BorderRadius = 3;
+        public static uint CharacterSize = 14;
 
         public static string Name { get; private set; }
 

@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Layout;
+using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
 using System.Collections.Generic;
@@ -60,7 +61,7 @@ namespace HlyssUI.Components
         public override void OnAdded(Component parent)
         {
             base.OnAdded(parent);
-            CharacterSize = Gui.DefaultCharacterSize;
+            CharacterSize = Style.CharacterSize;
         }
 
         public override void OnRefresh()
@@ -233,7 +234,7 @@ namespace HlyssUI.Components
         public Letter(char character, Gui gui)
         {
             _gui = gui;
-            _letter = new Text(character.ToString(), gui.DefaultFont, gui.DefaultCharacterSize);
+            _letter = new Text(character.ToString(), gui.DefaultFont, Theme.CharacterSize);
             //Color = Style["text"];
         }
 

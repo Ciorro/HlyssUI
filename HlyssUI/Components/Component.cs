@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 namespace HlyssUI.Components
 {
-    public abstract class Component
+    public class Component
     {
         #region Events
         public delegate void AddedHandler(object sender);
@@ -303,7 +303,17 @@ namespace HlyssUI.Components
         public bool CascadeStyle { get; set; }
         public bool CenterContent { get; set; }
         public bool Autosize { get; set; }
-        public bool Reversed { get; set; }
+        public bool ReversedHorizontal { get; set; }
+        public bool ReversedVertical { get; set; }
+
+        public bool Reversed
+        {
+            set
+            {
+                ReversedHorizontal = value;
+                ReversedVertical = value;
+            }
+        }
 
         public LayoutType Layout = LayoutType.Row;
 
@@ -389,7 +399,7 @@ namespace HlyssUI.Components
             {
                 if (child.Name == name)
                     return child;
-                
+
                 Component component = FindChild(name, child);
 
                 if (component != null)
@@ -457,7 +467,7 @@ namespace HlyssUI.Components
         internal void UpdateLocalSize()
         {
             //if (!TransformChanged)
-                //return;
+            //return;
 
             TargetSize = new Vector2i(W, H);
             Logger.Log($"{this} updated size {TargetSize}", Gui.Debug);
@@ -466,7 +476,7 @@ namespace HlyssUI.Components
         internal void UpdateLocalSpacing()
         {
             //if (!TransformChanged)
-                //return;
+            //return;
 
             TargetMargins = new Spacing(Ml, Mr, Mt, Mb);
             TargetPaddings = new Spacing(Pl, Pr, Pt, Pb);

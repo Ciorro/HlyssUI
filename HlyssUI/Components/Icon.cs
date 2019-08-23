@@ -22,7 +22,7 @@ namespace HlyssUI.Components
         {
             base.OnAdded(parent);
 
-            _iconTxt = new Text(((char)_icon).ToString(), _iconFont, Gui.DefaultCharacterSize);
+            _iconTxt = new Text(((char)_icon).ToString(), _iconFont, Style.CharacterSize);
             updateSize();
         }
 
