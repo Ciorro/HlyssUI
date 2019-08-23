@@ -48,8 +48,6 @@ namespace HlyssUI.Components
             }
         }
 
-
-        private bool _autosize = true;
         private Text _text = new Text();
 
         public Label(string text)

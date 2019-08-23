@@ -26,8 +26,9 @@ namespace HlyssUI.Controllers.Tweens
 
         public Tween(string name) => Name = name;
 
+        public abstract Tween Get();
         public abstract void Update();
-        
+
         public virtual void Start()
         {
             IsRunning = true;

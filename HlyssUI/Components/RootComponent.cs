@@ -6,7 +6,7 @@ using System.Text;
 
 namespace HlyssUI.Components
 {
-    class BaseComponent : Component
+    class RootComponent : Component
     {
         private const int DEFAULT_APP_MARGIN = 0;
 

@@ -22,14 +22,17 @@ namespace HlyssUI.Controllers
 
         public override bool Update()
         {
-            tween.Update();
+            if (tween.IsRunning)
+            {
+                tween.Update();
 
-            int left = (int)(_from.Left + (component.TargetMargins.Left - _from.Left) * tween.Percentage);
-            int right = (int)(_from.Right + (component.TargetMargins.Right - _from.Right) * tween.Percentage);
-            int top = (int)(_from.Top + (component.TargetMargins.Top - _from.Top) * tween.Percentage);
-            int bottom = (int)(_from.Bottom + (component.TargetMargins.Bottom - _from.Bottom) * tween.Percentage);
+                int left = (int)(_from.Left + (component.TargetMargins.Left - _from.Left) * tween.Percentage);
+                int right = (int)(_from.Right + (component.TargetMargins.Right - _from.Right) * tween.Percentage);
+                int top = (int)(_from.Top + (component.TargetMargins.Top - _from.Top) * tween.Percentage);
+                int bottom = (int)(_from.Bottom + (component.TargetMargins.Bottom - _from.Bottom) * tween.Percentage);
 
-            component.Margins = new Spacing(left, right, top, bottom);
+                component.Margins = new Spacing(left, right, top, bottom);
+            }
 
             return tween.IsRunning;
         }

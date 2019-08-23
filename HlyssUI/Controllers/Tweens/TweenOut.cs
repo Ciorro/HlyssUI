@@ -9,6 +9,11 @@ namespace HlyssUI.Controllers.Tweens
     {
         public TweenOut() : base("out") { }
 
+        public override Tween Get()
+        {
+            return new TweenOut();
+        }
+
         public override void Update()
         {
             float offset = Math.Abs(100 - progress);

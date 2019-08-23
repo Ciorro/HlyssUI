@@ -33,7 +33,7 @@ namespace HlyssUIDemo
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
-            addComponents2(gui);
+            addComponents3(gui);
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -147,17 +147,40 @@ namespace HlyssUIDemo
 
         public static void addComponents2(Gui gui)
         {
-            gui.CurrentScene.BaseNode.Layout = LayoutType.Wrap;
+            gui.CurrentScene.Root.Layout = LayoutType.Wrap;
             gui.CurrentScene.AddChild(new HScrollBar(4000));
 
             Texture texture = new Texture("img.jpg");
 
-            for (int i = 0; i < 400; i++)
+            for (int i = 0; i < 100; i++)
             {
-                RadioButton radio = new RadioButton("Udostępnij");
-                gui.CurrentScene.AddChild(radio);
-                radio.Margin = "1px";
+                PictureBox pictureBox = new PictureBox(texture);
+                pictureBox.Width = "100px";
+                pictureBox.Height = "100px";
+
+                gui.CurrentScene.Root.AddChild(pictureBox);
             }
+        }
+
+        public static void addComponents3(Gui gui)
+        {
+            gui.CurrentScene.Root.Layout = LayoutType.Wrap;
+            gui.CurrentScene.Root.Padding = "20px";
+
+            Button button = new Button("Zmień rozmiar ");
+            gui.CurrentScene.AddChild(button);
+            button.AddChild(new Icon(Icons.Arrows));
+            button.MarginRight = "20px";
+            button.Clicked += (object sender) => {
+
+                Panel panel = gui.CurrentScene.Root.FindChild("panel6") as Panel;
+
+                panel.Transition = "out";
+                panel.Width = $"{panel.TargetSize.X + 50}px";
+            };
+
+            addComponents1(gui);
+            addComponents2(gui);
         }
     }
 }

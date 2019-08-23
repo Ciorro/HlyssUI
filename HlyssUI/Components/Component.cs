@@ -265,7 +265,7 @@ namespace HlyssUI.Components
         {
             get
             {
-                return Spacing.Intersects(Bounds, (Parent != null) ? Parent.Bounds : Scene.BaseNode.Bounds);
+                return Spacing.Intersects(Bounds, (Parent != null) ? Parent.Bounds : Scene.Root.Bounds);
             }
         }
 
@@ -378,6 +378,25 @@ namespace HlyssUI.Components
                 index = Children.Count;
 
             Children.Insert(index, component);
+        }
+
+        public Component FindChild(string name, Component root = null)
+        {
+            if (root == null)
+                root = this;
+
+            foreach (var child in root.Children)
+            {
+                if (child.Name == name)
+                    return child;
+                
+                Component component = FindChild(name, child);
+
+                if (component != null)
+                    return component;
+            }
+
+            return null;
         }
 
         #endregion

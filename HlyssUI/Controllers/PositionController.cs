@@ -19,12 +19,15 @@ namespace HlyssUI.Controllers
 
         public override bool Update()
         {
-            tween.Update();
+            if (tween.IsRunning)
+            {
+                tween.Update();
 
-            int x = (int)(_from.X + (component.TargetPosition.X - _from.X) * tween.Percentage);
-            int y = (int)(_from.Y + (component.TargetPosition.Y - _from.Y) * tween.Percentage);
+                int x = (int)(_from.X + (component.TargetPosition.X - _from.X) * tween.Percentage);
+                int y = (int)(_from.Y + (component.TargetPosition.Y - _from.Y) * tween.Percentage);
 
-            component.Position = new Vector2i(x, y);
+                component.Position = new Vector2i(x, y);
+            }
 
             return tween.IsRunning;
         }

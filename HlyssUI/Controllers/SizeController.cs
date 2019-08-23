@@ -15,16 +15,22 @@ namespace HlyssUI.Controllers
         {
             tween.Start();
             _from = component.Size;
+
+            if(component.Name == "panel6")
+            System.Console.WriteLine(_from);
         }
 
         public override bool Update()
         {
-            tween.Update();
+            if (tween.IsRunning)
+            {
+                tween.Update();
 
-            int width = (int)(_from.X + (component.TargetSize.X - _from.X) * tween.Percentage);
-            int height = (int)(_from.Y + (component.TargetSize.Y - _from.Y) * tween.Percentage);
+                int width = (int)(_from.X + (component.TargetSize.X - _from.X) * tween.Percentage);
+                int height = (int)(_from.Y + (component.TargetSize.Y - _from.Y) * tween.Percentage);
 
-            component.Size = new Vector2i(width, height);
+                component.Size = new Vector2i(width, height);
+            }
 
             return tween.IsRunning;
         }

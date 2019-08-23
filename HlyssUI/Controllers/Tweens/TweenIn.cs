@@ -9,6 +9,11 @@ namespace HlyssUI.Controllers.Tweens
     {
         public TweenIn() : base("in") { }
 
+        public override Tween Get()
+        {
+            return new TweenIn();
+        }
+
         public override void Update()
         {
             //TODO: Implements transition in

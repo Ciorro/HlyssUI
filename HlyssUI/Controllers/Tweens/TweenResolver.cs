@@ -18,7 +18,7 @@ namespace HlyssUI.Controllers.Tweens
             foreach (var tween in _tweens)
             {
                 if (tween.Name == name)
-                    return tween;
+                    return tween.Get();
             }
 
             return null;
