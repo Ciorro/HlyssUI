@@ -2,6 +2,6 @@
 {
     public enum LayoutType
     {
-        Column, Row, Wrap, Relative
+        Column, Row, Wrap, Relative, Scroll
     }
 }

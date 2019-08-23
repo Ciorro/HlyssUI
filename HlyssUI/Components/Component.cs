@@ -87,6 +87,8 @@ namespace HlyssUI.Components
         public Spacing TargetPaddings { get; internal set; } = new Spacing();
         public Spacing Paddings { get; internal set; } = new Spacing();
 
+        public Vector2i ScrollOffset { get; set; }
+
         public IntRect Bounds => new IntRect(GlobalPosition, Size);
 
         #region Transform getters

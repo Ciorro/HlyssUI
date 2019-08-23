@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Layout;
+using SFML.System;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,21 @@ namespace HlyssUI.Components
         private VScrollBar _vScroll;
         private HScrollBar _hScroll;
 
+        public Component Content
+        {
+            get
+            {
+                return _contentBox.Children[0];
+            }
+            set
+            {
+                if (_contentBox.Children.Count > 0)
+                    _contentBox.Children[0] = value;
+                else
+                    _contentBox.AddChild(value);
+            }
+        }
+
         public override void OnAdded(Component parent)
         {
             base.OnAdded(parent);
@@ -19,6 +35,11 @@ namespace HlyssUI.Components
             Layout = LayoutType.Relative;
 
             _contentBox = new Component();
+            _contentBox.Layout = LayoutType.Scroll;
+            _contentBox.Width = "100%";
+            _contentBox.Height = "100%";
+            _contentBox.DisableClipping = false;
+            _contentBox.Padding = "15px";
             AddChild(_contentBox);
 
             _scrollBox = new Component();
@@ -33,6 +54,19 @@ namespace HlyssUI.Components
 
             _hScroll = new HScrollBar(400);
             _scrollBox.AddChild(_hScroll);
+        }
+
+        public override void OnRefresh()
+        {
+            base.OnRefresh();
+
+            int maxX = Content.TargetSize.X + _contentBox.Paddings.Horizontal;
+            int maxY = Content.TargetSize.Y + _contentBox.Paddings.Vertical;
+
+            int x = (int)((maxX - TargetSize.X) * _hScroll.Percentage) * -1;
+            int y = (int)((maxY - TargetSize.Y) * _vScroll.Percentage) * -1;
+
+            _contentBox.ScrollOffset = new Vector2i(-x, -y);
         }
     }
 }

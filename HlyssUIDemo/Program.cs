@@ -142,10 +142,13 @@ namespace HlyssUIDemo
                     Console.Clear();
             };
 
-            ScrollArea scrollArea = new ScrollArea();
-            scrollArea.Width = "200px";
-            scrollArea.Height = "200px";
-            gui.CurrentScene.AddChild(scrollArea);
+            TextArea textArea = new TextArea();
+            panel6.AddChild(textArea);
+            textArea.Width = "90%";
+            textArea.Height = "90%";
+            textArea.Margin = "5px";
+            panel6.DisableClipping = false;
+            textArea.Text = "ale w sumie to ni jst takie asz tduen jak jusz sie oharnie jak cokolwiek zrobic w syfony";
         }
 
         public static void addComponents2(Gui gui)
@@ -181,6 +184,7 @@ namespace HlyssUIDemo
 
             Button button = new Button("Zmień rozmiar ");
             gui.CurrentScene.AddChild(button);
+            button.Appearance = Button.ButtonStyle.Filled;
             button.AddChild(new Icon(Icons.Arrows));
             button.MarginRight = "20px";
             button.Clicked += (object sender) => {

@@ -12,7 +12,8 @@ namespace HlyssUI.Layout.LayoutControllers
             new RowLayoutController(),
             new ColumnLayoutController(),
             new WrapLayoutController(),
-            new RelativeLayoutController()
+            new RelativeLayoutController(),
+            new ScrollLayoutController()
         };
 
         public static LayoutController GetLayout(LayoutType type)

@@ -7,9 +7,7 @@ namespace HlyssUI.Layout.LayoutControllers
 {
     class RelativeLayoutController : LayoutController
     {
-        public RelativeLayoutController() : base(LayoutType.Relative)
-        {
-        }
+        public RelativeLayoutController() : base(LayoutType.Relative) { }
 
         public override void ApplyLayout(Component component)
         {
