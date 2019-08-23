@@ -12,7 +12,7 @@ namespace HlyssUI.Themes
         private static Dictionary<string, Color> _colors = new Dictionary<string, Color>();
 
         public static uint BorderThickness = 1;
-        public static uint BorderRadius = 2;
+        public static uint BorderRadius = 3;
 
         public static string Name { get; private set; }
 

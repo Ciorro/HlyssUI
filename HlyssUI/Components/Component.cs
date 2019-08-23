@@ -275,9 +275,6 @@ namespace HlyssUI.Components
             set
             {
                 _transformChanged = value;
-
-                if (Parent != null)
-                    Parent.ScheduleRefresh();
             }
         }
 
@@ -302,7 +299,7 @@ namespace HlyssUI.Components
         public bool IsOverlay { get; protected set; }
         public bool Hovered { get; set; }
         public bool IsPressed { get; private set; }
-        public bool DisableClipping { get; set; }
+        public bool DisableClipping { get; set; } = true;
         public bool CascadeStyle { get; set; }
         public bool CenterContent { get; set; }
         public bool Autosize { get; set; }
@@ -560,7 +557,7 @@ namespace HlyssUI.Components
 
         public virtual void OnRefresh()
         {
-            //Logger.Log($"{this} refreshed", Gui.Debug);
+            Logger.Log($"{this} refreshed", Gui.Debug);
         }
 
         public virtual void OnStyleChanged()

@@ -1,4 +1,4 @@
-﻿using HlyssUI.Utils;
+﻿using HlyssUI.Graphics;
 using SFML.Graphics;
 using SFML.System;
 using System;

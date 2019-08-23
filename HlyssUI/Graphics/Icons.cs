@@ -1,4 +1,4 @@
-﻿namespace HlyssUI.Utils
+﻿namespace HlyssUI.Graphics
 {
     public enum Icons
     {

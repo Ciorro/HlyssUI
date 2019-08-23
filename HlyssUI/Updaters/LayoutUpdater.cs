@@ -1,15 +1,35 @@
 ﻿using HlyssUI.Components;
-using HlyssUI.Layout;
 using HlyssUI.Layout.LayoutControllers;
+using System;
 
 namespace HlyssUI.Updaters
 {
     class LayoutUpdater
     {
+        private bool _anyTransformChanged;
+
         public void Update(Component component)
         {
-            Compose(component);
-            Refresh(component);
+            CheckChanges(component);
+
+            if (_anyTransformChanged)
+            {
+                Compose(component);
+                Refresh(component);
+
+                _anyTransformChanged = false;
+            }
+        }
+
+        private void CheckChanges(Component component)
+        {
+            if (component.TransformChanged)
+                _anyTransformChanged = true;
+
+            foreach (var child in component.Children)
+            {
+                CheckChanges(child);
+            }
         }
 
         private void Compose(Component component)
@@ -23,9 +43,6 @@ namespace HlyssUI.Updaters
             }
 
             LayoutController layout = LayoutResolver.GetLayout(component.Layout);
-
-            System.Console.WriteLine(layout);
-
             layout.ApplyLayout(component);
             layout.ApplyAutosize(component);
         }

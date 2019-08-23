@@ -1,5 +1,6 @@
 ﻿using HlyssUI;
 using HlyssUI.Components;
+using HlyssUI.Graphics;
 using HlyssUI.Layout;
 using HlyssUI.Themes;
 using SFML.Graphics;
@@ -7,6 +8,7 @@ using SFML.System;
 using SFML.Window;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace HlyssUIDemo
 {
@@ -17,7 +19,7 @@ namespace HlyssUIDemo
             ContextSettings settings = new ContextSettings(1, 1, 8);
 
             RenderWindow window = new RenderWindow(new VideoMode(1366, 768), "HlyssUI demo", Styles.Default, settings);
-            window.SetFramerateLimit(1);
+            //window.SetFramerateLimit(1);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
             Theme.Load("theme.ini", "light");
@@ -31,7 +33,7 @@ namespace HlyssUIDemo
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
-            addComponents1(gui);
+            addComponents2(gui);
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -66,8 +68,8 @@ namespace HlyssUIDemo
             Panel panel = new Panel();
             gui.CurrentScene.AddChild(panel);
             panel.Padding = "5px";
-            //box.Width = "50%";
-            //box.Height = "200px";
+            //panel.Width = "50%";
+            //panel.Height = "200px";
             panel.Layout = LayoutType.Row;
             panel.Autosize = true;
             panel.Name = "panel";
@@ -148,9 +150,13 @@ namespace HlyssUIDemo
             gui.CurrentScene.BaseNode.Layout = LayoutType.Wrap;
             gui.CurrentScene.AddChild(new HScrollBar(4000));
 
-            for (int i = 0; i < 200; i++)
+            Texture texture = new Texture("img.jpg");
+
+            for (int i = 0; i < 400; i++)
             {
-                gui.CurrentScene.AddChild(new Icon(HlyssUI.Utils.Icons.Windows));
+                RadioButton radio = new RadioButton("Udostępnij");
+                gui.CurrentScene.AddChild(radio);
+                radio.Margin = "1px";
             }
         }
     }

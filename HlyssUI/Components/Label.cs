@@ -48,15 +48,6 @@ namespace HlyssUI.Components
             }
         }
 
-        public bool Autosize
-        {
-            get { return _autosize; }
-            set
-            {
-                _autosize = value;
-                TransformChanged = true;
-            }
-        }
 
         private bool _autosize = true;
         private Text _text = new Text();

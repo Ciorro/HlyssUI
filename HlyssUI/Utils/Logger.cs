@@ -13,7 +13,7 @@ namespace HlyssUI.Utils
 
         public static void Log(string message, bool condition = true)
         {
-            if (!condition || true)
+            if (!condition)
                 return;
 
             message = $"{Name}: {message}";
