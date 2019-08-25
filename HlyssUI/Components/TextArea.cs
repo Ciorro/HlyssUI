@@ -1,7 +1,10 @@
-﻿using HlyssUI.Layout;
+﻿using HlyssUI.Graphics;
+using HlyssUI.Layout;
 using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,20 +22,7 @@ namespace HlyssUI.Components
             get { return _text; }
             set
             {
-                _text = value;
-                _letters.Clear();
-
-                TransformChanged = true;
-
-                if (Gui == null)
-                    return;
-
-                foreach (var letter in value)
-                {
-                    _letters.Add(new Letter(letter, Gui));
-                }
-
-                createLines();
+                SetText(value);
             }
         }
 
@@ -58,6 +48,10 @@ namespace HlyssUI.Components
         private List<Letter> _letters = new List<Letter>();
         private List<TextLine> _lines = new List<TextLine>();
 
+        private int _selectionStart = -1;
+        private int _selectionEnd = -1;
+        private bool _isSeleting = false;
+
         public override void OnAdded(Component parent)
         {
             base.OnAdded(parent);
@@ -68,8 +62,8 @@ namespace HlyssUI.Components
         {
             base.OnRefresh();
 
-            createLines();
-            placeLines();
+            CreateLines();
+            PlaceLines();
 
             foreach (var line in _lines)
             {
@@ -108,11 +102,43 @@ namespace HlyssUI.Components
         {
             foreach (var letter in _letters)
             {
-                letter.Draw();
+                letter.Draw(target);
             }
         }
 
-        private void placeLines()
+        public override void OnMousePressedAnywhere(Vector2i location, Mouse.Button button)
+        {
+            base.OnMousePressedAnywhere(location, button);
+
+            _selectionStart = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
+            _isSeleting = true;
+            _selectionEnd = -1;
+        }
+
+        public override void OnMouseReleasedAnywhere(Vector2i location, Mouse.Button button)
+        {
+            base.OnMouseReleasedAnywhere(location, button);
+            _isSeleting = false;
+            _selectionEnd = GetLetterByPosition(location);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            if(_isSeleting)
+                _selectionEnd = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
+
+            for (int i = 0; i < _letters.Count; i++)
+            {
+                if (i > 0 && i < _letters.Count && i >= Math.Min(_selectionEnd, _selectionStart) && i <= Math.Max(_selectionEnd, _selectionStart))
+                    _letters[i].Selected = true;
+                else
+                    _letters[i].Selected = false;
+            }
+        }
+
+        private void PlaceLines()
         {
             int currentHeight = 0;
 
@@ -123,18 +149,18 @@ namespace HlyssUI.Components
             }
         }
 
-        private void createLines()
+        private void CreateLines()
         {
             _lines.Clear();
-            _lines.Add(createLine());
+            _lines.Add(CreateLine());
 
             for (int i = 0; i < _letters.Count; i++)
             {
-                List<Letter> word = getWord(i);
+                List<Letter> word = GetWord(i);
 
                 if (!_lines.Last().TryAddWord(word))
                 {
-                    _lines.Add(createLine());
+                    _lines.Add(CreateLine());
                     _lines.Last().TryAddWord(word);
                 }
 
@@ -143,16 +169,16 @@ namespace HlyssUI.Components
                 if (i < _letters.Count && _letters[i].Character != "\n")
                     _lines.Last().TryAddLetter(_letters[i]);
                 else if (i < _letters.Count && _letters[i].Character == "\n")
-                    _lines.Add(createLine());
+                    _lines.Add(CreateLine());
             }
         }
 
-        private TextLine createLine()
+        private TextLine CreateLine()
         {
             return new TextLine(TargetSize.X);
         }
 
-        private List<Letter> getWord(int index)
+        private List<Letter> GetWord(int index)
         {
             List<Letter> word = new List<Letter>();
 
@@ -164,12 +190,35 @@ namespace HlyssUI.Components
 
             return word;
         }
+
+        private void SetText(string text)
+        {
+            _text = text;
+            _letters.Clear();
+
+            foreach (var letter in text)
+            {
+                _letters.Add(new Letter(letter));
+            }
+
+            CreateLines();
+        }
+
+        private int GetLetterByPosition(Vector2i position)
+        {
+            for (int i = 0; i < _letters.Count; i++)
+            {
+                if (_letters[i].Bounds.Contains(position.X, position.Y))
+                    return i;
+            }
+
+            return -1;
+        }
     }
 
     internal class Letter
     {
         private Text _letter;
-        private Gui _gui;
 
         public Vector2i Position
         {
@@ -202,6 +251,9 @@ namespace HlyssUI.Components
             set { _letter.CharacterSize = value; }
         }
 
+        public bool Selected;
+
+        private RectangleShape _selectionRect;
         private bool _isCustomAdvance = false;
         private float _customAdvance = 0;
 
@@ -231,16 +283,31 @@ namespace HlyssUI.Components
             get { return _letter.DisplayedString; }
         }
 
-        public Letter(char character, Gui gui)
+        public IntRect Bounds
         {
-            _gui = gui;
-            _letter = new Text(character.ToString(), gui.DefaultFont, Theme.CharacterSize);
-            //Color = Style["text"];
+            get
+            {
+                return new IntRect(Position, (Vector2i)Size);
+            }
         }
 
-        public void Draw()
+        public Letter(char character)
         {
-            _gui.Window.Draw(_letter);
+            _letter = new Text(character.ToString(), Fonts.MontserratRegular, Theme.CharacterSize);
+            _selectionRect = new RectangleShape();
+            _selectionRect.FillColor = new Color(163, 199, 216);
+        }
+
+        public void Draw(RenderTarget target)
+        {
+            if(Selected)
+            {
+                _selectionRect.Size = Size;
+                _selectionRect.Position = (Vector2f)Position;
+                target.Draw(_selectionRect);
+            }
+
+            target.Draw(_letter);
         }
     }
 

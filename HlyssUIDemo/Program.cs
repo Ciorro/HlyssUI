@@ -143,12 +143,12 @@ namespace HlyssUIDemo
             };
 
             TextArea textArea = new TextArea();
+            textArea.Text = "ale w sumie to ni jst takie asz tduen jak jusz sie oharnie jak cokolwiek zrobic w syfony";
             panel6.AddChild(textArea);
             textArea.Width = "90%";
             textArea.Height = "90%";
             textArea.Margin = "5px";
             panel6.DisableClipping = false;
-            textArea.Text = "ale w sumie to ni jst takie asz tduen jak jusz sie oharnie jak cokolwiek zrobic w syfony";
         }
 
         public static void addComponents2(Gui gui)
