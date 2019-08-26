@@ -57,6 +57,8 @@ namespace HlyssUI.Components
             }
         }
 
+        public bool TextAutosize { get; set; }
+        public bool WordWrap { get; set; } = true;
         public TextAlign Align = TextAlign.Left;
 
         private uint _characterSize;
@@ -160,6 +162,11 @@ namespace HlyssUI.Components
                 else
                     _letters[i].Selected = false;
             }
+
+            if (TextAutosize && TransformChanged)
+            {
+                //updateSize();
+            }
         }
 
         private void PlaceLines()
@@ -182,7 +189,11 @@ namespace HlyssUI.Components
             {
                 List<Letter> word = GetWord(i);
 
-                if (!_lines.Last().TryAddWord(word))
+                if(!WordWrap)
+                {
+                    _lines.Last().TryAddWord(word, true);
+                }
+                else if (!_lines.Last().TryAddWord(word))
                 {
                     _lines.Add(CreateLine());
                     _lines.Last().TryAddWord(word);
@@ -225,7 +236,11 @@ namespace HlyssUI.Components
                 _letters.Add(new Letter(letter));
             }
 
-            CreateLines();
+            ForceRefresh();
+            OnStyleChanged();
+
+            if (TextAutosize)
+                updateSize();
         }
 
         private int GetLetterByPosition(Vector2i position)
@@ -237,6 +252,26 @@ namespace HlyssUI.Components
             }
 
             return -1;
+        }
+
+        private void updateSize()
+        {
+            Height = $"{getHeight()}px";
+
+            if (!WordWrap)
+                Width = $"{(int)_lines[0].FastWidth}px";
+        }
+
+        private int getHeight()
+        {
+            int height = 0;
+
+            foreach (var line in _lines)
+            {
+                height += line.Height;
+            }
+
+            return height;
         }
     }
 
@@ -319,7 +354,7 @@ namespace HlyssUI.Components
         {
             _letter = new Text(character.ToString(), Fonts.MontserratRegular, Theme.CharacterSize);
             _selectionRect = new RectangleShape();
-            _selectionRect.FillColor = new Color(163, 199, 216);
+            _selectionRect.FillColor = new Color(153, 201, 239);
         }
 
         public void Draw(RenderTarget target)
@@ -348,7 +383,7 @@ namespace HlyssUI.Components
                     w += letter.Advance;
                 }
 
-                return (float)w;
+                return w;
             }
         }
 
@@ -374,6 +409,11 @@ namespace HlyssUI.Components
             MaxWidth = maxWidth;
         }
 
+        public bool CanAddLetter(Letter letter)
+        {
+            return Width + letter.Size.X <= MaxWidth;
+        }
+
         public bool CanAddWord(List<Letter> letters)
         {
             float lettersWidth = 0;
@@ -386,9 +426,9 @@ namespace HlyssUI.Components
             return Width + lettersWidth <= MaxWidth;
         }
 
-        public bool TryAddWord(List<Letter> letters)
+        public bool TryAddWord(List<Letter> letters, bool force = false)
         {
-            if (CanAddWord(letters))
+            if (CanAddWord(letters) || force)
             {
                 _letters.AddRange(letters);
 
@@ -409,14 +449,9 @@ namespace HlyssUI.Components
             }
         }
 
-        public bool CanAddLetter(Letter letter)
+        public bool TryAddLetter(Letter letter, bool force = false)
         {
-            return Width + letter.Size.X <= MaxWidth;
-        }
-
-        public bool TryAddLetter(Letter letter)
-        {
-            if (CanAddLetter(letter))
+            if (CanAddLetter(letter) || force)
             {
                 _letters.Add(letter);
 

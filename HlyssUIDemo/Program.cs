@@ -132,15 +132,15 @@ namespace HlyssUIDemo
             panel5.Margin = "2px";
             panel5.Padding = "3px";
 
-            gui.Window.KeyPressed += (object sender, KeyEventArgs e) =>
-            {
-                if (e.Code == Keyboard.Key.Right)
-                    panel6.Width = $"{panel6.Size.X + 2}px";
-                else if (e.Code == Keyboard.Key.Left)
-                    panel6.Width = $"{panel6.Size.X - 2}px";
-                else if (e.Code == Keyboard.Key.Escape)
-                    Console.Clear();
-            };
+            //gui.Window.KeyPressed += (object sender, KeyEventArgs e) =>
+            //{
+            //    if (e.Code == Keyboard.Key.Right)
+            //        panel6.Width = $"{panel6.Size.X + 2}px";
+            //    else if (e.Code == Keyboard.Key.Left)
+            //        panel6.Width = $"{panel6.Size.X - 2}px";
+            //    else if (e.Code == Keyboard.Key.Escape)
+            //        Console.Clear();
+            //};
 
             TextArea textArea = new TextArea();
             textArea.Text = "ale w sumie to ni jst takie asz tduen jak jusz sie oharnie jak cokolwiek zrobic w syfony";
@@ -149,6 +149,12 @@ namespace HlyssUIDemo
             textArea.Height = "90%";
             textArea.Margin = "5px";
             panel6.DisableClipping = false;
+
+            TextBox textBox = new TextBox();
+            textBox.Width = "200px";
+            textBox.MaxLines = 10;
+            //textBox.Height = "40px";
+            gui.CurrentScene.AddChild(textBox);
         }
 
         public static void addComponents2(Gui gui)

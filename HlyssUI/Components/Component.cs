@@ -98,8 +98,8 @@ namespace HlyssUI.Components
         internal int Y => StringDimensionsConverter.Convert(_positionY, (Parent != null) ? Parent.TargetSize.Y : 0);
 
         //Size
-        internal int W => StringDimensionsConverter.Convert(_width, (Parent != null) ? Parent.TargetSize.X : 0);
-        internal int H => StringDimensionsConverter.Convert(_height, (Parent != null) ? Parent.TargetSize.Y : 0);
+        internal int W => StringDimensionsConverter.Convert(_width, (Parent != null) ? Parent.TargetSize.X - Parent.TargetPaddings.Horizontal: 0);
+        internal int H => StringDimensionsConverter.Convert(_height, (Parent != null) ? Parent.TargetSize.Y - Parent.TargetPaddings.Vertical: 0);
 
         //Margin
         internal int Ml => StringDimensionsConverter.Convert(_marginLeft, (Parent != null) ? Parent.TargetSize.X : 0);
@@ -304,7 +304,8 @@ namespace HlyssUI.Components
         public bool DisableClipping { get; set; } = true;
         public bool CascadeStyle { get; set; }
         public bool CenterContent { get; set; }
-        public bool Autosize { get; set; }
+        public bool AutosizeX { get; set; }
+        public bool AutosizeY { get; set; }
         public bool ReversedHorizontal { get; set; }
         public bool ReversedVertical { get; set; }
 
@@ -314,6 +315,15 @@ namespace HlyssUI.Components
             {
                 ReversedHorizontal = value;
                 ReversedVertical = value;
+            }
+        }
+
+        public bool Autosize
+        {
+            set
+            {
+                AutosizeX = value;
+                AutosizeY = value;
             }
         }
 
@@ -463,7 +473,7 @@ namespace HlyssUI.Components
             //if (!TransformChanged)
             //return;
             TargetPosition = new Vector2i(X, Y);
-            Logger.Log($"{this} updated position {TargetPosition}", Gui.Debug);
+            //Logger.Log($"{this} updated position {TargetPosition}", Gui.Debug);
         }
 
         internal void UpdateLocalSize()
@@ -472,7 +482,7 @@ namespace HlyssUI.Components
             //return;
 
             TargetSize = new Vector2i(W, H);
-            Logger.Log($"{this} updated size {TargetSize}", Gui.Debug);
+            //Logger.Log($"{this} updated size {TargetSize}", Gui.Debug);
         }
 
         internal void UpdateLocalSpacing()
@@ -483,7 +493,7 @@ namespace HlyssUI.Components
             TargetMargins = new Spacing(Ml, Mr, Mt, Mb);
             TargetPaddings = new Spacing(Pl, Pr, Pt, Pb);
 
-            Logger.Log($"{this} updated margins {TargetMargins} and paddings {TargetPaddings}", Gui.Debug);
+            //Logger.Log($"{this} updated margins {TargetMargins} and paddings {TargetPaddings}", Gui.Debug);
         }
 
         public void ApplyTransform()
@@ -508,13 +518,13 @@ namespace HlyssUI.Components
             Gui = parent.Gui;
             Scene = parent.Scene;
 
-            Logger.Log($"{this} added to {parent}", Gui.Debug);
+            //Logger.Log($"{this} added to {parent}", Gui.Debug);
             Added?.Invoke(this);
         }
 
         public virtual void OnRemoved(Component parent)
         {
-            Logger.Log($"{this} removed from parent", Gui.Debug);
+            //Logger.Log($"{this} removed from parent", Gui.Debug);
 
             Gui = null;
             Scene = null;
@@ -532,7 +542,7 @@ namespace HlyssUI.Components
         public virtual void OnPressed()
         {
             IsPressed = true;
-            Logger.Log($"{this} pressed", Gui.Debug);
+            //Logger.Log($"{this} pressed", Gui.Debug);
             Pressed?.Invoke(this);
 
             //double click
@@ -547,7 +557,7 @@ namespace HlyssUI.Components
             if (_doubleClickTimer.ElapsedMilliseconds <= 500 && _firstClickPos == currentMPos)
             {
                 _doubleClick = true;
-                Logger.Log($"{this} double clicked", Gui.Debug);
+                //Logger.Log($"{this} double clicked", Gui.Debug);
                 DoubleClicked?.Invoke(this);
             }
 
@@ -559,13 +569,13 @@ namespace HlyssUI.Components
         {
             if (IsPressed)
             {
-                Logger.Log($"{this} clicked", Gui.Debug);
+                //Logger.Log($"{this} clicked", Gui.Debug);
                 Clicked?.Invoke(this);
                 OnClicked();
             }
 
             IsPressed = false;
-            Logger.Log($"{this} released", Gui.Debug);
+            //Logger.Log($"{this} released", Gui.Debug);
             Released?.Invoke(this);
         }
 
@@ -579,20 +589,20 @@ namespace HlyssUI.Components
 
         public virtual void OnMouseEntered()
         {
-            Logger.Log($"Mouse entered {this}", Gui.Debug);
+            //Logger.Log($"Mouse entered {this}", Gui.Debug);
             MouseEntered?.Invoke(this);
         }
 
         public virtual void OnMouseLeft()
         {
             IsPressed = false;
-            Logger.Log($"Mouse left {this}", Gui.Debug);
+            //Logger.Log($"Mouse left {this}", Gui.Debug);
             MouseLeft?.Invoke(this);
         }
 
         public virtual void OnRefresh()
         {
-            Logger.Log($"{this} refreshed", Gui.Debug);
+            //Logger.Log($"{this} refreshed", Gui.Debug);
         }
 
         public virtual void OnStyleChanged()

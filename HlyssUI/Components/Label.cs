@@ -48,7 +48,28 @@ namespace HlyssUI.Components
             }
         }
 
+        public int Lines
+        {
+            get
+            {
+                int newLineCount = 0;
+
+                foreach (var letter in _text.DisplayedString)
+                {
+                    if (letter == '\n' || letter.ToString() == Environment.NewLine)
+                        newLineCount++;
+                }
+
+                return ++newLineCount;
+            }
+        }
+
         private Text _text = new Text();
+
+        public Label()
+        {
+            Text = string.Empty;
+        }
 
         public Label(string text)
         {
@@ -68,7 +89,7 @@ namespace HlyssUI.Components
         {
             base.Update();
 
-            if(Autosize && TransformChanged)
+            if(TransformChanged)
             {
                 updateSize();
             }
@@ -93,14 +114,7 @@ namespace HlyssUI.Components
 
         private int getHeight()
         {
-            int newLineCount = 0;
-            foreach (var letter in _text.DisplayedString)
-            {
-                if (letter == '\n' || letter.ToString() == Environment.NewLine)
-                    newLineCount++;
-            }
-
-            return (int)(_text.Font.GetLineSpacing(_text.CharacterSize) * (newLineCount + 1));
+            return (int)(_text.Font.GetLineSpacing(_text.CharacterSize) * Lines);
         }
 
         private void updateSize()

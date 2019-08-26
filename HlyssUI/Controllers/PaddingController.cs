@@ -22,7 +22,9 @@ namespace HlyssUI.Controllers
 
         public override bool Update()
         {
-            if (tween.IsRunning)
+            bool isRunning = tween.IsRunning;
+
+            if (isRunning)
             {
                 tween.Update();
 
@@ -34,7 +36,7 @@ namespace HlyssUI.Controllers
                 component.Paddings = new Spacing(left, right, top, bottom);
             }
 
-            return tween.IsRunning;
+            return isRunning;
         }
     }
 }

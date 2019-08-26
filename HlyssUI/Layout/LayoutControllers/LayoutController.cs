@@ -1,8 +1,5 @@
 ﻿using HlyssUI.Components;
-using HlyssUI.Layout;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Layout.LayoutControllers
 {
@@ -23,11 +20,13 @@ namespace HlyssUI.Layout.LayoutControllers
 
         public void ApplyAutosize(Component component)
         {
-            if (!component.Autosize)
+            if (!component.AutosizeX && !component.AutosizeY)
                 return;
 
-            component.Width = $"{_maxX + component.TargetPaddings.Horizontal}px";
-            component.Height = $"{_maxY + component.TargetPaddings.Vertical}px";
+            if (component.AutosizeX)
+                component.Width = $"{_maxX + component.TargetPaddings.Horizontal}px";
+            if (component.AutosizeY)
+                component.Height = $"{_maxY + component.TargetPaddings.Vertical}px";
 
             component.UpdateLocalSize();
 

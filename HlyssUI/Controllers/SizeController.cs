@@ -19,7 +19,9 @@ namespace HlyssUI.Controllers
 
         public override bool Update()
         {
-            if (tween.IsRunning)
+            bool isRunning = tween.IsRunning;
+
+            if (isRunning)
             {
                 tween.Update();
 
@@ -29,7 +31,7 @@ namespace HlyssUI.Controllers
                 component.Size = new Vector2i(width, height);
             }
 
-            return tween.IsRunning;
+            return isRunning;
         }
     }
 }
