@@ -138,7 +138,7 @@ namespace HlyssUIDemo
                     panel6.Width = $"{panel6.Size.X + 2}px";
                 else if (e.Code == Keyboard.Key.Left)
                     panel6.Width = $"{panel6.Size.X - 2}px";
-                else if (e.Code == Keyboard.Key.C)
+                else if (e.Code == Keyboard.Key.Escape)
                     Console.Clear();
             };
 

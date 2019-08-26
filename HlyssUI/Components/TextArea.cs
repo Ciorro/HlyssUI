@@ -41,6 +41,22 @@ namespace HlyssUI.Components
             }
         }
 
+        public string Selected
+        {
+            get
+            {
+                string selected = string.Empty;
+
+                for (int i = 0; i < _letters.Count; i++)
+                {
+                    if (_letters[i].Selected)
+                        selected += _letters[i].Character;
+                }
+
+                return selected;
+            }
+        }
+
         public TextAlign Align = TextAlign.Left;
 
         private uint _characterSize;
@@ -122,6 +138,14 @@ namespace HlyssUI.Components
             _selectionEnd = GetLetterByPosition(location);
         }
 
+        public override void OnKeyPressed(Keyboard.Key key)
+        {
+            base.OnKeyPressed(key);
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.LControl) && key == Keyboard.Key.C)
+                Clipboard.Contents = Selected;
+        }
+
         public override void Update()
         {
             base.Update();
@@ -131,7 +155,7 @@ namespace HlyssUI.Components
 
             for (int i = 0; i < _letters.Count; i++)
             {
-                if (i > 0 && i < _letters.Count && i >= Math.Min(_selectionEnd, _selectionStart) && i <= Math.Max(_selectionEnd, _selectionStart))
+                if (i >= 0 && i < _letters.Count && i >= Math.Min(_selectionEnd, _selectionStart) && i <= Math.Max(_selectionEnd, _selectionStart))
                     _letters[i].Selected = true;
                 else
                     _letters[i].Selected = false;

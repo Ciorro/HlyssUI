@@ -569,9 +569,13 @@ namespace HlyssUI.Components
             Released?.Invoke(this);
         }
 
-        public virtual void OnClicked()
-        {
-        }
+        public virtual void OnClicked() { }
+
+        public virtual void OnKeyPressed(Keyboard.Key key) { }
+
+        public virtual void OnKeyReleased(Keyboard.Key key) { }
+
+        public virtual void OnTextInput(string text) { }
 
         public virtual void OnMouseEntered()
         {

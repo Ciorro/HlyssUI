@@ -94,6 +94,9 @@ namespace HlyssUI
             Gui.Window.MouseButtonReleased += Window_MouseButtonReleased;
             Gui.Window.MouseMoved += Window_MouseMoved;
             Gui.Window.MouseWheelScrolled += Window_MouseWheelScrolled;
+            Gui.Window.KeyPressed += Window_KeyPressed;
+            Gui.Window.KeyReleased += Window_KeyReleased;
+            Gui.Window.TextEntered += Window_TextEntered;
         }
 
         private void unregisterEvents()
@@ -102,6 +105,9 @@ namespace HlyssUI
             Gui.Window.MouseButtonReleased -= Window_MouseButtonReleased;
             Gui.Window.MouseMoved -= Window_MouseMoved;
             Gui.Window.MouseWheelScrolled -= Window_MouseWheelScrolled;
+            Gui.Window.KeyPressed -= Window_KeyPressed;
+            Gui.Window.KeyReleased -= Window_KeyReleased;
+            Gui.Window.TextEntered -= Window_TextEntered;
         }
 
         private void Window_MouseMoved(object sender, MouseMoveEventArgs e)
@@ -116,7 +122,7 @@ namespace HlyssUI
                 _hoveredComponent.OnReleased();
             }
 
-            sendReleaseInfoToAllChildren(Root, new Vector2i(e.X, e.Y), e.Button);
+            sendMouseReleaseInfoToAllChildren(Root, new Vector2i(e.X, e.Y), e.Button);
         }
 
         private void Window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
@@ -126,7 +132,7 @@ namespace HlyssUI
                 _hoveredComponent.OnPressed();
             }
 
-            sendPressInfoToAllChildren(Root, new Vector2i(e.X, e.Y), e.Button);
+            sendMousePressInfoToAllChildren(Root, new Vector2i(e.X, e.Y), e.Button);
         }
 
         private void Window_MouseWheelScrolled(object sender, MouseWheelScrollEventArgs e)
@@ -135,7 +141,61 @@ namespace HlyssUI
             sendScrollInfoToAllChildren(Root, e.Delta);
         }
 
-        private void sendPressInfoToAllChildren(Component component, Vector2i location, Mouse.Button button)
+        private void Window_TextEntered(object sender, TextEventArgs e)
+        {
+            sendTextInputInfoToAllChildren(Root, e.Unicode);
+        }
+
+        private void Window_KeyReleased(object sender, KeyEventArgs e)
+        {
+            sendKeyReleaseInfoToAllChildren(Root, e.Code);
+        }
+
+        private void Window_KeyPressed(object sender, KeyEventArgs e)
+        {
+            sendKeyPressInfoToAllChildren(Root, e.Code);
+        }
+
+        private void sendKeyPressInfoToAllChildren(Component component, Keyboard.Key key)
+        {
+            if (!component.Enabled)
+                return;
+
+            component.OnKeyPressed(key);
+
+            foreach (var child in component.Children)
+            {
+                sendKeyPressInfoToAllChildren(child, key);
+            }
+        }
+
+        private void sendKeyReleaseInfoToAllChildren(Component component, Keyboard.Key key)
+        {
+            if (!component.Enabled)
+                return;
+
+            component.OnKeyReleased(key);
+
+            foreach (var child in component.Children)
+            {
+                sendKeyReleaseInfoToAllChildren(child, key);
+            }
+        }
+
+        private void sendTextInputInfoToAllChildren(Component component, string text)
+        {
+            if (!component.Enabled)
+                return;
+
+            component.OnTextInput(text);
+
+            foreach (var child in component.Children)
+            {
+                sendTextInputInfoToAllChildren(child, text);
+            }
+        }
+
+        private void sendMousePressInfoToAllChildren(Component component, Vector2i location, Mouse.Button button)
         {
             if (!component.Enabled)
                 return;
@@ -144,11 +204,11 @@ namespace HlyssUI
 
             foreach (var child in component.Children)
             {
-                sendPressInfoToAllChildren(child, location, button);
+                sendMousePressInfoToAllChildren(child, location, button);
             }
         }
 
-        private void sendReleaseInfoToAllChildren(Component component, Vector2i location, Mouse.Button button)
+        private void sendMouseReleaseInfoToAllChildren(Component component, Vector2i location, Mouse.Button button)
         {
             if (!component.Enabled)
                 return;
@@ -157,7 +217,7 @@ namespace HlyssUI
 
             foreach (var child in component.Children)
             {
-                sendReleaseInfoToAllChildren(child, location, button);
+                sendMouseReleaseInfoToAllChildren(child, location, button);
             }
         }
 
