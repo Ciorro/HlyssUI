@@ -70,28 +70,26 @@ namespace HlyssUI.Components
         {
             base.OnMouseEntered();
             Style["primary"] = Style.GetDarker(getStyleColor(), 20);
-            StyleChanged = true;
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
             Style["primary"] = getStyleColor();
-            StyleChanged = true;
         }
 
         public override void OnPressed()
         {
             base.OnPressed();
             Style["primary"] = Style.GetDarker(getStyleColor(), 40);
-            StyleChanged = true;
+            
         }
 
         public override void OnReleased()
         {
             base.OnReleased();
             Style["primary"] = Style.GetDarker(getStyleColor(), 20);
-            StyleChanged = true;
+            
         }
 
         public override void OnChildAdded(Component child)

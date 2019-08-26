@@ -64,7 +64,7 @@ namespace HlyssUI.Components
             }
         }
 
-        private Text _text = new Text();
+        protected Text _text = new Text();
 
         public Label()
         {
@@ -79,7 +79,7 @@ namespace HlyssUI.Components
         public override void OnAdded(Component parent)
         {
             base.OnAdded(parent);
-
+            
             _text.Font = Gui.DefaultFont;
             _text.CharacterSize = Style.CharacterSize;
             updateSize();
@@ -104,7 +104,7 @@ namespace HlyssUI.Components
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
-            _text.FillColor = base.Style["Text"];
+            _text.FillColor = Style["Text"];
         }
 
         public override void Draw(RenderTarget target)

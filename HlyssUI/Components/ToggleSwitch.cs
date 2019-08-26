@@ -75,7 +75,7 @@ namespace HlyssUI.Components
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
 
-            StyleChanged = true;
+            
         }
 
         public override void OnMouseLeft()
@@ -86,7 +86,7 @@ namespace HlyssUI.Components
             else
                 Style["primary"] = Theme.GetColor("primary");
 
-            StyleChanged = true;
+            
         }
 
         public override void OnPressed()
@@ -97,7 +97,7 @@ namespace HlyssUI.Components
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 40);
 
-            StyleChanged = true;
+            
         }
 
         public override void OnClicked()
@@ -127,7 +127,7 @@ namespace HlyssUI.Components
                 Style["secondary"] = Theme.GetColor("secondary");
             }
 
-            StyleChanged = true;
+            
         }
     }
 }

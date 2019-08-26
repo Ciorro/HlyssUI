@@ -15,7 +15,7 @@ namespace HlyssUI.Updaters
 
         private void Scan(Component baseComponent)
         {
-            if (baseComponent.StyleChanged)
+            if (baseComponent.Style.NeedsRefresh)
             {
                 RefreshComponents(baseComponent);
                 return;

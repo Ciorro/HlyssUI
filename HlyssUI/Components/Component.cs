@@ -46,7 +46,6 @@ namespace HlyssUI.Components
         private DebugRect _debugRect = new DebugRect();
 
         private bool _transformChanged = true;
-        private bool _styleChanged = true;
 
         private Controller[] _controllers;
 
@@ -280,23 +279,8 @@ namespace HlyssUI.Components
             }
         }
 
-        public bool StyleChanged
-        {
-            get { return _styleChanged; }
-            set
-            {
-                _styleChanged = value;
-
-                foreach (var child in Children)
-                {
-                    child.StyleChanged = value;
-                }
-            }
-        }
-
         public bool Enabled { get; set; } = true;
         public bool Visible { get; set; } = true;
-        public bool Active { get; set; } = true;
         public bool CoverParent { get; set; } = true;
         public bool IsOverlay { get; protected set; }
         public bool Hovered { get; set; }
@@ -345,7 +329,6 @@ namespace HlyssUI.Components
             };
 
             TransformChanged = true;
-            StyleChanged = true;
         }
 
         #region Children management
@@ -607,7 +590,7 @@ namespace HlyssUI.Components
 
         public virtual void OnStyleChanged()
         {
-            StyleChanged = false;
+            Style.NeedsRefresh = false;
         }
 
         public virtual void OnMousePressedAnywhere(Vector2i location, Mouse.Button button)
