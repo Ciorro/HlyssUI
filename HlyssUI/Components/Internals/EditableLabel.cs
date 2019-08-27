@@ -1,19 +1,297 @@
-﻿using SFML.System;
+﻿using HlyssUI.Graphics;
+using HlyssUI.Utils;
+using SFML.Graphics;
+using SFML.System;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Components.Internals
 {
-    internal class EditableLabel : Label
+    class EditableLabel : Component
     {
-        public EditableLabel()
+        public string Text
         {
+            get { return _text; }
+            set
+            {
+                UpdateText(_text, value);
+                _text = value;
+                TransformChanged = true;
+            }
         }
 
-        public Vector2f GetLetterPosition(uint letterIndex)
+        public uint CharacterSize
         {
-            return _text.FindCharacterPos(letterIndex);
+            get { return _characterSize; }
+            set
+            {
+                _characterSize = value;
+                TransformChanged = true;
+            }
+        }
+
+        public Text.Styles TextStyle
+        {
+            get { return _textStyle; }
+            set
+            {
+                _textStyle = value;
+                TransformChanged = true;
+            }
+        }
+
+        public Font Font
+        {
+            get { return _font; }
+            set
+            {
+                _font = value;
+                TransformChanged = true;
+            }
+        }
+
+        public int Lines
+        {
+            get
+            {
+                int newLineCount = 0;
+
+                foreach (var letter in _text)
+                {
+                    if (letter == '\n' || letter.ToString() == Environment.NewLine)
+                        newLineCount++;
+                }
+
+                return ++newLineCount;
+            }
+        }
+
+        public string Selected
+        {
+            get
+            {
+                string selected = string.Empty;
+
+                for (int i = 0; i < _letters.Count; i++)
+                {
+                    if (_letters[i].Selected)
+                        selected += _letters[i].Character;
+                }
+
+                return selected;
+            }
+        }
+
+        public Range SelectionRange
+        {
+            get
+            {
+                int start = _selectionStart;
+                int end = _selectionEnd;
+
+                if (end < start)
+                {
+                    int tmp = start;
+                    start = end;
+                    end = tmp;
+                }
+
+                if (end >= 0 && start < 0)
+                    start = 0;
+                
+                return new Range(start, end);
+            }
+            set
+            {
+                _selectionStart = value.Min;
+                _selectionEnd = value.Max;
+            }
+        }
+
+        public bool IsAnyTextSelected
+        {
+            get { return SelectionRange.Min >= 0 && SelectionRange.Max >= 0; }
+        }
+
+        private List<Letter> _letters = new List<Letter>();
+
+        private string _text = string.Empty;
+        private uint _characterSize;
+        private Text.Styles _textStyle;
+        private Font _font;
+
+        private int _selectionStart = -1;
+        private int _selectionEnd = -1;
+        private bool _isSeleting = false;
+
+        public EditableLabel()
+        {
+            Font = Fonts.MontserratRegular;
+            CharacterSize = Style.CharacterSize;
+            TextStyle = SFML.Graphics.Text.Styles.Regular;
+            Text = string.Empty;
+        }
+
+        public EditableLabel(string text)
+        {
+            Font = Fonts.MontserratRegular;
+            CharacterSize = Style.CharacterSize;
+            TextStyle = SFML.Graphics.Text.Styles.Regular;
+            Text = text;
+        }
+
+        public override void OnRefresh()
+        {
+            base.OnRefresh();
+            Align();
+        }
+
+        public override void OnStyleChanged()
+        {
+            base.OnStyleChanged();
+
+            foreach (var letter in _letters)
+            {
+                letter.Color = Style["text"];
+            }
+        }
+
+        public override void OnMousePressedAnywhere(Vector2i location, Mouse.Button button)
+        {
+            base.OnMousePressedAnywhere(location, button);
+
+            _selectionStart = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
+            _isSeleting = true;
+            _selectionEnd = -1;
+        }
+
+        public override void OnMouseReleasedAnywhere(Vector2i location, Mouse.Button button)
+        {
+            base.OnMouseReleasedAnywhere(location, button);
+            _isSeleting = false;
+            _selectionEnd = GetLetterByPosition(location);
+        }
+
+        public override void OnKeyPressed(Keyboard.Key key)
+        {
+            base.OnKeyPressed(key);
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.LControl) && key == Keyboard.Key.C)
+                Clipboard.Contents = Selected;
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            if (TransformChanged)
+            {
+                UpdateSize();
+            }
+
+            if (_isSeleting)
+            {
+                _selectionEnd = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
+            }
+
+            for (int i = 0; i < _letters.Count; i++)
+            {
+                if (i >= 0 && i < _letters.Count && i >= Math.Min(_selectionEnd, _selectionStart) && i <= Math.Max(_selectionEnd, _selectionStart))
+                    _letters[i].Selected = true;
+                else
+                    _letters[i].Selected = false;
+            }
+        }
+
+        public override void Draw(RenderTarget target)
+        {
+            base.Draw(target);
+
+            foreach (var letter in _letters)
+            {
+                letter.Draw(target);
+            }
+        }
+
+        public Vector2f GetLetterPosition(int index)
+        {
+            index--;
+
+            if (index >= 0 && index < _letters.Count)
+            {
+                return (Vector2f)(_letters[index].Position
+                                  + (!_letters[index].IsNewLine ? new Vector2i((int)_letters[index].Advance, 0) : new Vector2i())
+                                  - GlobalPosition);
+            }
+
+            return new Vector2f();
+        }
+
+        private int GetLetterByPosition(Vector2i position)
+        {
+            for (int i = 0; i < _letters.Count; i++)
+            {
+                if (_letters[i].Bounds.Contains(position.X, position.Y))
+                    return i;
+            }
+
+            return -1;
+        }
+
+        private void UpdateText(string prevText, string currentText)
+        {
+            int diff = currentText.Length - prevText.Length;
+
+            if (diff > 0)
+            {
+                for (int i = prevText.Length; i < currentText.Length; i++)
+                {
+                    _letters.Add(new Letter(currentText[i]));
+                }
+            }
+            else if (diff < 0)
+                _letters.RemoveRange(_letters.Count + diff, Math.Abs(diff));
+
+            for (int i = 0; i < _letters.Count; i++)
+            {
+                _letters[i].Character = currentText[i].ToString();
+            }
+
+            Align();
+        }
+
+        private void Align()
+        {
+            float x = GlobalPosition.X;
+            float y = GlobalPosition.Y;
+
+            foreach (var letter in _letters)
+            {
+                if (letter.IsNewLine)
+                {
+                    y += Font.GetLineSpacing(CharacterSize);
+                    x = GlobalPosition.X;
+                }
+
+                letter.Position = new Vector2i((int)x, (int)y);
+
+                if (!letter.IsNewLine)
+                    x += letter.Advance;
+            }
+        }
+
+        private void UpdateSize()
+        {
+            int width = 0;
+
+            foreach (var letter in _letters)
+            {
+                width = (int)Math.Max(width, letter.Position.X - GlobalPosition.X + letter.Advance);
+            }
+
+            Width = $"{width}px";
+            Height = $"{(int)(Font.GetLineSpacing(CharacterSize) * Lines)}px";
         }
     }
 }

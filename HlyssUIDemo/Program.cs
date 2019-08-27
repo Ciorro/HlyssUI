@@ -143,7 +143,8 @@ namespace HlyssUIDemo
             //};
 
             TextArea textArea = new TextArea();
-            textArea.Text = "ale w sumie to ni jst takie asz tduen jak jusz sie oharnie jak cokolwiek zrobic w syfony";
+            //textArea.Text = "ale w sumie to ni jst takie asz tduen jak jusz sie oharnie jak cokolwiek zrobic w syfony";
+            textArea.Text = "Search";
             panel6.AddChild(textArea);
             textArea.Width = "90%";
             textArea.Height = "90%";
@@ -153,19 +154,11 @@ namespace HlyssUIDemo
             TextBox textBox = new TextBox();
             textBox.Width = "200px";
             textBox.MaxLines = 10;
-            //textBox.Height = "40px";
+            textBox.MarginLeft = "20px";
             gui.CurrentScene.AddChild(textBox);
             textBox.InsertChild(0, new Icon(Icons.Search));
             textBox.Children[0].MarginRight = "10px";
             textBox.Placeholder = "Search";
-
-            textBox.Clicked += (object sender) =>
-            {
-                if (textBox.Size.X > 200)
-                    textBox.Width = "200px";
-                else
-                    textBox.Width = "400px";
-            };
         }
 
         public static void addComponents2(Gui gui)

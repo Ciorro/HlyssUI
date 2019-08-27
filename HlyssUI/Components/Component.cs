@@ -72,7 +72,7 @@ namespace HlyssUI.Components
             get
             {
                 Vector2i parentPad = (Parent != null) ? Parent.Paddings.TopLeft : new Vector2i();
-                return (Parent != null) ? Parent.GlobalPosition + Position + parentPad + Margins.TopLeft : Position;
+                return ((Parent != null) ? Parent.GlobalPosition + Position + parentPad + Margins.TopLeft : Position) + ScrollOffset;
             }
         }
 

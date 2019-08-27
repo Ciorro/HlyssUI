@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Components.Internals;
 using HlyssUI.Themes;
+using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -10,6 +11,7 @@ namespace HlyssUI.Components
     {
         private RectangleShape _cursor = new RectangleShape();
         private Clock _cursorTimer = new Clock();
+        private Component _textView;
         private EditableLabel _text;
         private bool _cursorVisible;
         private string _realText = string.Empty;
@@ -30,7 +32,7 @@ namespace HlyssUI.Components
             set
             {
                 _placeholder = value;
-                updateValue();
+                UpdateValue();
             }
         }
 
@@ -40,7 +42,7 @@ namespace HlyssUI.Components
             set
             {
                 _realText = value;
-                updateValue();
+                UpdateValue();
             }
         }
 
@@ -76,16 +78,23 @@ namespace HlyssUI.Components
         {
             base.OnAdded(parent);
 
-            Padding = "11px";
+            Padding = "10px";
+
+            _textView = new Component();
+            _textView.Autosize = true;
+            _textView.DisableClipping = false;
+            _textView.ClipArea.OutlineThickness = -2;
+            _textView.CoverParent = false;
+            AddChild(_textView);
 
             _text = new EditableLabel();
             _text.CoverParent = false;
-            AddChild(_text);
+            _textView.AddChild(_text);
 
             AutosizeY = true;
             DisableClipping = false;
 
-            updateValue();
+            UpdateValue();
         }
 
         public override void OnClicked()
@@ -113,10 +122,22 @@ namespace HlyssUI.Components
 
                 if (c == 8)
                 {
-                    if (_realText.Length > 0 && _currentIndex > 0)
+                    if (_realText.Length > 0)
                     {
-                        _realText = _realText.Remove(_currentIndex - 1, 1);
-                        _currentIndex--;
+                        System.Console.WriteLine(_text.SelectionRange);
+
+                        if (_text.IsAnyTextSelected)
+                        {
+                            Range selection = _text.SelectionRange;
+                            _realText = _realText.Remove(selection.Min, selection.Max - selection.Min + 1);
+                            _currentIndex = selection.Min;
+                            _text.SelectionRange = new Range(-1, -1);
+                        }
+                        else if(_currentIndex > 0)
+                        {
+                            _realText = _realText.Remove(_currentIndex - 1, 1);
+                            _currentIndex--;
+                        }
                     }
                 }
                 else if (c == 13 && _text.Lines < MaxLines)
@@ -147,8 +168,8 @@ namespace HlyssUI.Components
                         _currentIndex++;
                     }
                 }
-
-                updateValue();
+                
+                UpdateValue();
 
                 if (_realText != tmpText)
                 {
@@ -166,12 +187,25 @@ namespace HlyssUI.Components
                 if (key == Keyboard.Key.Left && _currentIndex > 0)
                 {
                     _currentIndex--;
-                    _cursor.Position = _text.GetLetterPosition((uint)_currentIndex) + (Vector2f)_text.GlobalPosition;
+                    _cursor.Position = _text.GetLetterPosition(_currentIndex) + (Vector2f)_text.GlobalPosition;
                 }
                 else if (key == Keyboard.Key.Right && _currentIndex < _realText.Length)
                 {
                     _currentIndex++;
-                    _cursor.Position = _text.GetLetterPosition((uint)_currentIndex) + (Vector2f)_text.GlobalPosition;
+                    _cursor.Position = _text.GetLetterPosition(_currentIndex) + (Vector2f)_text.GlobalPosition;
+                }
+                else if(key == Keyboard.Key.Delete && _currentIndex < _realText.Length)
+                {
+                    _realText = _realText.Remove(_currentIndex, 1);
+                    UpdateValue();
+                }
+                else if(key == Keyboard.Key.Home)
+                {
+                    _currentIndex = 0;
+                }
+                else if(key == Keyboard.Key.End)
+                {
+                    _currentIndex = _realText.Length;
                 }
             }
         }
@@ -180,6 +214,8 @@ namespace HlyssUI.Components
         {
             base.OnMouseEntered();
             Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 10);
+
+            Gui.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Text));
         }
 
         public override void OnMouseLeft()
@@ -188,6 +224,8 @@ namespace HlyssUI.Components
 
             if (!Active)
                 Style["primary"] = Theme.GetColor("primary");
+
+            Gui.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Arrow));
         }
 
         public override void OnStyleChanged()
@@ -202,12 +240,14 @@ namespace HlyssUI.Components
 
             if (_cursorTimer.ElapsedTime.AsMilliseconds() > 500)
             {
-                _cursor.Position = _text.GetLetterPosition((uint)_currentIndex) + (Vector2f)_text.GlobalPosition;
+                _cursor.Position = _text.GetLetterPosition(_currentIndex) + (Vector2f)_text.GlobalPosition;
                 _cursor.Size = new Vector2f(1, _text.CharacterSize);
 
                 _cursorVisible = !_cursorVisible;
                 _cursorTimer.Restart();
             }
+
+            UpdateTextView();
         }
 
         public override void Draw(RenderTarget target)
@@ -218,7 +258,7 @@ namespace HlyssUI.Components
                 target.Draw(_cursor);
         }
 
-        private void updateValue()
+        private void UpdateValue()
         {
             if (Password == true)
             {
@@ -233,8 +273,6 @@ namespace HlyssUI.Components
                 _text.Text = _realText;
             }
 
-            _cursor.Position = _text.GetLetterPosition((uint)_currentIndex) + (Vector2f)_text.GlobalPosition;
-
             if (_realText.Length == 0)
             {
                 _text.Style["text"] = Theme.GetColor("808080");
@@ -242,6 +280,22 @@ namespace HlyssUI.Components
             }
             else
                 _text.Style["text"] = Theme.GetColor("text");
+        }
+
+        private void UpdateTextView()
+        {
+            int xOffset = (_textView.Bounds.Left + _textView.Bounds.Width) - (Bounds.Left + Bounds.Width - TargetPaddings.Horizontal);
+
+            if (xOffset > 0)
+            {
+                _text.ScrollOffset = new Vector2i(-xOffset, 0);
+            }
+            else
+            {
+                _text.ScrollOffset = new Vector2i();
+            }
+
+            _cursor.Position = _text.GetLetterPosition(_currentIndex) + (Vector2f)_text.GlobalPosition;
         }
     }
 }
