@@ -113,6 +113,8 @@ namespace HlyssUI
         private void Window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
             _hoveredComponent = _hoverUpdater.UpdateHover(Root, Mouse.GetPosition(Gui.Window));
+
+            sendMouseMoveInfoToAllChildren(Root, new Vector2i(e.X, e.Y));
         }
 
         private void Window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
@@ -154,6 +156,19 @@ namespace HlyssUI
         private void Window_KeyPressed(object sender, KeyEventArgs e)
         {
             sendKeyPressInfoToAllChildren(Root, e.Code);
+        }
+
+        private void sendMouseMoveInfoToAllChildren(Component component, Vector2i location)
+        {
+            if (!component.Enabled)
+                return;
+
+            component.OnMouseMoveAnywhere(location);
+
+            foreach (var child in component.Children)
+            {
+                sendMouseMoveInfoToAllChildren(child, location);
+            }
         }
 
         private void sendKeyPressInfoToAllChildren(Component component, Keyboard.Key key)

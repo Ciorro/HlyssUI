@@ -19,13 +19,6 @@ namespace HlyssUI.Components
         private int _currentIndex;
         private bool _active;
 
-        public bool AllowNumbers { get; set; } = true;
-        public bool AllowLetters { get; set; } = true;
-        public bool AllowSpecialCharacters { get; set; } = true;
-        public bool Password { get; set; }
-
-        public int MaxLines { get; set; } = 1;
-
         public string Placeholder
         {
             get { return _placeholder; }
@@ -51,8 +44,6 @@ namespace HlyssUI.Components
             get { return _active; }
             set
             {
-                _active = value;
-
                 if (value)
                 {
                     Style["secondary"] = Theme.GetColor("accent");
@@ -61,6 +52,11 @@ namespace HlyssUI.Components
 
                     if (_realText.Length == 0)
                         _text.Text = string.Empty;
+                    else if (SelectOnFocus && !_active)
+                        _text.SelectAll();
+
+                    if (!_active)
+                        _currentIndex = _realText.Length;
                 }
                 else
                 {
@@ -71,8 +67,18 @@ namespace HlyssUI.Components
                     if (_realText.Length == 0)
                         _text.Text = Placeholder;
                 }
+
+                _active = value;
             }
         }
+
+        public bool AllowNumbers { get; set; } = true;
+        public bool AllowLetters { get; set; } = true;
+        public bool AllowSpecialCharacters { get; set; } = true;
+        public bool Password { get; set; }
+        public bool SelectOnFocus { get; set; } = true;
+
+        public int MaxLines { get; set; } = 1;
 
         public override void OnAdded(Component parent)
         {
@@ -124,16 +130,11 @@ namespace HlyssUI.Components
                 {
                     if (_realText.Length > 0)
                     {
-                        System.Console.WriteLine(_text.SelectionRange);
-
                         if (_text.IsAnyTextSelected)
                         {
-                            Range selection = _text.SelectionRange;
-                            _realText = _realText.Remove(selection.Min, selection.Max - selection.Min + 1);
-                            _currentIndex = selection.Min;
-                            _text.SelectionRange = new Range(-1, -1);
+                            RemoveSelectedText();
                         }
-                        else if(_currentIndex > 0)
+                        else if (_currentIndex > 0 )
                         {
                             _realText = _realText.Remove(_currentIndex - 1, 1);
                             _currentIndex--;
@@ -147,6 +148,8 @@ namespace HlyssUI.Components
                 }
                 else if (!char.IsControl(c))
                 {
+                    RemoveSelectedText();
+
                     if ((char.IsDigit(c) && AllowNumbers == true) || (c == '-' && _currentIndex == 0 && _realText.Contains("-") == false))
                     {
                         _realText = _realText.Insert(_currentIndex, text);
@@ -247,6 +250,16 @@ namespace HlyssUI.Components
                 _cursorTimer.Restart();
             }
 
+            if(Mouse.IsButtonPressed(Mouse.Button.Left) && Active)
+            {
+                int letterIndex = _text.GetLetterByPosition(Mouse.GetPosition(Gui.Window));
+
+                if (letterIndex >= 0)
+                {
+                    _currentIndex = letterIndex;
+                }
+            }
+
             UpdateTextView();
         }
 
@@ -280,6 +293,9 @@ namespace HlyssUI.Components
             }
             else
                 _text.Style["text"] = Theme.GetColor("text");
+
+            if (_currentIndex > _realText.Length)
+                _currentIndex = _realText.Length;
         }
 
         private void UpdateTextView()
@@ -296,6 +312,18 @@ namespace HlyssUI.Components
             }
 
             _cursor.Position = _text.GetLetterPosition(_currentIndex) + (Vector2f)_text.GlobalPosition;
+        }
+
+        private void RemoveSelectedText()
+        {
+            if (_text.IsAnyTextSelected)
+            {
+                Range selection = _text.SelectionRange;
+                _text.SelectionRange = new Range(-1, -1);
+
+                _realText = _realText.Remove(selection.Min, selection.Max - selection.Min + 1);
+                _currentIndex = selection.Min;
+            }
         }
     }
 }

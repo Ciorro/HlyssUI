@@ -99,19 +99,21 @@ namespace HlyssUI.Components.Internals
 
                 if (end >= 0 && start < 0)
                     start = 0;
-                
+
                 return new Range(start, end);
             }
             set
             {
                 _selectionStart = value.Min;
                 _selectionEnd = value.Max;
+
+                UpdateSelection();
             }
         }
 
         public bool IsAnyTextSelected
         {
-            get { return SelectionRange.Min >= 0 && SelectionRange.Max >= 0; }
+            get { return _selectionStart >= 0 && _selectionEnd >= 0; }
         }
 
         private List<Letter> _letters = new List<Letter>();
@@ -161,16 +163,17 @@ namespace HlyssUI.Components.Internals
         {
             base.OnMousePressedAnywhere(location, button);
 
+            ResetSelection();
+
             _selectionStart = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
             _isSeleting = true;
-            _selectionEnd = -1;
         }
 
         public override void OnMouseReleasedAnywhere(Vector2i location, Mouse.Button button)
         {
             base.OnMouseReleasedAnywhere(location, button);
             _isSeleting = false;
-            _selectionEnd = GetLetterByPosition(location);
+            //_selectionEnd = GetLetterByPosition(location);
         }
 
         public override void OnKeyPressed(Keyboard.Key key)
@@ -179,6 +182,24 @@ namespace HlyssUI.Components.Internals
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.LControl) && key == Keyboard.Key.C)
                 Clipboard.Contents = Selected;
+        }
+
+        public override void OnMouseMoveAnywhere(Vector2i location)
+        {
+            base.OnMouseMoveAnywhere(location);
+
+            if (_isSeleting)
+            {
+                _selectionEnd = GetLetterByPosition(location);
+            }
+
+            //for (int i = 0; i < _letters.Count; i++)
+            //{
+            //    if (i >= 0 && i < _letters.Count && i >= Math.Min(_selectionEnd, _selectionStart) && i <= Math.Max(_selectionEnd, _selectionStart))
+            //        _letters[i].Selected = true;
+            //    else
+            //        _letters[i].Selected = false;
+            //}
         }
 
         public override void Update()
@@ -190,17 +211,14 @@ namespace HlyssUI.Components.Internals
                 UpdateSize();
             }
 
-            if (_isSeleting)
-            {
-                _selectionEnd = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
-            }
+            //if (_isSeleting)
+            //{
+            //    _selectionEnd = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
+            //}
 
-            for (int i = 0; i < _letters.Count; i++)
+            if (IsAnyTextSelected)
             {
-                if (i >= 0 && i < _letters.Count && i >= Math.Min(_selectionEnd, _selectionStart) && i <= Math.Max(_selectionEnd, _selectionStart))
-                    _letters[i].Selected = true;
-                else
-                    _letters[i].Selected = false;
+                UpdateSelection();
             }
         }
 
@@ -228,7 +246,7 @@ namespace HlyssUI.Components.Internals
             return new Vector2f();
         }
 
-        private int GetLetterByPosition(Vector2i position)
+        public int GetLetterByPosition(Vector2i position)
         {
             for (int i = 0; i < _letters.Count; i++)
             {
@@ -237,6 +255,16 @@ namespace HlyssUI.Components.Internals
             }
 
             return -1;
+        }
+
+        public void ResetSelection()
+        {
+            SelectionRange = new Range(-1, -1);
+        }
+
+        public void SelectAll()
+        {
+            SelectionRange = new Range(0, _text.Length - 1);
         }
 
         private void UpdateText(string prevText, string currentText)
@@ -257,6 +285,8 @@ namespace HlyssUI.Components.Internals
             {
                 _letters[i].Character = currentText[i].ToString();
             }
+
+            ResetSelection();
 
             Align();
         }
@@ -292,6 +322,17 @@ namespace HlyssUI.Components.Internals
 
             Width = $"{width}px";
             Height = $"{(int)(Font.GetLineSpacing(CharacterSize) * Lines)}px";
+        }
+
+        private void UpdateSelection()
+        {
+            for (int i = 0; i < _letters.Count; i++)
+            {
+                if (i >= 0 && i < _letters.Count && i >= Math.Min(_selectionEnd, _selectionStart) && i <= Math.Max(_selectionEnd, _selectionStart))
+                    _letters[i].Selected = true;
+                else
+                    _letters[i].Selected = false;
+            }
         }
     }
 }

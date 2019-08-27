@@ -583,6 +583,8 @@ namespace HlyssUI.Components
             MouseLeft?.Invoke(this);
         }
 
+        public virtual void OnMouseMoveAnywhere(Vector2i location) { }
+
         public virtual void OnRefresh()
         {
             //Logger.Log($"{this} refreshed", Gui.Debug);
