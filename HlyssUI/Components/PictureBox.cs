@@ -101,6 +101,8 @@ namespace HlyssUI.Components
 
         public override void Draw(RenderTarget target)
         {
+            _image.UpdateGeometry();
+
             target.Draw(_background);
             target.Draw(_image);
         }

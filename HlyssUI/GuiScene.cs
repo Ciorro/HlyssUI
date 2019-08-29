@@ -48,8 +48,6 @@ namespace HlyssUI
             _componentUpdater.Update(Root);
             _layoutUpdater.Update(Root);
             _styleUpdater.Update(Root);
-            //Stopwatch s = Stopwatch.StartNew();
-            //System.Console.WriteLine(s.ElapsedMilliseconds);
         }
 
         public void Draw()

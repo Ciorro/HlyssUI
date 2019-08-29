@@ -9,6 +9,12 @@ namespace HlyssUI.Components
     {
         private RoundedRectangle _body = new RoundedRectangle();
 
+        public Texture Texture
+        {
+            get { return _body.Texture; }
+            set { _body.Texture = value; }
+        }
+
         public override void Update()
         {
             base.Update();
@@ -35,6 +41,7 @@ namespace HlyssUI.Components
 
         public override void Draw(RenderTarget target)
         {
+            _body.UpdateGeometry();
             target.Draw(_body);
         }
     }

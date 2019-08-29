@@ -16,10 +16,8 @@ namespace HlyssUIDemo
     {
         static void Main(string[] args)
         {
-            ContextSettings settings = new ContextSettings(1, 1, 8);
-
-            RenderWindow window = new RenderWindow(new VideoMode(1366, 768), "HlyssUI demo", Styles.Default, settings);
-            window.SetFramerateLimit(60);
+            RenderWindow window = new RenderWindow(new VideoMode(1366, 768), "HlyssUI demo", Styles.Default);
+            //window.SetFramerateLimit(60);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
             Theme.Load("theme.ini", "light");
@@ -45,7 +43,9 @@ namespace HlyssUIDemo
                 window.DispatchEvents();
 
                 gui.Update();
+                //Stopwatch s = Stopwatch.StartNew();
                 gui.Draw();
+                //System.Console.WriteLine(s.ElapsedMilliseconds);
 
                 window.Display();
 
