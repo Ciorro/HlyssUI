@@ -19,7 +19,7 @@ namespace HlyssUIDemo
             ContextSettings settings = new ContextSettings(1, 1, 8);
 
             RenderWindow window = new RenderWindow(new VideoMode(1366, 768), "HlyssUI demo", Styles.Default, settings);
-            //window.SetFramerateLimit(1);
+            window.SetFramerateLimit(60);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
             Theme.Load("theme.ini", "light");
@@ -159,6 +159,15 @@ namespace HlyssUIDemo
             textBox.InsertChild(0, new Icon(Icons.Search));
             textBox.Children[0].MarginRight = "10px";
             textBox.Placeholder = "Search";
+
+            ScrollArea scrollArea = new ScrollArea()
+            {
+                Width = "200px",
+                Height = "100px"
+            };
+            gui.CurrentScene.Root.AddChild(scrollArea);
+
+
         }
 
         public static void addComponents2(Gui gui)

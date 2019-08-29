@@ -21,7 +21,7 @@ namespace HlyssUI.Controllers
             this.component = component;
         }
 
-        public abstract void OnValueChanged();
+        public abstract void Start();
         public abstract bool Update();
     }
 }

@@ -41,7 +41,7 @@ namespace HlyssUI.Components
             }
         }
 
-        private Card _box;
+        private Panel _box;
         private Icon _check;
         private Label _label;
         private bool _checked;
@@ -50,7 +50,8 @@ namespace HlyssUI.Components
         {
             Layout = LayoutType.Row;
 
-            _box = new Card();
+            _box = new Panel();
+            _box.Autosize = true;
             _check = new Icon(Icons.Check);
             _label = new Label(label);
 

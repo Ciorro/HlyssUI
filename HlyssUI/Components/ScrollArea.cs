@@ -1,8 +1,5 @@
 ﻿using HlyssUI.Layout;
 using SFML.System;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Components
 {
@@ -17,7 +14,10 @@ namespace HlyssUI.Components
         {
             get
             {
-                return _contentBox.Children[0];
+                if (_contentBox.Children.Count > 0)
+                    return _contentBox.Children[0];
+
+                return null;
             }
             set
             {
@@ -59,6 +59,9 @@ namespace HlyssUI.Components
         public override void OnRefresh()
         {
             base.OnRefresh();
+
+            if (Content == null)
+                return;
 
             int maxX = Content.TargetSize.X + _contentBox.Paddings.Horizontal;
             int maxY = Content.TargetSize.Y + _contentBox.Paddings.Vertical;

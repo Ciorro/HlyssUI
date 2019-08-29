@@ -8,11 +8,11 @@ using System.Text;
 
 namespace HlyssUI.Components
 {
-    public class Card : Component
+    public class Card2 : Component
     {
         private RoundedRectangle _body;
 
-        public Card()
+        public Card2()
         {
             _body = new RoundedRectangle();
             _body.FillColor = Style["Primary"];

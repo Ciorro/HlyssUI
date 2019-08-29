@@ -11,7 +11,7 @@ namespace HlyssUI.Controllers
         {
         }
 
-        public override void OnValueChanged()
+        public override void Start()
         {
             tween.Start();
             _from = component.Size;

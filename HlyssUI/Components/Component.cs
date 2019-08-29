@@ -453,37 +453,25 @@ namespace HlyssUI.Components
 
         internal void UpdateLocalPosition()
         {
-            //if (!TransformChanged)
-            //return;
             TargetPosition = new Vector2i(X, Y);
-            //Logger.Log($"{this} updated position {TargetPosition}", Gui.Debug);
         }
 
         internal void UpdateLocalSize()
         {
-            //if (!TransformChanged)
-            //return;
-
             TargetSize = new Vector2i(W, H);
-            //Logger.Log($"{this} updated size {TargetSize}", Gui.Debug);
         }
 
         internal void UpdateLocalSpacing()
         {
-            //if (!TransformChanged)
-            //return;
-
             TargetMargins = new Spacing(Ml, Mr, Mt, Mb);
             TargetPaddings = new Spacing(Pl, Pr, Pt, Pb);
-
-            //Logger.Log($"{this} updated margins {TargetMargins} and paddings {TargetPaddings}", Gui.Debug);
         }
 
         public void ApplyTransform()
         {
             foreach (var controller in _controllers)
             {
-                controller.OnValueChanged();
+                controller.Start();
             }
 
             TransformChanged = false;
