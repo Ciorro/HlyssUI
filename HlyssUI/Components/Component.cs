@@ -97,8 +97,8 @@ namespace HlyssUI.Components
         internal int Y => StringDimensionsConverter.Convert(_positionY, (Parent != null) ? Parent.TargetSize.Y : 0);
 
         //Size
-        internal int W => StringDimensionsConverter.Convert(_width, (Parent != null) ? Parent.TargetSize.X - Parent.TargetPaddings.Horizontal: 0);
-        internal int H => StringDimensionsConverter.Convert(_height, (Parent != null) ? Parent.TargetSize.Y - Parent.TargetPaddings.Vertical: 0);
+        internal int W => StringDimensionsConverter.Convert(_width, (Parent != null) ? Parent.TargetSize.X - Parent.TargetPaddings.Horizontal : 0);
+        internal int H => StringDimensionsConverter.Convert(_height, (Parent != null) ? Parent.TargetSize.Y - Parent.TargetPaddings.Vertical : 0);
 
         //Margin
         internal int Ml => StringDimensionsConverter.Convert(_marginLeft, (Parent != null) ? Parent.TargetSize.X : 0);

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace HlyssUI.Components.Internals
 {
-    class EditableLabel : Component
+    internal class EditableLabel : Component
     {
         public string Text
         {

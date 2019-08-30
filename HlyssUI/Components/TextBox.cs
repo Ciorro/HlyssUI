@@ -134,7 +134,7 @@ namespace HlyssUI.Components
                         {
                             RemoveSelectedText();
                         }
-                        else if (_currentIndex > 0 )
+                        else if (_currentIndex > 0)
                         {
                             _realText = _realText.Remove(_currentIndex - 1, 1);
                             _currentIndex--;
@@ -171,7 +171,7 @@ namespace HlyssUI.Components
                         _currentIndex++;
                     }
                 }
-                
+
                 UpdateValue();
 
                 if (_realText != tmpText)
@@ -197,16 +197,16 @@ namespace HlyssUI.Components
                     _currentIndex++;
                     _cursor.Position = _text.GetLetterPosition(_currentIndex) + (Vector2f)_text.GlobalPosition;
                 }
-                else if(key == Keyboard.Key.Delete && _currentIndex < _realText.Length)
+                else if (key == Keyboard.Key.Delete && _currentIndex < _realText.Length)
                 {
                     _realText = _realText.Remove(_currentIndex, 1);
                     UpdateValue();
                 }
-                else if(key == Keyboard.Key.Home)
+                else if (key == Keyboard.Key.Home)
                 {
                     _currentIndex = 0;
                 }
-                else if(key == Keyboard.Key.End)
+                else if (key == Keyboard.Key.End)
                 {
                     _currentIndex = _realText.Length;
                 }
@@ -250,7 +250,7 @@ namespace HlyssUI.Components
                 _cursorTimer.Restart();
             }
 
-            if(Mouse.IsButtonPressed(Mouse.Button.Left) && Active)
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && Active)
             {
                 int letterIndex = _text.GetLetterByPosition(Mouse.GetPosition(Gui.Window));
 

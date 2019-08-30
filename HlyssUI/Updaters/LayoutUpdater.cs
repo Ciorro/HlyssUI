@@ -1,7 +1,5 @@
 ﻿using HlyssUI.Components;
 using HlyssUI.Layout.LayoutControllers;
-using System;
-using System.Diagnostics;
 
 namespace HlyssUI.Updaters
 {
@@ -15,20 +13,8 @@ namespace HlyssUI.Updaters
 
             if (_anyTransformChanged)
             {
-                //int composeTicks = 0;
-                //int refreshTicks = 0;
-                //float all = 0;
-
-                //Stopwatch s = Stopwatch.StartNew();
                 Compose(component);
-                //composeTicks = (int)s.ElapsedTicks;
-                //s.Restart();
                 Refresh(component);
-                //refreshTicks = (int)s.ElapsedTicks;
-
-                //all = composeTicks + refreshTicks;
-
-                //Console.WriteLine($"Layout update: Compose time: {(int)((composeTicks / all) * 100)}%, Refresh time: {(int)((refreshTicks / all) * 100)}%");
 
                 _anyTransformChanged = false;
             }

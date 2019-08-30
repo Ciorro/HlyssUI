@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HlyssUI.Utils
+﻿namespace HlyssUI.Utils
 {
     public struct Range
     {

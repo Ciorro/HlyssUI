@@ -1,7 +1,5 @@
 ﻿using HlyssUI.Utils;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Controllers.Tweens
 {
@@ -24,7 +22,7 @@ namespace HlyssUI.Controllers.Tweens
                 Finish();
                 return;
             }
-         
+
             offset *= DeltaTime.Current * Speed;
             progress += offset;
         }

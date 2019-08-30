@@ -75,7 +75,7 @@ namespace HlyssUI.Components
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
 
-            
+
         }
 
         public override void OnMouseLeft()
@@ -86,7 +86,7 @@ namespace HlyssUI.Components
             else
                 Style["primary"] = Theme.GetColor("primary");
 
-            
+
         }
 
         public override void OnPressed()
@@ -97,7 +97,7 @@ namespace HlyssUI.Components
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 40);
 
-            
+
         }
 
         public override void OnClicked()
@@ -108,7 +108,7 @@ namespace HlyssUI.Components
 
         private void toggle()
         {
-            if(_toggled)
+            if (_toggled)
             {
                 _toggle.MarginLeft = "24px";
                 _toggle.Style["primary"] = Theme.GetColor("ffffff");
@@ -127,7 +127,7 @@ namespace HlyssUI.Components
                 Style["secondary"] = Theme.GetColor("secondary");
             }
 
-            
+
         }
     }
 }

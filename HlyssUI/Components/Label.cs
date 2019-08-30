@@ -1,8 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Components
 {
@@ -79,7 +77,7 @@ namespace HlyssUI.Components
         public override void OnAdded(Component parent)
         {
             base.OnAdded(parent);
-            
+
             _text.Font = Gui.DefaultFont;
             _text.CharacterSize = Style.CharacterSize;
             updateSize();
@@ -89,7 +87,7 @@ namespace HlyssUI.Components
         {
             base.Update();
 
-            if(TransformChanged)
+            if (TransformChanged)
             {
                 updateSize();
             }

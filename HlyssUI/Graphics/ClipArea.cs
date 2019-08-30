@@ -1,9 +1,6 @@
 ﻿using HlyssUI.Components;
 using SFML.Graphics;
 using SFML.System;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Graphics
 {
@@ -52,7 +49,7 @@ namespace HlyssUI.Graphics
 
         private void fitInParent(ref IntRect bounds)
         {
-            if(_component.Parent != null)
+            if (_component.Parent != null)
             {
                 if (bounds.Left < _component.Parent.ClipArea.Bounds.Left)
                 {

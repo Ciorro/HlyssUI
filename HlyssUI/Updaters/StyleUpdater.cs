@@ -1,8 +1,4 @@
 ﻿using HlyssUI.Components;
-using SFML.Window;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Updaters
 {

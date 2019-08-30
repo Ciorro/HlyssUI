@@ -2,10 +2,8 @@
 using HlyssUI.Graphics;
 using HlyssUI.Themes;
 using HlyssUI.Updaters;
-using HlyssUI.Utils;
 using SFML.System;
 using SFML.Window;
-using System.Diagnostics;
 
 namespace HlyssUI
 {

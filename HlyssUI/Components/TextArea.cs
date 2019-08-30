@@ -1,6 +1,4 @@
 ﻿using HlyssUI.Components.Internals;
-using HlyssUI.Graphics;
-using HlyssUI.Layout;
 using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
@@ -153,7 +151,7 @@ namespace HlyssUI.Components
         {
             base.Update();
 
-            if(_isSeleting)
+            if (_isSeleting)
                 _selectionEnd = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
 
             for (int i = 0; i < _letters.Count; i++)
@@ -185,7 +183,7 @@ namespace HlyssUI.Components
             {
                 List<Letter> word = GetWord(i);
 
-                if(!WordWrap)
+                if (!WordWrap)
                 {
                     _lines.Last().TryAddWord(word, true);
                 }

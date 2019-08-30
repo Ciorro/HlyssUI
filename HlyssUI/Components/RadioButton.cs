@@ -25,7 +25,7 @@ namespace HlyssUI.Components
                 }
 
                 _marked = value;
-                
+
             }
         }
 
@@ -77,7 +77,7 @@ namespace HlyssUI.Components
             AddChild(_label);
 
             CascadeStyle = true;
-            
+
         }
 
         public override void OnMouseEntered()
@@ -91,7 +91,7 @@ namespace HlyssUI.Components
             base.OnMouseLeft();
             Style["primary"] = Theme.GetColor("primary");
 
-            
+
         }
 
         public override void OnPressed()
@@ -99,7 +99,7 @@ namespace HlyssUI.Components
             base.OnPressed();
             Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 40);
 
-            
+
         }
 
         public override void OnChildAdded(Component child)

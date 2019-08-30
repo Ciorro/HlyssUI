@@ -1,8 +1,4 @@
-﻿using HlyssUI.Layout;
-using SFML.Window;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SFML.Window;
 
 namespace HlyssUI.Components
 {

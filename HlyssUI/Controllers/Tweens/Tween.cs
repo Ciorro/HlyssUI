@@ -1,7 +1,4 @@
-﻿using HlyssUI.Utils;
-using System;
-
-namespace HlyssUI.Controllers.Tweens
+﻿namespace HlyssUI.Controllers.Tweens
 {
     abstract class Tween
     {

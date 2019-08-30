@@ -11,13 +11,13 @@ namespace HlyssUI.Components
             get { return _checked; }
             set
             {
-                if(value)
+                if (value)
                 {
                     Style["primary"] = Theme.GetColor("accent");
                     _box.Style["secondary"] = Theme.GetColor("accent");
                     _check.Visible = true;
 
-                    
+
                 }
                 else
                 {
@@ -25,7 +25,7 @@ namespace HlyssUI.Components
                     _box.Style["secondary"] = Theme.GetColor("secondary");
                     _check.Visible = false;
 
-                    
+
                 }
 
                 _checked = value;
@@ -86,40 +86,40 @@ namespace HlyssUI.Components
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
 
-            
+
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-            if(Checked)
+            if (Checked)
                 Style["primary"] = Theme.GetColor("accent");
             else
                 Style["primary"] = Theme.GetColor("primary");
 
-            
+
         }
 
         public override void OnPressed()
         {
             base.OnPressed();
-            if(Checked)
+            if (Checked)
                 Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 40);
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 40);
 
-            
+
         }
 
         public override void OnReleased()
         {
             base.OnReleased();
-            if(Checked)
+            if (Checked)
                 Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 20);
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
 
-            
+
 
         }
 

@@ -4,11 +4,9 @@ using HlyssUI.Graphics;
 using HlyssUI.Layout;
 using HlyssUI.Themes;
 using SFML.Graphics;
-using SFML.System;
 using SFML.Window;
 using System;
 using System.Diagnostics;
-using System.Linq;
 
 namespace HlyssUIDemo
 {
@@ -212,7 +210,8 @@ namespace HlyssUIDemo
             button.Appearance = Button.ButtonStyle.Filled;
             button.AddChild(new Icon(Icons.Arrows));
             button.MarginRight = "20px";
-            button.Clicked += (object sender) => {
+            button.Clicked += (object sender) =>
+            {
 
                 Panel panel = gui.CurrentScene.Root.FindChild("panel6") as Panel;
 
