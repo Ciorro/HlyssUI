@@ -16,7 +16,6 @@ namespace HlyssUI.Graphics
             set
             {
                 _radius = value;
-                //Update();
             }
         }
 
@@ -27,7 +26,6 @@ namespace HlyssUI.Graphics
             {
                 _size = value;
                 Radius = _radius;
-               //Update();
             }
         }
 
@@ -49,7 +47,7 @@ namespace HlyssUI.Graphics
 
         public override uint GetPointCount()
         {
-            return 64;
+            return 16;
         }
 
         public new void UpdateGeometry()

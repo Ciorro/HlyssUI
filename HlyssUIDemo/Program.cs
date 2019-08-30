@@ -143,8 +143,7 @@ namespace HlyssUIDemo
             //};
 
             TextArea textArea = new TextArea();
-            //textArea.Text = "ale w sumie to ni jst takie asz tduen jak jusz sie oharnie jak cokolwiek zrobic w syfony";
-            textArea.Text = "Search";
+            textArea.Text = "ale w sumie to ni jst takie asz tduen jak jusz sie oharnie jak cokolwiek zrobic w syfony";
             panel6.AddChild(textArea);
             textArea.Width = "90%";
             textArea.Height = "90%";
@@ -166,8 +165,15 @@ namespace HlyssUIDemo
                 Height = "100px"
             };
             gui.CurrentScene.Root.AddChild(scrollArea);
+            scrollArea.Content.Width = "400px";
+            scrollArea.Content.Layout = LayoutType.Wrap;
+            scrollArea.Content.AutosizeY = true;
+            scrollArea.DisableHorizontalScroll = true;
 
-
+            for (int i = 0; i < 50; i++)
+            {
+                scrollArea.Content.AddChild(new Button($"Button {i + 1}"));
+            }
         }
 
         public static void addComponents2(Gui gui)

@@ -33,6 +33,7 @@ namespace HlyssUI.Layout.LayoutControllers
                 }
 
                 child.UpdateLocalPosition();
+                CompareSize(child);
             }
         }
 
