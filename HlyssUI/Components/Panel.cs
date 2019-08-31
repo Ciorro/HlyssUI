@@ -6,13 +6,13 @@ namespace HlyssUI.Components
 {
     public class Panel : Component
     {
-        private RoundedRectangle _body = new RoundedRectangle();
-
         public Texture Texture
         {
             get { return _body.Texture; }
             set { _body.Texture = value; }
         }
+
+        private RoundedRectangle _body = new RoundedRectangle();
 
         public override void Update()
         {

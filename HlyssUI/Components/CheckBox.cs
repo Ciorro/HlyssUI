@@ -6,6 +6,11 @@ namespace HlyssUI.Components
 {
     public class CheckBox : Component
     {
+        private Panel _box;
+        private Icon _check;
+        private Label _label;
+        private bool _checked;
+
         public bool Checked
         {
             get { return _checked; }
@@ -40,11 +45,6 @@ namespace HlyssUI.Components
                 _label.Text = value;
             }
         }
-
-        private Panel _box;
-        private Icon _check;
-        private Label _label;
-        private bool _checked;
 
         public CheckBox(string label = "")
         {

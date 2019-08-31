@@ -6,7 +6,6 @@ namespace HlyssUI.Components
 {
     public class ProgressBar : Component
     {
-
         public int Value
         {
             get { return _value; }
@@ -25,7 +24,7 @@ namespace HlyssUI.Components
             get { return (float)Value / (float)MaxValue; }
         }
 
-        public int MaxValue = 100;
+        public int MaxValue { get; set; } = 100;
 
         private RectangleShape _background;
         private RectangleShape _fill;

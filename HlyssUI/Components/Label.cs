@@ -63,7 +63,7 @@ namespace HlyssUI.Components
             }
         }
 
-        protected Text _text = new Text();
+        private Text _text = new Text();
 
         public Label()
         {

@@ -25,7 +25,6 @@ namespace HlyssUI.Components
                 }
 
                 _marked = value;
-
             }
         }
 
@@ -89,16 +88,12 @@ namespace HlyssUI.Components
         {
             base.OnMouseLeft();
             Style["primary"] = Theme.GetColor("primary");
-
-
         }
 
         public override void OnPressed()
         {
             base.OnPressed();
             Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 40);
-
-
         }
 
         public override void OnChildAdded(Component child)
@@ -117,8 +112,6 @@ namespace HlyssUI.Components
         {
             if (Parent == null)
                 return;
-
-            List<RadioButton> others = new List<RadioButton>();
 
             foreach (var parentChild in Parent.Children)
             {

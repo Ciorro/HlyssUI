@@ -74,8 +74,6 @@ namespace HlyssUI.Components
                 Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 20);
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
-
-
         }
 
         public override void OnMouseLeft()
@@ -85,8 +83,6 @@ namespace HlyssUI.Components
                 Style["primary"] = Theme.GetColor("accent");
             else
                 Style["primary"] = Theme.GetColor("primary");
-
-
         }
 
         public override void OnPressed()
@@ -96,8 +92,6 @@ namespace HlyssUI.Components
                 Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 40);
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 40);
-
-
         }
 
         public override void OnClicked()
@@ -126,8 +120,6 @@ namespace HlyssUI.Components
                 Style["primary"] = Theme.GetColor("primary");
                 Style["secondary"] = Theme.GetColor("secondary");
             }
-
-
         }
     }
 }

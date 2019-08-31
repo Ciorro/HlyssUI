@@ -11,6 +11,9 @@ namespace HlyssUI.Components
             Outline, Filled, Flat
         }
 
+        private Label _label;
+        private ButtonStyle _style;
+
         public string Label
         {
             get { return _label.Text; }
@@ -19,9 +22,6 @@ namespace HlyssUI.Components
                 _label.Text = value;
             }
         }
-
-        private Label _label;
-        private ButtonStyle _style;
 
         public ButtonStyle Appearance
         {

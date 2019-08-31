@@ -10,12 +10,15 @@ namespace HlyssUI.Graphics
         private uint _radius = Theme.BorderRadius;
         private Vector2f _size = new Vector2f(100, 100);
 
+        private bool _needsUpdate = false;
+
         public uint Radius
         {
             get { return (uint)Math.Min(Math.Min(_size.X, _size.Y) / 2, _radius); }
             set
             {
                 _radius = value;
+                _needsUpdate = true;
             }
         }
 
@@ -26,6 +29,7 @@ namespace HlyssUI.Graphics
             {
                 _size = value;
                 Radius = _radius;
+                _needsUpdate = true;
             }
         }
 
@@ -50,9 +54,13 @@ namespace HlyssUI.Graphics
             return 16;
         }
 
-        public new void UpdateGeometry()
+        public void UpdateGeometry()
         {
-            base.Update();
+            if (_needsUpdate)
+            {
+                Update();
+                _needsUpdate = false;
+            }
         }
     }
 }
