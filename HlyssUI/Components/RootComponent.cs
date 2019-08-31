@@ -24,7 +24,6 @@ namespace HlyssUI.Components
             Margin = $"{DEFAULT_APP_MARGIN}px";
 
             UpdateLocalTransform();
-            DisableClipping = true;
         }
     }
 }

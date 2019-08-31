@@ -3,7 +3,7 @@ using SFML.System;
 
 namespace HlyssUI.Components
 {
-    public class ScrollArea : Component
+    public class ScrollArea : Panel
     {
         private Component _contentBox;
         private Component _scrollBox;

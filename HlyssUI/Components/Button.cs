@@ -36,8 +36,13 @@ namespace HlyssUI.Components
                 }
                 if (value == ButtonStyle.Filled)
                 {
+                    _label.Font = Fonts.MontserratSemiBold;
                     Style["Primary"] = Theme.GetColor("Accent");
                     Style["Text"] = Themes.Style.GetLegibleColor(Theme.GetColor("Accent"));
+                }
+                else
+                {
+                    _label.Font = Fonts.MontserratMedium;
                 }
             }
         }
@@ -60,7 +65,6 @@ namespace HlyssUI.Components
             base.OnAdded(parent);
 
             AddChild(_label);
-            _label.CharacterSize = Style.CharacterSize;
             _label.Font = Fonts.MontserratMedium;
 
             CascadeStyle = true;

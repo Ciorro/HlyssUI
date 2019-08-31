@@ -69,15 +69,14 @@ namespace HlyssUI.Components
             _mark.Style.Round = true;
             _mark.Width = "12px";
             _mark.Height = "12px";
-            _mark.Style["secondary"] = Themes.Theme.GetColor("transparent");
-            _mark.Style["primary"] = Themes.Theme.GetColor("transparent");
+            _mark.Style["secondary"] = Theme.GetColor("transparent");
+            _mark.Style["primary"] = Theme.GetColor("transparent");
             _box.AddChild(_mark);
 
             _label.Margin = "2px";
             AddChild(_label);
 
             CascadeStyle = true;
-
         }
 
         public override void OnMouseEntered()

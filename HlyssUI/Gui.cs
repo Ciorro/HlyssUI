@@ -9,10 +9,10 @@ namespace HlyssUI
 {
     public class Gui
     {
+        public static bool Debug = false;
+
         public RenderWindow Window { get; private set; }
-        public Font DefaultFont { get; private set; } = Fonts.MontserratRegular;
         public float Scale = 1f;
-        public bool Debug = false;
 
         public View DefaultView
         {

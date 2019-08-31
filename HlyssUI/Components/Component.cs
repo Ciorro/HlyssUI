@@ -248,7 +248,7 @@ namespace HlyssUI.Components
         }
         #endregion
 
-        public Style Style = new Style();
+        public Style Style { get; set; } = new Style();
         public ClipArea ClipArea { get; private set; }
 
         public string Transition
@@ -488,35 +488,25 @@ namespace HlyssUI.Components
         {
             Gui = parent.Gui;
             Scene = parent.Scene;
-
-            //Logger.Log($"{this} added to {parent}", Gui.Debug);
             Added?.Invoke(this);
         }
 
         public virtual void OnRemoved(Component parent)
         {
-            //Logger.Log($"{this} removed from parent", Gui.Debug);
-
             Gui = null;
             Scene = null;
             Removed?.Invoke(this);
         }
 
-        public virtual void OnChildAdded(Component child)
-        {
-        }
+        public virtual void OnChildAdded(Component child) { }
 
-        public virtual void OnChildRemoved(Component child)
-        {
-        }
+        public virtual void OnChildRemoved(Component child) { }
 
         public virtual void OnPressed()
         {
             IsPressed = true;
-            //Logger.Log($"{this} pressed", Gui.Debug);
             Pressed?.Invoke(this);
 
-            //double click
             if (_doubleClick)
             {
                 _doubleClick = false;
@@ -528,7 +518,6 @@ namespace HlyssUI.Components
             if (_doubleClickTimer.ElapsedMilliseconds <= 500 && _firstClickPos == currentMPos)
             {
                 _doubleClick = true;
-                //Logger.Log($"{this} double clicked", Gui.Debug);
                 DoubleClicked?.Invoke(this);
             }
 
@@ -540,13 +529,11 @@ namespace HlyssUI.Components
         {
             if (IsPressed)
             {
-                //Logger.Log($"{this} clicked", Gui.Debug);
                 Clicked?.Invoke(this);
                 OnClicked();
             }
 
             IsPressed = false;
-            //Logger.Log($"{this} released", Gui.Debug);
             Released?.Invoke(this);
         }
 
@@ -560,40 +547,29 @@ namespace HlyssUI.Components
 
         public virtual void OnMouseEntered()
         {
-            //Logger.Log($"Mouse entered {this}", Gui.Debug);
             MouseEntered?.Invoke(this);
         }
 
         public virtual void OnMouseLeft()
         {
             IsPressed = false;
-            //Logger.Log($"Mouse left {this}", Gui.Debug);
             MouseLeft?.Invoke(this);
         }
 
         public virtual void OnMouseMoveAnywhere(Vector2i location) { }
 
-        public virtual void OnRefresh()
-        {
-            //Logger.Log($"{this} refreshed", Gui.Debug);
-        }
+        public virtual void OnRefresh() { }
 
         public virtual void OnStyleChanged()
         {
             Style.NeedsRefresh = false;
         }
 
-        public virtual void OnMousePressedAnywhere(Vector2i location, Mouse.Button button)
-        {
-        }
+        public virtual void OnMousePressedAnywhere(Vector2i location, Mouse.Button button) { }
 
-        public virtual void OnMouseReleasedAnywhere(Vector2i location, Mouse.Button button)
-        {
-        }
+        public virtual void OnMouseReleasedAnywhere(Vector2i location, Mouse.Button button) { }
 
-        public virtual void OnScrolledAnywhere(float scroll)
-        {
-        }
+        public virtual void OnScrolledAnywhere(float scroll) { }
         #endregion
 
         #region Debugging

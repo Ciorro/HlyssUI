@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using HlyssUI.Graphics;
+using SFML.Graphics;
 using SFML.System;
 using System;
 
@@ -67,19 +68,20 @@ namespace HlyssUI.Components
         public Label()
         {
             Text = string.Empty;
+
+            _text.Font = Fonts.MontserratRegular;
         }
 
         public Label(string text)
         {
             Text = text;
+
+            _text.Font = Fonts.MontserratRegular;
         }
 
         public override void OnAdded(Component parent)
         {
             base.OnAdded(parent);
-
-            _text.Font = Gui.DefaultFont;
-            _text.CharacterSize = Style.CharacterSize;
             updateSize();
         }
 
@@ -103,6 +105,9 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
             _text.FillColor = Style["Text"];
+            _text.CharacterSize = Style.CharacterSize;
+
+            updateSize();
         }
 
         public override void Draw(RenderTarget target)

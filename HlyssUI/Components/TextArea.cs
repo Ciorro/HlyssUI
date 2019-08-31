@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Components.Internals;
+using HlyssUI.Layout;
 using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
@@ -56,6 +57,7 @@ namespace HlyssUI.Components
             }
         }
 
+        public bool Selectable { get; set; }
         public bool TextAutosize { get; set; }
         public bool WordWrap { get; set; } = true;
         public TextAlign Align = TextAlign.Left;
@@ -69,6 +71,8 @@ namespace HlyssUI.Components
         private int _selectionEnd = -1;
         private bool _isSeleting = false;
 
+        private Vector2i _prevSize = new Vector2i();
+
         public override void OnAdded(Component parent)
         {
             base.OnAdded(parent);
@@ -79,7 +83,10 @@ namespace HlyssUI.Components
         {
             base.OnRefresh();
 
-            CreateLines();
+            if (_prevSize != TargetSize)
+            {
+                CreateLines();
+            }
             PlaceLines();
 
             foreach (var line in _lines)
@@ -103,6 +110,9 @@ namespace HlyssUI.Components
                         break;
                 }
             }
+
+            PlaceLines();
+            _prevSize = TargetSize;
         }
 
         public override void OnStyleChanged()
@@ -119,7 +129,10 @@ namespace HlyssUI.Components
         {
             foreach (var letter in _letters)
             {
-                letter.Draw(target);
+                if (letter.Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : Scene.Root.Bounds))
+                {
+                    letter.Draw(target);
+                }
             }
         }
 
@@ -151,6 +164,9 @@ namespace HlyssUI.Components
         {
             base.Update();
 
+            if (!Selectable)
+                return;
+
             if (_isSeleting)
                 _selectionEnd = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
 
@@ -177,7 +193,7 @@ namespace HlyssUI.Components
         private void CreateLines()
         {
             _lines.Clear();
-            _lines.Add(CreateLine());
+            _lines.Add(new TextLine(TargetSize.X));
 
             for (int i = 0; i < _letters.Count; i++)
             {
@@ -189,7 +205,7 @@ namespace HlyssUI.Components
                 }
                 else if (!_lines.Last().TryAddWord(word))
                 {
-                    _lines.Add(CreateLine());
+                    _lines.Add(new TextLine(TargetSize.X));
                     _lines.Last().TryAddWord(word);
                 }
 
@@ -198,13 +214,8 @@ namespace HlyssUI.Components
                 if (i < _letters.Count && _letters[i].Character != "\n")
                     _lines.Last().TryAddLetter(_letters[i]);
                 else if (i < _letters.Count && _letters[i].Character == "\n")
-                    _lines.Add(CreateLine());
+                    _lines.Add(new TextLine(TargetSize.X));
             }
-        }
-
-        private TextLine CreateLine()
-        {
-            return new TextLine(TargetSize.X);
         }
 
         private List<Letter> GetWord(int index)

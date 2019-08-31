@@ -7,14 +7,17 @@ using SFML.Graphics;
 using SFML.Window;
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace HlyssUIDemo
 {
     class Program
     {
+        static string caption = "HlyssUI demo";
+
         static void Main(string[] args)
         {
-            RenderWindow window = new RenderWindow(new VideoMode(1366, 768), "HlyssUI demo", Styles.Default);
+            RenderWindow window = new RenderWindow(new VideoMode(630, 380), caption, Styles.Default);
             //window.SetFramerateLimit(60);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
@@ -27,12 +30,13 @@ namespace HlyssUIDemo
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
-            addComponents3(gui);
+            intel(gui);
+            //addComponents3(gui);
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
                 if (e.Code == Keyboard.Key.F3)
-                    gui.Debug = !gui.Debug;
+                    Gui.Debug = !Gui.Debug;
             };
 
             while (window.IsOpen)
@@ -41,22 +45,141 @@ namespace HlyssUIDemo
                 window.DispatchEvents();
 
                 gui.Update();
-                //Stopwatch s = Stopwatch.StartNew();
                 gui.Draw();
-                //System.Console.WriteLine(s.ElapsedMilliseconds);
 
                 window.Display();
 
                 fps++;
                 if (fpsTimer.ElapsedMilliseconds >= 1000)
                 {
-                    window.SetTitle($"HlyssUI demo ({fps} fps)");
+                    window.SetTitle($"{caption} ({fps} fps)");
                     fps = 0;
                     fpsTimer.Restart();
                 }
             }
 
             HlyssUI.Utils.Logger.SaveLog();
+        }
+
+        private static void intel(Gui gui)
+        {
+            caption = "Intel® Driver & Support Assistant";
+
+            GuiScene scene = gui.CurrentScene;
+            scene.Root.Layout = LayoutType.Column;
+            scene.Root.CenterContent = true;
+
+            Panel topBar = new Panel()
+            {
+                Width = "100%",
+                Height = "60px"
+            };
+            topBar.Style["primary"] = Theme.GetColor("0071c5");
+            topBar.Style["secondary"] = Theme.GetColor("0071c5");
+            topBar.Style.BorderRadius = 0;
+            scene.AddChild(topBar);
+
+            Component topBarLeft = new Component()
+            {
+                Width = "75%",
+                Height = "100%",
+                CenterContent = true
+            };
+            topBar.AddChild(topBarLeft);
+
+            Component topBarRight = new Component()
+            {
+                Width = "25%",
+                Height = "100%",
+                CenterContent = true,
+                Reversed = true
+            };
+            topBar.AddChild(topBarRight);
+
+            Label header = new Label("Intel® Driver & Support Assistant")
+            {
+                MarginLeft = "15px"
+            };
+            header.Style["text"] = Theme.GetColor("ffffff");
+            header.Style.CharacterSize = 21;
+            header.Font = Fonts.MontserratMedium;
+            topBarLeft.AddChild(header);
+
+            PictureBox intelLogo = new PictureBox("intel.png")
+            {
+                MarginRight = "15px"
+            };
+            intelLogo.Style["primary"] = Theme.GetColor("transparent");
+            topBarRight.AddChild(intelLogo);
+
+            ScrollArea licenseArea = new ScrollArea()
+            {
+                Width = "95%",
+                Height = "250px",
+                Margin = "10px"
+            };
+            scene.AddChild(licenseArea);
+            licenseArea.Content.AutosizeY = true;
+            licenseArea.Content.Width = "100%";
+
+            TextArea license = new TextArea()
+            {
+                Text = File.ReadAllText("license.txt"),
+                Width = "100%",
+                Height = "1970px"
+            };
+            licenseArea.Content.AddChild(license);
+
+            //Label license = new Label()
+            //{
+            //    Text = File.ReadAllText("license.txt"),
+            //    Width = "100%",
+            //    Height = "1970px"
+            //};
+            //licenseArea.Content.AddChild(license);
+
+            Component bottomBar = new Component()
+            {
+                Width = "95%",
+                Layout = LayoutType.Row,
+                AutosizeY = true
+            };
+            scene.AddChild(bottomBar);
+
+            Component bottomBarLeft = new Component()
+            {
+                Width = "60%",
+                AutosizeY = true
+            };
+            bottomBar.AddChild(bottomBarLeft);
+
+            Component bottomBarRight = new Component()
+            {
+                Width = "40%",
+                AutosizeY = true,
+                Reversed = true
+            };
+            bottomBar.AddChild(bottomBarRight);
+
+            Button install = new Button("Install")
+            {
+                Appearance = Button.ButtonStyle.Filled
+            };
+            bottomBarRight.AddChild(install);
+
+            Button close = new Button("Close")
+            {
+                MarginRight = "5px"
+            };
+            bottomBarRight.AddChild(close);
+
+            CheckBox agreement = new CheckBox("I agree to the license terms and conditions")
+            {
+                MarginTop = "8px"
+            };
+            bottomBarLeft.AddChild(agreement);
+
+            install.InsertChild(0, new PictureBox("shield.png") { MarginRight="2px", MarginTop = "2px"});
         }
 
         private static void addComponents1(Gui gui)
@@ -156,28 +279,20 @@ namespace HlyssUIDemo
             textBox.InsertChild(0, new Icon(Icons.Search));
             textBox.Children[0].MarginRight = "10px";
             textBox.Placeholder = "Search";
-
-            ScrollArea scrollArea = new ScrollArea()
-            {
-                Width = "200px",
-                Height = "100px"
-            };
-            gui.CurrentScene.Root.AddChild(scrollArea);
-            scrollArea.Content.Width = "400px";
-            scrollArea.Content.Layout = LayoutType.Wrap;
-            scrollArea.Content.AutosizeY = true;
-            scrollArea.DisableHorizontalScroll = true;
-
-            for (int i = 0; i < 50; i++)
-            {
-                scrollArea.Content.AddChild(new Button($"Button {i + 1}"));
-            }
         }
 
         public static void addComponents2(Gui gui)
         {
             gui.CurrentScene.Root.Layout = LayoutType.Wrap;
             gui.CurrentScene.AddChild(new HScrollBar(4000));
+
+            ScrollArea picScroll = new ScrollArea();
+            gui.CurrentScene.AddChild(picScroll);
+            picScroll.Width = "100%";
+            picScroll.Height = "50%";
+            picScroll.Content.Width = "100%";
+            picScroll.Content.AutosizeY = true;
+            picScroll.Content.Layout = LayoutType.Wrap;
 
             Texture texture = new Texture("img.jpg");
 
@@ -188,7 +303,7 @@ namespace HlyssUIDemo
                 pictureBox.Height = "100px";
                 pictureBox.Margin = "1px";
 
-                gui.CurrentScene.Root.AddChild(pictureBox);
+                picScroll.Content.AddChild(pictureBox);
 
                 Icon icon = new Icon(Icons.Heart);
                 icon.Margin = "5px";

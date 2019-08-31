@@ -7,9 +7,15 @@ namespace HlyssUI.Components
 {
     public class Icon : Component
     {
-        private static Font _iconFont = new Font(HlyssUI.Properties.Resources.Line_Awesome);
+        private static Font _iconFont = new Font(Properties.Resources.Line_Awesome);
         private Text _iconTxt;
         private Icons _icon;
+
+        public uint IconSize
+        {
+            get { return Style.CharacterSize; }
+            set { Style.CharacterSize = value; }
+        }
 
         public Icon(Icons icon)
         {

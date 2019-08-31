@@ -80,7 +80,6 @@ namespace HlyssUI.Components
         {
             base.OnRefresh();
 
-            _background.FillColor = Style["primary"];
             _background.Position = (Vector2f)GlobalPosition;
             _background.Size = (Vector2f)TargetSize;
 
@@ -93,7 +92,9 @@ namespace HlyssUI.Components
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
+
             _image.Radius = Style.BorderRadius;
+            _background.FillColor = Style["primary"];
         }
 
         public override void Draw(RenderTarget target)
