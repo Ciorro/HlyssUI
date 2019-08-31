@@ -157,7 +157,8 @@ namespace HlyssUIDemo
             {
                 Width = "40%",
                 AutosizeY = true,
-                Reversed = true
+                Reversed = true,
+                PaddingTop = "2px"
             };
             bottomBar.AddChild(bottomBarRight);
 

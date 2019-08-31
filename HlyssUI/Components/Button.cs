@@ -54,8 +54,8 @@ namespace HlyssUI.Components
 
             PaddingLeft = "20px";
             PaddingRight = "20px";
-            PaddingTop = "10px";
-            PaddingBottom = "10px";
+            PaddingTop = "8px";
+            PaddingBottom = "8px";
 
             Autosize = true;
         }
