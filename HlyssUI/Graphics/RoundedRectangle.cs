@@ -51,7 +51,7 @@ namespace HlyssUI.Graphics
 
         public override uint GetPointCount()
         {
-            return 16;
+            return 32;
         }
 
         public void UpdateGeometry()

@@ -6,7 +6,10 @@ namespace HlyssUI.Components
 {
     public class RadioButton : Component
     {
-        public bool Marked
+        public delegate void MarkHandler(object sender, bool isToggled);
+        public event MarkHandler Marked;
+
+        public bool IsMarked
         {
             get { return _marked; }
             set
@@ -25,6 +28,7 @@ namespace HlyssUI.Components
                 }
 
                 _marked = value;
+                Marked?.Invoke(this, value);
             }
         }
 
@@ -105,7 +109,7 @@ namespace HlyssUI.Components
         public override void OnClicked()
         {
             base.OnClicked();
-            Marked = true;
+            IsMarked = true;
         }
 
         private void unmarkOthers()
@@ -117,7 +121,7 @@ namespace HlyssUI.Components
             {
                 if (parentChild.GetType() == GetType() && parentChild != this)
                 {
-                    ((RadioButton)parentChild).Marked = false;
+                    ((RadioButton)parentChild).IsMarked = false;
                 }
             }
         }

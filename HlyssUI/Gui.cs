@@ -4,6 +4,7 @@ using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HlyssUI
 {
@@ -13,6 +14,7 @@ namespace HlyssUI
 
         public RenderWindow Window { get; private set; }
         public float Scale = 1f;
+        public Navigator Navigator = new Navigator();
 
         public View DefaultView
         {
@@ -29,19 +31,6 @@ namespace HlyssUI
             get { return (Vector2i)Window.Size; }
         }
 
-
-        public GuiScene CurrentScene
-        {
-            get
-            {
-                if (_scenes.Count > 0)
-                    return _scenes.Peek();
-                else return new GuiScene(this);
-            }
-        }
-
-        private Stack<GuiScene> _scenes = new Stack<GuiScene>();
-
         public Gui(RenderWindow window)
         {
             Window = window;
@@ -50,30 +39,28 @@ namespace HlyssUI
 
         private void Theme_OnThemeLoaded()
         {
-            CurrentScene.UpdateTheme();
+            foreach (var scene in Navigator.GetAllScenes())
+            {
+                scene.UpdateTheme();
+            }
         }
 
         public void Update()
         {
             DeltaTime.Update();
-            CurrentScene.Update();
+
+            for (int i = Navigator.GetCurrentStack().Count - 1; i >= 0; i--)
+            {
+                Navigator.GetCurrentStack().ElementAt(i).Update();
+            }
         }
 
         public void Draw()
         {
-            CurrentScene.Draw();
-        }
-
-        public void PushScene(GuiScene scene)
-        {
-            _scenes.Push(scene);
-            CurrentScene.Start();
-        }
-
-        public void PopScene()
-        {
-            CurrentScene.Stop();
-            _scenes.Pop();
+            for (int i = Navigator.GetCurrentStack().Count - 1; i >= 0 ; i--)
+            {
+                Navigator.GetCurrentStack().ElementAt(i).Draw();
+            }
         }
     }
 }

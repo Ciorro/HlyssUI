@@ -14,19 +14,17 @@ namespace HlyssUI.Controllers.Tweens
 
         public override void Update()
         {
-            //TODO: Implements transition in
+            float offset = Math.Abs(-0.01f - progress);
 
-            float offset = Math.Abs(100 - progress);
+            offset *= DeltaTime.Current * Speed;
+            progress += offset;
 
-            if (Math.Abs(offset) < 0.01f)
+            if (Percentage > 1)
             {
                 progress = 100;
                 Finish();
                 return;
             }
-
-            offset *= DeltaTime.Current * Speed;
-            progress += offset;
         }
     }
 }

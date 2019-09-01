@@ -5,12 +5,16 @@ namespace HlyssUI.Components
 {
     public class ToggleSwitch : Component
     {
-        public bool Toggled
+        public delegate void ToggleHandler(object sender, bool isToggled);
+        public event ToggleHandler Toggled;
+
+        public bool IsToggled
         {
             get { return _toggled; }
             set
             {
                 _toggled = value;
+                Toggled?.Invoke(this, value);
                 toggle();
             }
         }
@@ -53,6 +57,7 @@ namespace HlyssUI.Components
             _toggle.Height = "12px";
             _toggle.MarginLeft = "4px";
             _toggle.MarginTop = "4px";
+            _toggle.Transition = "out";
             _toggle.CoverParent = false;
             _toggle.Style.Round = true;
             _body.AddChild(_toggle);
@@ -64,13 +69,13 @@ namespace HlyssUI.Components
 
             Style.Round = true;
             CascadeStyle = true;
-            Toggled = false;
+            IsToggled = false;
         }
 
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            if (Toggled)
+            if (IsToggled)
                 Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 20);
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
@@ -79,7 +84,7 @@ namespace HlyssUI.Components
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-            if (Toggled)
+            if (IsToggled)
                 Style["primary"] = Theme.GetColor("accent");
             else
                 Style["primary"] = Theme.GetColor("primary");
@@ -88,7 +93,7 @@ namespace HlyssUI.Components
         public override void OnPressed()
         {
             base.OnPressed();
-            if (Toggled)
+            if (IsToggled)
                 Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 40);
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 40);
@@ -97,7 +102,7 @@ namespace HlyssUI.Components
         public override void OnClicked()
         {
             base.OnClicked();
-            Toggled = !Toggled;
+            IsToggled = !IsToggled;
         }
 
         private void toggle()

@@ -6,12 +6,15 @@ namespace HlyssUI.Components
 {
     public class CheckBox : Component
     {
+        public delegate void CheckHandler(object sender, bool isToggled);
+        public event CheckHandler Checked;
+
         private Panel _box;
         private Icon _check;
         private Label _label;
         private bool _checked;
 
-        public bool Checked
+        public bool IsChecked
         {
             get { return _checked; }
             set
@@ -21,8 +24,6 @@ namespace HlyssUI.Components
                     Style["primary"] = Theme.GetColor("accent");
                     _box.Style["secondary"] = Theme.GetColor("accent");
                     _check.Visible = true;
-
-
                 }
                 else
                 {
@@ -34,6 +35,7 @@ namespace HlyssUI.Components
                 }
 
                 _checked = value;
+                Checked?.Invoke(this, value);
             }
         }
 
@@ -81,7 +83,7 @@ namespace HlyssUI.Components
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            if (Checked)
+            if (IsChecked)
                 Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 20);
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
@@ -92,7 +94,7 @@ namespace HlyssUI.Components
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-            if (Checked)
+            if (IsChecked)
                 Style["primary"] = Theme.GetColor("accent");
             else
                 Style["primary"] = Theme.GetColor("primary");
@@ -103,7 +105,7 @@ namespace HlyssUI.Components
         public override void OnPressed()
         {
             base.OnPressed();
-            if (Checked)
+            if (IsChecked)
                 Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 40);
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 40);
@@ -114,7 +116,7 @@ namespace HlyssUI.Components
         public override void OnReleased()
         {
             base.OnReleased();
-            if (Checked)
+            if (IsChecked)
                 Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 20);
             else
                 Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
@@ -132,7 +134,7 @@ namespace HlyssUI.Components
         public override void OnClicked()
         {
             base.OnClicked();
-            Checked = !Checked;
+            IsChecked = !IsChecked;
         }
     }
 }

@@ -17,26 +17,35 @@ namespace HlyssUIDemo
 
         static void Main(string[] args)
         {
-            RenderWindow window = new RenderWindow(new VideoMode(630, 380), caption, Styles.Default);
+            ContextSettings contextSettings = new ContextSettings();
+            contextSettings.AntialiasingLevel = 8;
+
+            RenderWindow window = new RenderWindow(new VideoMode(630, 380), caption, Styles.Default, contextSettings);
             //window.SetFramerateLimit(60);
+            //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "light");
+            Theme.Load("theme.ini", "dark");
 
             Gui gui = new Gui(window);
-            GuiScene scene = new GuiScene(gui);
-            gui.PushScene(scene);
-
+            
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
-            intel(gui);
-            //addComponents3(gui);
+            gui.Navigator.AddScene(GetIntelScene(gui), "intel");
+            gui.Navigator.AddScene(GetProgressBarTest(gui), "pb");
+            gui.Navigator.Navigate("intel");
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
                 if (e.Code == Keyboard.Key.F3)
                     Gui.Debug = !Gui.Debug;
+            };
+
+            window.MouseButtonPressed += (object sender, MouseButtonEventArgs e) =>
+            {
+                if (e.Button == Mouse.Button.XButton1)
+                    gui.Navigator.Back();
             };
 
             while (window.IsOpen)
@@ -61,11 +70,12 @@ namespace HlyssUIDemo
             HlyssUI.Utils.Logger.SaveLog();
         }
 
-        private static void intel(Gui gui)
+        private static GuiScene GetIntelScene(Gui gui)
         {
+            GuiScene scene = new GuiScene(gui);
+
             caption = "Intel® Driver & Support Assistant";
 
-            GuiScene scene = gui.CurrentScene;
             scene.Root.Layout = LayoutType.Column;
             scene.Root.CenterContent = true;
 
@@ -130,14 +140,6 @@ namespace HlyssUIDemo
             };
             licenseArea.Content.AddChild(license);
 
-            //Label license = new Label()
-            //{
-            //    Text = File.ReadAllText("license.txt"),
-            //    Width = "100%",
-            //    Height = "1970px"
-            //};
-            //licenseArea.Content.AddChild(license);
-
             Component bottomBar = new Component()
             {
                 Width = "95%",
@@ -167,12 +169,14 @@ namespace HlyssUIDemo
                 Appearance = Button.ButtonStyle.Filled
             };
             bottomBarRight.AddChild(install);
+            install.Clicked += (object sender) => gui.Navigator.Navigate("pb");
 
             Button close = new Button("Close")
             {
                 MarginRight = "5px"
             };
             bottomBarRight.AddChild(close);
+            close.Clicked += (object sender) => gui.Navigator.PushOverlay("pb");
 
             CheckBox agreement = new CheckBox("I agree to the license terms and conditions")
             {
@@ -181,12 +185,16 @@ namespace HlyssUIDemo
             bottomBarLeft.AddChild(agreement);
 
             install.InsertChild(0, new PictureBox("shield.png") { MarginRight="2px", MarginTop = "2px"});
+
+            return scene;
         }
 
-        private static void addComponents1(Gui gui)
+        private static GuiScene GetComponents1(Gui gui)
         {
+            GuiScene scene = new GuiScene(gui);
+
             Panel panel = new Panel();
-            gui.CurrentScene.AddChild(panel);
+            scene.AddChild(panel);
             panel.Padding = "5px";
             //panel.Width = "50%";
             //panel.Height = "200px";
@@ -254,16 +262,6 @@ namespace HlyssUIDemo
             panel5.Margin = "2px";
             panel5.Padding = "3px";
 
-            //gui.Window.KeyPressed += (object sender, KeyEventArgs e) =>
-            //{
-            //    if (e.Code == Keyboard.Key.Right)
-            //        panel6.Width = $"{panel6.Size.X + 2}px";
-            //    else if (e.Code == Keyboard.Key.Left)
-            //        panel6.Width = $"{panel6.Size.X - 2}px";
-            //    else if (e.Code == Keyboard.Key.Escape)
-            //        Console.Clear();
-            //};
-
             TextArea textArea = new TextArea();
             textArea.Text = "ale w sumie to ni jst takie asz tduen jak jusz sie oharnie jak cokolwiek zrobic w syfony";
             panel6.AddChild(textArea);
@@ -276,19 +274,23 @@ namespace HlyssUIDemo
             textBox.Width = "200px";
             textBox.MaxLines = 10;
             textBox.MarginLeft = "20px";
-            gui.CurrentScene.AddChild(textBox);
+            scene.AddChild(textBox);
             textBox.InsertChild(0, new Icon(Icons.Search));
             textBox.Children[0].MarginRight = "10px";
             textBox.Placeholder = "Search";
+
+            return scene;
         }
 
-        public static void addComponents2(Gui gui)
+        public static GuiScene GetComponents2(Gui gui)
         {
-            gui.CurrentScene.Root.Layout = LayoutType.Wrap;
-            gui.CurrentScene.AddChild(new HScrollBar(4000));
+            GuiScene scene = new GuiScene(gui);
+
+            scene.Root.Layout = LayoutType.Wrap;
+            scene.AddChild(new HScrollBar(4000));
 
             ScrollArea picScroll = new ScrollArea();
-            gui.CurrentScene.AddChild(picScroll);
+            scene.AddChild(picScroll);
             picScroll.Width = "100%";
             picScroll.Height = "50%";
             picScroll.Content.Width = "100%";
@@ -314,29 +316,58 @@ namespace HlyssUIDemo
                 pictureBox.AddChild(icon);
                 pictureBox.Reversed = true;
             }
+
+            return scene;
         }
 
-        public static void addComponents3(Gui gui)
+        public static GuiScene GetComponents3(Gui gui)
         {
-            gui.CurrentScene.Root.Layout = LayoutType.Wrap;
-            gui.CurrentScene.Root.Padding = "20px";
+            GuiScene scene = new GuiScene(gui);
+
+            scene.Root.Layout = LayoutType.Wrap;
+            scene.Root.Padding = "20px";
 
             Button button = new Button("Zmień rozmiar ");
-            gui.CurrentScene.AddChild(button);
+            scene.AddChild(button);
             button.Appearance = Button.ButtonStyle.Filled;
             button.AddChild(new Icon(Icons.Arrows));
             button.MarginRight = "20px";
             button.Clicked += (object sender) =>
             {
 
-                Panel panel = gui.CurrentScene.Root.FindChild("panel6") as Panel;
+                Panel panel = scene.Root.FindChild("panel6") as Panel;
 
                 panel.Transition = "out";
                 panel.Width = $"{panel.TargetSize.X + 50}px";
             };
 
-            addComponents1(gui);
-            addComponents2(gui);
+            return scene;
+        }
+
+        private static GuiScene GetProgressBarTest(Gui gui)
+        {
+            GuiScene scene = new GuiScene(gui);
+
+            scene.Root.Padding = "20px";
+            scene.Root.Layout = LayoutType.Column;
+
+            ToggleSwitch toggle = new ToggleSwitch("Intermediate");
+            scene.AddChild(toggle);
+
+            ProgressBar progressBar = new ProgressBar()
+            {
+                Value = 25,
+                MarginTop = "20px",
+                Width = "100%"
+            };
+            scene.AddChild(progressBar);
+
+            toggle.Toggled += (object sender, bool isToggled) =>
+            {
+                progressBar.Intermediate = isToggled;
+            };
+
+            return scene;
         }
     }
 }
