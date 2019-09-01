@@ -64,6 +64,7 @@ namespace HlyssUI
 
         public void PushOverlay(string name)
         {
+            GetCurrentStack().Peek().Stop();
             GetCurrentStack().Push(_scenes[name]);
             GetCurrentStack().Peek().Start();
         }
@@ -71,6 +72,7 @@ namespace HlyssUI
         public void PopOverlay()
         {
             GetCurrentStack().Pop().Stop();
+            GetCurrentStack().Peek().Start();
         }
 
         private void StartStack(Stack<GuiScene> stack)
