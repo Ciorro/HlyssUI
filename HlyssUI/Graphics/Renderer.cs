@@ -49,7 +49,7 @@ namespace HlyssUI.Graphics
                     component = component.Parent;
                     continue;
                 }
-                
+
                 return null;
             }
         }

@@ -115,7 +115,7 @@ namespace HlyssUI
 
         private void Window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
         {
-            if (_hoveredComponent != null && e.Button == Mouse.Button.Left)
+            if (_hoveredComponent != null && e.Button == Mouse.Button.Left && _hoveredComponent.Enabled)
             {
                 _hoveredComponent.OnReleased();
             }
@@ -125,7 +125,7 @@ namespace HlyssUI
 
         private void Window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            if (_hoveredComponent != null && e.Button == Mouse.Button.Left)
+            if (_hoveredComponent != null && e.Button == Mouse.Button.Left && _hoveredComponent.Enabled)
             {
                 _hoveredComponent.OnPressed();
             }

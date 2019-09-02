@@ -25,7 +25,7 @@ namespace HlyssUIDemo
             //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "dark");
+            Theme.Load("theme.ini", "light");
 
             Gui gui = new Gui(window);
             
@@ -35,7 +35,7 @@ namespace HlyssUIDemo
             gui.Navigator.AddScene(GetIntelScene(gui), "intel");
             gui.Navigator.AddScene(GetProgressBarTest(gui), "pb");
             gui.Navigator.Navigate("intel");
-
+            
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
                 if (e.Code == Keyboard.Key.F3)
@@ -166,7 +166,8 @@ namespace HlyssUIDemo
 
             Button install = new Button("Install")
             {
-                Appearance = Button.ButtonStyle.Filled
+                Appearance = Button.ButtonStyle.Filled,
+                Enabled = false
             };
             bottomBarRight.AddChild(install);
             install.Clicked += (object sender) => gui.Navigator.Navigate("pb");

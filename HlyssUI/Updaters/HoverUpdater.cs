@@ -46,7 +46,7 @@ namespace HlyssUI.Updaters
 
             bool prevHoverState = component.Hovered;
 
-            if (component.Bounds.Contains(mPos.X, mPos.Y) && component.CoverParent && (component.Parent == null || component.Parent != null && component.Parent.ClipArea.Bounds.Contains(mPos.X, mPos.Y)))
+            if (component.Bounds.Contains(mPos.X, mPos.Y) && component.CoverParent && (component.Parent == null || component.Parent != null && component.Parent.ClipArea.Bounds.Contains(mPos.X, mPos.Y) && component.Enabled))
             {
                 component.Hovered = true;
 

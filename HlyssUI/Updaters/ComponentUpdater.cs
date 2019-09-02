@@ -6,7 +6,7 @@ namespace HlyssUI.Updaters
     {
         public void Update(Component component)
         {
-            if (component.Enabled)
+            //if (component.Enabled)
             {
                 component.Update();
             }
