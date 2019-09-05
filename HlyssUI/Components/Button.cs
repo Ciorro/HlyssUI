@@ -93,7 +93,6 @@ namespace HlyssUI.Components
         {
             base.OnReleased();
             Style["primary"] = Style.GetDarker(getStyleColor(), 20);
-            
         }
 
         public override void OnChildAdded(Component child)

@@ -166,15 +166,15 @@ namespace HlyssUIDemo
 
             Button install = new Button("Install")
             {
-                Appearance = Button.ButtonStyle.Filled,
-                Enabled = false
+                Appearance = Button.ButtonStyle.Filled
             };
             bottomBarRight.AddChild(install);
             install.Clicked += (object sender) => gui.Navigator.Navigate("pb");
 
             Button close = new Button("Close")
             {
-                MarginRight = "5px"
+                MarginRight = "5px",
+                Enabled = false
             };
             bottomBarRight.AddChild(close);
             close.Clicked += (object sender) => gui.Navigator.PushOverlay("pb");

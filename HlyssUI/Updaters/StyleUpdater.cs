@@ -6,11 +6,6 @@ namespace HlyssUI.Updaters
     {
         public void Update(Component baseComponent)
         {
-            Scan(baseComponent);
-        }
-
-        private void Scan(Component baseComponent)
-        {
             if (baseComponent.Style.NeedsRefresh)
             {
                 RefreshComponents(baseComponent);
@@ -19,7 +14,7 @@ namespace HlyssUI.Updaters
 
             foreach (var child in baseComponent.Children)
             {
-                Scan(child);
+                Update(child);
             }
         }
 

@@ -22,20 +22,9 @@ namespace HlyssUI.Themes
             color = color.ToLower();
 
             if (_colors.ContainsKey(color))
-            {
                 return _colors[color];
-            }
             else
-            {
-                try
-                {
-                    return stringToColor(color);
-                }
-                catch
-                {
-                    return Color.White;
-                }
-            }
+                return stringToColor(color);
         }
 
         public static void SetColor(string name, Color color)
@@ -74,20 +63,22 @@ namespace HlyssUI.Themes
 
         private static Color stringToColor(string color)
         {
-            string r = $"0x{color[0]}{color[1]}";
-            string g = $"0x{color[2]}{color[3]}";
-            string b = $"0x{color[4]}{color[5]}";
-            string a = $"0xFF";
+            try
+            {
+                string r = $"0x{color[0]}{color[1]}";
+                string g = $"0x{color[2]}{color[3]}";
+                string b = $"0x{color[4]}{color[5]}";
 
-            if (color.Length == 8)
-                a = $"0x{color[6]}{color[7]}";
+                byte rb = Convert.ToByte(r, 16);
+                byte gb = Convert.ToByte(g, 16);
+                byte bb = Convert.ToByte(b, 16);
 
-            byte rb = Convert.ToByte(r, 16);
-            byte gb = Convert.ToByte(g, 16);
-            byte bb = Convert.ToByte(b, 16);
-            byte ab = Convert.ToByte(a, 16);
-
-            return new Color(rb, gb, bb, ab);
+                return new Color(rb, gb, bb);
+            }
+            catch
+            {
+                return Color.White;
+            }
         }
     }
 }
