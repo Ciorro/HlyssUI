@@ -76,7 +76,7 @@ namespace HlyssUI.Components
         public override void OnAdded(Component parent)
         {
             base.OnAdded(parent);
-            CharacterSize = Style.CharacterSize;
+            CharacterSize = Style.GetUint("character-size");
         }
 
         public override void OnRefresh()
@@ -121,7 +121,7 @@ namespace HlyssUI.Components
 
             foreach (var letter in _letters)
             {
-                letter.Color = Style["text"];
+                letter.Color = Style.GetColor("text-color");
             }
         }
 
@@ -129,6 +129,7 @@ namespace HlyssUI.Components
         {
             foreach (var letter in _letters)
             {
+
                 if (letter.Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : Scene.Root.Bounds))
                 {
                     letter.Draw(target);

@@ -9,8 +9,8 @@ namespace HlyssUI.Components
     {
         public uint IconSize
         {
-            get { return Style.CharacterSize; }
-            set { Style.CharacterSize = value; }
+            get { return Style.GetUint("character-size"); }
+            set { Style.SetValue("character-size", value); }
         }
 
         private static Font _iconFont = new Font(Properties.Resources.Line_Awesome);
@@ -26,7 +26,7 @@ namespace HlyssUI.Components
         {
             base.OnAdded(parent);
 
-            _iconTxt = new Text(((char)_icon).ToString(), _iconFont, Style.CharacterSize);
+            _iconTxt = new Text(((char)_icon).ToString(), _iconFont, Style.GetUint("character-size"));
             updateSize();
         }
 
@@ -49,7 +49,7 @@ namespace HlyssUI.Components
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
-            _iconTxt.FillColor = Style["Text"];
+            _iconTxt.FillColor = Style.GetColor("text-color");
         }
 
         public override void Draw(RenderTarget target)

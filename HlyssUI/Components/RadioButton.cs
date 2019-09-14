@@ -16,15 +16,15 @@ namespace HlyssUI.Components
             {
                 if (value)
                 {
-                    _box.Style["secondary"] = Theme.GetColor("accent");
-                    _mark.Style["primary"] = Theme.GetColor("accent");
+                    _box.Style.SetValue("secondary-color", "accent");
+                    _mark.Style.SetValue("opacity", 1);
 
                     unmarkOthers();
                 }
                 else
                 {
-                    _mark.Style["primary"] = Theme.GetColor("transparent");
-                    _box.Style["secondary"] = Theme.GetColor("secondary");
+                    _box.Style.SetValue("secondary-color", "secondary");
+                    _mark.Style.SetValue("opacity", 0);
                 }
 
                 _marked = value;
@@ -49,7 +49,7 @@ namespace HlyssUI.Components
         public RadioButton(string label = "")
         {
             Layout = LayoutType.Row;
-            Style.Round = true;
+            Style.SetValue("round", true);
 
             _box = new Panel();
             _box.Autosize = true;
@@ -69,11 +69,10 @@ namespace HlyssUI.Components
 
             _mark.CoverParent = false;
             _mark.CascadeStyle = true;
-            _mark.Style.Round = true;
             _mark.Width = "12px";
             _mark.Height = "12px";
-            _mark.Style["secondary"] = Theme.GetColor("transparent");
-            _mark.Style["primary"] = Theme.GetColor("transparent");
+            _mark.Style.SetValue("round", true);
+            _mark.Style.SetValue("opacity", 0);
             _box.AddChild(_mark);
 
             _label.Margin = "2px";
@@ -85,19 +84,19 @@ namespace HlyssUI.Components
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
+            Style.SetValue("primary-color", "primary -20");
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-            Style["primary"] = Theme.GetColor("primary");
+            Style.SetValue("primary-color", "primary");
         }
 
         public override void OnPressed()
         {
             base.OnPressed();
-            Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 40);
+            Style.SetValue("primary-color", "primary -40");
         }
 
         public override void OnChildAdded(Component child)

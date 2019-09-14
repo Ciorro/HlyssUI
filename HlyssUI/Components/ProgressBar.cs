@@ -66,8 +66,8 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
 
-            _background.FillColor = Style.GetDarker(Style["Primary"], 20);
-            _fill.FillColor = Style["Accent"];
+            _background.FillColor = Style.GetColor("primary -20");
+            _fill.FillColor = Style.GetColor("accent-color");
         }
 
         public override void Draw(RenderTarget target)

@@ -1,10 +1,21 @@
-﻿using SFML.Window;
+﻿using System;
+using SFML.Window;
 
 namespace HlyssUI.Components
 {
     class RootComponent : Component
     {
         private const int DEFAULT_APP_MARGIN = 0;
+
+        public RootComponent()
+        {
+            CreateStyle();
+        }
+
+        private void CreateStyle()
+        {
+            DefaultStyle = Themes.Style.DefaultStyle;
+        }
 
         public override void OnAdded(Component parent)
         {

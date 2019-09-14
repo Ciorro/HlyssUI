@@ -4,6 +4,7 @@ using HlyssUI.Themes;
 using HlyssUI.Updaters;
 using SFML.System;
 using SFML.Window;
+using System.Diagnostics;
 
 namespace HlyssUI
 {
@@ -24,7 +25,7 @@ namespace HlyssUI
             Gui = gui;
 
             Root = new RootComponent();
-            Root.Style["Primary"] = Theme.GetColor("Primary");
+            Root.Style.SetValue("primary-color", "primary");
             Root.Gui = Gui;
             Root.Scene = this;
 
@@ -71,12 +72,12 @@ namespace HlyssUI
         public void UpdateTheme()
         {
             updateComponentTheme(Root);
-            Root.Style["Primary"] = Theme.GetColor("Primary");
+            Root.Style.SetValue("primary-color", "primary");
         }
 
         private void updateComponentTheme(Component component)
         {
-            component.Style = new Style();
+            //component.Style.Reset();
 
             foreach (var child in component.Children)
             {

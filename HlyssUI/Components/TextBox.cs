@@ -46,9 +46,9 @@ namespace HlyssUI.Components
             {
                 if (value)
                 {
-                    Style["secondary"] = Theme.GetColor("accent");
-                    Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 10);
-                    Style.BorderThickness = 2;
+                    Style.SetValue("secondary-color", "accent");
+                    Style.SetValue("primary-color", "primary -10");
+                    Style.SetValue("border-thickness", 2);
 
                     if (_realText.Length == 0)
                         _text.Text = string.Empty;
@@ -60,9 +60,9 @@ namespace HlyssUI.Components
                 }
                 else
                 {
-                    Style["secondary"] = Theme.GetColor("secondary");
-                    Style["primary"] = Theme.GetColor("primary");
-                    Style.BorderThickness = 1;
+                    Style.SetValue("secondary-color", "secondary");
+                    Style.SetValue("primary-color", "primary");
+                    Style.SetValue("border-thickness", 1);
 
                     if (_realText.Length == 0)
                         _text.Text = Placeholder;
@@ -216,7 +216,7 @@ namespace HlyssUI.Components
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 10);
+            Style.SetValue("primary-color", "primary -10");
 
             Gui.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Text));
         }
@@ -226,7 +226,7 @@ namespace HlyssUI.Components
             base.OnMouseLeft();
 
             if (!Active)
-                Style["primary"] = Theme.GetColor("primary");
+                Style.SetValue("primary-color", "primary");
 
             Gui.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Arrow));
         }
@@ -234,7 +234,7 @@ namespace HlyssUI.Components
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
-            _cursor.FillColor = Style["text"];
+            _cursor.FillColor = Style.GetColor("text-color");
         }
 
         public override void Update()
@@ -288,11 +288,11 @@ namespace HlyssUI.Components
 
             if (_realText.Length == 0)
             {
-                _text.Style["text"] = Theme.GetColor("808080");
+                _text.Style.SetValue("text-color", "808080");
                 _text.Text = Placeholder;
             }
             else
-                _text.Style["text"] = Theme.GetColor("text");
+                _text.Style.SetValue("text-color", "text");
 
             if (_currentIndex > _realText.Length)
                 _currentIndex = _realText.Length;

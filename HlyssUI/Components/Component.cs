@@ -44,10 +44,13 @@ namespace HlyssUI.Components
         private Vector2i _firstClickPos = new Vector2i();
         private bool _doubleClick = false;
         private DebugRect _debugRect = new DebugRect();
-
-        private bool _transformChanged = true;
-
         private Controller[] _controllers;
+
+        private Style _defaultStyle = new Style();
+        private Style _hoverStyle = new Style();
+        private Style _pressedStyle = new Style();
+        private Style _focusStyle = new Style();
+        private Style _disabledStyle = new Style();
 
         //TODO: Max/Min width and height
 
@@ -248,7 +251,86 @@ namespace HlyssUI.Components
         }
         #endregion
 
-        public Style Style { get; set; } = new Style();
+        #region Styles
+
+        public Style Style
+        {
+            get
+            {
+                if (!Enabled) return DefaultStyle.Combine(DisabledStyle);
+                if (IsPressed) return DefaultStyle.Combine(PressedStyle);
+                if (Hovered) return DefaultStyle.Combine(HoverStyle);
+
+                return DefaultStyle;
+            }
+        }
+
+        public Style DefaultStyle
+        {
+            get
+            {
+                return (Parent != null) ? Parent.DefaultStyle.Combine(_defaultStyle) : _defaultStyle;
+            }
+            set
+            {
+                _defaultStyle = value;
+                StyleChanged = true;
+            }
+        }
+
+        public Style HoverStyle
+        {
+            get
+            {
+                return (Parent != null) ? Parent.HoverStyle.Combine(_hoverStyle) : _hoverStyle;
+            }
+            set
+            {
+                _hoverStyle = value;
+                StyleChanged = true;
+            }
+        }
+
+        public Style PressedStyle
+        {
+            get
+            {
+                return (Parent != null) ? Parent.PressedStyle.Combine(_pressedStyle) : _pressedStyle;
+            }
+            set
+            {
+                _pressedStyle = value;
+                StyleChanged = true;
+            }
+        }
+
+        public Style FocusStyle
+        {
+            get
+            {
+                return (Parent != null) ? Parent.FocusStyle.Combine(_focusStyle) : _focusStyle;
+            }
+            set
+            {
+                _focusStyle = value;
+                StyleChanged = true;
+            }
+        }
+
+        public Style DisabledStyle
+        {
+            get
+            {
+                return (Parent != null) ? Parent.DisabledStyle.Combine(_disabledStyle) : _disabledStyle;
+            }
+            set
+            {
+                _disabledStyle = value;
+                StyleChanged = true;
+            }
+        }
+        #endregion
+
         public ClipArea ClipArea { get; private set; }
 
         public string Transition
@@ -270,14 +352,8 @@ namespace HlyssUI.Components
             }
         }
 
-        public bool TransformChanged
-        {
-            get { return _transformChanged; }
-            set
-            {
-                _transformChanged = value;
-            }
-        }
+        public bool TransformChanged { get; set; } = true;
+        public bool StyleChanged { get; set; } = true;
 
         public bool Enabled { get; set; } = true;
         public bool Visible { get; set; } = true;
@@ -329,6 +405,7 @@ namespace HlyssUI.Components
             };
 
             TransformChanged = true;
+            StyleChanged = true;
         }
 
         #region Children management
@@ -409,7 +486,7 @@ namespace HlyssUI.Components
         #region Theming
         public void ResetColors()
         {
-            Style.Reset();
+            //Style.Reset();
         }
         #endregion
 
@@ -523,6 +600,9 @@ namespace HlyssUI.Components
 
             _doubleClickTimer.Restart();
             _firstClickPos = currentMPos;
+
+            if (!Style.IsNullOrEmpty(PressedStyle))
+                StyleChanged = true;
         }
 
         public virtual void OnReleased()
@@ -535,6 +615,9 @@ namespace HlyssUI.Components
 
             IsPressed = false;
             Released?.Invoke(this);
+
+            if (!Style.IsNullOrEmpty(PressedStyle))
+                StyleChanged = true;
         }
 
         public virtual void OnClicked() { }
@@ -548,12 +631,18 @@ namespace HlyssUI.Components
         public virtual void OnMouseEntered()
         {
             MouseEntered?.Invoke(this);
+
+            if (!Style.IsNullOrEmpty(HoverStyle))
+                StyleChanged = true;
         }
 
         public virtual void OnMouseLeft()
         {
             IsPressed = false;
             MouseLeft?.Invoke(this);
+
+            if (!Style.IsNullOrEmpty(HoverStyle))
+                StyleChanged = true;
         }
 
         public virtual void OnMouseMoveAnywhere(Vector2i location) { }
@@ -562,7 +651,7 @@ namespace HlyssUI.Components
 
         public virtual void OnStyleChanged()
         {
-            Style.NeedsRefresh = false;
+            StyleChanged = false;
         }
 
         public virtual void OnMousePressedAnywhere(Vector2i location, Mouse.Button button) { }

@@ -104,8 +104,9 @@ namespace HlyssUI.Components
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
-            _text.FillColor = Style["Text"];
-            _text.CharacterSize = Style.CharacterSize;
+            
+            _text.FillColor = Style.GetColor("text-color");
+            _text.CharacterSize = Style.GetUint("character-size");
 
             updateSize();
         }

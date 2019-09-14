@@ -85,11 +85,11 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
 
-            Color bgColor = Style["secondary"];
+            Color bgColor = Style.GetColor("secondary-color");
             bgColor.A = 64;
             _background.FillColor = bgColor;
 
-            _slider.FillColor = Style["secondary"];
+            _slider.FillColor = Style.GetColor("secondary-color");
         }
 
         public float getPercentageFromSliderPosition()

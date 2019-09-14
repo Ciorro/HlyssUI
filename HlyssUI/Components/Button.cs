@@ -1,6 +1,6 @@
 ﻿using HlyssUI.Graphics;
 using HlyssUI.Themes;
-using SFML.Graphics;
+using HlyssUI.Extensions;
 
 namespace HlyssUI.Components
 {
@@ -10,6 +10,53 @@ namespace HlyssUI.Components
         {
             Outline, Filled, Flat
         }
+
+        #region Styles
+
+        protected readonly Style OutlineDefault = Style.DefaultStyle;
+
+        protected readonly Style OutlineHover = new Style()
+        {
+            {"primary-color", "primary -20" }
+        };
+
+        protected readonly Style OutlinePressed = new Style()
+        {
+            {"primary-color", "primary -40" }
+        };
+
+        protected readonly Style FillDefault = new Style()
+        {
+            {"primary-color", "accent" },
+            {"border-thickness", "0" },
+            {"text-color", Theme.GetColor("accent").GetLegibleColor().ToHex() }
+        };
+
+        protected readonly Style FillHover = new Style()
+        {
+            {"primary-color", "accent -20" }
+        };
+
+        protected readonly Style FillPressed = new Style()
+        {
+            {"primary-color", "accent -40" }
+        };
+
+        protected readonly Style FlatDefault = new Style()
+        {
+            {"border-thickness", "0" }
+        };
+
+        protected readonly Style FlatHover = new Style()
+        {
+            {"primary-color", "secondary +20" }
+        };
+
+        protected readonly Style FlatPressed = new Style()
+        {
+            {"primary-color", "secondary +40" }
+        };
+        #endregion
 
         private Label _label;
         private ButtonStyle _style;
@@ -30,25 +77,31 @@ namespace HlyssUI.Components
             {
                 _style = value;
 
-                if (value != ButtonStyle.Outline)
+                switch (value)
                 {
-                    Style["Secondary"] = Color.Transparent;
-                }
-                if (value == ButtonStyle.Filled)
-                {
-                    _label.Font = Fonts.MontserratSemiBold;
-                    Style["Primary"] = Theme.GetColor("Accent");
-                    Style["Text"] = Themes.Style.GetLegibleColor(Theme.GetColor("Accent"));
-                }
-                else
-                {
-                    _label.Font = Fonts.MontserratMedium;
+                    case ButtonStyle.Outline:
+                        DefaultStyle = OutlineDefault;
+                        HoverStyle = OutlineHover;
+                        PressedStyle = OutlinePressed;
+                        break;
+                    case ButtonStyle.Filled:
+                        DefaultStyle = FillDefault;
+                        HoverStyle = FillHover;
+                        PressedStyle = FillPressed;
+                        break;
+                    case ButtonStyle.Flat:
+                        DefaultStyle = FlatDefault;
+                        HoverStyle = FlatHover;
+                        PressedStyle = FlatPressed;
+                        break;
                 }
             }
         }
 
         public Button(string label = "")
         {
+            Appearance = ButtonStyle.Outline;
+
             _label = new Label(label);
             Layout = HlyssUI.Layout.LayoutType.Row;
 
@@ -66,53 +119,12 @@ namespace HlyssUI.Components
 
             AddChild(_label);
             _label.Font = Fonts.MontserratMedium;
-
-            CascadeStyle = true;
-        }
-
-        public override void OnMouseEntered()
-        {
-            base.OnMouseEntered();
-            Style["primary"] = Style.GetDarker(getStyleColor(), 20);
-        }
-
-        public override void OnMouseLeft()
-        {
-            base.OnMouseLeft();
-            Style["primary"] = getStyleColor();
-        }
-
-        public override void OnPressed()
-        {
-            base.OnPressed();
-            Style["primary"] = Style.GetDarker(getStyleColor(), 40);
-            
-        }
-
-        public override void OnReleased()
-        {
-            base.OnReleased();
-            Style["primary"] = Style.GetDarker(getStyleColor(), 20);
         }
 
         public override void OnChildAdded(Component child)
         {
             base.OnChildAdded(child);
             child.CoverParent = false;
-        }
-
-        private Color getStyleColor()
-        {
-            switch (Appearance)
-            {
-                case ButtonStyle.Filled:
-                    return Theme.GetColor("accent");
-                case ButtonStyle.Flat:
-                case ButtonStyle.Outline:
-                    return Theme.GetColor("primary");
-                default:
-                    return Theme.GetColor("primary");
-            }
         }
     }
 }

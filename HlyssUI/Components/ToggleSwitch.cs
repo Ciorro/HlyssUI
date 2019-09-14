@@ -1,4 +1,5 @@
-﻿using HlyssUI.Layout;
+﻿using HlyssUI.Extensions;
+using HlyssUI.Layout;
 using HlyssUI.Themes;
 
 namespace HlyssUI.Components
@@ -7,6 +8,48 @@ namespace HlyssUI.Components
     {
         public delegate void ToggleHandler(object sender, bool isToggled);
         public event ToggleHandler Toggled;
+
+        #region Styles
+
+        protected readonly Style OnStyle = new Style()
+        {
+            {"primary-color", "accent" },
+            {"border-thickness", "0" },
+            {"border-radius", int.MaxValue.ToString() }
+        };
+
+        protected readonly Style OffStyle = Style.EmptyStyle;
+
+        protected readonly Style OnHoverStyle = new Style()
+        {
+            {"primary-color", "accent - 20" }
+        };
+
+        protected readonly Style OffHoverStyle = new Style()
+        {
+            {"primary-color", "primary +20" }
+        };
+
+        protected readonly Style OnPressedStyle = new Style()
+        {
+            {"primary-color", "accent - 40" }
+        };
+
+        protected readonly Style OffPressedStyle = new Style()
+        {
+            {"primary-color", "primary +20" }
+        };
+
+        protected readonly Style ToggleOnStyle = new Style()
+        {
+            {"primary-color", Theme.GetColor("accent").GetLegibleColor().ToHex() }
+        };
+
+        protected readonly Style ToggleOffStyle = new Style()
+        {
+            {"primary-color", "secondary" }
+        };
+        #endregion
 
         public bool IsToggled
         {
@@ -59,7 +102,7 @@ namespace HlyssUI.Components
             _toggle.MarginTop = "4px";
             _toggle.Transition = "out";
             _toggle.CoverParent = false;
-            _toggle.Style.Round = true;
+            _toggle.Style.SetValue("round", true);
             _body.AddChild(_toggle);
             _toggle.Name = "toggle";
 
@@ -67,36 +110,12 @@ namespace HlyssUI.Components
             _label.CoverParent = false;
             AddChild(_label);
 
-            Style.Round = true;
-            CascadeStyle = true;
             IsToggled = false;
-        }
 
-        public override void OnMouseEntered()
-        {
-            base.OnMouseEntered();
-            if (IsToggled)
-                Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 20);
-            else
-                Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
-        }
-
-        public override void OnMouseLeft()
-        {
-            base.OnMouseLeft();
-            if (IsToggled)
-                Style["primary"] = Theme.GetColor("accent");
-            else
-                Style["primary"] = Theme.GetColor("primary");
-        }
-
-        public override void OnPressed()
-        {
-            base.OnPressed();
-            if (IsToggled)
-                Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 40);
-            else
-                Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 40);
+            DefaultStyle = DefaultStyle.Combine(new Style()
+            {
+                {"border-radius", int.MaxValue.ToString() }
+            });
         }
 
         public override void OnClicked()
@@ -110,20 +129,22 @@ namespace HlyssUI.Components
             if (_toggled)
             {
                 _toggle.MarginLeft = "24px";
-                _toggle.Style["primary"] = Theme.GetColor("ffffff");
-                _toggle.Style["secondary"] = Theme.GetColor("ffffff");
 
-                Style["primary"] = Theme.GetColor("accent");
-                Style["secondary"] = Theme.GetColor("accent");
+                _body.DefaultStyle = OnStyle;
+                _body.HoverStyle = OnHoverStyle;
+                _body.PressedStyle = OnPressedStyle;
+
+                _toggle.DefaultStyle = ToggleOnStyle;
             }
             else
             {
                 _toggle.MarginLeft = "4px";
-                _toggle.Style["primary"] = Theme.GetColor("secondary");
-                _toggle.Style["secondary"] = Theme.GetColor("secondary");
 
-                Style["primary"] = Theme.GetColor("primary");
-                Style["secondary"] = Theme.GetColor("secondary");
+                _body.DefaultStyle = OffStyle;
+                _body.HoverStyle = OffHoverStyle;
+                _body.PressedStyle = OffPressedStyle;
+
+                _toggle.DefaultStyle = ToggleOffStyle;
             }
         }
     }

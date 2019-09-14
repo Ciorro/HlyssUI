@@ -84,9 +84,9 @@ namespace HlyssUIDemo
                 Width = "100%",
                 Height = "60px"
             };
-            topBar.Style["primary"] = Theme.GetColor("0071c5");
-            topBar.Style["secondary"] = Theme.GetColor("0071c5");
-            topBar.Style.BorderRadius = 0;
+            topBar.Style.SetValue("primary-color", "0071c5");
+            topBar.Style.SetValue("secondary-color", "0071c5");
+            topBar.Style.SetValue("border-radius", 0);
             scene.AddChild(topBar);
 
             Component topBarLeft = new Component()
@@ -110,8 +110,8 @@ namespace HlyssUIDemo
             {
                 MarginLeft = "15px"
             };
-            header.Style["text"] = Theme.GetColor("ffffff");
-            header.Style.CharacterSize = 21;
+            header.Style.SetValue("text-color", "ffffff");
+            header.Style.SetValue("character-size", 21);
             header.Font = Fonts.MontserratMedium;
             topBarLeft.AddChild(header);
 
@@ -119,7 +119,7 @@ namespace HlyssUIDemo
             {
                 MarginRight = "15px"
             };
-            intelLogo.Style["primary"] = Theme.GetColor("transparent");
+            intelLogo.Style.SetValue("opacity", 0);
             topBarRight.AddChild(intelLogo);
 
             ScrollArea licenseArea = new ScrollArea()
@@ -174,7 +174,7 @@ namespace HlyssUIDemo
             Button close = new Button("Close")
             {
                 MarginRight = "5px",
-                Enabled = false
+                //Enabled = false
             };
             bottomBarRight.AddChild(close);
             close.Clicked += (object sender) => gui.Navigator.PushOverlay("pb");
@@ -186,7 +186,7 @@ namespace HlyssUIDemo
             bottomBarLeft.AddChild(agreement);
 
             install.InsertChild(0, new PictureBox("shield.png") { MarginRight="2px", MarginTop = "2px"});
-
+            
             return scene;
         }
 
@@ -311,8 +311,8 @@ namespace HlyssUIDemo
 
                 Icon icon = new Icon(Icons.Heart);
                 icon.Margin = "5px";
-                icon.Style["text"] = Color.White;
-                icon.Style.CharacterSize = 18;
+                icon.Style.SetValue("text-color", "ffffff");
+                icon.Style.SetValue("character-size", 18);
 
                 pictureBox.AddChild(icon);
                 pictureBox.Reversed = true;

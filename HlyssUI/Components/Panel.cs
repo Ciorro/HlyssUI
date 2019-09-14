@@ -31,11 +31,11 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
 
-            _body.FillColor = Style["Primary"];
-            _body.OutlineColor = Style["Secondary"];
+            _body.FillColor = Style.GetColor("primary-color");
+            _body.OutlineColor = Style.GetColor("secondary-color");
 
-            _body.OutlineThickness = Style.BorderThickness * -1;
-            _body.Radius = Style.BorderRadius;
+            _body.OutlineThickness = Style.GetUint("border-thickness") * -1;
+            _body.Radius = Style.GetUint("border-radius");
         }
 
         public override void Draw(RenderTarget target)

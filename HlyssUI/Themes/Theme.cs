@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using HlyssUI.Extensions;
+using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +11,15 @@ namespace HlyssUI.Themes
         public static event ThemeLoadedHandler OnThemeLoaded;
 
         private static Dictionary<string, Color> _colors = new Dictionary<string, Color>();
+        private static Dictionary<string, Style> _styles = new Dictionary<string, Style>()
+        {
+            {"default", new Style() }
+        };
+
+        public static Style DefaultStyle
+        {
+            get { return _styles["default"]; }
+        }
 
         public static uint BorderThickness = 1;
         public static uint BorderRadius = 3;
@@ -21,10 +31,18 @@ namespace HlyssUI.Themes
         {
             color = color.ToLower();
 
+            int modifier = 0;
+
+            if (color.Split(' ').Length > 1)
+            {
+                int.TryParse(color.Split(' ')[1], out modifier);
+                color = color.Split(' ')[0];
+            }
+
             if (_colors.ContainsKey(color))
-                return _colors[color];
+                return _colors[color].GetModified(modifier);
             else
-                return stringToColor(color);
+                return stringToColor(color).GetModified(modifier);
         }
 
         public static void SetColor(string name, Color color)
@@ -37,6 +55,14 @@ namespace HlyssUI.Themes
         {
             if (!_colors.ContainsKey(name))
                 _colors.Add(name, color);
+        }
+
+        public static Style GetStyle(string name)
+        {
+            if (_styles.ContainsKey(name))
+                return _styles[name];
+
+            return _styles["default"];
         }
 
         public static void Load(string file, string theme)

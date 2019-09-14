@@ -54,7 +54,6 @@ namespace HlyssUI.Components
         }
 
         private Stretch stretch = Stretch.Fill;
-        private RectangleShape _background;
         private RoundedRectangle _image;
 
         public PictureBox()
@@ -80,9 +79,6 @@ namespace HlyssUI.Components
         {
             base.OnRefresh();
 
-            _background.Position = (Vector2f)GlobalPosition;
-            _background.Size = (Vector2f)TargetSize;
-
             _image.Position = (Vector2f)GlobalPosition;
             _image.Size = (Vector2f)TargetSize;
 
@@ -92,16 +88,13 @@ namespace HlyssUI.Components
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
-
-            _image.Radius = Style.BorderRadius;
-            _background.FillColor = Style["primary"];
+            
+            _image.Radius = Style.GetUint("border-radius");
         }
 
         public override void Draw(RenderTarget target)
         {
             _image.UpdateGeometry();
-
-            target.Draw(_background);
             target.Draw(_image);
         }
 
@@ -169,9 +162,6 @@ namespace HlyssUI.Components
 
         private void create()
         {
-            _background = new RectangleShape();
-            _background.FillColor = Color.Transparent;
-
             _image = new RoundedRectangle();
         }
 

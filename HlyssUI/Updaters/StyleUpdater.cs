@@ -6,7 +6,7 @@ namespace HlyssUI.Updaters
     {
         public void Update(Component baseComponent)
         {
-            if (baseComponent.Style.NeedsRefresh)
+            if (baseComponent.StyleChanged)
             {
                 RefreshComponents(baseComponent);
                 return;
@@ -30,9 +30,6 @@ namespace HlyssUI.Updaters
 
         private void refresh(Component component)
         {
-            if (component.Parent != null && component.Parent.CascadeStyle)
-                component.Style = component.Parent.Style;
-
             component.OnStyleChanged();
         }
     }

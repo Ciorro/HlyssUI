@@ -1,4 +1,5 @@
-﻿using HlyssUI.Graphics;
+﻿using HlyssUI.Extensions;
+using HlyssUI.Graphics;
 using HlyssUI.Layout;
 using HlyssUI.Themes;
 
@@ -8,6 +9,53 @@ namespace HlyssUI.Components
     {
         public delegate void CheckHandler(object sender, bool isToggled);
         public event CheckHandler Checked;
+
+        #region Styles
+
+        protected readonly Style OutlineDefault = Style.DefaultStyle;
+
+        protected readonly Style OutlineHover = new Style()
+        {
+            {"primary-color", "primary -20" }
+        };
+
+        protected readonly Style OutlinePressed = new Style()
+        {
+            {"primary-color", "primary -40" }
+        };
+
+        protected readonly Style FillDefault = new Style()
+        {
+            {"primary-color", "accent" },
+            {"border-thickness", "0" },
+            {"text-color", Theme.GetColor("accent").GetLegibleColor().ToHex() }
+        };
+
+        protected readonly Style FillHover = new Style()
+        {
+            {"primary-color", "accent +40" }
+        };
+
+        protected readonly Style FillPressed = new Style()
+        {
+            {"primary-color", "accent +20" }
+        };
+
+        protected readonly Style FlatDefault = new Style()
+        {
+            {"border-thickness", "0" }
+        };
+
+        protected readonly Style FlatHover = new Style()
+        {
+            {"primary-color", "secondary -20" }
+        };
+
+        protected readonly Style FlatPressed = new Style()
+        {
+            {"primary-color", "secondary -40" }
+        };
+        #endregion
 
         private Panel _box;
         private Icon _check;
@@ -21,17 +69,19 @@ namespace HlyssUI.Components
             {
                 if (value)
                 {
-                    Style["primary"] = Theme.GetColor("accent");
-                    _box.Style["secondary"] = Theme.GetColor("accent");
+                    DefaultStyle = FillDefault;
+                    HoverStyle = FillHover;
+                    PressedStyle = FillPressed;
+
                     _check.Visible = true;
                 }
                 else
                 {
-                    Style["primary"] = Theme.GetColor("primary");
-                    _box.Style["secondary"] = Theme.GetColor("secondary");
+                    DefaultStyle = Style.DefaultStyle;
+                    HoverStyle = Style.DefaultStyle;
+                    PressedStyle = Style.DefaultStyle;
+
                     _check.Visible = false;
-
-
                 }
 
                 _checked = value;
@@ -71,7 +121,7 @@ namespace HlyssUI.Components
             _check.CoverParent = false;
             _check.CascadeStyle = true;
             _check.Visible = false;
-            _check.Style["text"] = Style.GetLegibleColor(Style["accent"]);
+            //_check.Style["text"] = Style.GetLegibleColor(Style["accent"]);
             _box.AddChild(_check);
 
             _label.Margin = "2px";
@@ -84,45 +134,36 @@ namespace HlyssUI.Components
         {
             base.OnMouseEntered();
             if (IsChecked)
-                Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 20);
+                Style.SetValue("primary-color", "accent -20");
             else
-                Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
-
-
+                Style.SetValue("primary-color", "primary -20");
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
             if (IsChecked)
-                Style["primary"] = Theme.GetColor("accent");
+                Style.SetValue("primary-color", "accent");
             else
-                Style["primary"] = Theme.GetColor("primary");
-
-
+                Style.SetValue("primary-color", "primary");
         }
 
         public override void OnPressed()
         {
             base.OnPressed();
             if (IsChecked)
-                Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 40);
+                Style.SetValue("primary-color", "accent -40");
             else
-                Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 40);
-
-
+                Style.SetValue("primary-color", "primary -40");
         }
 
         public override void OnReleased()
         {
             base.OnReleased();
             if (IsChecked)
-                Style["primary"] = Style.GetDarker(Theme.GetColor("accent"), 20);
+                Style.SetValue("primary-color", "accent -20");
             else
-                Style["primary"] = Style.GetDarker(Theme.GetColor("primary"), 20);
-
-
-
+                Style.SetValue("primary-color", "primary -20");
         }
 
         public override void OnChildAdded(Component child)

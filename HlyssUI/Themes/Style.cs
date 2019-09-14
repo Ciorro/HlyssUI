@@ -1,124 +1,137 @@
 ﻿using SFML.Graphics;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace HlyssUI.Themes
 {
-    public class Style
+    public class Style : Dictionary<string, string>
     {
-        private Dictionary<string, Color> _colors = new Dictionary<string, Color>();
-
-        public uint BorderRadius { get; set; } = Theme.BorderRadius;
-        public uint BorderThickness { get; set; } = Theme.BorderThickness;
-        public uint CharacterSize { get; set; } = Theme.CharacterSize;
-
-        public bool NeedsRefresh { get; set; } = true;
-
-        public bool Round
-        {
-            get { return BorderRadius == uint.MaxValue; }
-            set
-            {
-                if (value)
-                    BorderRadius = uint.MaxValue;
-                else
-                    BorderRadius = Theme.BorderRadius;
-
-                NeedsRefresh = true;
-            }
-        }
-
-        public Color this[string name]
+        public static Style DefaultStyle
         {
             get
             {
-                name = name.ToLower();
+                Style style = new Style();
 
-                if (_colors.ContainsKey(name))
-                    return _colors[name];
-                else
-                    return Color.White;
+                style.SetValue("text-color", "302b29");
+                style.SetValue("primary-color", "fafafa");
+                style.SetValue("secondary-color", "d7d7d7");
+                style.SetValue("accent-color", "0071c5");
+                style.SetValue("success-color", "00c230");
+                style.SetValue("error-color", "d60007");
+                style.SetValue("warning-color", "fad000");
+                style.SetValue("information-color", "0080db");
+                style.SetValue("character-size", "14");
+                style.SetValue("opacity", "1");
+                style.SetValue("border-radius", "3");
+                style.SetValue("border-thickness", "1");
+
+                return style;
             }
-            set
+        }
+
+        public static Style EmptyStyle
+        {
+            get { return new Style(); }
+        }
+
+        #region Getters
+
+        //TODO: Allow users to add custom getter methods
+
+        public string GetString(string key)
+        {
+            if (ContainsKey(key))
+                return this[key];
+
+            return string.Empty;
+        }
+
+        public uint GetUint(string key)
+        {
+            uint val = 0;
+            uint.TryParse(GetString(key), out val);
+            return val;
+        }
+
+        public int GetInt32(string key)
+        {
+            int val = 0;
+            int.TryParse(GetString(key), out val);
+            return val;
+        }
+
+        public float GetFloat(string key)
+        {
+            float val = 0;
+            float.TryParse(GetString(key), NumberStyles.Float, CultureInfo.InvariantCulture, out val);
+            return val;
+        }
+
+        public Color GetColor(string key)
+        {
+            Color color = ContainsKey(key) ? Theme.GetColor(this[key]) : Color.White;
+            color.A = (byte)(255 * GetFloat("opacity"));
+
+            return color;
+        }
+        #endregion
+
+        public void SetValue(string key, string value)
+        {
+            if (!ContainsKey(key))
+                Add(key, value);
+            else
+                this[key] = value;
+        }
+
+        public void SetValue(string key, object value)
+        {
+            SetValue(key, value.ToString());
+        }
+
+        public List<string> GetKeys()
+        {
+            return Keys.ToList();
+        }
+
+        public Style Combine(Style style)
+        {
+            Style newStyle = new Style();
+
+            List<string> keys = GetKeys();
+
+            foreach (var key in keys)
             {
-                name = name.ToLower();
-
-                if (_colors.ContainsKey(name))
-                    _colors[name] = value;
-
-                NeedsRefresh = true;
+                newStyle.SetValue(key, GetString(key));
             }
-        }
 
-        public Style()
-        {
-            Reset();
-        }
+            keys = style.GetKeys();
 
-        public void Reset()
-        {
-            _colors = new Dictionary<string, Color>()
+            foreach (var key in keys)
             {
-                {"text", Theme.GetColor("Text")},
-                {"primary", Theme.GetColor("Primary")},
-                {"secondary", Theme.GetColor("Secondary")},
-                {"accent", Theme.GetColor("Accent")},
-                {"success", Theme.GetColor("Success")},
-                {"error", Theme.GetColor("Error")},
-                {"warning", Theme.GetColor("Warning")},
-                {"info",  Theme.GetColor("Info")}
-            };
+                newStyle.SetValue(key, style.GetString(key));
+            }
 
-            NeedsRefresh = true;
+            return newStyle;
         }
 
-        public static Color GetDarker(Color baseColor, byte level)
+        public static bool IsNullOrEmpty(Style style)
         {
-            if (baseColor.R >= level)
-                baseColor.R -= level;
-            else
-                baseColor.R = 0;
-
-            if (baseColor.G >= level)
-                baseColor.G -= level;
-            else
-                baseColor.G = 0;
-
-            if (baseColor.B >= level)
-                baseColor.B -= level;
-            else
-                baseColor.B = 0;
-
-            return baseColor;
+            return style == null || style.GetKeys().Count == 0;
         }
 
-        public static Color GetLighter(Color baseColor, byte level)
+        public override string ToString()
         {
-            if (baseColor.R <= byte.MaxValue - level)
-                baseColor.R += level;
-            else
-                baseColor.R = byte.MaxValue;
+            string s = string.Empty;
+            List<string> keys = GetKeys();
 
-            if (baseColor.G <= byte.MaxValue - level)
-                baseColor.G += level;
-            else
-                baseColor.G = byte.MaxValue;
+            foreach (var key in keys)
+            {
+                s += $"[{key}]->[{this[key]}]\n";
+            }
 
-            if (baseColor.B <= byte.MaxValue - level)
-                baseColor.B += level;
-            else
-                baseColor.B = byte.MaxValue;
-
-            return baseColor;
-        }
-
-        public static Color GetLegibleColor(Color backgroundColor)
-        {
-            float brightness = (0.299f * backgroundColor.R + 0.587f * backgroundColor.G + 0.114f * backgroundColor.B) / 255f;
-
-            if (brightness > 0.5f)
-                return Color.Black;
-            else
-                return Color.White;
+            return s;
         }
     }
 }

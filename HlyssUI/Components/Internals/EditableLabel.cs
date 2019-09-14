@@ -130,7 +130,7 @@ namespace HlyssUI.Components.Internals
         public EditableLabel()
         {
             Font = Fonts.MontserratRegular;
-            CharacterSize = Style.CharacterSize;
+            CharacterSize = Style.GetUint("character-size");
             TextStyle = SFML.Graphics.Text.Styles.Regular;
             Text = string.Empty;
         }
@@ -138,7 +138,7 @@ namespace HlyssUI.Components.Internals
         public EditableLabel(string text)
         {
             Font = Fonts.MontserratRegular;
-            CharacterSize = Style.CharacterSize;
+            CharacterSize = Style.GetUint("character-size");
             TextStyle = SFML.Graphics.Text.Styles.Regular;
             Text = text;
         }
@@ -155,7 +155,7 @@ namespace HlyssUI.Components.Internals
 
             foreach (var letter in _letters)
             {
-                letter.Color = Style["text"];
+                letter.Color = Style.GetColor("text-color");
             }
         }
 
