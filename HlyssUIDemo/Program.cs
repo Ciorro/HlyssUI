@@ -34,6 +34,7 @@ namespace HlyssUIDemo
 
             gui.Navigator.AddScene(GetIntelScene(gui), "intel");
             gui.Navigator.AddScene(GetProgressBarTest(gui), "pb");
+            gui.Navigator.AddScene(GetComponents2(gui), "pic");
             gui.Navigator.Navigate("intel");
             
             window.KeyPressed += (object sender, KeyEventArgs e) =>
@@ -180,7 +181,7 @@ namespace HlyssUIDemo
                 Name = "InstallButton"
             };
             bottomBarRight.AddChild(install);
-            install.Clicked += (object sender) => gui.Navigator.Navigate("pb");
+            install.Clicked += (object sender) => gui.Navigator.Navigate("pic");
 
             Button close = new Button("Close")
             {

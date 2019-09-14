@@ -54,7 +54,7 @@ namespace HlyssUI.Themes
             return val;
         }
 
-        public int GetInt32(string key)
+        public int GetInt(string key)
         {
             int val = 0;
             int.TryParse(GetString(key), out val);
@@ -71,7 +71,12 @@ namespace HlyssUI.Themes
         public Color GetColor(string key)
         {
             Color color = ContainsKey(key) ? Theme.GetColor(this[key]) : Color.White;
-            color.A = (byte)(255 * GetFloat("opacity"));
+
+            float opacity = GetFloat("opacity");
+            if (opacity < 0) opacity = 0;
+            if (opacity > 1) opacity = 1;
+
+            color.A = (byte)(255 * opacity);
 
             return color;
         }

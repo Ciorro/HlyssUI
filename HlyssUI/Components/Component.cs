@@ -359,6 +359,7 @@ namespace HlyssUI.Components
         public bool Visible { get; set; } = true;
         public bool IsOverlay { get; protected set; }
         public bool Hovered { get; set; }
+        public bool Hoverable { get; set; } = true;
         public bool IsPressed { get; private set; }
         public bool DisableClipping { get; set; } = true;
         public bool CascadeStyle { get; set; }
@@ -629,8 +630,6 @@ namespace HlyssUI.Components
 
         public virtual void OnMouseEntered()
         {
-            Logger.Log($"Mouse entered: [{this}]");
-
             MouseEntered?.Invoke(this);
 
             if (!Style.IsNullOrEmpty(HoverStyle))
@@ -639,8 +638,6 @@ namespace HlyssUI.Components
 
         public virtual void OnMouseLeft()
         {
-            Logger.Log($"Mouse left: [{this}]");
-
             IsPressed = false;
             MouseLeft?.Invoke(this);
 

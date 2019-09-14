@@ -22,22 +22,22 @@ namespace HlyssUI.Components
 
         protected readonly Style OnHoverStyle = new Style()
         {
-            {"primary-color", "accent - 20" }
+            {"primary-color", "accent -20" }
         };
 
         protected readonly Style OffHoverStyle = new Style()
         {
-            {"primary-color", "primary +20" }
+            {"primary-color", "primary -20" }
         };
 
         protected readonly Style OnPressedStyle = new Style()
         {
-            {"primary-color", "accent - 40" }
+            {"primary-color", "accent -40" }
         };
 
         protected readonly Style OffPressedStyle = new Style()
         {
-            {"primary-color", "primary +20" }
+            {"primary-color", "primary -40" }
         };
 
         protected readonly Style ToggleOnStyle = new Style()
@@ -102,6 +102,7 @@ namespace HlyssUI.Components
             _toggle.Transition = "out";
             _toggle.Style.SetValue("round", true);
             _body.AddChild(_toggle);
+            _toggle.Hoverable = false;
             _toggle.Name = "toggle";
 
             _label.Margin = "2px";

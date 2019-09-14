@@ -12,48 +12,33 @@ namespace HlyssUI.Components
 
         #region Styles
 
-        protected readonly Style OutlineDefault = Style.DefaultStyle;
+        protected readonly Style OnStyle = new Style()
+        {
+            {"primary-color", "accent" },
+            {"text-color", Theme.GetColor("accent").GetLegibleColor().ToHex() },
+            {"border-thickness", "0" }
+        };
 
-        protected readonly Style OutlineHover = new Style()
+        protected readonly Style OffStyle = Style.EmptyStyle;
+
+        protected readonly Style OnHoverStyle = new Style()
+        {
+            {"primary-color", "accent -20" }
+        };
+
+        protected readonly Style OffHoverStyle = new Style()
         {
             {"primary-color", "primary -20" }
         };
 
-        protected readonly Style OutlinePressed = new Style()
+        protected readonly Style OnPressedStyle = new Style()
+        {
+            {"primary-color", "accent -40" }
+        };
+
+        protected readonly Style OffPressedStyle = new Style()
         {
             {"primary-color", "primary -40" }
-        };
-
-        protected readonly Style FillDefault = new Style()
-        {
-            {"primary-color", "accent" },
-            {"border-thickness", "0" },
-            {"text-color", Theme.GetColor("accent").GetLegibleColor().ToHex() }
-        };
-
-        protected readonly Style FillHover = new Style()
-        {
-            {"primary-color", "accent +40" }
-        };
-
-        protected readonly Style FillPressed = new Style()
-        {
-            {"primary-color", "accent +20" }
-        };
-
-        protected readonly Style FlatDefault = new Style()
-        {
-            {"border-thickness", "0" }
-        };
-
-        protected readonly Style FlatHover = new Style()
-        {
-            {"primary-color", "secondary -20" }
-        };
-
-        protected readonly Style FlatPressed = new Style()
-        {
-            {"primary-color", "secondary -40" }
         };
         #endregion
 
@@ -69,17 +54,17 @@ namespace HlyssUI.Components
             {
                 if (value)
                 {
-                    DefaultStyle = FillDefault;
-                    HoverStyle = FillHover;
-                    PressedStyle = FillPressed;
+                    _box.DefaultStyle = OnStyle;
+                    _box.HoverStyle = OnHoverStyle;
+                    _box.PressedStyle = OnPressedStyle;
 
                     _check.Visible = true;
                 }
                 else
                 {
-                    DefaultStyle = Style.DefaultStyle;
-                    HoverStyle = Style.DefaultStyle;
-                    PressedStyle = Style.DefaultStyle;
+                    _box.DefaultStyle = OffStyle;
+                    _box.HoverStyle = OffHoverStyle;
+                    _box.PressedStyle = OffPressedStyle;
 
                     _check.Visible = false;
                 }
@@ -108,6 +93,7 @@ namespace HlyssUI.Components
             _label = new Label(label);
 
             Autosize = true;
+            IsChecked = false;
         }
 
         public override void OnAdded(Component parent)
@@ -120,49 +106,30 @@ namespace HlyssUI.Components
 
             _check.CascadeStyle = true;
             _check.Visible = false;
-            //_check.Style["text"] = Style.GetLegibleColor(Style["accent"]);
             _box.AddChild(_check);
 
             _label.Margin = "2px";
             AddChild(_label);
-
-            CascadeStyle = true;
         }
 
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            if (IsChecked)
-                Style.SetValue("primary-color", "accent -20");
-            else
-                Style.SetValue("primary-color", "primary -20");
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-            if (IsChecked)
-                Style.SetValue("primary-color", "accent");
-            else
-                Style.SetValue("primary-color", "primary");
         }
 
         public override void OnPressed()
         {
             base.OnPressed();
-            if (IsChecked)
-                Style.SetValue("primary-color", "accent -40");
-            else
-                Style.SetValue("primary-color", "primary -40");
         }
 
         public override void OnReleased()
         {
             base.OnReleased();
-            if (IsChecked)
-                Style.SetValue("primary-color", "accent -20");
-            else
-                Style.SetValue("primary-color", "primary -20");
         }
 
         public override void OnChildAdded(Component child)

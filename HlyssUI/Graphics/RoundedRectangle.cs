@@ -17,11 +17,8 @@ namespace HlyssUI.Graphics
             get { return (uint)Math.Min(Math.Min(_size.X, _size.Y) / 2, _radius); }
             set
             {
-                if (value != _radius)
-                {
-                    _radius = value;
-                    _needsUpdate = true;
-                }
+                _radius = value;
+                _needsUpdate = true;
             }
         }
 
@@ -30,12 +27,9 @@ namespace HlyssUI.Graphics
             get { return _size; }
             set
             {
-                if (value != _size)
-                {
-                    _size = value;
-                    Radius = _radius;
-                    _needsUpdate = true;
-                }
+                _size = value;
+                Radius = _radius;
+                _needsUpdate = true;
             }
         }
 

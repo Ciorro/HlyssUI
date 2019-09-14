@@ -5,8 +5,6 @@ namespace HlyssUI.Components
 {
     class RootComponent : Component
     {
-        private const int DEFAULT_APP_MARGIN = 0;
-
         public RootComponent()
         {
             CreateStyle();
@@ -29,10 +27,8 @@ namespace HlyssUI.Components
                 UpdateLocalTransform();
             };
 
-            Width = $"{Gui.Window.Size.X - DEFAULT_APP_MARGIN * 2}px";
-            Height = $"{Gui.Window.Size.Y - DEFAULT_APP_MARGIN * 2}px";
-
-            Margin = $"{DEFAULT_APP_MARGIN}px";
+            Width = $"{Gui.Window.Size.X}px";
+            Height = $"{Gui.Window.Size.Y}px";
 
             UpdateLocalTransform();
         }
