@@ -93,7 +93,6 @@ namespace HlyssUI.Components
             _body.Width = "40px";
             _body.Height = "20px";
             _body.MarginRight = "5px";
-            _body.CoverParent = false;
             AddChild(_body);
 
             _toggle.Width = "12px";
@@ -101,13 +100,11 @@ namespace HlyssUI.Components
             _toggle.MarginLeft = "4px";
             _toggle.MarginTop = "4px";
             _toggle.Transition = "out";
-            _toggle.CoverParent = false;
             _toggle.Style.SetValue("round", true);
             _body.AddChild(_toggle);
             _toggle.Name = "toggle";
 
             _label.Margin = "2px";
-            _label.CoverParent = false;
             AddChild(_label);
 
             IsToggled = false;

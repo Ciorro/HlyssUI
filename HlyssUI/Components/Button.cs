@@ -124,7 +124,6 @@ namespace HlyssUI.Components
         public override void OnChildAdded(Component child)
         {
             base.OnChildAdded(child);
-            child.CoverParent = false;
         }
     }
 }

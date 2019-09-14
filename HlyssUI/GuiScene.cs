@@ -1,10 +1,9 @@
 ﻿using HlyssUI.Components;
 using HlyssUI.Graphics;
-using HlyssUI.Themes;
 using HlyssUI.Updaters;
 using SFML.System;
 using SFML.Window;
-using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace HlyssUI
 {
@@ -13,9 +12,8 @@ namespace HlyssUI
         public Component Root;
         public Gui Gui;
 
-        private Component _hoveredComponent;
         private Renderer _renderer = new Renderer();
-        private HoverUpdater _hoverUpdater = new HoverUpdater();
+        private HoverController _hoverController = new HoverController();
         private StyleUpdater _styleUpdater = new StyleUpdater();
         private ComponentUpdater _componentUpdater = new ComponentUpdater();
         private LayoutUpdater _layoutUpdater = new LayoutUpdater();
@@ -109,16 +107,18 @@ namespace HlyssUI
 
         private void Window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
-            _hoveredComponent = _hoverUpdater.UpdateHover(Root, Mouse.GetPosition(Gui.Window));
-
+            _hoverController.Update(Root, Mouse.GetPosition(Gui.Window));
             sendMouseMoveInfoToAllChildren(Root, new Vector2i(e.X, e.Y));
         }
 
         private void Window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
         {
-            if (_hoveredComponent != null && e.Button == Mouse.Button.Left && _hoveredComponent.Enabled)
+            foreach (var component in _hoverController.HoveredComponents)
             {
-                _hoveredComponent.OnReleased();
+                if (component != null && e.Button == Mouse.Button.Left && component.Enabled)
+                {
+                    component.OnReleased();
+                }
             }
 
             sendMouseReleaseInfoToAllChildren(Root, new Vector2i(e.X, e.Y), e.Button);
@@ -126,9 +126,12 @@ namespace HlyssUI
 
         private void Window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            if (_hoveredComponent != null && e.Button == Mouse.Button.Left && _hoveredComponent.Enabled)
+            foreach (var component in _hoverController.HoveredComponents)
             {
-                _hoveredComponent.OnPressed();
+                if (component != null && e.Button == Mouse.Button.Left && component.Enabled)
+                {
+                    component.OnPressed();
+                }
             }
 
             sendMousePressInfoToAllChildren(Root, new Vector2i(e.X, e.Y), e.Button);
@@ -136,7 +139,7 @@ namespace HlyssUI
 
         private void Window_MouseWheelScrolled(object sender, MouseWheelScrollEventArgs e)
         {
-            _hoveredComponent = _hoverUpdater.UpdateHover(Root, Mouse.GetPosition(Gui.Window));
+            _hoverController.Update(Root, Mouse.GetPosition(Gui.Window));
             sendScrollInfoToAllChildren(Root, e.Delta);
         }
 

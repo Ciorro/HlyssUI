@@ -82,7 +82,8 @@ namespace HlyssUIDemo
             Panel topBar = new Panel()
             {
                 Width = "100%",
-                Height = "60px"
+                Height = "60px",
+                Name = "TopBar"
             };
             topBar.Style.SetValue("primary-color", "0071c5");
             topBar.Style.SetValue("secondary-color", "0071c5");
@@ -93,7 +94,8 @@ namespace HlyssUIDemo
             {
                 Width = "75%",
                 Height = "100%",
-                CenterContent = true
+                CenterContent = true,
+                Name = "TobBarLeft"
             };
             topBar.AddChild(topBarLeft);
 
@@ -102,13 +104,15 @@ namespace HlyssUIDemo
                 Width = "25%",
                 Height = "100%",
                 CenterContent = true,
-                Reversed = true
+                Reversed = true,
+                Name = "TopBarRight"
             };
             topBar.AddChild(topBarRight);
 
             Label header = new Label("Intel® Driver & Support Assistant")
             {
-                MarginLeft = "15px"
+                MarginLeft = "15px",
+                Name = "Header"
             };
             header.Style.SetValue("text-color", "ffffff");
             header.Style.SetValue("character-size", 21);
@@ -117,7 +121,8 @@ namespace HlyssUIDemo
 
             PictureBox intelLogo = new PictureBox("intel.png")
             {
-                MarginRight = "15px"
+                MarginRight = "15px",
+                Name = "Logo"
             };
             intelLogo.Style.SetValue("opacity", 0);
             topBarRight.AddChild(intelLogo);
@@ -126,7 +131,8 @@ namespace HlyssUIDemo
             {
                 Width = "95%",
                 Height = "250px",
-                Margin = "10px"
+                Margin = "10px",
+                Name = "ScrollArea"
             };
             scene.AddChild(licenseArea);
             licenseArea.Content.AutosizeY = true;
@@ -136,7 +142,8 @@ namespace HlyssUIDemo
             {
                 Text = File.ReadAllText("license.txt"),
                 Width = "100%",
-                Height = "1970px"
+                Height = "1970px",
+                Name = "License (TextArea)"
             };
             licenseArea.Content.AddChild(license);
 
@@ -144,14 +151,16 @@ namespace HlyssUIDemo
             {
                 Width = "95%",
                 Layout = LayoutType.Row,
-                AutosizeY = true
+                AutosizeY = true,
+                Name = "BottomBar"
             };
             scene.AddChild(bottomBar);
 
             Component bottomBarLeft = new Component()
             {
                 Width = "60%",
-                AutosizeY = true
+                AutosizeY = true,
+                Name = "BottomBarLeft"
             };
             bottomBar.AddChild(bottomBarLeft);
 
@@ -160,13 +169,15 @@ namespace HlyssUIDemo
                 Width = "40%",
                 AutosizeY = true,
                 Reversed = true,
-                PaddingTop = "2px"
+                PaddingTop = "2px",
+                Name = "BottomBarRight"
             };
             bottomBar.AddChild(bottomBarRight);
 
             Button install = new Button("Install")
             {
-                Appearance = Button.ButtonStyle.Filled
+                Appearance = Button.ButtonStyle.Filled,
+                Name = "InstallButton"
             };
             bottomBarRight.AddChild(install);
             install.Clicked += (object sender) => gui.Navigator.Navigate("pb");
@@ -174,14 +185,16 @@ namespace HlyssUIDemo
             Button close = new Button("Close")
             {
                 MarginRight = "5px",
-                //Enabled = false
+                //Enabled = false,
+                Name = "CloseButton"
             };
             bottomBarRight.AddChild(close);
             close.Clicked += (object sender) => gui.Navigator.PushOverlay("pb");
 
             CheckBox agreement = new CheckBox("I agree to the license terms and conditions")
             {
-                MarginTop = "8px"
+                MarginTop = "8px",
+                Name = "CheckBox"
             };
             bottomBarLeft.AddChild(agreement);
 

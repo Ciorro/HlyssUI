@@ -118,7 +118,6 @@ namespace HlyssUI.Components
             _box.MarginRight = "5px";
             AddChild(_box);
 
-            _check.CoverParent = false;
             _check.CascadeStyle = true;
             _check.Visible = false;
             //_check.Style["text"] = Style.GetLegibleColor(Style["accent"]);
@@ -169,7 +168,6 @@ namespace HlyssUI.Components
         public override void OnChildAdded(Component child)
         {
             base.OnChildAdded(child);
-            child.CoverParent = false;
         }
 
         public override void OnClicked()

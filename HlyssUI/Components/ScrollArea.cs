@@ -73,7 +73,6 @@ namespace HlyssUI.Components
             _scrollBox.Height = "100%";
             _scrollBox.Layout = LayoutType.Relative;
             _scrollBox.Reversed = true;
-            _scrollBox.CoverParent = false;
             AddChild(_scrollBox);
 
             _vScroll = new VScrollBar(400);

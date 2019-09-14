@@ -10,6 +10,7 @@
     <Compile Remove="Layout\Container.cs" />
     <Compile Remove="Layout\LayoutComponent.cs" />
     <Compile Remove="Updaters\GlobalTransformUpdater.cs" />
+    <Compile Remove="Updaters\HoverUpdater.cs" />
     <Compile Remove="Updaters\LocalTransformUpdater.cs" />
   </ItemGroup>
 

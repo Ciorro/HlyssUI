@@ -90,11 +90,9 @@ namespace HlyssUI.Components
             _textView.Autosize = true;
             _textView.DisableClipping = false;
             _textView.ClipArea.OutlineThickness = -2;
-            _textView.CoverParent = false;
             AddChild(_textView);
 
             _text = new EditableLabel();
-            _text.CoverParent = false;
             _textView.AddChild(_text);
 
             AutosizeY = true;

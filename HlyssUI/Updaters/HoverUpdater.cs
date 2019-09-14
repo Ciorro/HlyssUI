@@ -11,18 +11,18 @@ namespace HlyssUI.Updaters
         {
             _currentHover = null;
 
-            unhover(component, mPos);
-            hover(component, mPos);
-            unhoverExceptCurrent(component);
+            ResetHover(component, mPos);
+            FindHoveredComponent(component, mPos);
+            //unhoverExceptCurrent(component);
 
             return _currentHover;
         }
 
-        private void unhover(Component component, Vector2i mPos)
+        private void ResetHover(Component component, Vector2i mPos)
         {
             for (int i = component.Children.Count - 1; i >= 0; i--)
             {
-                unhover(component.Children[i], mPos);
+                ResetHover(component.Children[i], mPos);
             }
 
             bool prevHoverState = component.Hovered;
@@ -34,11 +34,11 @@ namespace HlyssUI.Updaters
             }
         }
 
-        private void hover(Component component, Vector2i mPos)
+        private void FindHoveredComponent(Component component, Vector2i mPos)
         {
             for (int i = component.Children.Count - 1; i >= 0; i--)
             {
-                hover(component.Children[i], mPos);
+                FindHoveredComponent(component.Children[i], mPos);
             }
 
             if (_currentHover != null && _currentHover.CoverParent && _currentHover.Visible)

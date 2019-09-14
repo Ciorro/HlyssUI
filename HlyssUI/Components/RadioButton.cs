@@ -67,7 +67,6 @@ namespace HlyssUI.Components
             _box.MarginRight = "5px";
             AddChild(_box);
 
-            _mark.CoverParent = false;
             _mark.CascadeStyle = true;
             _mark.Width = "12px";
             _mark.Height = "12px";
@@ -102,7 +101,6 @@ namespace HlyssUI.Components
         public override void OnChildAdded(Component child)
         {
             base.OnChildAdded(child);
-            child.CoverParent = false;
         }
 
         public override void OnClicked()
