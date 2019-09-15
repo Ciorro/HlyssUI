@@ -43,6 +43,7 @@ namespace HlyssUI.Components
         private Stopwatch _doubleClickTimer = Stopwatch.StartNew();
         private Vector2i _firstClickPos = new Vector2i();
         private bool _doubleClick = false;
+        private bool _enabled = true;
         private DebugRect _debugRect = new DebugRect();
         private Controller[] _controllers;
 
@@ -258,8 +259,8 @@ namespace HlyssUI.Components
             get
             {
                 if (!Enabled) return DefaultStyle.Combine(DisabledStyle);
-                if (IsPressed) return DefaultStyle.Combine(PressedStyle);
-                if (Hovered) return DefaultStyle.Combine(HoverStyle);
+                else if (IsPressed) return DefaultStyle.Combine(PressedStyle);
+                else if (Hovered) return DefaultStyle.Combine(HoverStyle);
 
                 return DefaultStyle;
             }
@@ -352,10 +353,22 @@ namespace HlyssUI.Components
             }
         }
 
+        public bool Enabled
+        {
+            get
+            {
+                return (Parent != null && !Parent.Enabled) ? false : _enabled;
+            }
+            set
+            {
+                _enabled = value;
+                StyleChanged = true;
+            }
+        }
+
         public bool TransformChanged { get; set; } = true;
         public bool StyleChanged { get; set; } = true;
 
-        public bool Enabled { get; set; } = true;
         public bool Visible { get; set; } = true;
         public bool IsOverlay { get; protected set; }
         public bool Hovered { get; set; }

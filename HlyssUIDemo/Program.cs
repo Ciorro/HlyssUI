@@ -186,7 +186,6 @@ namespace HlyssUIDemo
             Button close = new Button("Close")
             {
                 MarginRight = "5px",
-                //Enabled = false,
                 Name = "CloseButton"
             };
             bottomBarRight.AddChild(close);
@@ -198,9 +197,10 @@ namespace HlyssUIDemo
                 Name = "CheckBox"
             };
             bottomBarLeft.AddChild(agreement);
+            agreement.Checked += (object sender, bool isChecked) => install.Enabled = isChecked;
 
             install.InsertChild(0, new PictureBox("shield.png") { MarginRight="2px", MarginTop = "2px"});
-            
+
             return scene;
         }
 

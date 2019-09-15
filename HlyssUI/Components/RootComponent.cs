@@ -13,6 +13,7 @@ namespace HlyssUI.Components
         private void CreateStyle()
         {
             DefaultStyle = Themes.Style.DefaultStyle;
+            DisabledStyle = Themes.Style.DisabledStyle;
         }
 
         public override void OnAdded(Component parent)

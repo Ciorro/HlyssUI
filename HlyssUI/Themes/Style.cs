@@ -30,6 +30,25 @@ namespace HlyssUI.Themes
             }
         }
 
+        public static Style DisabledStyle
+        {
+            get
+            {
+                Style style = new Style();
+
+                style.SetValue("text-color", "888888");
+                style.SetValue("primary-color", "cccccc");
+                style.SetValue("secondary-color", "bbbbbb");
+                style.SetValue("accent-color", "cccccc");
+                style.SetValue("success-color", "cccccc");
+                style.SetValue("error-color", "cccccc");
+                style.SetValue("warning-color", "cccccc");
+                style.SetValue("information-color", "cccccc");
+
+                return style;
+            }
+        }
+
         public static Style EmptyStyle
         {
             get { return new Style(); }

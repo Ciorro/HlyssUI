@@ -7,7 +7,7 @@ namespace HlyssUI.Components
 {
     public class CheckBox : Component
     {
-        public delegate void CheckHandler(object sender, bool isToggled);
+        public delegate void CheckHandler(object sender, bool isChecked);
         public event CheckHandler Checked;
 
         #region Styles
