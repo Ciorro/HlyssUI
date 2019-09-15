@@ -35,6 +35,7 @@ namespace HlyssUIDemo
             gui.Navigator.AddScene(GetIntelScene(gui), "intel");
             gui.Navigator.AddScene(GetProgressBarTest(gui), "pb");
             gui.Navigator.AddScene(GetComponents2(gui), "pic");
+            gui.Navigator.AddScene(GetComponents1(gui), "txt");
             gui.Navigator.Navigate("intel");
             
             window.KeyPressed += (object sender, KeyEventArgs e) =>
@@ -87,8 +88,8 @@ namespace HlyssUIDemo
                 Name = "TopBar"
             };
             topBar.Style.SetValue("primary-color", "0071c5");
-            topBar.Style.SetValue("secondary-color", "0071c5");
-            topBar.Style.SetValue("border-radius", 0);
+            topBar.Style.SetValue("border-thickness", "0");
+            topBar.Style.SetValue("border-radius", "0");
             scene.AddChild(topBar);
 
             Component topBarLeft = new Component()
@@ -181,7 +182,7 @@ namespace HlyssUIDemo
                 Name = "InstallButton"
             };
             bottomBarRight.AddChild(install);
-            install.Clicked += (object sender) => gui.Navigator.Navigate("pic");
+            install.Clicked += (object sender) => gui.Navigator.Navigate("txt");
 
             Button close = new Button("Close")
             {
@@ -293,6 +294,7 @@ namespace HlyssUIDemo
             textBox.InsertChild(0, new Icon(Icons.Search));
             textBox.Children[0].MarginRight = "10px";
             textBox.Placeholder = "Search";
+            textBox.SelectOnFocus = true;
 
             return scene;
         }

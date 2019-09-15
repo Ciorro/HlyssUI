@@ -51,6 +51,9 @@ namespace HlyssUI.Graphics
 
         public override uint GetPointCount()
         {
+            if (Radius == 0)
+                return 4;
+
             return 32;
         }
 

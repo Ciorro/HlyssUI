@@ -156,6 +156,7 @@ namespace HlyssUI.Components.Internals
             foreach (var letter in _letters)
             {
                 letter.Color = Style.GetColor("text-color");
+                letter.CharacterSize = Style.GetUint("character-size");
             }
         }
 
@@ -279,13 +280,16 @@ namespace HlyssUI.Components.Internals
                 }
             }
             else if (diff < 0)
+            {
                 _letters.RemoveRange(_letters.Count + diff, Math.Abs(diff));
+            }
 
             for (int i = 0; i < _letters.Count; i++)
             {
                 _letters[i].Character = currentText[i].ToString();
             }
 
+            StyleChanged = true;
             ResetSelection();
 
             Align();
@@ -300,7 +304,7 @@ namespace HlyssUI.Components.Internals
             {
                 if (letter.IsNewLine)
                 {
-                    y += Font.GetLineSpacing(CharacterSize);
+                    y += Font.GetLineSpacing(Style.GetUint("character-size"));
                     x = GlobalPosition.X;
                 }
 
@@ -321,7 +325,7 @@ namespace HlyssUI.Components.Internals
             }
 
             Width = $"{width}px";
-            Height = $"{(int)(Font.GetLineSpacing(CharacterSize) * Lines)}px";
+            Height = $"{(int)(Font.GetLineSpacing(Style.GetUint("character-size")) * Lines)}px";
         }
 
         private void UpdateSelection()

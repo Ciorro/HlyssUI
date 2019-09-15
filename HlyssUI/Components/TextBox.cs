@@ -17,7 +17,6 @@ namespace HlyssUI.Components
         private string _realText = string.Empty;
         private string _placeholder = string.Empty;
         private int _currentIndex;
-        private bool _active;
 
         public string Placeholder
         {
@@ -36,39 +35,6 @@ namespace HlyssUI.Components
             {
                 _realText = value;
                 UpdateValue();
-            }
-        }
-
-        public bool Active
-        {
-            get { return _active; }
-            set
-            {
-                if (value)
-                {
-                    Style.SetValue("secondary-color", "accent");
-                    Style.SetValue("primary-color", "primary -10");
-                    Style.SetValue("border-thickness", 2);
-
-                    if (_realText.Length == 0)
-                        _text.Text = string.Empty;
-                    else if (SelectOnFocus && !_active)
-                        _text.SelectAll();
-
-                    if (!_active)
-                        _currentIndex = _realText.Length;
-                }
-                else
-                {
-                    Style.SetValue("secondary-color", "secondary");
-                    Style.SetValue("primary-color", "primary");
-                    Style.SetValue("border-thickness", 1);
-
-                    if (_realText.Length == 0)
-                        _text.Text = Placeholder;
-                }
-
-                _active = value;
             }
         }
 
@@ -99,27 +65,46 @@ namespace HlyssUI.Components
             DisableClipping = false;
 
             UpdateValue();
+
+            HoverStyle = new Style()
+            {
+                {"primary-color", "primary -10" }
+            };
         }
 
-        public override void OnClicked()
+        public override void OnFocusGained()
         {
-            base.OnClicked();
-            Active = true;
+            base.OnFocusGained();
+
+            if (_realText.Length == 0)
+                _text.Text = string.Empty;
+            else if (SelectOnFocus)
+                _text.SelectAll();
+
+            DefaultStyle = DefaultStyle.Combine(new Style() { { "secondary-color", "accent" } });
+            DefaultStyle = DefaultStyle.Combine(new Style() { { "primary-color", "primary -10" } });
+            DefaultStyle = DefaultStyle.Combine(new Style() { { "border-thickness", "2" } });
+
+            _currentIndex = _realText.Length;
         }
 
-        public override void OnMousePressedAnywhere(Vector2i location, Mouse.Button button)
+        public override void OnFocusLost()
         {
-            base.OnMousePressedAnywhere(location, button);
+            base.OnFocusLost();
 
-            if (!Bounds.Contains(location.X, location.Y))
-                Active = false;
+            if (_realText.Length == 0)
+                _text.Text = Placeholder;
+
+            DefaultStyle = DefaultStyle.Combine(new Style() { { "secondary-color", "secondary" } });
+            DefaultStyle = DefaultStyle.Combine(new Style() { { "primary-color", "primary" } });
+            DefaultStyle = DefaultStyle.Combine(new Style() { { "border-thickness", "1" } });
         }
 
         public override void OnTextInput(string text)
         {
             base.OnTextInput(text);
 
-            if (Active)
+            if (Focused)
             {
                 char c = text[0];
                 string tmpText = _realText;
@@ -183,7 +168,7 @@ namespace HlyssUI.Components
         {
             base.OnKeyPressed(key);
 
-            if (Active)
+            if (Focused)
             {
                 if (key == Keyboard.Key.Left && _currentIndex > 0)
                 {
@@ -214,18 +199,12 @@ namespace HlyssUI.Components
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            Style.SetValue("primary-color", "primary -10");
-
             Gui.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Text));
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-
-            if (!Active)
-                Style.SetValue("primary-color", "primary");
-
             Gui.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Arrow));
         }
 
@@ -233,6 +212,7 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
             _cursor.FillColor = Style.GetColor("text-color");
+            System.Console.WriteLine("styl");
         }
 
         public override void Update()
@@ -242,13 +222,13 @@ namespace HlyssUI.Components
             if (_cursorTimer.ElapsedTime.AsMilliseconds() > 500)
             {
                 _cursor.Position = _text.GetLetterPosition(_currentIndex) + (Vector2f)_text.GlobalPosition;
-                _cursor.Size = new Vector2f(1, _text.CharacterSize);
+                _cursor.Size = new Vector2f(1, Style.GetUint("character-size"));
 
                 _cursorVisible = !_cursorVisible;
                 _cursorTimer.Restart();
             }
 
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && Active)
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && Focused)
             {
                 int letterIndex = _text.GetLetterByPosition(Mouse.GetPosition(Gui.Window));
 
@@ -265,7 +245,7 @@ namespace HlyssUI.Components
         {
             base.Draw(target);
 
-            if (_cursorVisible && Active)
+            if (_cursorVisible && Focused)
                 target.Draw(_cursor);
         }
 
@@ -285,12 +265,7 @@ namespace HlyssUI.Components
             }
 
             if (_realText.Length == 0)
-            {
-                _text.Style.SetValue("text-color", "808080");
                 _text.Text = Placeholder;
-            }
-            else
-                _text.Style.SetValue("text-color", "text");
 
             if (_currentIndex > _realText.Length)
                 _currentIndex = _realText.Length;
@@ -317,7 +292,7 @@ namespace HlyssUI.Components
             if (_text.IsAnyTextSelected)
             {
                 Range selection = _text.SelectionRange;
-                _text.SelectionRange = new Range(-1, -1);
+                _text.ResetSelection();
 
                 _realText = _realText.Remove(selection.Min, selection.Max - selection.Min + 1);
                 _currentIndex = selection.Min;

@@ -44,6 +44,7 @@ namespace HlyssUI.Components
         private Vector2i _firstClickPos = new Vector2i();
         private bool _doubleClick = false;
         private bool _enabled = true;
+        private bool _focused = false;
         private DebugRect _debugRect = new DebugRect();
         private Controller[] _controllers;
 
@@ -305,19 +306,6 @@ namespace HlyssUI.Components
             }
         }
 
-        public Style FocusStyle
-        {
-            get
-            {
-                return (Parent != null) ? Parent.FocusStyle.Combine(_focusStyle) : _focusStyle;
-            }
-            set
-            {
-                _focusStyle = value;
-                StyleChanged = true;
-            }
-        }
-
         public Style DisabledStyle
         {
             get
@@ -362,7 +350,26 @@ namespace HlyssUI.Components
             set
             {
                 _enabled = value;
-                StyleChanged = true;
+
+                if (!Style.IsNullOrEmpty(DisabledStyle))
+                    StyleChanged = true;
+            }
+        }
+
+        public bool Focused
+        {
+            get
+            {
+                return _focused;
+            }
+            set
+            {
+                if (!_focused && value)
+                    OnFocusGained();
+                else if (_focused && !value)
+                    OnFocusLost();
+
+                _focused = value;
             }
         }
 
@@ -622,6 +629,7 @@ namespace HlyssUI.Components
         {
             if (IsPressed)
             {
+                Focused = true;
                 Clicked?.Invoke(this);
                 OnClicked();
             }
@@ -632,6 +640,10 @@ namespace HlyssUI.Components
             if (!Style.IsNullOrEmpty(PressedStyle))
                 StyleChanged = true;
         }
+
+        public virtual void OnFocusGained() { }
+
+        public virtual void OnFocusLost() { }
 
         public virtual void OnClicked() { }
 
@@ -667,7 +679,13 @@ namespace HlyssUI.Components
             StyleChanged = false;
         }
 
-        public virtual void OnMousePressedAnywhere(Vector2i location, Mouse.Button button) { }
+        public virtual void OnMousePressedAnywhere(Vector2i location, Mouse.Button button)
+        {
+            if (!Bounds.Contains(location.X, location.Y))
+            {
+                Focused = false;
+            }
+        }
 
         public virtual void OnMouseReleasedAnywhere(Vector2i location, Mouse.Button button) { }
 
