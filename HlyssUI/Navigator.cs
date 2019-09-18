@@ -27,7 +27,7 @@ namespace HlyssUI
 
         public Stack<GuiScene> GetCurrentStack()
         {
-            return _sceneStack.Peek();
+            return _sceneStack.Count > 0 ? _sceneStack.Peek() : new Stack<GuiScene>();
         }
 
         public void Navigate(string name)

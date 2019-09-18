@@ -6,7 +6,7 @@ namespace HlyssUI.Controllers
     abstract class Controller
     {
         protected Component component;
-        protected Tween tween = new TweenInstant();
+        protected Tween tween = new TweenOut();
 
         public string TweenType
         {

@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Controllers.Tweens;
+using HlyssUI.Graphics;
 using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
@@ -12,11 +13,13 @@ namespace HlyssUI.Components
             get { return _value; }
             set
             {
-                this._value = value;
+                _value = value;
                 if (value > MaxValue)
                 {
-                    this._value = MaxValue;
+                    _value = MaxValue;
                 }
+
+                ForceRefresh();
             }
         }
 
@@ -39,8 +42,8 @@ namespace HlyssUI.Components
 
         public int MaxValue { get; set; } = 100;
 
-        private RectangleShape _background;
-        private RectangleShape _fill;
+        private RoundedRectangle _background;
+        private RoundedRectangle _fill;
         private int _value = 0;
         private bool _intermediate;
 
@@ -49,11 +52,11 @@ namespace HlyssUI.Components
 
         public ProgressBar()
         {
-            _background = new RectangleShape();
-            _fill = new RectangleShape();
+            _background = new RoundedRectangle();
+            _fill = new RoundedRectangle();
 
             Width = "200px";
-            Height = "2px";
+            Height = "4px";
         }
 
         public override void Update()
@@ -66,12 +69,15 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
 
-            _background.FillColor = Style.GetColor("primary -20");
+            _background.FillColor = Style.GetColor("secondary-color");
             _fill.FillColor = Style.GetColor("accent-color");
         }
 
         public override void Draw(RenderTarget target)
         {
+            _background.UpdateGeometry();
+            _fill.UpdateGeometry();
+
             target.Draw(_background);
             target.Draw(_fill);
         }

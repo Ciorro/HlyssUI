@@ -50,12 +50,13 @@ namespace HlyssUI.Components
         {
             base.OnAdded(parent);
 
-            Padding = "10px";
+            //Padding = "10px";
 
             _textView = new Component();
             _textView.Autosize = true;
             _textView.DisableClipping = false;
             _textView.ClipArea.OutlineThickness = -2;
+            _textView.Padding = "10px";
             AddChild(_textView);
 
             _text = new EditableLabel();

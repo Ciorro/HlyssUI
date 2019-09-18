@@ -22,10 +22,10 @@ namespace HlyssUIDemo
 
             RenderWindow window = new RenderWindow(new VideoMode(630, 380), caption, Styles.Default, contextSettings);
             //window.SetFramerateLimit(60);
-            //window.SetVerticalSyncEnabled(true);
+            window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "light");
+            Theme.Load("theme.ini", "dark");
 
             Gui gui = new Gui(window);
             
@@ -36,7 +36,7 @@ namespace HlyssUIDemo
             gui.Navigator.AddScene(GetProgressBarTest(gui), "pb");
             gui.Navigator.AddScene(GetComponents2(gui), "pic");
             gui.Navigator.AddScene(GetComponents1(gui), "txt");
-            gui.Navigator.Navigate("intel");
+            gui.Navigator.Navigate("txt");
             
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -54,6 +54,11 @@ namespace HlyssUIDemo
             {
                 window.Clear(Theme.GetColor("Primary"));
                 window.DispatchEvents();
+
+                //ProgressBar progressBar = gui.Navigator.GetCurrentStack().Peek().Root.FindChild("progressbar") as ProgressBar;
+                //TrackBar trackBar = gui.Navigator.GetCurrentStack().Peek().Root.FindChild("trackbar") as TrackBar;
+
+                //progressBar.Value = trackBar.Value;
 
                 gui.Update();
                 gui.Draw();
@@ -182,7 +187,7 @@ namespace HlyssUIDemo
                 Name = "InstallButton"
             };
             bottomBarRight.AddChild(install);
-            install.Clicked += (object sender) => gui.Navigator.Navigate("txt");
+            install.Clicked += (object sender) => gui.Navigator.Navigate("pb");
 
             Button close = new Button("Close")
             {
@@ -291,7 +296,7 @@ namespace HlyssUIDemo
             textBox.MaxLines = 10;
             textBox.MarginLeft = "20px";
             scene.AddChild(textBox);
-            textBox.InsertChild(0, new Icon(Icons.Search));
+            textBox.InsertChild(0, new Icon(Icons.Search) { Margin = "10px"});
             textBox.Children[0].MarginRight = "10px";
             textBox.Placeholder = "Search";
             textBox.SelectOnFocus = true;
@@ -375,7 +380,8 @@ namespace HlyssUIDemo
             {
                 Value = 25,
                 MarginTop = "20px",
-                Width = "100%"
+                Width = "100%",
+                Name = "progressbar"
             };
             scene.AddChild(progressBar);
 
@@ -383,6 +389,20 @@ namespace HlyssUIDemo
             {
                 progressBar.Intermediate = isToggled;
             };
+
+            TrackBar trackBar = new TrackBar()
+            {
+                Width = "200px",
+                Height = "100px",
+                Name = "trackbar"
+            };
+            scene.AddChild(trackBar);
+
+            TextBox numericUpDown = new TextBox()
+            {
+                Width = "400px"
+            };
+            scene.AddChild(numericUpDown);
 
             return scene;
         }

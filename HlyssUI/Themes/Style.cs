@@ -13,14 +13,14 @@ namespace HlyssUI.Themes
             {
                 Style style = new Style();
 
-                style.SetValue("text-color", "302b29");
-                style.SetValue("primary-color", "fafafa");
-                style.SetValue("secondary-color", "d7d7d7");
-                style.SetValue("accent-color", "0071c5");
-                style.SetValue("success-color", "00c230");
-                style.SetValue("error-color", "d60007");
-                style.SetValue("warning-color", "fad000");
-                style.SetValue("information-color", "0080db");
+                style.SetValue("text-color", "text");
+                style.SetValue("primary-color", "primary");
+                style.SetValue("secondary-color", "secondary");
+                style.SetValue("accent-color", "accent");
+                style.SetValue("success-color", "success");
+                style.SetValue("error-color", "error");
+                style.SetValue("warning-color", "warning");
+                style.SetValue("information-color", "info");
                 style.SetValue("character-size", "14");
                 style.SetValue("opacity", "1");
                 style.SetValue("border-radius", "3");
