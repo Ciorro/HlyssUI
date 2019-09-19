@@ -90,7 +90,6 @@ namespace HlyssUI.Components
 
             _check = new Icon(Icons.Check)
             {
-                CascadeStyle = true,
                 Visible = false
             };
 

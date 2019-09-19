@@ -6,6 +6,7 @@ using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.Window;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -21,7 +22,7 @@ namespace HlyssUIDemo
             contextSettings.AntialiasingLevel = 8;
 
             RenderWindow window = new RenderWindow(new VideoMode(630, 380), caption, Styles.Default, contextSettings);
-            //window.SetFramerateLimit(60);
+            window.SetFramerateLimit(60);
             //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
@@ -373,39 +374,72 @@ namespace HlyssUIDemo
         {
             GuiScene scene = new GuiScene(gui);
 
+            //ToggleSwitch toggle = new ToggleSwitch("Intermediate");
+            //scene.AddChild(toggle);
+
+            //ProgressBar progressBar = new ProgressBar()
+            //{
+            //    Value = 25,
+            //    MarginTop = "20px",
+            //    Width = "100%",
+            //    Name = "progressbar"
+            //};
+            //scene.AddChild(progressBar);
+
+            //toggle.Toggled += (object sender, bool isToggled) =>
+            //{
+            //    progressBar.Intermediate = isToggled;
+            //};
+
+            //TrackBar trackBar = new TrackBar()
+            //{
+            //    Width = "200px",
+            //    Height = "100px",
+            //    Name = "trackbar"
+            //};
+            //scene.AddChild(trackBar);
+
+            //TextBox textBox = new TextBox()
+            //{
+            //    Width = "400px"
+            //};
+            //scene.AddChild(textBox);
+
+            //=====
+
             scene.Root.Padding = "20px";
             scene.Root.Layout = LayoutType.Column;
 
-            ToggleSwitch toggle = new ToggleSwitch("Intermediate");
-            scene.AddChild(toggle);
-
-            ProgressBar progressBar = new ProgressBar()
+            scene.Root.Children = new List<Component>()
             {
-                Value = 25,
-                MarginTop = "20px",
-                Width = "100%",
-                Name = "progressbar"
+                new ToggleSwitch("Intermediate")
+                {
+                    Name = "pbtest_toggle"
+                },
+                new ProgressBar()
+                {
+                    Value = 25,
+                    MarginTop = "20px",
+                    Width = "100%",
+                    Name = "pbtest_progressbar"
+                },
+                new TrackBar()
+                {
+                    Width = "200px",
+                    Height = "100px",
+                    Name = "pbtest_trackbar"
+                },
+                new TextBox()
+                {
+                    Width = "400px",
+                    Name = "pbtest_textbox"
+                }
             };
-            scene.AddChild(progressBar);
 
-            toggle.Toggled += (object sender, bool isToggled) =>
+            (scene.Root.GetChild("pbtest_toggle") as ToggleSwitch).Toggled += (object sender, bool isToggled) =>
             {
-                progressBar.Intermediate = isToggled;
+                (scene.Root.GetChild("pbtest_progressbar") as ProgressBar).Intermediate = isToggled;
             };
-
-            TrackBar trackBar = new TrackBar()
-            {
-                Width = "200px",
-                Height = "100px",
-                Name = "trackbar"
-            };
-            scene.AddChild(trackBar);
-
-            TextBox numericUpDown = new TextBox()
-            {
-                Width = "400px"
-            };
-            scene.AddChild(numericUpDown);
 
             return scene;
         }

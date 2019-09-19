@@ -387,7 +387,6 @@ namespace HlyssUI.Components
         public bool Hoverable { get; set; } = true;
         public bool IsPressed { get; private set; }
         public bool DisableClipping { get; set; } = true;
-        public bool CascadeStyle { get; set; }
         public bool CenterContent { get; set; }
         public bool AutosizeX { get; set; }
         public bool AutosizeY { get; set; }

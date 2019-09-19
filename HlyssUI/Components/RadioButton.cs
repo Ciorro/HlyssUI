@@ -52,7 +52,6 @@ namespace HlyssUI.Components
 
             _mark = new Panel()
             {
-                CascadeStyle = true,
                 Width = "12px",
                 Height = "12px"
             };
