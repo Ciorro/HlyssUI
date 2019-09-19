@@ -38,6 +38,7 @@ namespace HlyssUI.Components
             Padding = "10px";
             Width = "100%";
             AutosizeY = true;
+            DisableClipping = false;
 
             DefaultStyle = new Style()
             {

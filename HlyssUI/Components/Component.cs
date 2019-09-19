@@ -583,8 +583,8 @@ namespace HlyssUI.Components
 
         public virtual void OnAdded(Component parent)
         {
-            Gui = parent.Gui;
-            Scene = parent.Scene;
+            //Gui = parent.Gui;
+            //Scene = parent.Scene;
             Added?.Invoke(this);
         }
 
@@ -601,6 +601,9 @@ namespace HlyssUI.Components
 
         public virtual void OnPressed()
         {
+            if (!Style.IsNullOrEmpty(PressedStyle))
+                StyleChanged = true;
+
             IsPressed = true;
             Pressed?.Invoke(this);
 
@@ -620,9 +623,6 @@ namespace HlyssUI.Components
 
             _doubleClickTimer.Restart();
             _firstClickPos = currentMPos;
-
-            if (!Style.IsNullOrEmpty(PressedStyle))
-                StyleChanged = true;
         }
 
         public virtual void OnReleased()

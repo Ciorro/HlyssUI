@@ -6,13 +6,13 @@ namespace HlyssUI.Updaters
     {
         public void Update(Component component)
         {
-            //if (component.Enabled)
-            {
-                component.Update();
-            }
-
+            component.Update();
+            
             foreach (var child in component.Children)
             {
+                if (child.Gui == null)
+                    child.Gui = component.Gui;
+
                 Update(child);
             }
         }

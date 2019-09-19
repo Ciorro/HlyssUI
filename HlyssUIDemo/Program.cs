@@ -427,7 +427,7 @@ namespace HlyssUIDemo
             list.Content.AutosizeY = true;
             list.Content.Layout = LayoutType.Column;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 ListItem listItem = new ListItem($"ListItem {i + 1}")
                 {
@@ -435,7 +435,7 @@ namespace HlyssUIDemo
                 };
                 list.Content.AddChild(listItem);
 
-                listItem.Icon = Icons.File;
+                listItem.Icon = Icons.Cogs;
             }
 
             return scene;

@@ -22,7 +22,7 @@ namespace HlyssUI
         {
             Gui = gui;
 
-            Root = new RootComponent();
+            Root = new RootComponent(gui, this);
             Root.Style.SetValue("primary-color", "primary");
             Root.Gui = Gui;
             Root.Scene = this;

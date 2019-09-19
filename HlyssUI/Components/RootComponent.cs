@@ -5,8 +5,11 @@ namespace HlyssUI.Components
 {
     public class RootComponent : Component
     {
-        public RootComponent()
+        public RootComponent(Gui gui, GuiScene scene)
         {
+            Gui = gui;
+            Scene = scene;
+
             CreateStyle();
         }
 
