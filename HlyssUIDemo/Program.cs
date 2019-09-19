@@ -22,10 +22,10 @@ namespace HlyssUIDemo
 
             RenderWindow window = new RenderWindow(new VideoMode(630, 380), caption, Styles.Default, contextSettings);
             //window.SetFramerateLimit(60);
-            window.SetVerticalSyncEnabled(true);
+            //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "dark");
+            Theme.Load("theme.ini", "light");
 
             Gui gui = new Gui(window);
             
@@ -36,7 +36,8 @@ namespace HlyssUIDemo
             gui.Navigator.AddScene(GetProgressBarTest(gui), "pb");
             gui.Navigator.AddScene(GetComponents2(gui), "pic");
             gui.Navigator.AddScene(GetComponents1(gui), "txt");
-            gui.Navigator.Navigate("txt");
+            gui.Navigator.AddScene(GetListTest(gui), "list");
+            gui.Navigator.Navigate("list");
             
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -301,6 +302,8 @@ namespace HlyssUIDemo
             textBox.Placeholder = "Search";
             textBox.SelectOnFocus = true;
 
+            panel5.Texture = new Texture("gradient.jpg");
+
             return scene;
         }
 
@@ -403,6 +406,37 @@ namespace HlyssUIDemo
                 Width = "400px"
             };
             scene.AddChild(numericUpDown);
+
+            return scene;
+        }
+
+        public static GuiScene GetListTest(Gui gui)
+        {
+            GuiScene scene = new GuiScene(gui);
+
+            scene.Root.Layout = LayoutType.Column;
+
+            ScrollArea list = new ScrollArea()
+            {
+                Width = "100%",
+                Height = "100%"
+            };
+            scene.Root.AddChild(list);
+
+            list.Content.Width = "100%";
+            list.Content.AutosizeY = true;
+            list.Content.Layout = LayoutType.Column;
+
+            for (int i = 0; i < 10; i++)
+            {
+                ListItem listItem = new ListItem($"ListItem {i + 1}")
+                {
+                    Width = "100%"
+                };
+                list.Content.AddChild(listItem);
+
+                listItem.Icon = Icons.File;
+            }
 
             return scene;
         }

@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Graphics;
+using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
 using System;
@@ -10,15 +11,25 @@ namespace HlyssUI.Components
         public uint IconSize
         {
             get { return Style.GetUint("character-size"); }
-            set { Style.SetValue("character-size", value); }
+            set { DefaultStyle = DefaultStyle.Combine(new Style() { { "character-size", value.ToString() } }); }
         }
 
-        private static Font _iconFont = new Font(Properties.Resources.Line_Awesome);
+        public Icons IconType
+        {
+            set
+            {
+                _icon = value;
+                _iconTxt.DisplayedString = ((char)_icon).ToString();
+            }
+        }
+
+        private Font _iconFont;
         private Text _iconTxt;
         private Icons _icon;
 
         public Icon(Icons icon)
         {
+            _iconFont = new Font(Properties.Resources.Line_Awesome);
             _icon = icon;
         }
 
@@ -43,7 +54,7 @@ namespace HlyssUI.Components
         public override void OnRefresh()
         {
             base.OnRefresh();
-            _iconTxt.Position = new Vector2f(GlobalPosition.X + (TargetSize.X - _iconTxt.GetGlobalBounds().Width) / 2, GlobalPosition.Y);
+            _iconTxt.Position = new Vector2f((int)(GlobalPosition.X + (TargetSize.X - _iconTxt.GetGlobalBounds().Width) / 2), GlobalPosition.Y);
         }
 
         public override void OnStyleChanged()

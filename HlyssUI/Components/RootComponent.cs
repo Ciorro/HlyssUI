@@ -3,7 +3,7 @@ using SFML.Window;
 
 namespace HlyssUI.Components
 {
-    class RootComponent : Component
+    public class RootComponent : Component
     {
         public RootComponent()
         {

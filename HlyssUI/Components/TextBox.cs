@@ -50,8 +50,6 @@ namespace HlyssUI.Components
         {
             base.OnAdded(parent);
 
-            //Padding = "10px";
-
             _textView = new Component();
             _textView.Autosize = true;
             _textView.DisableClipping = false;
@@ -213,7 +211,6 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
             _cursor.FillColor = Style.GetColor("text-color");
-            System.Console.WriteLine("styl");
         }
 
         public override void Update()

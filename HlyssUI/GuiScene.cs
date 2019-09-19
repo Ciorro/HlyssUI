@@ -9,7 +9,7 @@ namespace HlyssUI
 {
     public class GuiScene
     {
-        public Component Root;
+        public RootComponent Root;
         public Gui Gui;
 
         private Renderer _renderer = new Renderer();

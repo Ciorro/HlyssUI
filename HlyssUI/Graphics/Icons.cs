@@ -184,6 +184,7 @@
         EllipsisH = '\uf1c3',
         EllipsisV = '\uf1c4',
         Empire = '\uf1c5',
+        Empty = '\u0020',
         Envelope = '\uf1c6',
         EnvelopeSquare = '\uf1c8',
         Eraser = '\uf1c9',
