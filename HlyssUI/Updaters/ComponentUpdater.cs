@@ -7,14 +7,21 @@ namespace HlyssUI.Updaters
         public void Update(Component component)
         {
             component.Update();
-            
+
             foreach (var child in component.Children)
             {
-                if (child.Gui == null)
-                    child.Gui = component.Gui;
+                if (!child.Initialized)
+                    InitializeComponent(component, child);
 
                 Update(child);
             }
+        }
+
+        private static void InitializeComponent(Component component, Component child)
+        {
+            child.Gui = component.Gui;
+            child.Scene = component.Scene;
+            child.Parent = component;
         }
     }
 }

@@ -52,10 +52,8 @@ namespace HlyssUI.Components
             }
         }
 
-        public override void OnAdded(Component parent)
+        public ScrollArea()
         {
-            base.OnAdded(parent);
-
             Layout = LayoutType.Relative;
 
             _contentBox = new Component();

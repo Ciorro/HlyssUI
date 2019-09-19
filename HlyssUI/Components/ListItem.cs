@@ -35,6 +35,11 @@ namespace HlyssUI.Components
                 AutosizeY = false
             };
 
+            Children = new List<Component>()
+            {
+                _icon, _label
+            };
+
             Padding = "10px";
             Width = "100%";
             AutosizeY = true;
@@ -54,14 +59,6 @@ namespace HlyssUI.Components
             {
                 {"primary-color", "primary -40" }
             };
-        }
-
-        public override void OnAdded(Component parent)
-        {
-            base.OnAdded(parent);
-
-            AddChild(_icon);
-            AddChild(_label);
         }
     }
 }

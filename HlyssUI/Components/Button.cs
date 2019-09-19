@@ -102,7 +102,10 @@ namespace HlyssUI.Components
         {
             Appearance = ButtonStyle.Outline;
 
-            _label = new Label(label);
+            _label = new Label(label)
+            {
+                Font = Fonts.MontserratMedium
+            };
             Layout = HlyssUI.Layout.LayoutType.Row;
 
             PaddingLeft = "20px";
@@ -111,14 +114,8 @@ namespace HlyssUI.Components
             PaddingBottom = "8px";
 
             Autosize = true;
-        }
 
-        public override void OnAdded(Component parent)
-        {
-            base.OnAdded(parent);
-
-            AddChild(_label);
-            _label.Font = Fonts.MontserratMedium;
+            Children.Add(_label);
         }
 
         public override void OnChildAdded(Component child)

@@ -11,17 +11,6 @@ namespace HlyssUI.Components
             Scene = scene;
 
             CreateStyle();
-        }
-
-        private void CreateStyle()
-        {
-            DefaultStyle = Themes.Style.DefaultStyle;
-            DisabledStyle = Themes.Style.DisabledStyle;
-        }
-
-        public override void OnAdded(Component parent)
-        {
-            base.OnAdded(parent);
 
             Gui.Window.Resized += (object sender, SizeEventArgs e) =>
             {
@@ -35,6 +24,12 @@ namespace HlyssUI.Components
             Height = $"{Gui.Window.Size.Y}px";
 
             UpdateLocalTransform();
+        }
+
+        private void CreateStyle()
+        {
+            DefaultStyle = Themes.Style.DefaultStyle;
+            DisabledStyle = Themes.Style.DisabledStyle;
         }
     }
 }

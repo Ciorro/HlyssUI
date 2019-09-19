@@ -1,6 +1,7 @@
 ﻿using HlyssUI.Extensions;
 using HlyssUI.Layout;
 using HlyssUI.Themes;
+using System.Collections.Generic;
 
 namespace HlyssUI.Components
 {
@@ -79,35 +80,36 @@ namespace HlyssUI.Components
         public ToggleSwitch(string label = "")
         {
             Layout = LayoutType.Row;
-            _body = new Panel();
-            _toggle = new Panel();
-            _label = new Label(label);
+
+            _toggle = new Panel()
+            {
+                Width = "12px",
+                Height = "12px",
+                MarginLeft = "4px",
+                MarginTop = "4px",
+                Transition = "out",
+                Hoverable = false
+            };
+
+            _body = new Panel()
+            {
+                Width = "40px",
+                Height = "20px",
+                MarginRight = "5px",
+                Children = new List<Component>() { _toggle }
+            };
+
+            _label = new Label(label)
+            {
+                Margin = "2px"
+            };
+
+            Children = new List<Component>()
+            {
+                _body, _label
+            };
 
             Autosize = true;
-        }
-
-        public override void OnAdded(Component parent)
-        {
-            base.OnAdded(parent);
-
-            _body.Width = "40px";
-            _body.Height = "20px";
-            _body.MarginRight = "5px";
-            AddChild(_body);
-
-            _toggle.Width = "12px";
-            _toggle.Height = "12px";
-            _toggle.MarginLeft = "4px";
-            _toggle.MarginTop = "4px";
-            _toggle.Transition = "out";
-            _toggle.Style.SetValue("round", true);
-            _body.AddChild(_toggle);
-            _toggle.Hoverable = false;
-            _toggle.Name = "toggle";
-
-            _label.Margin = "2px";
-            AddChild(_label);
-
             IsToggled = false;
 
             DefaultStyle = DefaultStyle.Combine(new Style()

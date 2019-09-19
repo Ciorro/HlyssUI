@@ -4,6 +4,7 @@ using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System.Collections.Generic;
 
 namespace HlyssUI.Components
 {
@@ -46,19 +47,23 @@ namespace HlyssUI.Components
 
         public int MaxLines { get; set; } = 1;
 
-        public override void OnAdded(Component parent)
+        public TextBox()
         {
-            base.OnAdded(parent);
-
-            _textView = new Component();
-            _textView.Autosize = true;
-            _textView.DisableClipping = false;
-            _textView.ClipArea.OutlineThickness = -2;
-            _textView.Padding = "10px";
-            AddChild(_textView);
-
             _text = new EditableLabel();
-            _textView.AddChild(_text);
+
+            _textView = new Component()
+            {
+                Autosize = true,
+                DisableClipping = false,
+                Padding = "10px",
+                Children = new List<Component>() { _text }
+            };
+            _text.ClipArea.OutlineThickness = -2;
+
+            Children = new List<Component>()
+            {
+                _textView
+            };
 
             AutosizeY = true;
             DisableClipping = false;

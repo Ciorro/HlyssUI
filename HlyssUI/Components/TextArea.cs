@@ -31,13 +31,16 @@ namespace HlyssUI.Components
             get { return _characterSize; }
             set
             {
-                foreach (var letter in _letters)
+                if (value != _characterSize)
                 {
-                    letter.CharacterSize = value;
-                }
+                    foreach (var letter in _letters)
+                    {
+                        letter.CharacterSize = value;
+                    }
 
-                _characterSize = value;
-                TransformChanged = true;
+                    _characterSize = value;
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -72,12 +75,6 @@ namespace HlyssUI.Components
         private bool _isSeleting = false;
 
         private Vector2i _prevSize = new Vector2i();
-
-        public override void OnAdded(Component parent)
-        {
-            base.OnAdded(parent);
-            CharacterSize = Style.GetUint("character-size");
-        }
 
         public override void OnRefresh()
         {
@@ -123,6 +120,8 @@ namespace HlyssUI.Components
             {
                 letter.Color = Style.GetColor("text-color");
             }
+
+            CharacterSize = Style.GetUint("character-size");
         }
 
         public override void Draw(RenderTarget target)

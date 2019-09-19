@@ -26,8 +26,6 @@ namespace HlyssUI
             Root.Style.SetValue("primary-color", "primary");
             Root.Gui = Gui;
             Root.Scene = this;
-
-            Root.OnAdded(Root);
         }
 
         public void Start()

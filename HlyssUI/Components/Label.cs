@@ -77,17 +77,12 @@ namespace HlyssUI.Components
             Text = text;
             _text.Font = Fonts.MontserratRegular;
             Autosize = true;
-        }
-
-        public override void OnAdded(Component parent)
-        {
-            base.OnAdded(parent);
 
             Component stretcher = new Component()
             {
                 Name = "stretcher"
             };
-            AddChild(stretcher);
+            Children.Add(stretcher);
 
             updateSize();
         }

@@ -2,6 +2,7 @@
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
 using HlyssUI.Themes;
+using System.Collections.Generic;
 
 namespace HlyssUI.Components
 {
@@ -87,29 +88,32 @@ namespace HlyssUI.Components
         {
             Layout = LayoutType.Row;
 
-            _box = new Panel();
-            _box.Autosize = true;
-            _check = new Icon(Icons.Check);
-            _label = new Label(label);
+            _check = new Icon(Icons.Check)
+            {
+                CascadeStyle = true,
+                Visible = false
+            };
+
+            _box = new Panel()
+            {
+                Autosize = true,
+                Padding = "2px",
+                MarginRight = "5px",
+                Children = new List<Component>() { _check }
+            };
+
+            _label = new Label(label)
+            {
+                Margin = "2px"
+            };
+
+            Children = new List<Component>()
+            {
+                _box, _label
+            };
 
             Autosize = true;
             IsChecked = false;
-        }
-
-        public override void OnAdded(Component parent)
-        {
-            base.OnAdded(parent);
-
-            _box.Padding = "2px";
-            _box.MarginRight = "5px";
-            AddChild(_box);
-
-            _check.CascadeStyle = true;
-            _check.Visible = false;
-            _box.AddChild(_check);
-
-            _label.Margin = "2px";
-            AddChild(_label);
         }
 
         public override void OnMouseEntered()

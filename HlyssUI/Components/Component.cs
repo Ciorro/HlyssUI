@@ -69,7 +69,7 @@ namespace HlyssUI.Components
         private string _paddingTop = "0px";
         private string _paddingBottom = "0px";
 
-        public List<Component> Children { get; private set; } = new List<Component>();
+        public List<Component> Children { get; set; } = new List<Component>();
         public Component Parent = null;
 
         internal Vector2i GlobalPosition
@@ -373,6 +373,11 @@ namespace HlyssUI.Components
             }
         }
 
+        public bool Initialized
+        {
+            get { return Gui != null && Scene != null && (Parent != null || this is RootComponent); }
+        }
+
         public bool TransformChanged { get; set; } = true;
         public bool StyleChanged { get; set; } = true;
 
@@ -440,7 +445,7 @@ namespace HlyssUI.Components
             TransformChanged = true;
 
             component.Parent = this;
-            component.OnAdded(this);
+            //component.OnAdded(this);
             Children.Insert(index, component);
             OnChildAdded(component);
         }
@@ -455,7 +460,7 @@ namespace HlyssUI.Components
             TransformChanged = true;
 
             component.Parent = null;
-            component.OnRemoved(this);
+            //component.OnRemoved(this);
             Children.Remove(component);
             OnChildRemoved(component);
         }
@@ -581,19 +586,17 @@ namespace HlyssUI.Components
 
         #region Event handling
 
-        public virtual void OnAdded(Component parent)
-        {
-            //Gui = parent.Gui;
-            //Scene = parent.Scene;
-            Added?.Invoke(this);
-        }
+        //public virtual void OnAdded(Component parent)
+        //{
+        //    Added?.Invoke(this);
+        //}
 
-        public virtual void OnRemoved(Component parent)
-        {
-            Gui = null;
-            Scene = null;
-            Removed?.Invoke(this);
-        }
+        //public virtual void OnRemoved(Component parent)
+        //{
+        //    Gui = null;
+        //    Scene = null;
+        //    Removed?.Invoke(this);
+        //}
 
         public virtual void OnChildAdded(Component child) { }
 

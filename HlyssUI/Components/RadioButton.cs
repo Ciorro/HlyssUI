@@ -49,35 +49,33 @@ namespace HlyssUI.Components
         public RadioButton(string label = "")
         {
             Layout = LayoutType.Row;
-            Style.SetValue("round", true);
 
-            _box = new Panel();
-            _box.Autosize = true;
-            _mark = new Panel();
-            _label = new Label(label);
+            _mark = new Panel()
+            {
+                CascadeStyle = true,
+                Width = "12px",
+                Height = "12px"
+            };
+
+            _box = new Panel()
+            {
+                Autosize = true,
+                Padding = "4px",
+                MarginRight = "5px",
+                Children = new List<Component>() { _mark }
+            };
+
+            _label = new Label(label)
+            {
+                Margin = "2px"
+            };
+
+            Children = new List<Component>()
+            {
+                _box, _label
+            };
 
             Autosize = true;
-        }
-
-        public override void OnAdded(Component parent)
-        {
-            base.OnAdded(parent);
-
-            _box.Padding = "4px";
-            _box.MarginRight = "5px";
-            AddChild(_box);
-
-            _mark.CascadeStyle = true;
-            _mark.Width = "12px";
-            _mark.Height = "12px";
-            _mark.Style.SetValue("round", true);
-            _mark.Style.SetValue("opacity", 0);
-            _box.AddChild(_mark);
-
-            _label.Margin = "2px";
-            AddChild(_label);
-
-            CascadeStyle = true;
         }
 
         public override void OnMouseEntered()

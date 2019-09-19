@@ -37,7 +37,7 @@ namespace HlyssUIDemo
             gui.Navigator.AddScene(GetComponents2(gui), "pic");
             gui.Navigator.AddScene(GetComponents1(gui), "txt");
             gui.Navigator.AddScene(GetListTest(gui), "list");
-            gui.Navigator.Navigate("list");
+            gui.Navigator.Navigate("intel");
             
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -413,7 +413,6 @@ namespace HlyssUIDemo
         public static GuiScene GetListTest(Gui gui)
         {
             GuiScene scene = new GuiScene(gui);
-
             scene.Root.Layout = LayoutType.Column;
 
             ScrollArea list = new ScrollArea()
