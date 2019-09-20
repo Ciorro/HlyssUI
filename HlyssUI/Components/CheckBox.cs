@@ -115,31 +115,6 @@ namespace HlyssUI.Components
             IsChecked = false;
         }
 
-        public override void OnMouseEntered()
-        {
-            base.OnMouseEntered();
-        }
-
-        public override void OnMouseLeft()
-        {
-            base.OnMouseLeft();
-        }
-
-        public override void OnPressed()
-        {
-            base.OnPressed();
-        }
-
-        public override void OnReleased()
-        {
-            base.OnReleased();
-        }
-
-        public override void OnChildAdded(Component child)
-        {
-            base.OnChildAdded(child);
-        }
-
         public override void OnClicked()
         {
             base.OnClicked();

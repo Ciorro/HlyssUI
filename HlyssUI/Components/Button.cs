@@ -117,10 +117,5 @@ namespace HlyssUI.Components
 
             Children.Add(_label);
         }
-
-        public override void OnChildAdded(Component child)
-        {
-            base.OnChildAdded(child);
-        }
     }
 }

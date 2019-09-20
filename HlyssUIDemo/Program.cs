@@ -22,7 +22,7 @@ namespace HlyssUIDemo
             contextSettings.AntialiasingLevel = 8;
 
             RenderWindow window = new RenderWindow(new VideoMode(630, 380), caption, Styles.Default, contextSettings);
-            window.SetFramerateLimit(60);
+            //window.SetFramerateLimit(60);
             //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
@@ -38,12 +38,14 @@ namespace HlyssUIDemo
             gui.Navigator.AddScene(GetComponents2(gui), "pic");
             gui.Navigator.AddScene(GetComponents1(gui), "txt");
             gui.Navigator.AddScene(GetListTest(gui), "list");
-            gui.Navigator.Navigate("intel");
+            gui.Navigator.Navigate("list");
             
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
                 if (e.Code == Keyboard.Key.F3)
                     Gui.Debug = !Gui.Debug;
+                if (e.Code == Keyboard.Key.C)
+                    Console.Clear();
             };
 
             window.MouseButtonPressed += (object sender, MouseButtonEventArgs e) =>
@@ -460,7 +462,7 @@ namespace HlyssUIDemo
             list.Content.AutosizeY = true;
             list.Content.Layout = LayoutType.Column;
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 ListItem listItem = new ListItem($"ListItem {i + 1}")
                 {

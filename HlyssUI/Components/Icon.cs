@@ -18,8 +18,12 @@ namespace HlyssUI.Components
         {
             set
             {
-                _icon = value;
-                _iconTxt.DisplayedString = ((char)_icon).ToString();
+                if (_icon != value)
+                {
+                    _icon = value;
+                    _iconTxt.DisplayedString = ((char)_icon).ToString();
+                    updateSize();
+                }
             }
         }
 

@@ -23,7 +23,9 @@ namespace HlyssUI.Updaters
         private void CheckChanges(Component component)
         {
             if (component.TransformChanged)
+            {
                 _anyTransformChanged = true;
+            }
 
             foreach (var child in component.Children)
             {

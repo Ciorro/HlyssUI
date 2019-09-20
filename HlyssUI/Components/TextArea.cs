@@ -39,7 +39,7 @@ namespace HlyssUI.Components
                     }
 
                     _characterSize = value;
-                    TransformChanged = true;
+                    ScheduleRefresh();
                 }
             }
         }

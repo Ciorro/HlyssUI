@@ -17,7 +17,7 @@ namespace HlyssUI.Components.Internals
             {
                 UpdateText(_text, value);
                 _text = value;
-                TransformChanged = true;
+                ScheduleRefresh();
             }
         }
 
@@ -27,7 +27,7 @@ namespace HlyssUI.Components.Internals
             set
             {
                 _characterSize = value;
-                TransformChanged = true;
+                ScheduleRefresh();
             }
         }
 
@@ -37,7 +37,7 @@ namespace HlyssUI.Components.Internals
             set
             {
                 _textStyle = value;
-                TransformChanged = true;
+                ScheduleRefresh();
             }
         }
 
@@ -47,7 +47,7 @@ namespace HlyssUI.Components.Internals
             set
             {
                 _font = value;
-                TransformChanged = true;
+                ScheduleRefresh();
             }
         }
 

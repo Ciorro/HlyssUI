@@ -378,7 +378,7 @@ namespace HlyssUI.Components
             get { return Gui != null && Scene != null && (Parent != null || this is RootComponent); }
         }
 
-        public bool TransformChanged { get; set; } = true;
+        public bool TransformChanged { get; private set; } = true;
         public bool StyleChanged { get; set; } = true;
 
         public bool Visible { get; set; } = true;
@@ -592,8 +592,6 @@ namespace HlyssUI.Components
 
         //public virtual void OnRemoved(Component parent)
         //{
-        //    Gui = null;
-        //    Scene = null;
         //    Removed?.Invoke(this);
         //}
 
@@ -674,7 +672,7 @@ namespace HlyssUI.Components
 
         public virtual void OnMouseMoveAnywhere(Vector2i location) { }
 
-        public virtual void OnRefresh() { }
+        public virtual void OnRefresh() {/* Logger.Log($"{this} refreshed");*/ }
 
         public virtual void OnStyleChanged()
         {

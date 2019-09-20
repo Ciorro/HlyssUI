@@ -12,8 +12,11 @@ namespace HlyssUI.Components
             get { return _text.DisplayedString; }
             set
             {
-                _text.DisplayedString = value;
-                TransformChanged = true;
+                if (_text.DisplayedString != value)
+                {
+                    _text.DisplayedString = value;
+                    UpdateSize();
+                }
             }
         }
 
@@ -22,8 +25,11 @@ namespace HlyssUI.Components
             get { return _text.Font; }
             set
             {
-                _text.Font = value;
-                TransformChanged = true;
+                if (_text.Font != value)
+                {
+                    _text.Font = value;
+                    UpdateSize();
+                }
             }
         }
 
@@ -32,8 +38,11 @@ namespace HlyssUI.Components
             get { return _text.CharacterSize; }
             set
             {
-                _text.CharacterSize = value;
-                TransformChanged = true;
+                if (_text.CharacterSize != value)
+                {
+                    _text.CharacterSize = value;
+                    UpdateSize();
+                }
             }
         }
 
@@ -42,8 +51,11 @@ namespace HlyssUI.Components
             get { return _text.Style; }
             set
             {
-                _text.Style = value;
-                TransformChanged = true;
+                if (_text.Style != value)
+                {
+                    _text.Style = value;
+                    UpdateSize();
+                }
             }
         }
 
@@ -63,19 +75,11 @@ namespace HlyssUI.Components
             }
         }
 
-        private Text _text = new Text();
+        private Text _text;
 
-        public Label()
+        public Label(string text = "")
         {
-            Text = string.Empty;
-            _text.Font = Fonts.MontserratRegular;
-            Autosize = true;
-        }
-
-        public Label(string text)
-        {
-            Text = text;
-            _text.Font = Fonts.MontserratRegular;
+            _text = new Text(text, Fonts.MontserratRegular);
             Autosize = true;
 
             Component stretcher = new Component()
@@ -84,7 +88,7 @@ namespace HlyssUI.Components
             };
             Children.Add(stretcher);
 
-            updateSize();
+            UpdateSize();
         }
 
         public override void Update()
@@ -93,7 +97,7 @@ namespace HlyssUI.Components
 
             if (TransformChanged)
             {
-                updateSize();
+                UpdateSize();
             }
         }
 
@@ -104,7 +108,7 @@ namespace HlyssUI.Components
             Vector2f position = (Vector2f)GlobalPosition;
 
             if (!AutosizeY)
-                position.Y += (Size.Y - getHeight()) / 2;
+                position.Y += (Size.Y - GetHeight()) / 2;
 
             _text.Position = position;
         }
@@ -112,11 +116,14 @@ namespace HlyssUI.Components
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
-            
-            _text.FillColor = Style.GetColor("text-color");
-            _text.CharacterSize = Style.GetUint("character-size");
 
-            updateSize();
+            if (_text.FillColor != Style.GetColor("text-color") || _text.CharacterSize != Style.GetUint("character-size"))
+            {
+                _text.FillColor = Style.GetColor("text-color");
+                _text.CharacterSize = Style.GetUint("character-size");
+
+                UpdateSize();
+            }
         }
 
         public override void Draw(RenderTarget target)
@@ -124,17 +131,24 @@ namespace HlyssUI.Components
             target.Draw(_text);
         }
 
-        private int getHeight()
+        private int GetHeight()
         {
             return (int)(_text.Font.GetLineSpacing(_text.CharacterSize) * Lines);
         }
 
-        private void updateSize()
+        private void UpdateSize()
         {
+
             if (AutosizeX)
+            {
                 GetChild("stretcher").Width = $"{_text.GetGlobalBounds().Width}px";
+            }
+
             if (AutosizeY)
-                GetChild("stretcher").Height = $"{getHeight()}px";
+            {
+            Console.WriteLine(GetHeight() + this.ToString());
+                GetChild("stretcher").Height = $"{GetHeight()}px";
+            }
         }
     }
 }

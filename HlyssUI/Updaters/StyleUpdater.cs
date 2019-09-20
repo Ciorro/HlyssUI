@@ -20,17 +20,12 @@ namespace HlyssUI.Updaters
 
         private void RefreshComponents(Component component)
         {
-            refresh(component);
+            component.OnStyleChanged();
 
             foreach (var child in component.Children)
             {
                 RefreshComponents(child);
             }
-        }
-
-        private void refresh(Component component)
-        {
-            component.OnStyleChanged();
         }
     }
 }
