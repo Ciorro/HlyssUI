@@ -138,17 +138,11 @@ namespace HlyssUI.Components
 
         private void UpdateSize()
         {
-
             if (AutosizeX)
-            {
                 GetChild("stretcher").Width = $"{_text.GetGlobalBounds().Width}px";
-            }
 
             if (AutosizeY)
-            {
-            Console.WriteLine(GetHeight() + this.ToString());
                 GetChild("stretcher").Height = $"{GetHeight()}px";
-            }
         }
     }
 }

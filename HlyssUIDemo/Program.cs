@@ -22,7 +22,7 @@ namespace HlyssUIDemo
             contextSettings.AntialiasingLevel = 8;
 
             RenderWindow window = new RenderWindow(new VideoMode(630, 380), caption, Styles.Default, contextSettings);
-            //window.SetFramerateLimit(60);
+            window.SetFramerateLimit(60);
             //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
@@ -58,11 +58,6 @@ namespace HlyssUIDemo
             {
                 window.Clear(Theme.GetColor("Primary"));
                 window.DispatchEvents();
-
-                //ProgressBar progressBar = gui.Navigator.GetCurrentStack().Peek().Root.FindChild("progressbar") as ProgressBar;
-                //TrackBar trackBar = gui.Navigator.GetCurrentStack().Peek().Root.FindChild("trackbar") as TrackBar;
-
-                //progressBar.Value = trackBar.Value;
 
                 gui.Update();
                 gui.Draw();
@@ -375,39 +370,6 @@ namespace HlyssUIDemo
         private static GuiScene GetProgressBarTest(Gui gui)
         {
             GuiScene scene = new GuiScene(gui);
-
-            //ToggleSwitch toggle = new ToggleSwitch("Intermediate");
-            //scene.AddChild(toggle);
-
-            //ProgressBar progressBar = new ProgressBar()
-            //{
-            //    Value = 25,
-            //    MarginTop = "20px",
-            //    Width = "100%",
-            //    Name = "progressbar"
-            //};
-            //scene.AddChild(progressBar);
-
-            //toggle.Toggled += (object sender, bool isToggled) =>
-            //{
-            //    progressBar.Intermediate = isToggled;
-            //};
-
-            //TrackBar trackBar = new TrackBar()
-            //{
-            //    Width = "200px",
-            //    Height = "100px",
-            //    Name = "trackbar"
-            //};
-            //scene.AddChild(trackBar);
-
-            //TextBox textBox = new TextBox()
-            //{
-            //    Width = "400px"
-            //};
-            //scene.AddChild(textBox);
-
-            //=====
 
             scene.Root.Padding = "20px";
             scene.Root.Layout = LayoutType.Column;

@@ -51,23 +51,22 @@ namespace HlyssUI.Components
         private Style _defaultStyle = new Style();
         private Style _hoverStyle = new Style();
         private Style _pressedStyle = new Style();
-        private Style _focusStyle = new Style();
         private Style _disabledStyle = new Style();
 
         //TODO: Max/Min width and height
 
-        private string _positionX = "0px";
-        private string _positionY = "0px";
-        private string _width = "0px";
-        private string _height = "0px";
-        private string _marginLeft = "0px";
-        private string _marginRight = "0px";
-        private string _marginTop = "0px";
-        private string _marginBottom = "0px";
-        private string _paddingLeft = "0px";
-        private string _paddingRight = "0px";
-        private string _paddingTop = "0px";
-        private string _paddingBottom = "0px";
+        private Dimension _positionX = Dimension.Default;
+        private Dimension _positionY = Dimension.Default;
+        private Dimension _width = Dimension.Default;
+        private Dimension _height = Dimension.Default;
+        private Dimension _marginLeft = Dimension.Default;
+        private Dimension _marginRight = Dimension.Default;
+        private Dimension _marginTop = Dimension.Default;
+        private Dimension _marginBottom = Dimension.Default;
+        private Dimension _paddingLeft = Dimension.Default;
+        private Dimension _paddingRight = Dimension.Default;
+        private Dimension _paddingTop = Dimension.Default;
+        private Dimension _paddingBottom = Dimension.Default;
 
         public List<Component> Children { get; set; } = new List<Component>();
         public Component Parent = null;
@@ -98,24 +97,24 @@ namespace HlyssUI.Components
         #region Transform getters
 
         //Position
-        internal int X => StringDimensionsConverter.Convert(_positionX, (Parent != null) ? Parent.TargetSize.X : 0);
-        internal int Y => StringDimensionsConverter.Convert(_positionY, (Parent != null) ? Parent.TargetSize.Y : 0);
+        internal int X => Dimension.GetPixelSize(_positionX, (Parent != null) ? Parent.TargetSize.X : 0);
+        internal int Y => Dimension.GetPixelSize(_positionY, (Parent != null) ? Parent.TargetSize.Y : 0);
 
         //Size
-        internal int W => StringDimensionsConverter.Convert(_width, (Parent != null) ? Parent.TargetSize.X - Parent.TargetPaddings.Horizontal : 0);
-        internal int H => StringDimensionsConverter.Convert(_height, (Parent != null) ? Parent.TargetSize.Y - Parent.TargetPaddings.Vertical : 0);
+        internal int W => Dimension.GetPixelSize(_width, (Parent != null) ? Parent.TargetSize.X - Parent.TargetPaddings.Horizontal : 0);
+        internal int H => Dimension.GetPixelSize(_height, (Parent != null) ? Parent.TargetSize.Y - Parent.TargetPaddings.Vertical : 0);
 
         //Margin
-        internal int Ml => StringDimensionsConverter.Convert(_marginLeft, (Parent != null) ? Parent.TargetSize.X : 0);
-        internal int Mr => StringDimensionsConverter.Convert(_marginRight, (Parent != null) ? Parent.TargetSize.X : 0);
-        internal int Mt => StringDimensionsConverter.Convert(_marginTop, (Parent != null) ? Parent.TargetSize.Y : 0);
-        internal int Mb => StringDimensionsConverter.Convert(_marginBottom, (Parent != null) ? Parent.TargetSize.Y : 0);
+        internal int Ml => Dimension.GetPixelSize(_marginLeft, (Parent != null) ? Parent.TargetSize.X : 0);
+        internal int Mr => Dimension.GetPixelSize(_marginRight, (Parent != null) ? Parent.TargetSize.X : 0);
+        internal int Mt => Dimension.GetPixelSize(_marginTop, (Parent != null) ? Parent.TargetSize.Y : 0);
+        internal int Mb => Dimension.GetPixelSize(_marginBottom, (Parent != null) ? Parent.TargetSize.Y : 0);
 
         //Padding
-        internal int Pl => StringDimensionsConverter.Convert(_paddingLeft, (Parent != null) ? Parent.TargetSize.X : 0);
-        internal int Pr => StringDimensionsConverter.Convert(_paddingRight, (Parent != null) ? Parent.TargetSize.X : 0);
-        internal int Pt => StringDimensionsConverter.Convert(_paddingTop, (Parent != null) ? Parent.TargetSize.Y : 0);
-        internal int Pb => StringDimensionsConverter.Convert(_paddingBottom, (Parent != null) ? Parent.TargetSize.Y : 0);
+        internal int Pl => Dimension.GetPixelSize(_paddingLeft, (Parent != null) ? Parent.TargetSize.X : 0);
+        internal int Pr => Dimension.GetPixelSize(_paddingRight, (Parent != null) ? Parent.TargetSize.X : 0);
+        internal int Pt => Dimension.GetPixelSize(_paddingTop, (Parent != null) ? Parent.TargetSize.Y : 0);
+        internal int Pb => Dimension.GetPixelSize(_paddingBottom, (Parent != null) ? Parent.TargetSize.Y : 0);
         #endregion
 
         #region Transform setters
@@ -124,7 +123,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _positionX = value;
+                _positionX = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -133,7 +132,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _positionY = value;
+                _positionY = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -142,7 +141,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _width = value;
+                _width = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -151,7 +150,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _height = value;
+                _height = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -160,7 +159,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _marginLeft = value;
+                _marginLeft = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -169,7 +168,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _marginRight = value;
+                _marginRight = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -178,7 +177,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _marginTop = value;
+                _marginTop = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -187,7 +186,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _marginBottom = value;
+                _marginBottom = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -196,10 +195,10 @@ namespace HlyssUI.Components
         {
             set
             {
-                _marginLeft = value;
-                _marginRight = value;
-                _marginTop = value;
-                _marginBottom = value;
+                _marginLeft = Dimension.FromString(value);
+                _marginRight = Dimension.FromString(value);
+                _marginTop = Dimension.FromString(value);
+                _marginBottom = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -208,7 +207,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _paddingLeft = value;
+                _paddingLeft = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -217,7 +216,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _paddingRight = value;
+                _paddingRight = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -226,7 +225,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _paddingTop = value;
+                _paddingTop = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -235,7 +234,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                _paddingBottom = value;
+                _paddingBottom = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -244,10 +243,10 @@ namespace HlyssUI.Components
         {
             set
             {
-                _paddingLeft = value;
-                _paddingRight = value;
-                _paddingTop = value;
-                _paddingBottom = value;
+                _paddingLeft = Dimension.FromString(value);
+                _paddingRight = Dimension.FromString(value);
+                _paddingTop = Dimension.FromString(value);
+                _paddingBottom = Dimension.FromString(value);
                 TransformChanged = true;
             }
         }

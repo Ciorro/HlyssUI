@@ -1,6 +1,7 @@
 ﻿using HlyssUI.Components;
 using HlyssUI.Graphics;
 using HlyssUI.Updaters;
+using HlyssUI.Utils;
 using SFML.System;
 using SFML.Window;
 using System.Collections.Generic;
@@ -41,16 +42,25 @@ namespace HlyssUI
 
         public void Update()
         {
-            //Stopwatch s = Stopwatch.StartNew();
+            Gauge.StartMeasurement("Updater", true);
             _componentUpdater.Update(Root);
-            //System.Console.WriteLine(s.ElapsedMilliseconds);
+            Gauge.PauseMeasurement("Updater");
+            Gauge.StartMeasurement("Layout", true);
             _layoutUpdater.Update(Root);
+            Gauge.PauseMeasurement("Layout");
+            Gauge.StartMeasurement("Style", true);
             _styleUpdater.Update(Root);
+            Gauge.PauseMeasurement("Style");
         }
 
         public void Draw()
         {
+            Gauge.StartMeasurement("Render", true);
             _renderer.Render(Root);
+            Gauge.PauseMeasurement("Render");
+
+            if(Keyboard.IsKeyPressed(Keyboard.Key.P))
+                Gauge.PrintSummary();
         }
 
         public void AddChild(Component component)

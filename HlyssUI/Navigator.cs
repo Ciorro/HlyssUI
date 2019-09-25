@@ -32,6 +32,11 @@ namespace HlyssUI
 
         public void Navigate(string name)
         {
+            Navigate(_scenes[name]);
+        }
+
+        public void Navigate(GuiScene scene)
+        {
             if (_sceneStack.Count > 0)
             {
                 for (int i = 0; i < GetCurrentStack().Count; i++)
@@ -41,7 +46,7 @@ namespace HlyssUI
             }
 
             Stack<GuiScene> stack = new Stack<GuiScene>();
-            stack.Push(_scenes[name]);
+            stack.Push(scene);
             StartStack(stack);
 
             _sceneStack.Push(stack);
@@ -64,8 +69,13 @@ namespace HlyssUI
 
         public void PushOverlay(string name)
         {
+            PushOverlay(_scenes[name]);
+        }
+
+        public void PushOverlay(GuiScene scene)
+        {
             GetCurrentStack().Peek().Stop();
-            GetCurrentStack().Push(_scenes[name]);
+            GetCurrentStack().Push(scene);
             GetCurrentStack().Peek().Start();
         }
 

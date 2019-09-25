@@ -12,6 +12,7 @@
     <Compile Remove="Updaters\GlobalTransformUpdater.cs" />
     <Compile Remove="Updaters\HoverUpdater.cs" />
     <Compile Remove="Updaters\LocalTransformUpdater.cs" />
+    <Compile Remove="Utils\DimensionConverter.cs" />
   </ItemGroup>
 
   <ItemGroup>
