@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Extensions;
+using HlyssUI.Utils;
 using SFML.Graphics;
 using System;
 using System.Collections.Generic;
@@ -79,7 +80,9 @@ namespace HlyssUI.Themes
                 {"success", stringToColor(data[theme]["SuccessColor"]) },
                 {"error", stringToColor(data[theme]["ErrorColor"]) },
                 {"warning", stringToColor(data[theme]["WarningColor"]) },
-                {"info", stringToColor(data[theme]["InformationColor"]) }
+                {"info", stringToColor(data[theme]["InformationColor"]) },
+                {"white-transparent", new Color(255, 255, 255, 0) },
+                {"black-transparent", new Color(0, 0, 0, 0) }
             };
 
             Name = theme;
@@ -90,18 +93,30 @@ namespace HlyssUI.Themes
         {
             try
             {
-                string r = $"0x{color[0]}{color[1]}";
-                string g = $"0x{color[2]}{color[3]}";
-                string b = $"0x{color[4]}{color[5]}";
+                int currentIndex = 0;
+                color = color.TrimStart('#');
+
+                string a = $"0xFF";
+
+                if(color.Length == 8)
+                {
+                    a = $"0x{color[currentIndex++]}{color[currentIndex++]}";
+                }
+
+                string r = $"0x{color[currentIndex++]}{color[currentIndex++]}";
+                string g = $"0x{color[currentIndex++]}{color[currentIndex++]}";
+                string b = $"0x{color[currentIndex++]}{color[currentIndex++]}";
 
                 byte rb = Convert.ToByte(r, 16);
                 byte gb = Convert.ToByte(g, 16);
                 byte bb = Convert.ToByte(b, 16);
+                byte ab = Convert.ToByte(a, 16);
 
-                return new Color(rb, gb, bb);
+                return new Color(rb, gb, bb, ab);
             }
             catch
             {
+                Logger.Log("Invalid color [StringToColor]");
                 return Color.White;
             }
         }

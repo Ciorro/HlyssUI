@@ -22,6 +22,8 @@ namespace HlyssUI.Updaters
             child.Gui = component.Gui;
             child.Scene = component.Scene;
             child.Parent = component;
+
+            child.ScheduleRefresh();
         }
     }
 }

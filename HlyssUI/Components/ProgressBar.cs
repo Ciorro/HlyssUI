@@ -62,7 +62,9 @@ namespace HlyssUI.Components
         public override void Update()
         {
             base.Update();
-            HandleIntermediate();
+
+            if (Enabled)
+                HandleIntermediate();
         }
 
         public override void OnStyleChanged()

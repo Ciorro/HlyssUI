@@ -22,14 +22,15 @@ namespace HlyssUIDemo
             contextSettings.AntialiasingLevel = 8;
 
             RenderWindow window = new RenderWindow(new VideoMode(630, 380), caption, Styles.Default, contextSettings);
+            window.Size = new SFML.System.Vector2u(1280, 720);
             window.SetFramerateLimit(60);
             //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "light");
+            Theme.Load("theme.ini", "dark");
 
             Gui gui = new Gui(window);
-            
+
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
@@ -38,8 +39,9 @@ namespace HlyssUIDemo
             gui.Navigator.AddScene(GetComponents2(gui), "pic");
             gui.Navigator.AddScene(GetComponents1(gui), "txt");
             gui.Navigator.AddScene(GetListTest(gui), "list");
-            gui.Navigator.Navigate("list");
-            
+            gui.Navigator.AddScene(GetLonczer(gui), "lon");
+            gui.Navigator.Navigate("lon");
+
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
                 if (e.Code == Keyboard.Key.F3)
@@ -204,7 +206,7 @@ namespace HlyssUIDemo
             bottomBarLeft.AddChild(agreement);
             agreement.Checked += (object sender, bool isChecked) => install.Enabled = isChecked;
 
-            install.InsertChild(0, new PictureBox("shield.png") { MarginRight="2px", MarginTop = "2px"});
+            install.InsertChild(0, new PictureBox("shield.png") { MarginRight = "2px", MarginTop = "2px" });
 
             return scene;
         }
@@ -295,7 +297,7 @@ namespace HlyssUIDemo
             textBox.MaxLines = 10;
             textBox.MarginLeft = "20px";
             scene.AddChild(textBox);
-            textBox.InsertChild(0, new Icon(Icons.Search) { Margin = "10px"});
+            textBox.InsertChild(0, new Icon(Icons.Search) { Margin = "10px" });
             textBox.Children[0].MarginRight = "10px";
             textBox.Placeholder = "Search";
             textBox.SelectOnFocus = true;
@@ -434,6 +436,108 @@ namespace HlyssUIDemo
 
                 listItem.Icon = Icons.Cogs;
             }
+
+            return scene;
+        }
+
+        public static GuiScene GetLonczer(Gui gui)
+        {
+            GuiScene scene = new GuiScene(gui);
+
+            scene.Root.Children = new List<Component>()
+            {
+                new Panel()
+                {
+                    Width = "270px",
+                    Height = "100%",
+                    Padding = "15px",
+                    Texture = new Texture("gradient.jpg"),
+                    Name = "nav",
+                    Layout = LayoutType.Column,
+                    Children = new List<Component>()
+                    {
+                        new Label()
+                        {
+                            Text = "DIBRYSOFT",
+                            Font = new Font("NEXT ART_SemiBold.otf"),
+                            CharacterSize = 25,
+                            Name = "header"
+                        },
+                        new Component()
+                        {
+                            Autosize = true,
+                            CenterContent = true,
+                            Name = "user",
+                            MarginTop = "5px",
+                            Children = new List<Component>()
+                            {
+                                new PictureBox()
+                                {
+                                    Image = new Texture("img.jpg"),
+                                    Width = "30px",
+                                    Height = "30px",
+                                    Name = "user_img"
+                                },
+                                new Label()
+                                {
+                                    Text = "Suchy",
+                                    MarginLeft = "5px",
+                                    Name = "username"
+                                },
+                                new Icon(Icons.AngleDown)
+                                {
+                                    MarginLeft = "5px",
+                                    Name = "user_menu_btn"
+                                }
+                            }
+                        },
+                        new Divider()
+                        {
+                            MarginTop = "10px",
+                            MarginBottom = "10px"
+                        },
+                        new ScrollArea()
+                        {
+                            Width = "100%",
+                            Height = "500px",
+                            Name = "list"
+                        }
+                    }
+                }
+            };
+
+            scene.Root.FindChild("nav").DefaultStyle = new Style()
+            {
+                {"border-radius", "0" },
+                {"border-thickness", "0" },
+                { "text-color", "ffffff"},
+                { "primary-color", "ffffff"},
+            };
+
+            scene.Root.FindChild("header").DefaultStyle = new Style()
+            {
+                {"character-size", "25" }
+            };
+
+            scene.Root.FindChild("user_img").DefaultStyle = new Style()
+            {
+                {"border-radius", "100" }
+            };
+
+            scene.Root.FindChild("user_menu_btn").HoverStyle = new Style()
+            {
+                {"text-color", "secondary +40" }
+            };
+
+            scene.Root.FindChild("user_menu_btn").PressedStyle = new Style()
+            {
+                {"text-color", "secondary +20" }
+            };
+
+            scene.Root.FindChild("list").DefaultStyle = new Style()
+            {
+                {"primary-color", "11ffffff" }
+            };
 
             return scene;
         }

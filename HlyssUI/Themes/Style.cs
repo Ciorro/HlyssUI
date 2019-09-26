@@ -95,7 +95,7 @@ namespace HlyssUI.Themes
             if (opacity < 0) opacity = 0;
             if (opacity > 1) opacity = 1;
 
-            color.A = (byte)(255 * opacity);
+            color.A = (byte)(color.A * opacity);
 
             return color;
         }
