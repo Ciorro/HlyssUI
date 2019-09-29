@@ -40,7 +40,7 @@ namespace HlyssUI.Updaters
                 }
             }
 
-            if (component.Bounds.Contains(_mPos.X, _mPos.Y) && (component.Parent == null || (component.Parent != null && component.Parent.ClipArea.Bounds.Contains(_mPos.X, _mPos.Y))) && component.Hoverable)
+            if (component.Bounds.Contains(_mPos.X, _mPos.Y) && (component.Parent == null || (component.Parent != null && component.Parent.ClipArea.Bounds.Contains(_mPos.X, _mPos.Y))) && component.Hoverable && component.Visible)
             {
                 HoveredComponents.Add(component);
                 return component;

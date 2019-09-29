@@ -14,11 +14,6 @@ namespace HlyssUI.Components
 
         private RoundedRectangle _body = new RoundedRectangle();
 
-        public override void Update()
-        {
-            base.Update();
-        }
-
         public override void OnRefresh()
         {
             base.OnRefresh();

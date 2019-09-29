@@ -60,8 +60,10 @@ namespace HlyssUI.Components
             _contentBox.Layout = LayoutType.Scroll;
             _contentBox.Width = "100%";
             _contentBox.Height = "100%";
+            _contentBox.Name = "contentbox";
             _contentBox.DisableClipping = false;
-            _contentBox.Padding = "15px";
+            _contentBox.ClipArea.OutlineThickness = -2;
+            //ClipArea.OutlineThickness = -2;
             AddChild(_contentBox);
 
             Content = new Component();

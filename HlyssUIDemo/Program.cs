@@ -444,6 +444,8 @@ namespace HlyssUIDemo
         {
             GuiScene scene = new GuiScene(gui);
 
+            caption = "DibrySoft Launcher";
+
             scene.Root.Children = new List<Component>()
             {
                 new Panel()
@@ -499,8 +501,33 @@ namespace HlyssUIDemo
                         new ScrollArea()
                         {
                             Width = "100%",
-                            Height = "500px",
-                            Name = "list"
+                            Height = "150px",
+                            Name = "list",
+                            Content = new Component()
+                            {
+                                AutosizeY = true,
+                                Width = "100%",
+                                Layout = LayoutType.Column,
+                                Children = new List<Component>()
+                                {
+                                    new ListItem("Aktualności")
+                                    {
+                                        Icon = Icons.Newspaper
+                                    },
+                                    new ListItem("Gry")
+                                    {
+                                        Icon = Icons.Gamepad
+                                    },
+                                    new ListItem("Aplikacje")
+                                    {
+                                        Icon = Icons.Cogs
+                                    },
+                                    new ListItem("DibryStore")
+                                    {
+                                        Icon = Icons.ShoppingCart
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -536,7 +563,8 @@ namespace HlyssUIDemo
 
             scene.Root.FindChild("list").DefaultStyle = new Style()
             {
-                {"primary-color", "11ffffff" }
+                {"primary-color", "00ffffff" },
+                {"border-radius", "5" }
             };
 
             return scene;

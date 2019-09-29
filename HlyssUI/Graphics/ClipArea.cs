@@ -7,7 +7,7 @@ namespace HlyssUI.Graphics
     public class ClipArea
     {
         public View Area { get; private set; } = new View();
-        public int OutlineThickness = 3;
+        public int OutlineThickness = 0;
 
         private Component _component;
         private IntRect _currentBounds;

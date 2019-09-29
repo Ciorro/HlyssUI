@@ -656,6 +656,8 @@ namespace HlyssUI.Components
         {
             MouseEntered?.Invoke(this);
 
+            Console.WriteLine($"Mouse entered {this}");
+
             if (!Style.IsNullOrEmpty(HoverStyle))
                 StyleChanged = true;
         }
