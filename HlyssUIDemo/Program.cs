@@ -40,7 +40,7 @@ namespace HlyssUIDemo
             gui.Navigator.AddScene(GetComponents1(gui), "txt");
             gui.Navigator.AddScene(GetListTest(gui), "list");
             gui.Navigator.AddScene(GetLonczer(gui), "lon");
-            gui.Navigator.Navigate("lon");
+            gui.Navigator.Navigate("intel");
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {

@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using HlyssUI.Controllers.Tweens;
+using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
@@ -10,7 +11,7 @@ namespace HlyssUI.Components
         private RectangleShape _slider;
         private int _clickOffset;
         private bool _active = false;
-        private Clock _animationClock = new Clock();
+        private TweenOut _tween = new TweenOut();
 
         public float Speed = 1;
         public float Percentage = 0;
@@ -28,6 +29,30 @@ namespace HlyssUI.Components
 
             Width = "15px";
             Height = "100%";
+
+            _tween.Start();
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            _tween.Update();
+
+            if ((Hovered || _active) && _tween.IsRunning)
+            {
+                Color bgColor = _background.FillColor;
+                _background.FillColor = new Color(bgColor.R, bgColor.G, bgColor.B, (byte)(64 * _tween.Percentage));
+                _slider.Size = new Vector2f((W - 2) * _tween.Percentage + 2, _slider.Size.Y);
+                _slider.Position = new Vector2f(GlobalPosition.X + W - _slider.Size.X, _slider.Position.Y);
+            }
+            else if (_tween.IsRunning)
+            {
+                Color bgColor = _background.FillColor;
+                _background.FillColor = new Color(bgColor.R, bgColor.G, bgColor.B, (byte)(64 * (1 - _tween.Percentage)));
+                _slider.Size = new Vector2f((W - 2) * (1 - _tween.Percentage) + 2, _slider.Size.Y);
+                _slider.Position = new Vector2f(GlobalPosition.X + W - _slider.Size.X, _slider.Position.Y);
+            }
         }
 
         public override void Draw(RenderTarget target)
@@ -43,10 +68,10 @@ namespace HlyssUI.Components
             _background.Size = (Vector2f)TargetSize;
             _background.Position = (Vector2f)GlobalPosition;
 
-            _slider.Size = new Vector2f(TargetSize.X, _slider.Size.Y);
+            _slider.Size = new Vector2f(_slider.Size.X, _slider.Size.Y);
 
-            updateSlider();
-            keepInbounds();
+            UpdateSlider();
+            KeepInbounds();
         }
 
         public override void OnPressed()
@@ -62,8 +87,26 @@ namespace HlyssUI.Components
             }
         }
 
+        public override void OnMouseEntered()
+        {
+            base.OnMouseEntered();
+
+            if (!_active)
+                _tween.Start();
+        }
+
+        public override void OnMouseLeft()
+        {
+            base.OnMouseLeft();
+
+            if (!_active)
+                _tween.Start();
+        }
+
         public override void OnMouseReleasedAnywhere(Vector2i location, Mouse.Button button)
         {
+            if (_active && !Hovered)
+                _tween.Start();
             _active = false;
         }
 
@@ -74,8 +117,8 @@ namespace HlyssUI.Components
             if ((Target == null && Hovered) || ((Target != null && Target.Bounds.Contains(mPos.X, mPos.Y)) || Hovered))
             {
                 _slider.Position += new Vector2f(0, (TargetSize.Y / 50) * scroll * Speed) * -1;
-                keepInbounds();
-                Percentage = getPercentageFromSliderPosition();
+                KeepInbounds();
+                Percentage = GetPercentageFromSliderPosition();
 
                 ScheduleRefresh();
             }
@@ -86,13 +129,12 @@ namespace HlyssUI.Components
             base.OnStyleChanged();
 
             Color bgColor = Style.GetColor("secondary-color");
-            bgColor.A = 64;
             _background.FillColor = bgColor;
 
             _slider.FillColor = Style.GetColor("secondary-color");
         }
 
-        public float getPercentageFromSliderPosition()
+        public float GetPercentageFromSliderPosition()
         {
             if (ContentHeight <= TargetSize.Y)
             {
@@ -105,40 +147,40 @@ namespace HlyssUI.Components
             return sliderPos / mensurationWidth;
         }
 
-        public void setSliderPosition(float percentage)
+        public void SetSliderPosition(float percentage)
         {
             float mensurationWidth = TargetSize.Y - _slider.Size.Y;
-            _slider.Position = new Vector2f(GlobalPosition.X, GlobalPosition.Y + mensurationWidth * percentage);
+            _slider.Position = new Vector2f(_slider.Position.X, GlobalPosition.Y + mensurationWidth * percentage);
         }
 
-        private void updateSlider()
+        private void UpdateSlider()
         {
             _slider.Size = new Vector2f(_slider.Size.X, (int)System.Math.Max(((float)TargetSize.Y / ContentHeight) * TargetSize.Y, TargetSize.Y * 0.1f));
 
             if (_active == true)
             {
                 Vector2i mpos = Mouse.GetPosition(Gui.Window);
-                _slider.Position = new Vector2f(GlobalPosition.X, mpos.Y - _clickOffset);
-                keepInbounds();
-                Percentage = getPercentageFromSliderPosition();
+                _slider.Position = new Vector2f(_slider.Position.X, mpos.Y - _clickOffset);
+                KeepInbounds();
+                Percentage = GetPercentageFromSliderPosition();
 
                 ScheduleRefresh();
             }
             else
             {
-                setSliderPosition(Percentage);
+                SetSliderPosition(Percentage);
             }
         }
 
-        private void keepInbounds()
+        private void KeepInbounds()
         {
             if (_slider.Position.Y < GlobalPosition.Y)
             {
-                _slider.Position = new Vector2f(GlobalPosition.X, GlobalPosition.Y);
+                _slider.Position = new Vector2f(_slider.Position.X, GlobalPosition.Y);
             }
             if (_slider.Position.Y + _slider.Size.Y > GlobalPosition.Y + TargetSize.Y)
             {
-                _slider.Position = new Vector2f(GlobalPosition.X, GlobalPosition.Y + TargetSize.Y - _slider.Size.Y);
+                _slider.Position = new Vector2f(_slider.Position.X, GlobalPosition.Y + TargetSize.Y - _slider.Size.Y);
             }
         }
     }
