@@ -27,7 +27,7 @@ namespace HlyssUIDemo
             //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "dark");
+            Theme.Load("theme.ini", "light");
 
             Gui gui = new Gui(window);
 
@@ -40,7 +40,7 @@ namespace HlyssUIDemo
             gui.Navigator.AddScene(GetComponents1(gui), "txt");
             gui.Navigator.AddScene(GetListTest(gui), "list");
             gui.Navigator.AddScene(GetLonczer(gui), "lon");
-            gui.Navigator.Navigate("intel");
+            gui.Navigator.Navigate("lon");
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -422,7 +422,7 @@ namespace HlyssUIDemo
             };
             scene.Root.AddChild(list);
 
-            list.Content.Width = "100%";
+            list.Content.Width = "101%";
             list.Content.AutosizeY = true;
             list.Content.Layout = LayoutType.Column;
 
@@ -435,6 +435,8 @@ namespace HlyssUIDemo
                 list.Content.AddChild(listItem);
 
                 listItem.Icon = Icons.Cogs;
+
+                list.Content.AddChild(new Divider());
             }
 
             return scene;
@@ -467,8 +469,9 @@ namespace HlyssUIDemo
                         },
                         new Component()
                         {
-                            Autosize = true,
-                            CenterContent = true,
+                            AutosizeY = true,
+                            Width = "100%",
+                            //CenterContent = true,
                             Name = "user",
                             MarginTop = "5px",
                             Children = new List<Component>()
@@ -501,7 +504,7 @@ namespace HlyssUIDemo
                         new ScrollArea()
                         {
                             Width = "100%",
-                            Height = "150px",
+                            Height = "500px",
                             Name = "list",
                             Content = new Component()
                             {
@@ -512,19 +515,23 @@ namespace HlyssUIDemo
                                 {
                                     new ListItem("Aktualności")
                                     {
-                                        Icon = Icons.Newspaper
+                                        Icon = Icons.Newspaper,
+                                        Name = "l1"
                                     },
                                     new ListItem("Gry")
                                     {
-                                        Icon = Icons.Gamepad
+                                        Icon = Icons.Gamepad,
+                                        Name = "l2"
                                     },
                                     new ListItem("Aplikacje")
                                     {
-                                        Icon = Icons.Cogs
+                                        Icon = Icons.Cogs,
+                                        Name = "l3"
                                     },
                                     new ListItem("DibryStore")
                                     {
-                                        Icon = Icons.ShoppingCart
+                                        Icon = Icons.ShoppingCart,
+                                        Name = "l4"
                                     }
                                 }
                             }
@@ -565,6 +572,22 @@ namespace HlyssUIDemo
             {
                 {"primary-color", "00ffffff" },
                 {"border-radius", "5" }
+            };
+
+            scene.Root.FindChild("l1").HoverStyle =
+            scene.Root.FindChild("l2").HoverStyle =
+            scene.Root.FindChild("l3").HoverStyle =
+            scene.Root.FindChild("l4").HoverStyle = new Style()
+            {
+                {"primary-color", "11ffffff" }
+            };
+
+            scene.Root.FindChild("l1").PressedStyle =
+            scene.Root.FindChild("l2").PressedStyle =
+            scene.Root.FindChild("l3").PressedStyle =
+            scene.Root.FindChild("l4").PressedStyle = new Style()
+            {
+                {"primary-color", "22ffffff" }
             };
 
             return scene;

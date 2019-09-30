@@ -68,8 +68,6 @@ namespace HlyssUI.Components
             _background.Size = (Vector2f)TargetSize;
             _background.Position = (Vector2f)GlobalPosition;
 
-            _slider.Size = new Vector2f(_slider.Size.X, _slider.Size.Y);
-
             UpdateSlider();
             KeepInbounds();
         }

@@ -584,16 +584,6 @@ namespace HlyssUI.Components
 
         #region Event handling
 
-        //public virtual void OnAdded(Component parent)
-        //{
-        //    Added?.Invoke(this);
-        //}
-
-        //public virtual void OnRemoved(Component parent)
-        //{
-        //    Removed?.Invoke(this);
-        //}
-
         public virtual void OnChildAdded(Component child) { }
 
         public virtual void OnChildRemoved(Component child) { }
@@ -656,7 +646,7 @@ namespace HlyssUI.Components
         {
             MouseEntered?.Invoke(this);
 
-            Console.WriteLine($"Mouse entered {this}");
+            //Console.WriteLine($"Mouse entered {this}");
 
             if (!Style.IsNullOrEmpty(HoverStyle))
                 StyleChanged = true;

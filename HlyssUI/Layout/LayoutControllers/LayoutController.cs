@@ -28,6 +28,15 @@ namespace HlyssUI.Layout.LayoutControllers
             if (component.AutosizeY)
                 component.Height = $"{_maxY + component.TargetPaddings.Vertical}px";
 
+            if (component.Name == "user")
+            {
+                foreach (var child in component.Children)
+                {
+                    Console.WriteLine(child.H);
+                }
+                Console.WriteLine("-");
+            }
+
             component.UpdateLocalSize();
 
             _maxX = 0;
