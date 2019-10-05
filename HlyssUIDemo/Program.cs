@@ -4,6 +4,7 @@ using HlyssUI.Graphics;
 using HlyssUI.Layout;
 using HlyssUI.Themes;
 using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,18 @@ namespace HlyssUIDemo
 
         static void Main(string[] args)
         {
+            Vector2u winSize = new Vector2u(1280, 720);
+            //Vector2u winSize = new Vector2u(630, 380);
+
             ContextSettings contextSettings = new ContextSettings();
             contextSettings.AntialiasingLevel = 8;
 
-            RenderWindow window = new RenderWindow(new VideoMode(630, 380), caption, Styles.Default, contextSettings);
-            window.Size = new SFML.System.Vector2u(1280, 720);
+            RenderWindow window = new RenderWindow(new VideoMode(winSize.X, winSize.Y), caption, Styles.Default, contextSettings);
             window.SetFramerateLimit(60);
             //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "light");
+            Theme.Load("theme.ini", "dark");
 
             Gui gui = new Gui(window);
 
@@ -471,7 +474,7 @@ namespace HlyssUIDemo
                         {
                             AutosizeY = true,
                             Width = "100%",
-                            //CenterContent = true,
+                            CenterContent = true,
                             Name = "user",
                             MarginTop = "5px",
                             Children = new List<Component>()
