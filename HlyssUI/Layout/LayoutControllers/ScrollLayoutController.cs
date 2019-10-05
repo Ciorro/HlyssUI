@@ -22,5 +22,10 @@ namespace HlyssUI.Layout.LayoutControllers
         {
             return new ScrollLayoutController();
         }
+
+        public override void ApplyContentCentering(Component component)
+        {
+            return;
+        }
     }
 }

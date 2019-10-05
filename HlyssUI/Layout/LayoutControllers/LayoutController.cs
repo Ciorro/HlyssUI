@@ -17,6 +17,7 @@ namespace HlyssUI.Layout.LayoutControllers
 
         public abstract LayoutController Get();
         public abstract void ApplyLayout(Component component);
+        public abstract void ApplyContentCentering(Component component);
 
         public void ApplyAutosize(Component component)
         {

@@ -47,6 +47,9 @@ namespace HlyssUI.Updaters
             LayoutController layout = LayoutResolver.GetLayout(component.Layout);
             layout.ApplyLayout(component);
             layout.ApplyAutosize(component);
+
+            if (component.CenterContent)
+                layout.ApplyContentCentering(component);
         }
 
         private void Refresh(Component component)

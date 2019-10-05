@@ -38,5 +38,14 @@ namespace HlyssUI.Layout.LayoutControllers
         {
             return new WrapLayoutController();
         }
+
+        public override void ApplyContentCentering(Component component)
+        {
+            foreach (var child in component.Children)
+            {
+                //child.Top = $"{(component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2}px";
+                //child.UpdateLocalPosition();
+            }
+        }
     }
 }

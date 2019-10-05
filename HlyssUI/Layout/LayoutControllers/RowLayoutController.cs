@@ -29,11 +29,6 @@ namespace HlyssUI.Layout.LayoutControllers
                 child.Top = "0px";
                 x += child.TargetMargins.Horizontal + child.TargetSize.X;
 
-                if (component.CenterContent)
-                {
-                    child.Top = $"{(component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2}px";
-                }
-
                 child.UpdateLocalPosition();
                 CompareSize(child);
             }
@@ -49,13 +44,17 @@ namespace HlyssUI.Layout.LayoutControllers
                 child.Left = $"{x}px";
                 child.Top = "0px";
 
-                if (component.CenterContent)
-                {
-                    child.Top = $"{(component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2}px";
-                }
-
                 child.UpdateLocalPosition();
                 CompareSize(child);
+            }
+        }
+
+        public override void ApplyContentCentering(Component component)
+        {
+            foreach (var child in component.Children)
+            {
+                child.Top = $"{(component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2}px";
+                child.UpdateLocalPosition();
             }
         }
     }

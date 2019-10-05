@@ -43,7 +43,7 @@ namespace HlyssUIDemo
             gui.Navigator.AddScene(GetComponents1(gui), "txt");
             gui.Navigator.AddScene(GetListTest(gui), "list");
             gui.Navigator.AddScene(GetLonczer(gui), "lon");
-            gui.Navigator.Navigate("lon");
+            gui.Navigator.Navigate("list");
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -428,6 +428,7 @@ namespace HlyssUIDemo
             list.Content.Width = "101%";
             list.Content.AutosizeY = true;
             list.Content.Layout = LayoutType.Column;
+            list.Content.CenterContent = true;
 
             for (int i = 0; i < 1000; i++)
             {
