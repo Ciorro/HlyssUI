@@ -1,5 +1,4 @@
 ﻿using HlyssUI;
-using HlyssUI.Builders;
 using HlyssUI.Components;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
@@ -45,10 +44,6 @@ namespace HlyssUIDemo
             //gui.Navigator.AddScene(GetListTest(gui), "list");
             gui.Navigator.AddScene(GetLonczer(gui), "lon");
             gui.Navigator.Navigate("lon");
-
-            ToolTipBuilder toolTipBuilder = new ToolTipBuilder();
-            toolTipBuilder.Text = "ToolTip";
-            gui.Navigator.AddScene(toolTipBuilder.Build(gui), "tooltip1");
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
