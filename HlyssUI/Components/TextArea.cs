@@ -129,7 +129,7 @@ namespace HlyssUI.Components
             foreach (var letter in _letters)
             {
 
-                if (letter.Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : Scene.Root.Bounds))
+                if (letter.Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : Gui.Root.Bounds))
                 {
                     letter.Draw(target);
                 }

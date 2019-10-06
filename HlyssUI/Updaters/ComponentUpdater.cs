@@ -20,7 +20,6 @@ namespace HlyssUI.Updaters
         private static void InitializeComponent(Component component, Component child)
         {
             child.Gui = component.Gui;
-            child.Scene = component.Scene;
             child.Parent = component;
 
             child.OnInitialized();

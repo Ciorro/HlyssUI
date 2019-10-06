@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Components;
 using SFML.Graphics;
+using SFML.System;
 
 namespace HlyssUI.Graphics
 {
@@ -28,7 +29,12 @@ namespace HlyssUI.Graphics
             component.Draw(component.Gui.Window);
             component.DrawDebug();
 
-            component.Gui.Window.SetView(component.Gui.DefaultView);
+            component.Gui.Window.SetView(new View()
+            {
+                Center = (Vector2f)component.Gui.Window.Size / 2,
+                Size = (Vector2f)component.Gui.Window.Size,
+                Viewport = new FloatRect(0, 0, 1, 1)
+            });
 
             foreach (var child in component.Children)
             {

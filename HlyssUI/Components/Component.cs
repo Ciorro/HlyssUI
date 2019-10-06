@@ -336,7 +336,7 @@ namespace HlyssUI.Components
         {
             get
             {
-                return Spacing.Intersects(Bounds, (Parent != null) ? Parent.Bounds : Scene.Root.Bounds);
+                return Spacing.Intersects(Bounds, (Parent != null) ? Parent.Bounds : Gui.Root.Bounds);
             }
         }
 
@@ -374,7 +374,7 @@ namespace HlyssUI.Components
 
         public bool Initialized
         {
-            get { return Gui != null && Scene != null && (Parent != null || this is RootComponent); }
+            get { return Gui != null && (Parent != null || this is RootComponent); }
         }
 
         public bool TransformChanged { get; private set; } = true;
@@ -413,8 +413,7 @@ namespace HlyssUI.Components
         public LayoutType Layout = LayoutType.Row;
 
         public string Name { get; set; } = Guid.NewGuid().ToString();
-        public Gui Gui { get; set; }
-        public GuiScene Scene { get; set; }
+        public HlyssApp Gui { get; set; }
 
         public Component()
         {
@@ -689,7 +688,7 @@ namespace HlyssUI.Components
 
         public void DrawDebug()
         {
-            if (Gui.Debug)
+            if (HlyssApp.Debug)
             {
                 _debugRect.Update(this);
                 _debugRect.Draw(this);
