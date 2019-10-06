@@ -23,6 +23,7 @@ namespace HlyssUI.Updaters
             child.Scene = component.Scene;
             child.Parent = component;
 
+            child.OnInitialized();
             child.ScheduleRefresh();
         }
     }

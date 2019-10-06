@@ -22,7 +22,7 @@ namespace HlyssUI.Components
 
         protected readonly Style OutlinePressed = new Style()
         {
-            {"primary-color", "primary -40" }
+            {"primary-color", "secondary" }
         };
 
         protected readonly Style FillDefault = new Style()
@@ -49,12 +49,12 @@ namespace HlyssUI.Components
 
         protected readonly Style FlatHover = new Style()
         {
-            {"primary-color", "secondary +20" }
+            {"primary-color", "secondary " }
         };
 
         protected readonly Style FlatPressed = new Style()
         {
-            {"primary-color", "secondary +40" }
+            {"primary-color", "secondary -20" }
         };
         #endregion
 

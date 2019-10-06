@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Controllers.Tweens;
+using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -126,10 +127,8 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
 
-            Color bgColor = Style.GetColor("secondary-color");
-            _background.FillColor = bgColor;
-
-            _slider.FillColor = Style.GetColor("secondary-color");
+            _background.FillColor = Theme.GetColor("999999");
+            _slider.FillColor = Theme.GetColor("999999");
         }
 
         public float GetPercentageFromSliderPosition()

@@ -584,6 +584,8 @@ namespace HlyssUI.Components
 
         #region Event handling
 
+        public virtual void OnInitialized() { }
+
         public virtual void OnChildAdded(Component child) { }
 
         public virtual void OnChildRemoved(Component child) { }

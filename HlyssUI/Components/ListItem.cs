@@ -1,7 +1,5 @@
 ﻿using HlyssUI.Themes;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Components
 {
@@ -32,7 +30,7 @@ namespace HlyssUI.Components
             _label = new Label(label)
             {
                 Height = "100%",
-                AutosizeY = false
+                AutosizeToText = false
             };
 
             Children = new List<Component>()

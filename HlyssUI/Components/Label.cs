@@ -75,19 +75,13 @@ namespace HlyssUI.Components
             }
         }
 
+        public bool AutosizeToText { get; set; } = true;
+
         private Text _text;
 
         public Label(string text = "")
         {
             _text = new Text(text, Fonts.MontserratRegular);
-            Autosize = true;
-
-            Component stretcher = new Component()
-            {
-                Name = "stretcher"
-            };
-            Children.Add(stretcher);
-
             UpdateSize();
         }
 
@@ -107,8 +101,8 @@ namespace HlyssUI.Components
 
             Vector2f position = (Vector2f)GlobalPosition;
 
-            if (!AutosizeY)
-                position.Y += (Size.Y - GetHeight()) / 2;
+            if (!AutosizeToText)
+                position.Y += (H - GetHeight()) / 2;
 
             _text.Position = position;
         }
@@ -138,11 +132,11 @@ namespace HlyssUI.Components
 
         private void UpdateSize()
         {
-            if (AutosizeX)
-                GetChild("stretcher").Width = $"{_text.GetGlobalBounds().Width}px";
-
-            if (AutosizeY)
-                GetChild("stretcher").Height = $"{GetHeight()}px";
+            if (AutosizeToText)
+            {
+                Width = $"{_text.GetGlobalBounds().Width}px";
+                Height = $"{GetHeight()}px";
+            }
         }
     }
 }

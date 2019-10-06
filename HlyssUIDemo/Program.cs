@@ -1,4 +1,5 @@
 ﻿using HlyssUI;
+using HlyssUI.Builders;
 using HlyssUI.Components;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
@@ -26,8 +27,8 @@ namespace HlyssUIDemo
             contextSettings.AntialiasingLevel = 8;
 
             RenderWindow window = new RenderWindow(new VideoMode(winSize.X, winSize.Y), caption, Styles.Default, contextSettings);
-            window.SetFramerateLimit(60);
-            //window.SetVerticalSyncEnabled(true);
+            //window.SetFramerateLimit(60);
+            window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
             Theme.Load("theme.ini", "dark");
@@ -41,9 +42,13 @@ namespace HlyssUIDemo
             gui.Navigator.AddScene(GetProgressBarTest(gui), "pb");
             gui.Navigator.AddScene(GetComponents2(gui), "pic");
             gui.Navigator.AddScene(GetComponents1(gui), "txt");
-            gui.Navigator.AddScene(GetListTest(gui), "list");
+            //gui.Navigator.AddScene(GetListTest(gui), "list");
             gui.Navigator.AddScene(GetLonczer(gui), "lon");
-            gui.Navigator.Navigate("list");
+            gui.Navigator.Navigate("lon");
+
+            ToolTipBuilder toolTipBuilder = new ToolTipBuilder();
+            toolTipBuilder.Text = "ToolTip";
+            gui.Navigator.AddScene(toolTipBuilder.Build(gui), "tooltip1");
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -148,6 +153,7 @@ namespace HlyssUIDemo
             scene.AddChild(licenseArea);
             licenseArea.Content.AutosizeY = true;
             licenseArea.Content.Width = "100%";
+            licenseArea.Content.Padding = "15px";
 
             TextArea license = new TextArea()
             {
@@ -428,7 +434,6 @@ namespace HlyssUIDemo
             list.Content.Width = "101%";
             list.Content.AutosizeY = true;
             list.Content.Layout = LayoutType.Column;
-            list.Content.CenterContent = true;
 
             for (int i = 0; i < 1000; i++)
             {
@@ -541,6 +546,11 @@ namespace HlyssUIDemo
                             }
                         }
                     }
+                },
+                new Button("Czytaj dalej...")
+                {
+                    Margin = "20px",
+                    Appearance = Button.ButtonStyle.Outline
                 }
             };
 
