@@ -10,9 +10,9 @@ namespace HlyssUI.Graphics
 
         public void Render(Component component)
         {
-            _windowArea = new IntRect(0, 0, (int)component.Gui.Window.Size.X, (int)component.Gui.Window.Size.Y);
+            _windowArea = new IntRect(0, 0, (int)component.App.Window.Size.X, (int)component.App.Window.Size.Y);
 
-            component.Gui.Window.SetView(component.Gui.Window.DefaultView);
+            component.App.Window.SetView(component.App.Window.DefaultView);
             renderComponents(component);
         }
 
@@ -24,15 +24,15 @@ namespace HlyssUI.Graphics
             View area = getNearestClipArea(component);
 
             if (area != null)
-                component.Gui.Window.SetView(area);
+                component.App.Window.SetView(area);
 
-            component.Draw(component.Gui.Window);
+            component.Draw(component.App.Window);
             component.DrawDebug();
 
-            component.Gui.Window.SetView(new View()
+            component.App.Window.SetView(new View()
             {
-                Center = (Vector2f)component.Gui.Window.Size / 2,
-                Size = (Vector2f)component.Gui.Window.Size,
+                Center = (Vector2f)component.App.Window.Size / 2,
+                Size = (Vector2f)component.App.Window.Size,
                 Viewport = new FloatRect(0, 0, 1, 1)
             });
 

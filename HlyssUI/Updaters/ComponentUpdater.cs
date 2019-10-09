@@ -10,7 +10,7 @@ namespace HlyssUI.Updaters
 
             foreach (var child in component.Children)
             {
-                if (!child.Initialized)
+                if (!child.IsInitialized)
                     InitializeComponent(component, child);
 
                 Update(child);
@@ -19,7 +19,7 @@ namespace HlyssUI.Updaters
 
         private static void InitializeComponent(Component component, Component child)
         {
-            child.Gui = component.Gui;
+            child.App = component.App;
             child.Parent = component;
 
             child.OnInitialized();

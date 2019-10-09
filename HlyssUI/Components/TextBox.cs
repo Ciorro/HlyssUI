@@ -203,13 +203,13 @@ namespace HlyssUI.Components
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            Gui.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Text));
+            App.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Text));
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-            Gui.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Arrow));
+            App.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Arrow));
         }
 
         public override void OnStyleChanged()
@@ -233,7 +233,7 @@ namespace HlyssUI.Components
 
             if (Mouse.IsButtonPressed(Mouse.Button.Left) && Focused)
             {
-                int letterIndex = _text.GetLetterByPosition(Mouse.GetPosition(Gui.Window));
+                int letterIndex = _text.GetLetterByPosition(Mouse.GetPosition(App.Window));
 
                 if (letterIndex >= 0)
                 {

@@ -129,7 +129,7 @@ namespace HlyssUI.Components
             foreach (var letter in _letters)
             {
 
-                if (letter.Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : Gui.Root.Bounds))
+                if (letter.Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : App.Root.Bounds))
                 {
                     letter.Draw(target);
                 }
@@ -140,7 +140,7 @@ namespace HlyssUI.Components
         {
             base.OnMousePressedAnywhere(location, button);
 
-            _selectionStart = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
+            _selectionStart = GetLetterByPosition(Mouse.GetPosition(App.Window));
             _isSeleting = true;
             _selectionEnd = -1;
         }
@@ -168,7 +168,7 @@ namespace HlyssUI.Components
                 return;
 
             if (_isSeleting)
-                _selectionEnd = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
+                _selectionEnd = GetLetterByPosition(Mouse.GetPosition(App.Window));
 
             for (int i = 0; i < _letters.Count; i++)
             {

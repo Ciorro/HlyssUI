@@ -46,9 +46,9 @@ namespace HlyssUI.Components
 
         public override void Draw(RenderTarget target)
         {
-            Gui.Window.Draw(_bar);
-            Gui.Window.Draw(_valueBar);
-            Gui.Window.Draw(_pointer);
+            App.Window.Draw(_bar);
+            App.Window.Draw(_valueBar);
+            App.Window.Draw(_pointer);
         }
 
         public override void OnPressed()
@@ -69,7 +69,7 @@ namespace HlyssUI.Components
 
             if (_active == true)
             {
-                int offset = Mouse.GetPosition(Gui.Window).X - GlobalPosition.X;
+                int offset = Mouse.GetPosition(App.Window).X - GlobalPosition.X;
                 offset = setOffsetInbounds(offset);
                 _currentOffset = offset;
             }

@@ -19,24 +19,24 @@ namespace HlyssUI.Utils
 
         public void Draw(Component component)
         {
-            View tmpView = component.Gui.Window.GetView();
-            component.Gui.Window.SetView(new View()
+            View tmpView = component.App.Window.GetView();
+            component.App.Window.SetView(new View()
             {
-                Size = (Vector2f)component.Gui.Window.Size,
+                Size = (Vector2f)component.App.Window.Size,
                 Viewport = new FloatRect(0, 0, 1, 1),
-                Center = (Vector2f)(component.Gui.Window.Size / 2)
+                Center = (Vector2f)(component.App.Window.Size / 2)
             });
 
-            component.Gui.Window.Draw(_rect);
-            component.Gui.Window.Draw(_margin);
-            component.Gui.Window.Draw(_marginLines);
-            component.Gui.Window.Draw(_paddingRect1);
-            component.Gui.Window.Draw(_paddingRect2);
-            component.Gui.Window.Draw(_paddingRect3);
-            component.Gui.Window.Draw(_paddingRect4);
-            component.Gui.Window.Draw(_paddingRect5);
+            component.App.Window.Draw(_rect);
+            component.App.Window.Draw(_margin);
+            component.App.Window.Draw(_marginLines);
+            component.App.Window.Draw(_paddingRect1);
+            component.App.Window.Draw(_paddingRect2);
+            component.App.Window.Draw(_paddingRect3);
+            component.App.Window.Draw(_paddingRect4);
+            component.App.Window.Draw(_paddingRect5);
 
-            component.Gui.Window.SetView(tmpView);
+            component.App.Window.SetView(tmpView);
         }
 
         public void Update(Component component)

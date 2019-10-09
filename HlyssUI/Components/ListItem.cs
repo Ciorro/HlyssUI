@@ -50,12 +50,12 @@ namespace HlyssUI.Components
 
             HoverStyle = new Style()
             {
-                {"primary-color", "primary -20" }
+                {"primary-color", "secondary" }
             };
 
             PressedStyle = new Style()
             {
-                {"primary-color", "primary -40" }
+                {"primary-color", "secondary -20" }
             };
         }
     }

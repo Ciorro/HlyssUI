@@ -75,7 +75,7 @@ namespace HlyssUI.Components
 
         public override void OnPressed()
         {
-            Vector2i mpos = Mouse.GetPosition(Gui.Window);
+            Vector2i mpos = Mouse.GetPosition(App.Window);
 
             if (_slider.GetGlobalBounds().Contains(mpos.X, mpos.Y))
             {
@@ -111,7 +111,7 @@ namespace HlyssUI.Components
 
         public override void OnScrolledAnywhere(float scroll)
         {
-            Vector2i mPos = Mouse.GetPosition(Gui.Window);
+            Vector2i mPos = Mouse.GetPosition(App.Window);
 
             if ((Target == null && Hovered) || ((Target != null && Target.Bounds.Contains(mPos.X, mPos.Y)) || Hovered))
             {
@@ -156,7 +156,7 @@ namespace HlyssUI.Components
 
             if (_active == true)
             {
-                Vector2i mpos = Mouse.GetPosition(Gui.Window);
+                Vector2i mpos = Mouse.GetPosition(App.Window);
                 _slider.Position = new Vector2f(_slider.Position.X, mpos.Y - _clickOffset);
                 KeepInbounds();
                 Percentage = GetPercentageFromSliderPosition();

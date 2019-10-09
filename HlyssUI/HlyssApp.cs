@@ -4,10 +4,7 @@ using HlyssUI.Themes;
 using HlyssUI.Updaters;
 using HlyssUI.Utils;
 using SFML.Graphics;
-using SFML.System;
 using SFML.Window;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace HlyssUI
 {
@@ -16,12 +13,12 @@ namespace HlyssUI
         public static bool Debug = false;
         public RenderWindow Window { get; private set; }
 
-        public RootComponent Root;
+        public RootComponent Root { get; private set; }
 
-        private Renderer _renderer = new Renderer();
-        private StyleUpdater _styleUpdater = new StyleUpdater();
         private ComponentUpdater _componentUpdater = new ComponentUpdater();
         private LayoutUpdater _layoutUpdater = new LayoutUpdater();
+        private StyleUpdater _styleUpdater = new StyleUpdater();
+        private Renderer _renderer = new Renderer();
 
         private InputManager _input;
 

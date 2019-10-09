@@ -1,17 +1,16 @@
-﻿using System;
-using SFML.Window;
+﻿using SFML.Window;
 
 namespace HlyssUI.Components
 {
-    public class RootComponent : Component
+    public sealed class RootComponent : Component
     {
         public RootComponent(HlyssApp gui)
         {
-            Gui = gui;
+            App = gui;
 
             CreateStyle();
 
-            Gui.Window.Resized += (object sender, SizeEventArgs e) =>
+            App.Window.Resized += (object sender, SizeEventArgs e) =>
             {
                 Width = $"{e.Width}px";
                 Height = $"{e.Height}px";
@@ -19,8 +18,9 @@ namespace HlyssUI.Components
                 UpdateLocalTransform();
             };
 
-            Width = $"{Gui.Window.Size.X}px";
-            Height = $"{Gui.Window.Size.Y}px";
+            Width = $"{App.Window.Size.X}px";
+            Height = $"{App.Window.Size.Y}px";
+            Layout = HlyssUI.Layout.LayoutType.Relative;
 
             UpdateLocalTransform();
         }

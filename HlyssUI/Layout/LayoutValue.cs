@@ -2,34 +2,34 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HlyssUI.Utils
+namespace HlyssUI.Layout
 {
-    enum DimensionType
+    enum ValueType
     {
         Pixel, Percent
     }
 
-    struct Dimension
+    struct LayoutValue
     {
-        public static Dimension Default
+        public static LayoutValue Default
         {
-            get { return new Dimension(0, DimensionType.Pixel); }
+            get { return new LayoutValue(0, ValueType.Pixel); }
         }
 
         public int Value;
-        public DimensionType Type;
+        public ValueType Type;
 
-        public Dimension(int value, DimensionType type)
+        public LayoutValue(int value, ValueType type)
         {
             Value = value;
             Type = type;
         }
 
-        public static int GetPixelSize(Dimension inputValue, int parentValue)
+        public static int GetPixelSize(LayoutValue inputValue, int parentValue)
         {
             float value = inputValue.Value;
 
-            if (inputValue.Type == DimensionType.Percent)
+            if (inputValue.Type == ValueType.Percent)
             {
                 value *= parentValue / 100f;
             }
@@ -37,22 +37,22 @@ namespace HlyssUI.Utils
             return (int)value;
         }
 
-        public static Dimension FromString(string str)
+        public static LayoutValue FromString(string str)
         {
-            Dimension dimension = new Dimension();
+            LayoutValue dimension = new LayoutValue();
             int value = 0;
 
             if (str.EndsWith("px"))
             {
                 str = str.TrimEnd('p', 'x', ' ');
                 int.TryParse(str, out value);
-                dimension.Type = DimensionType.Pixel;
+                dimension.Type = ValueType.Pixel;
             }
             else if (str.EndsWith("%"))
             {
                 str = str.TrimEnd('%', ' ');
                 int.TryParse(str, out value);
-                dimension.Type = DimensionType.Percent;
+                dimension.Type = ValueType.Percent;
             }
 
             dimension.Value = value;

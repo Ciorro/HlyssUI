@@ -5,7 +5,7 @@ using SFML.Window;
 
 namespace HlyssUI.Utils
 {
-    class InputManager
+    internal class InputManager
     {
         private HlyssApp _app;
         private HoverController _hoverController = new HoverController();
@@ -95,7 +95,7 @@ namespace HlyssUI.Utils
             if (!component.Enabled)
                 return;
 
-            component.OnMouseMoveAnywhere(location);
+            component.OnMouseMovedAnywhere(location);
 
             foreach (var child in component.Children)
             {

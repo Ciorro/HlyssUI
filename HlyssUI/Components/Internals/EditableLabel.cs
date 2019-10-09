@@ -166,7 +166,7 @@ namespace HlyssUI.Components.Internals
 
             ResetSelection();
 
-            _selectionStart = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
+            _selectionStart = GetLetterByPosition(Mouse.GetPosition(App.Window));
             _isSeleting = true;
         }
 
@@ -185,9 +185,9 @@ namespace HlyssUI.Components.Internals
                 Clipboard.Contents = Selected;
         }
 
-        public override void OnMouseMoveAnywhere(Vector2i location)
+        public override void OnMouseMovedAnywhere(Vector2i location)
         {
-            base.OnMouseMoveAnywhere(location);
+            base.OnMouseMovedAnywhere(location);
 
             if (_isSeleting)
             {
