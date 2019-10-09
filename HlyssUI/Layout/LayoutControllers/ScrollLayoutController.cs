@@ -10,6 +10,9 @@ namespace HlyssUI.Layout.LayoutControllers
         {
             foreach (var child in component.Children)
             {
+                if (!child.Visible)
+                    continue;
+
                 child.Left = $"{-component.ScrollOffset.X}px";
                 child.Top = $"{-component.ScrollOffset.Y}px";
 

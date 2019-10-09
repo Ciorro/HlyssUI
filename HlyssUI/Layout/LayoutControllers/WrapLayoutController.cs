@@ -13,6 +13,9 @@ namespace HlyssUI.Layout.LayoutControllers
 
             foreach (var child in component.Children)
             {
+                if (!child.Visible)
+                    continue;
+
                 if (x + child.TargetSize.X + child.TargetMargins.Horizontal > component.TargetSize.X - component.TargetPaddings.Horizontal)
                 {
                     y += maxY;

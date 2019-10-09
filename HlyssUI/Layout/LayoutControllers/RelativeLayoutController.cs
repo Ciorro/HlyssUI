@@ -18,6 +18,9 @@ namespace HlyssUI.Layout.LayoutControllers
         {
             foreach (var child in component.Children)
             {
+                if (!child.Visible)
+                    continue;
+
                 if (component.ReversedHorizontal)
                 {
                     int x = component.TargetSize.X - component.TargetPaddings.Horizontal - child.TargetMargins.Horizontal - child.TargetSize.X;
@@ -39,6 +42,9 @@ namespace HlyssUI.Layout.LayoutControllers
         {
             foreach (var child in component.Children)
             {
+                if (!child.Visible)
+                    continue;
+
                 child.UpdateLocalPosition();
                 CompareSize(child);
             }

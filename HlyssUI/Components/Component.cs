@@ -40,8 +40,9 @@ namespace HlyssUI.Components
         private Stopwatch _doubleClickTimer = Stopwatch.StartNew();
         private Vector2i _firstClickPos = new Vector2i();
         private bool _doubleClick = false;
-        private bool _enabled = true;
         private bool _focused = false;
+        private bool _enabled = true;
+        private bool _visible = true;
         private DebugRect _debugRect = new DebugRect();
         private Controller[] _controllers;
 
@@ -352,6 +353,18 @@ namespace HlyssUI.Components
             }
         }
 
+        public bool Visible
+        {
+            get { return _visible; }
+            set
+            {
+                ScheduleRefresh();
+                StyleChanged = true;
+
+                _visible = value;
+            }
+        }
+
         public bool Focused
         {
             get
@@ -377,7 +390,6 @@ namespace HlyssUI.Components
         public bool TransformChanged { get; private set; } = true;
         public bool StyleChanged { get; set; } = true;
 
-        public bool Visible { get; set; } = true;
         public bool IsOverlay { get; protected set; }
         public bool Hovered { get; set; }
         public bool Hoverable { get; set; } = true;

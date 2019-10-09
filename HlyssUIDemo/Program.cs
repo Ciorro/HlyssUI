@@ -39,7 +39,7 @@ namespace HlyssUIDemo
                 Name = "router"
             });
 
-            (app.Root.GetChild("router") as Router).Navigate(GetLonczer());
+            (app.Root.GetChild("router") as Router).Navigate(GetVisibilityTest());
 
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
@@ -227,237 +227,6 @@ namespace HlyssUIDemo
             return component;
         }
 
-        //private static GuiScene GetComponents1(Gui gui)
-        //{
-        //    GuiScene scene = new GuiScene(gui);
-
-        //    Panel panel = new Panel();
-        //    scene.AddChild(panel);
-        //    panel.Padding = "5px";
-        //    //panel.Width = "50%";
-        //    //panel.Height = "200px";
-        //    panel.Layout = LayoutType.Row;
-        //    panel.Autosize = true;
-        //    panel.Name = "panel";
-
-        //    Panel panel1 = new Panel();
-        //    panel1.Width = "100px";
-        //    panel1.Height = "200px";
-        //    panel1.Margin = "20px";
-        //    panel1.CenterContent = true;
-        //    panel.AddChild(panel1);
-        //    panel1.Name = "panel1";
-
-        //    Panel panel2 = new Panel();
-        //    panel2.Width = "100px";
-        //    panel2.Height = "200px";
-        //    panel2.Left = "50%";
-        //    panel.AddChild(panel2);
-        //    panel2.Name = "panel2";
-
-        //    Panel panel3 = new Panel();
-        //    panel3.Width = "90%";
-        //    panel3.Height = "40%";
-        //    panel1.AddChild(panel3);
-        //    panel3.Name = "panel3";
-
-        //    Panel panel4 = new Panel();
-        //    panel4.Width = "50%";
-        //    panel4.Height = "40px";
-        //    panel1.AddChild(panel4);
-        //    panel4.Name = "panel4";
-
-        //    panel1.Layout = LayoutType.Column;
-
-        //    Panel panel5 = new Panel();
-        //    panel5.Autosize = true;
-        //    panel.AddChild(panel5);
-        //    //panel5.CenterContent = true;
-        //    panel5.Name = "panel5";
-
-        //    Panel panel6 = new Panel();
-        //    panel6.Width = "50px";
-        //    panel6.Height = "150px";
-        //    panel6.Margin = "5px";
-        //    panel6.Name = "panel6";
-
-        //    panel5.AddChild(panel6);
-
-        //    Panel panel7 = new Panel();
-        //    panel7.Width = "80px";
-        //    panel7.Height = "70px";
-        //    panel7.Margin = "5px";
-        //    panel.AddChild(panel7);
-        //    panel7.Name = "panel7";
-
-        //    Panel panel8 = new Panel();
-        //    panel8.Width = "80px";
-        //    panel8.Height = "70px";
-        //    panel8.Margin = "5px";
-        //    panel5.AddChild(panel8);
-        //    panel8.Name = "panel8";
-
-        //    panel5.Margin = "2px";
-        //    panel5.Padding = "3px";
-
-        //    TextArea textArea = new TextArea();
-        //    textArea.Text = "ale w sumie to ni jst takie asz tduen jak jusz sie oharnie jak cokolwiek zrobic w syfony";
-        //    panel6.AddChild(textArea);
-        //    textArea.Width = "90%";
-        //    textArea.Height = "90%";
-        //    textArea.Margin = "5px";
-        //    panel6.DisableClipping = false;
-
-        //    TextBox textBox = new TextBox();
-        //    textBox.Width = "200px";
-        //    textBox.MaxLines = 10;
-        //    textBox.MarginLeft = "20px";
-        //    scene.AddChild(textBox);
-        //    textBox.InsertChild(0, new Icon(Icons.Search) { Margin = "10px" });
-        //    textBox.Children[0].MarginRight = "10px";
-        //    textBox.Placeholder = "Search";
-        //    textBox.SelectOnFocus = true;
-
-        //    panel5.Texture = new Texture("gradient.jpg");
-
-        //    return scene;
-        //}
-
-        //public static GuiScene GetComponents2(Gui gui)
-        //{
-        //    GuiScene scene = new GuiScene(gui);
-
-        //    scene.Root.Layout = LayoutType.Wrap;
-        //    scene.AddChild(new HScrollBar(4000));
-
-        //    ScrollArea picScroll = new ScrollArea();
-        //    scene.AddChild(picScroll);
-        //    picScroll.Width = "100%";
-        //    picScroll.Height = "50%";
-        //    picScroll.Content.Width = "100%";
-        //    picScroll.Content.AutosizeY = true;
-        //    picScroll.Content.Layout = LayoutType.Wrap;
-
-        //    Texture texture = new Texture("img.jpg");
-
-        //    for (int i = 0; i < 100; i++)
-        //    {
-        //        PictureBox pictureBox = new PictureBox(texture);
-        //        pictureBox.Width = "100px";
-        //        pictureBox.Height = "100px";
-        //        pictureBox.Margin = "1px";
-
-        //        picScroll.Content.AddChild(pictureBox);
-
-        //        Icon icon = new Icon(Icons.Heart);
-        //        icon.Margin = "5px";
-        //        icon.Style.SetValue("text-color", "ffffff");
-        //        icon.Style.SetValue("character-size", 18);
-
-        //        pictureBox.AddChild(icon);
-        //        pictureBox.Reversed = true;
-        //    }
-
-        //    return scene;
-        //}
-
-        //public static GuiScene GetComponents3(Gui gui)
-        //{
-        //    GuiScene scene = new GuiScene(gui);
-
-        //    scene.Root.Layout = LayoutType.Wrap;
-        //    scene.Root.Padding = "20px";
-
-        //    Button button = new Button("Zmień rozmiar ");
-        //    scene.AddChild(button);
-        //    button.Appearance = Button.ButtonStyle.Filled;
-        //    button.AddChild(new Icon(Icons.Arrows));
-        //    button.MarginRight = "20px";
-        //    button.Clicked += (object sender) =>
-        //    {
-
-        //        Panel panel = scene.Root.FindChild("panel6") as Panel;
-
-        //        panel.Transition = "out";
-        //        panel.Width = $"{panel.TargetSize.X + 50}px";
-        //    };
-
-        //    return scene;
-        //}
-
-        //private static GuiScene GetProgressBarTest(Gui gui)
-        //{
-        //    GuiScene scene = new GuiScene(gui);
-
-        //    scene.Root.Padding = "20px";
-        //    scene.Root.Layout = LayoutType.Column;
-
-        //    scene.Root.Children = new List<Component>()
-        //    {
-        //        new ToggleSwitch("Intermediate")
-        //        {
-        //            Name = "pbtest_toggle"
-        //        },
-        //        new ProgressBar()
-        //        {
-        //            Value = 25,
-        //            MarginTop = "20px",
-        //            Width = "100%",
-        //            Name = "pbtest_progressbar"
-        //        },
-        //        new TrackBar()
-        //        {
-        //            Width = "200px",
-        //            Height = "100px",
-        //            Name = "pbtest_trackbar"
-        //        },
-        //        new TextBox()
-        //        {
-        //            Width = "400px",
-        //            Name = "pbtest_textbox"
-        //        }
-        //    };
-
-        //    (scene.Root.GetChild("pbtest_toggle") as ToggleSwitch).Toggled += (object sender, bool isToggled) =>
-        //    {
-        //        (scene.Root.GetChild("pbtest_progressbar") as ProgressBar).Intermediate = isToggled;
-        //    };
-
-        //    return scene;
-        //}
-
-        //public static GuiScene GetListTest(Gui gui)
-        //{
-        //    GuiScene scene = new GuiScene(gui);
-        //    scene.Root.Layout = LayoutType.Column;
-
-        //    ScrollArea list = new ScrollArea()
-        //    {
-        //        Width = "100%",
-        //        Height = "100%"
-        //    };
-        //    scene.Root.AddChild(list);
-
-        //    list.Content.Width = "101%";
-        //    list.Content.AutosizeY = true;
-        //    list.Content.Layout = LayoutType.Column;
-
-        //    for (int i = 0; i < 1000; i++)
-        //    {
-        //        ListItem listItem = new ListItem($"ListItem {i + 1}")
-        //        {
-        //            Width = "100%"
-        //        };
-        //        list.Content.AddChild(listItem);
-
-        //        listItem.Icon = Icons.Cogs;
-
-        //        list.Content.AddChild(new Divider());
-        //    }
-
-        //    return scene;
-        //}
-
         public static Component GetLonczer()
         {
             caption = "DibrySoft Launcher";
@@ -632,6 +401,47 @@ namespace HlyssUIDemo
             component.FindChild("btn").Clicked += (object sender) =>
             {
                 (component.Parent as Router).Navigate(GetIntelScene());
+            };
+
+            return component;
+        }
+
+        public static Component GetVisibilityTest()
+        {
+            Component component = new Component()
+            {
+                Width = "100%",
+                Height = "100%",
+                Children = new List<Component>()
+                {
+                    new Button()
+                    {
+                        Label = "Button 1",
+                        Name = "b1"
+                    },
+                    new Button()
+                    {
+                        Label = "Button 2",
+                        Name = "b2",
+                        Visible = false
+                    },
+                    new Button()
+                    {
+                        Label = "Button 3",
+                        Name = "b3"
+                    }
+                }
+            };
+
+            component.FindChild("b1").Clicked += (object sender) =>
+            {
+                component.FindChild("b2").Visible = !component.FindChild("b2").Visible;
+                component.FindChild("b1").ScheduleRefresh();
+            };
+
+            component.FindChild("b2").Initialized += (object sender) =>
+            {
+                Console.WriteLine("init");
             };
 
             return component;

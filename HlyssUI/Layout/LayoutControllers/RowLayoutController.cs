@@ -25,6 +25,9 @@ namespace HlyssUI.Layout.LayoutControllers
 
             foreach (var child in component.Children)
             {
+                if (!child.Visible)
+                    continue;
+
                 child.Left = $"{x}px";
                 child.Top = "0px";
                 x += child.TargetMargins.Horizontal + child.TargetSize.X;
@@ -40,6 +43,9 @@ namespace HlyssUI.Layout.LayoutControllers
 
             foreach (var child in component.Children)
             {
+                if (!child.Visible)
+                    continue;
+
                 x -= child.TargetMargins.Horizontal + child.TargetSize.X;
                 child.Left = $"{x}px";
                 child.Top = "0px";

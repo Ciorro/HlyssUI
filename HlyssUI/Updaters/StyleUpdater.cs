@@ -6,7 +6,7 @@ namespace HlyssUI.Updaters
     {
         public void Update(Component baseComponent)
         {
-            if (baseComponent.StyleChanged)
+            if (baseComponent.StyleChanged && baseComponent.Visible)
             {
                 RefreshComponents(baseComponent);
                 return;
