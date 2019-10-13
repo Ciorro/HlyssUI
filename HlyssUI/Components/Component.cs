@@ -358,11 +358,13 @@ namespace HlyssUI.Components
             get { return _visible; }
             set
             {
-                ScheduleRefresh();
-                StyleChanged = true;
 
                 if (_visible != value)
+                {
+                ScheduleRefresh();
+                StyleChanged = true;
                     OnVisibilityChanged(value);
+                }
 
                 _visible = value;
             }
