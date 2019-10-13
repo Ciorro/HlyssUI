@@ -361,6 +361,9 @@ namespace HlyssUI.Components
                 ScheduleRefresh();
                 StyleChanged = true;
 
+                if (_visible != value)
+                    OnVisibilityChanged(value);
+
                 _visible = value;
             }
         }
@@ -596,6 +599,8 @@ namespace HlyssUI.Components
         {
             Initialized?.Invoke(this);
         }
+
+        public virtual void OnVisibilityChanged(bool visible) { }
 
         public virtual void OnChildAdded(Component child) { }
 

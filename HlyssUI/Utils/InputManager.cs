@@ -47,7 +47,7 @@ namespace HlyssUI.Utils
         {
             foreach (var component in _hoverController.HoveredComponents)
             {
-                if (component != null && e.Button == Mouse.Button.Left && component.Enabled)
+                if (component != null && component.Visible && e.Button == Mouse.Button.Left && component.Enabled)
                 {
                     component.OnReleased();
                 }
@@ -60,7 +60,7 @@ namespace HlyssUI.Utils
         {
             foreach (var component in _hoverController.HoveredComponents)
             {
-                if (component != null && e.Button == Mouse.Button.Left && component.Enabled)
+                if (component != null && component.Visible && e.Button == Mouse.Button.Left && component.Enabled)
                 {
                     component.OnPressed();
                 }
@@ -92,7 +92,7 @@ namespace HlyssUI.Utils
 
         private void sendMouseMoveInfoToAllChildren(Component component, Vector2i location)
         {
-            if (!component.Enabled)
+            if (!component.Enabled || !component.Visible)
                 return;
 
             component.OnMouseMovedAnywhere(location);
@@ -105,7 +105,7 @@ namespace HlyssUI.Utils
 
         private void sendKeyPressInfoToAllChildren(Component component, Keyboard.Key key)
         {
-            if (!component.Enabled)
+            if (!component.Enabled || !component.Visible)
                 return;
 
             component.OnKeyPressed(key);
@@ -118,7 +118,7 @@ namespace HlyssUI.Utils
 
         private void sendKeyReleaseInfoToAllChildren(Component component, Keyboard.Key key)
         {
-            if (!component.Enabled)
+            if (!component.Enabled || !component.Visible)
                 return;
 
             component.OnKeyReleased(key);
@@ -131,7 +131,7 @@ namespace HlyssUI.Utils
 
         private void sendTextInputInfoToAllChildren(Component component, string text)
         {
-            if (!component.Enabled)
+            if (!component.Enabled || !component.Visible)
                 return;
 
             component.OnTextInput(text);
@@ -144,7 +144,7 @@ namespace HlyssUI.Utils
 
         private void sendMousePressInfoToAllChildren(Component component, Vector2i location, Mouse.Button button)
         {
-            if (!component.Enabled)
+            if (!component.Enabled || !component.Visible)
                 return;
 
             component.OnMousePressedAnywhere(location, button);
@@ -157,7 +157,7 @@ namespace HlyssUI.Utils
 
         private void sendMouseReleaseInfoToAllChildren(Component component, Vector2i location, Mouse.Button button)
         {
-            if (!component.Enabled)
+            if (!component.Enabled || !component.Visible)
                 return;
 
             component.OnMouseReleasedAnywhere(location, button);
@@ -170,7 +170,7 @@ namespace HlyssUI.Utils
 
         private void sendScrollInfoToAllChildren(Component component, float scroll)
         {
-            if (!component.Enabled)
+            if (!component.Enabled || !component.Visible)
                 return;
 
             component.OnScrolledAnywhere(scroll);

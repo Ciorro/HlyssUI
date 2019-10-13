@@ -39,7 +39,7 @@ namespace HlyssUIDemo
                 Name = "router"
             });
 
-            (app.Root.GetChild("router") as Router).Navigate(GetVisibilityTest());
+            (app.Root.GetChild("router") as Router).Navigate(GetLonczer());
 
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
@@ -419,11 +419,12 @@ namespace HlyssUIDemo
                         Label = "Button 1",
                         Name = "b1"
                     },
-                    new Button()
+                    new TextBox()
                     {
-                        Label = "Button 2",
+                        //Text= "Button 2",
                         Name = "b2",
-                        Visible = false
+                        Visible = false,
+                        Width = "200px"
                     },
                     new Button()
                     {
@@ -437,11 +438,6 @@ namespace HlyssUIDemo
             {
                 component.FindChild("b2").Visible = !component.FindChild("b2").Visible;
                 component.FindChild("b1").ScheduleRefresh();
-            };
-
-            component.FindChild("b2").Initialized += (object sender) =>
-            {
-                Console.WriteLine("init");
             };
 
             return component;
