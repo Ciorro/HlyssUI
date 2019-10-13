@@ -358,11 +358,10 @@ namespace HlyssUI.Components
             get { return _visible; }
             set
             {
-
                 if (_visible != value)
                 {
-                ScheduleRefresh();
-                StyleChanged = true;
+                    ScheduleRefresh();
+                    StyleChanged = true;
                     OnVisibilityChanged(value);
                 }
 
@@ -597,7 +596,7 @@ namespace HlyssUI.Components
 
         #region Event handling
 
-        public virtual void OnInitialized() 
+        public virtual void OnInitialized()
         {
             Initialized?.Invoke(this);
         }

@@ -337,6 +337,10 @@ namespace HlyssUIDemo
                         Label = "Dark theme",
                         Name = "toggle",
                         Margin = "20px"
+                    },
+                    new LinkLabel()
+                    {
+                        Text = ">> Link <<"
                     }
                 }
             };
