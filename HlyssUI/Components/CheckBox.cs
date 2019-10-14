@@ -59,7 +59,10 @@ namespace HlyssUI.Components
                     _box.HoverStyle = OnHoverStyle;
                     _box.PressedStyle = OnPressedStyle;
 
-                    _check.Visible = true;
+                    _check.DefaultStyle = new Style()
+                    {
+                        {"opacity", "1" }
+                    };
                 }
                 else
                 {
@@ -67,7 +70,10 @@ namespace HlyssUI.Components
                     _box.HoverStyle = OffHoverStyle;
                     _box.PressedStyle = OffPressedStyle;
 
-                    _check.Visible = false;
+                    _check.DefaultStyle = new Style()
+                    {
+                        {"opacity", "0" }
+                    };
                 }
 
                 _checked = value;
@@ -88,10 +94,7 @@ namespace HlyssUI.Components
         {
             Layout = LayoutType.Row;
 
-            _check = new Icon(Icons.Check)
-            {
-                Visible = false
-            };
+            _check = new Icon(Icons.Check);
 
             _box = new Panel()
             {

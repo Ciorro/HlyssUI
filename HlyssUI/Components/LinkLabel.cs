@@ -28,14 +28,14 @@ namespace HlyssUI.Components
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            App.Window.SetMouseCursor(new Cursor(SFML.Window.Cursor.CursorType.Hand));
+            App.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Hand));
             TextStyle = SFML.Graphics.Text.Styles.Underlined;
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-            App.Window.SetMouseCursor(new Cursor(SFML.Window.Cursor.CursorType.Arrow));
+            App.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Arrow));
             TextStyle = SFML.Graphics.Text.Styles.Regular;
         }
     }
