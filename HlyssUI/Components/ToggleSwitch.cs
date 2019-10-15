@@ -43,12 +43,14 @@ namespace HlyssUI.Components
 
         protected readonly Style ToggleOnStyle = new Style()
         {
-            {"primary-color", Theme.GetColor("accent").GetLegibleColor().ToHex() }
+            {"primary-color", Theme.GetColor("accent").GetLegibleColor().ToHex() },
+            {"position-ease", "out" }
         };
 
         protected readonly Style ToggleOffStyle = new Style()
         {
-            {"primary-color", "secondary" }
+            {"primary-color", "secondary" },
+            {"position-ease", "out" }
         };
         #endregion
 
@@ -85,9 +87,7 @@ namespace HlyssUI.Components
             {
                 Width = "12px",
                 Height = "12px",
-                MarginLeft = "4px",
                 MarginTop = "4px",
-                Transition = "out",
                 Hoverable = false
             };
 
@@ -96,6 +96,7 @@ namespace HlyssUI.Components
                 Width = "40px",
                 Height = "20px",
                 MarginRight = "5px",
+                Layout = LayoutType.Relative,
                 Children = new List<Component>() { _toggle }
             };
 
@@ -112,10 +113,10 @@ namespace HlyssUI.Components
             Autosize = true;
             IsToggled = false;
 
-            DefaultStyle = DefaultStyle.Combine(new Style()
+            DefaultStyle = new Style()
             {
                 {"border-radius", int.MaxValue.ToString() }
-            });
+            };
         }
 
         public override void OnClicked()
@@ -128,7 +129,7 @@ namespace HlyssUI.Components
         {
             if (_toggled)
             {
-                _toggle.MarginLeft = "24px";
+                _toggle.Left = "24px";
 
                 _body.DefaultStyle = OnStyle;
                 _body.HoverStyle = OnHoverStyle;
@@ -138,7 +139,7 @@ namespace HlyssUI.Components
             }
             else
             {
-                _toggle.MarginLeft = "4px";
+                _toggle.Left = "4px";
 
                 _body.DefaultStyle = OffStyle;
                 _body.HoverStyle = OffHoverStyle;

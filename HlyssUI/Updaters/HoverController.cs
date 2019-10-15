@@ -31,7 +31,10 @@ namespace HlyssUI.Updaters
         {
             for (int i = component.Children.Count - 1; i >= 0; i--)
             {
-                Component hoveredComponent = FindHovered(component.Children[i]);
+                Component hoveredComponent = null;
+
+                if (component.Children[i].Visible)
+                    hoveredComponent = FindHovered(component.Children[i]);
 
                 if (hoveredComponent != null)
                 {

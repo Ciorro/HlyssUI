@@ -69,7 +69,7 @@ namespace HlyssUI.Components
         public List<Component> Children { get; set; } = new List<Component>();
         public Component Parent = null;
 
-        internal Vector2i GlobalPosition
+        public Vector2i GlobalPosition
         {
             get
             {
@@ -319,17 +319,6 @@ namespace HlyssUI.Components
 
         public ClipArea ClipArea { get; private set; }
 
-        public string Transition
-        {
-            set
-            {
-                foreach (var controller in _controllers)
-                {
-                    controller.TweenType = value;
-                }
-            }
-        }
-
         public bool IsOnScreen
         {
             get
@@ -514,6 +503,16 @@ namespace HlyssUI.Components
             }
 
             return null;
+        }
+
+        public Component FindParent(string name)
+        {
+            if (Parent != null && Parent.Name == name)
+                return Parent;
+            else if (Parent == null)
+                return null;
+            else
+                return Parent.FindParent(name);
         }
 
         #endregion

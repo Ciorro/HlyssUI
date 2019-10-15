@@ -481,7 +481,7 @@
         Shirtsinbulk = '\uf2f9',
         ShoppingCart = '\uf2fa',
         SignIn = '\uf2fb',
-        Signut = '\uf2fc',
+        SignOut = '\uf2fc',
         Signal = '\uf2fd',
         Simplybuilt = '\uf2fe',
         Sitemap = '\uf2ff',

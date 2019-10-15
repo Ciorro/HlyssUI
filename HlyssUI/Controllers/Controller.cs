@@ -23,5 +23,13 @@ namespace HlyssUI.Controllers
 
         public abstract void Start();
         public abstract bool Update();
+
+        protected virtual void UpdateTween()
+        {
+            if(component.DefaultStyle.ContainsKey("ease") && component.DefaultStyle.GetString("ease") != tween.Name)
+            {
+                TweenType = component.DefaultStyle.GetString("ease");
+            }
+        }
     }
 }

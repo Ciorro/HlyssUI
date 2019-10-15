@@ -13,6 +13,7 @@ namespace HlyssUI.Controllers
 
         public override void Start()
         {
+            UpdateTween();
             tween.Start();
             _from = component.Paddings;
         }
@@ -34,6 +35,16 @@ namespace HlyssUI.Controllers
             }
 
             return isRunning;
+        }
+
+        protected override void UpdateTween()
+        {
+            base.UpdateTween();
+
+            if (component.DefaultStyle.ContainsKey("padding-ease") && component.DefaultStyle.GetString("padding-ease") != tween.Name)
+            {
+                TweenType = component.DefaultStyle.GetString("padding-ease");
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ namespace HlyssUIDemo
             Theme.Load("theme.ini", "dark");
 
             HlyssApp app = new HlyssApp(window);
-            app.Root.AddChild(new BasicRouter() 
+            app.Root.AddChild(new BasicRouter()
             {
                 Name = "router"
             });
@@ -43,6 +43,43 @@ namespace HlyssUIDemo
 
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
+
+            app.Root.Children.Add(new Menu()
+            {
+                Name = "menu",
+                Items = new List<ListItem>()
+                {
+                    new ListItem("Profil")
+                    {
+                        Icon = Icons.User,
+                        Name= "menu1"
+                    },
+                    new ListItem("Ustawienia")
+                    {
+                        Icon = Icons.Cog,
+                        Name= "menu2"
+                    },
+                    new ListItem()
+                    {
+                        Hoverable = false,
+                        Padding = "0px",
+                        Children = new List<Component>()
+                        {
+                            new Divider()
+                        }
+                    },
+                    new ListItem("Wyloguj")
+                    {
+                        Icon = Icons.SignOut,
+                        Name= "menu3"
+                    }
+                }
+            });
+
+            app.Root.FindChild("menu").DefaultStyle = new Style()
+            {
+                {"size-ease", "out" }
+            };
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -340,7 +377,9 @@ namespace HlyssUIDemo
                     },
                     new LinkLabel()
                     {
-                        Text = ">> Link <<"
+                        Text = ">> Link <<",
+                        Name = "link",
+                        MarginTop = "400px"
                     }
                 }
             };
@@ -401,10 +440,15 @@ namespace HlyssUIDemo
             };
 
             (component.FindChild("toggle") as ToggleSwitch).IsToggled = Theme.Name == "dark";
-            
+
             component.FindChild("btn").Clicked += (object sender) =>
             {
                 (component.Parent as Router).Navigate(GetIntelScene());
+            };
+
+            component.FindChild("user_menu_btn").Clicked += (object sender) =>
+            {
+                (component.App.Root.FindChild("menu") as Flyout).Show((sender as Component).GlobalPosition + new Vector2i(0, (sender as Component).TargetSize.Y));
             };
 
             return component;

@@ -6,9 +6,6 @@ namespace HlyssUI.Updaters
     {
         public void Update(Component component)
         {
-            if (!component.Visible)
-                return;
-
             component.Update();
 
             foreach (var child in component.Children)

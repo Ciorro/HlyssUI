@@ -6,6 +6,10 @@ namespace HlyssUI.Components
 {
     public class ToolTip : Panel
     {
+        public Component Target { get; set; }
+
+        private Clock _clock = new Clock();
+
         public string Text
         {
             get { return (FindChild("tooltip_text") as Label).Text; }
@@ -37,18 +41,25 @@ namespace HlyssUI.Components
             };
         }
 
-        public override void OnInitialized()
+        public override void Update()
         {
-            base.OnInitialized();
-            System.Console.WriteLine("Tooltip Init");
+            base.Update();
+
+            if(Target != null && Target.Hovered && _clock.ElapsedTime.AsMilliseconds() > 1000 && !Visible)
+            {
+                Visible = true;
+                _clock.Restart();
+                Left = $"{Mouse.GetPosition(App.Window).X + Offset.X}px";
+                Top = $"{Mouse.GetPosition(App.Window).Y + Offset.Y}px";
+            }
         }
 
         public override void OnMouseMovedAnywhere(Vector2i location)
         {
             base.OnMouseMovedAnywhere(location);
 
-            //if (Initialized && App.Root.Children.Contains(this))
-             //   App.Root.Children.Remove(this);
+            _clock.Restart();
+            Visible = false;
         }
     }
 }

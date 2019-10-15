@@ -13,6 +13,7 @@ namespace HlyssUI.Controllers
 
         public override void Start()
         {
+            UpdateTween();
             tween.Start();
             _from = component.Size;
         }
@@ -32,6 +33,16 @@ namespace HlyssUI.Controllers
             }
 
             return isRunning;
+        }
+
+        protected override void UpdateTween()
+        {
+            base.UpdateTween();
+
+            if (component.DefaultStyle.ContainsKey("size-ease") && component.DefaultStyle.GetString("size-ease") != tween.Name)
+            {
+                TweenType = component.DefaultStyle.GetString("size-ease");
+            }
         }
     }
 }
