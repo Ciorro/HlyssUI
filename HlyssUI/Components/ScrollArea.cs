@@ -3,7 +3,7 @@ using SFML.System;
 
 namespace HlyssUI.Components
 {
-    public class ScrollArea : Panel
+    public class ScrollArea : Component
     {
         private Component _contentBox;
         private Component _scrollBox;
@@ -57,13 +57,14 @@ namespace HlyssUI.Components
             Layout = LayoutType.Relative;
 
             _contentBox = new Component();
+
             _contentBox.Layout = LayoutType.Scroll;
             _contentBox.Width = "100%";
             _contentBox.Height = "100%";
             _contentBox.Name = "contentbox";
             _contentBox.DisableClipping = false;
             _contentBox.ClipArea.OutlineThickness = -2;
-            //ClipArea.OutlineThickness = -2;
+            ClipArea.OutlineThickness = -2;
             AddChild(_contentBox);
 
             Content = new Component();

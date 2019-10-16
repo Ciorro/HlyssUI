@@ -193,10 +193,12 @@ namespace HlyssUI.Components
         {
             set
             {
-                _marginLeft = LayoutValue.FromString(value);
-                _marginRight = LayoutValue.FromString(value);
-                _marginTop = LayoutValue.FromString(value);
-                _marginBottom = LayoutValue.FromString(value);
+                string[] values = Spacing.SplitShorthand(value);
+
+                _marginTop = LayoutValue.FromString(values[0]);
+                _marginRight = LayoutValue.FromString(values[1]);
+                _marginBottom = LayoutValue.FromString(values[2]);
+                _marginLeft = LayoutValue.FromString(values[3]);
                 TransformChanged = true;
             }
         }
@@ -241,10 +243,12 @@ namespace HlyssUI.Components
         {
             set
             {
-                _paddingLeft = LayoutValue.FromString(value);
-                _paddingRight = LayoutValue.FromString(value);
-                _paddingTop = LayoutValue.FromString(value);
-                _paddingBottom = LayoutValue.FromString(value);
+                string[] values = Spacing.SplitShorthand(value);
+
+                _paddingTop = LayoutValue.FromString(values[0]);
+                _paddingRight = LayoutValue.FromString(values[1]);
+                _paddingBottom = LayoutValue.FromString(values[2]);
+                _paddingLeft = LayoutValue.FromString(values[3]);
                 TransformChanged = true;
             }
         }

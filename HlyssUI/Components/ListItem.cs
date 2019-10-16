@@ -38,7 +38,7 @@ namespace HlyssUI.Components
                 _icon, _label
             };
 
-            Padding = "10px";
+            Padding = "5px 10px";
             Width = "100%";
             AutosizeY = true;
             DisableClipping = false;

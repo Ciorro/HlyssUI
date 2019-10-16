@@ -75,19 +75,16 @@ namespace HlyssUI.Layout
             int r1MinY = Math.Min(r1.Top, r1.Top + r1.Height);
             int r1MaxY = Math.Max(r1.Top, r1.Top + r1.Height);
 
-            // Compute the min and max of the second rectangle on both axes
             int r2MinX = Math.Min(r2.Left, r2.Left + r2.Width);
             int r2MaxX = Math.Max(r2.Left, r2.Left + r2.Width);
             int r2MinY = Math.Min(r2.Top, r2.Top + r2.Height);
             int r2MaxY = Math.Max(r2.Top, r2.Top + r2.Height);
 
-            // Compute the intersection boundaries
             int interLeft = Math.Max(r1MinX, r2MinX);
             int interTop = Math.Max(r1MinY, r2MinY);
             int interRight = Math.Min(r1MaxX, r2MaxX);
             int interBottom = Math.Min(r1MaxY, r2MaxY);
 
-            // If the intersection is valid (positive non zero area), then there is an intersection
             if (interLeft <= interRight && interTop <= interBottom)
             {
                 return true;
@@ -96,6 +93,40 @@ namespace HlyssUI.Layout
             {
                 return false;
             }
+        }
+
+        public static string[] SplitShorthand(string shorthandStr)
+        {
+            string[] outputParts = new string[4]
+            {
+                "0px", "0px", "0px", "0px"
+            };
+
+            string[] inputParts = shorthandStr.Trim(' ').Split(' ');
+
+            switch (inputParts.Length)
+            {
+                case 1: outputParts[0] = outputParts[1] = outputParts[2] = outputParts[3] = inputParts[0]; break;
+                case 2: 
+                    outputParts[0] = outputParts[2] = inputParts[0]; 
+                    outputParts[1] = outputParts[3] = inputParts[1];
+                    break;
+                case 3:
+                    outputParts[0] = inputParts[0];
+                    outputParts[1] = outputParts[2] = inputParts[1];
+                    outputParts[3] = inputParts[2];
+                    break;
+                case 4:
+                    outputParts[0] = inputParts[0];
+                    outputParts[1] = inputParts[1];
+                    outputParts[2] = inputParts[2];
+                    outputParts[3] = inputParts[3];
+                    break;
+                default:
+                    break;
+            }
+
+            return outputParts;
         }
 
         public override string ToString()

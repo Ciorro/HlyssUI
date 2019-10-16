@@ -8,8 +8,8 @@ namespace HlyssUI.Components
     {
         public List<ListItem> Items
         {
-            get { return Children.Cast<ListItem>().ToList(); }
-            set { Children = value.Cast<Component>().ToList(); }
+            get { return (FindChild("menu_item_list") as ScrollArea).Content.Children.Cast<ListItem>().ToList(); }
+            set { (FindChild("menu_item_list") as ScrollArea).Content.Children = value.Cast<Component>().ToList(); }
         }
 
         public Menu()
@@ -17,6 +17,24 @@ namespace HlyssUI.Components
             Width = "200px";
             Layout = LayoutType.Column;
             Padding = "1px";
+
+            Children = new List<Component>()
+            {
+                new ScrollArea()
+                {
+                    Name = "menu_item_list",
+                    Width = "100%",
+                    AutosizeY = true,
+                    Content = new Component()
+                    {
+                        Width = "100%",
+                        AutosizeY = true,
+                        Layout = LayoutType.Column
+                    }
+                }
+            };
+
+            FindChild("contentbox").AutosizeY = true;
         }
 
         protected override void OnShown()
