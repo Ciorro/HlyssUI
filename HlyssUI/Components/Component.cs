@@ -397,6 +397,7 @@ namespace HlyssUI.Components
         public bool AutosizeY { get; set; }
         public bool ReversedHorizontal { get; set; }
         public bool ReversedVertical { get; set; }
+        public bool Expand { get; set; }
 
         public bool Reversed
         {

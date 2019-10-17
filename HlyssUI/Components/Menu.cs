@@ -6,9 +6,9 @@ namespace HlyssUI.Components
 {
     public class Menu : Flyout
     {
-        public List<ListItem> Items
+        public List<MenuItem> Items
         {
-            get { return (FindChild("menu_item_list") as ScrollArea).Content.Children.Cast<ListItem>().ToList(); }
+            get { return (FindChild("menu_item_list") as ScrollArea).Content.Children.Cast<MenuItem>().ToList(); }
             set { (FindChild("menu_item_list") as ScrollArea).Content.Children = value.Cast<Component>().ToList(); }
         }
 
@@ -48,6 +48,12 @@ namespace HlyssUI.Components
             base.OnHidden();
             AutosizeY = false;
             Height = "0px";
+        }
+
+        public override void OnClicked()
+        {
+            base.OnClicked();
+            Hide();
         }
     }
 }

@@ -47,19 +47,20 @@ namespace HlyssUIDemo
             app.Root.Children.Add(new Menu()
             {
                 Name = "menu",
-                Items = new List<ListItem>()
+                Width = "150px",
+                Items = new List<MenuItem>()
                 {
-                    new ListItem("Profil")
+                    new MenuItem("Profil")
                     {
                         Icon = Icons.User,
                         Name= "menu1"
                     },
-                    new ListItem("Ustawienia")
+                    new MenuItem("Ustawienia")
                     {
                         Icon = Icons.Cog,
                         Name= "menu2"
                     },
-                    new ListItem()
+                    new MenuItem()
                     {
                         Hoverable = false,
                         Padding = "0px",
@@ -68,7 +69,7 @@ namespace HlyssUIDemo
                             new Divider()
                         }
                     },
-                    new ListItem("Wyloguj")
+                    new MenuItem("Wyloguj")
                     {
                         Icon = Icons.SignOut,
                         Name= "menu3"
@@ -79,6 +80,11 @@ namespace HlyssUIDemo
             app.Root.FindChild("menu").DefaultStyle = new Style()
             {
                 {"size-ease", "out" }
+            };
+
+            app.Root.FindChild("menu3").Clicked += (object sender) =>
+            {
+                (app.Root.GetChild("router") as Router).Navigate(GetLoginScreen());
             };
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
@@ -449,6 +455,86 @@ namespace HlyssUIDemo
             component.FindChild("user_menu_btn").Clicked += (object sender) =>
             {
                 (component.App.Root.FindChild("menu") as Flyout).Show((sender as Component).GlobalPosition + new Vector2i(0, (sender as Component).TargetSize.Y));
+            };
+
+            return component;
+        }
+
+        public static Component GetLoginScreen()
+        {
+            Component component = new Component()
+            {
+                Width = "100%",
+                Height = "100%",
+                Children = new List<Component>()
+                {
+                    new Panel()
+                    {
+                        Width = "40%",
+                        Margin = "30% 30%",
+                        Padding = "20px",
+                        AutosizeY = true,
+                        Layout = LayoutType.Column,
+                        Children = new List<Component>()
+                        {
+                            new Label()
+                            {
+                                Text = "Zaloguj",
+                                Font = new Font("NEXT ART_SemiBold.otf"),
+                                Name = "login_header"
+                            },
+                            new Label()
+                            {
+                                Text = "Login",
+                                MarginTop = "20px",
+                                MarginBottom = "5px"
+                            },
+                            new TextBox()
+                            {
+                                Width = "100%",
+                                Focused = true
+                            },
+                            new Label()
+                            {
+                                Text = "Hasło",
+                                MarginTop = "10px",
+                                MarginBottom = "5px"
+                            },
+                            new TextBox()
+                            {
+                                Width = "100%",
+                                Password = true,
+                                Focused = true,
+                            },
+                            new Component()
+                            {
+                                MarginTop = "15px",
+                                Width = "100%",
+                                AutosizeY = true,
+                                ReversedHorizontal = true,
+                                Children = new List<Component>()
+                                {
+                                    new Button()
+                                    {
+                                        Label = "Zaloguj",
+                                        Appearance = Button.ButtonStyle.Filled,
+                                        Name = "login"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            component.FindChild("login_header").DefaultStyle = new Style()
+            {
+                {"character-size", "22" }
+            };
+
+            component.FindChild("login").Clicked += (object sender) =>
+            {
+                (component.Parent as Router).Navigate(GetLonczer());
             };
 
             return component;
