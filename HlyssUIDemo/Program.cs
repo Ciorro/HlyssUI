@@ -386,6 +386,11 @@ namespace HlyssUIDemo
                                 Text = ">> Link <<",
                                 Name = "link",
                                 MarginTop = "400px"
+                            },
+                            new SpinButton()
+                            {
+                                Width = "200px",
+                                MarginTop = "20px"
                             }
                         }
                     },

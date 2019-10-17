@@ -77,8 +77,8 @@ namespace HlyssUI.Updaters
                     expandedCompoentnsCount++;
                 else
                 {
-                    totalWidth += child.TargetSize.X;
-                    totalHeight += child.TargetSize.Y;
+                    totalWidth += child.TargetSize.X + child.TargetMargins.Horizontal;
+                    totalHeight += child.TargetSize.Y + child.TargetMargins.Vertical;
                 }
             }
 
@@ -87,9 +87,9 @@ namespace HlyssUI.Updaters
                 if (child.Expand)
                 {
                     if(component.Layout == Layout.LayoutType.Row || component.Layout == Layout.LayoutType.Relative)
-                        child.Width = $"{(component.TargetSize.X - totalWidth) / expandedCompoentnsCount}px";
+                        child.Width = $"{(component.TargetSize.X - totalWidth) / expandedCompoentnsCount - child.TargetMargins.Horizontal}px";
                     if (component.Layout == Layout.LayoutType.Column || component.Layout == Layout.LayoutType.Relative)
-                        child.Height = $"{(component.TargetSize.Y - totalHeight) / expandedCompoentnsCount}px";
+                        child.Height = $"{(component.TargetSize.Y - totalHeight) / expandedCompoentnsCount - child.TargetMargins.Vertical}px";
 
                     child.UpdateLocalSize();
                 }

@@ -35,6 +35,15 @@ namespace HlyssUI.Components
 
         public delegate void MouseLeftHandler(object sender);
         public event MouseLeftHandler MouseLeft;
+
+        public delegate void FocusLostHandler(object sender);
+        public event FocusLostHandler FocusLost;
+
+        public delegate void FocusGainedHandler(object sender);
+        public event FocusGainedHandler FocusGained;
+
+        public delegate void ScrolledOnHandler(object sender, float scroll);
+        public event ScrolledOnHandler ScrolledOn;
         #endregion
 
         private Stopwatch _doubleClickTimer = Stopwatch.StartNew();
@@ -653,9 +662,15 @@ namespace HlyssUI.Components
                 StyleChanged = true;
         }
 
-        public virtual void OnFocusGained() { }
+        public virtual void OnFocusGained() 
+        {
+            FocusGained?.Invoke(this);
+        }
 
-        public virtual void OnFocusLost() { }
+        public virtual void OnFocusLost() 
+        {
+            FocusLost?.Invoke(this);
+        }
 
         public virtual void OnClicked() { }
 
@@ -703,7 +718,13 @@ namespace HlyssUI.Components
 
         public virtual void OnMouseReleasedAnywhere(Vector2i location, Mouse.Button button) { }
 
-        public virtual void OnScrolledAnywhere(float scroll) { }
+        public virtual void OnScrolledAnywhere(float scroll) 
+        {
+            if(Hovered)
+            {
+                ScrolledOn?.Invoke(this, scroll);
+            }
+        }
         #endregion
 
         #region Debugging
