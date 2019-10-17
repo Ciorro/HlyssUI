@@ -1,4 +1,5 @@
-﻿using HlyssUI.Components;
+﻿using System;
+using HlyssUI.Components;
 using HlyssUI.Layout.LayoutControllers;
 using HlyssUI.Utils;
 
@@ -44,6 +45,8 @@ namespace HlyssUI.Updaters
                 Compose(child);
             }
 
+            ApplyExpand(component);
+
             LayoutController layout = LayoutResolver.GetLayout(component.Layout);
             layout.ApplyLayout(component);
             layout.ApplyAutosize(component);
@@ -59,6 +62,37 @@ namespace HlyssUI.Updaters
             foreach (var child in component.Children)
             {
                 Refresh(child);
+            }
+        }
+
+        private void ApplyExpand(Component component)
+        {
+            int expandedCompoentnsCount = 0;
+            int totalWidth = 0;
+            int totalHeight = 0;
+
+            foreach (var child in component.Children)
+            {
+                if (child.Expand)
+                    expandedCompoentnsCount++;
+                else
+                {
+                    totalWidth += child.TargetSize.X;
+                    totalHeight += child.TargetSize.Y;
+                }
+            }
+
+            foreach (var child in component.Children)
+            {
+                if (child.Expand)
+                {
+                    if(component.Layout == Layout.LayoutType.Row || component.Layout == Layout.LayoutType.Relative)
+                        child.Width = $"{(component.TargetSize.X - totalWidth) / expandedCompoentnsCount}px";
+                    if (component.Layout == Layout.LayoutType.Column || component.Layout == Layout.LayoutType.Relative)
+                        child.Height = $"{(component.TargetSize.Y - totalHeight) / expandedCompoentnsCount}px";
+
+                    child.UpdateLocalSize();
+                }
             }
         }
     }

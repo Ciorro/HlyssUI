@@ -262,11 +262,6 @@ namespace HlyssUIDemo
                 (component.Parent as Router).Navigate(GetLonczer());
             };
 
-            component.FindChild("CloseButton").Initialized += (object sender) =>
-            {
-                Console.WriteLine("close init");
-            };
-
             return component;
         }
 
@@ -300,8 +295,7 @@ namespace HlyssUIDemo
                             },
                             new Component()
                             {
-                                AutosizeY = true,
-                                Width = "100%",
+                                Autosize = true,
                                 CenterContent = true,
                                 Name = "user",
                                 MarginTop = "5px",
@@ -369,24 +363,32 @@ namespace HlyssUIDemo
                             }
                         }
                     },
-                    new Button("Czytaj dalej...")
+                    new Component()
                     {
-                        Margin = "20px",
-                        Appearance = Button.ButtonStyle.Outline,
-                        Name = "btn"
+                        Height = "100%",
+                        Expand = true,
+                        Children = new List<Component>()
+                        {
+                            new Button("Czytaj dalej...")
+                            {
+                                Margin = "20px",
+                                Appearance = Button.ButtonStyle.Outline,
+                                Name = "btn"
+                            },
+                            new ToggleSwitch()
+                            {
+                                Label = "Dark theme",
+                                Name = "toggle",
+                                Margin = "20px"
+                            },
+                            new LinkLabel()
+                            {
+                                Text = ">> Link <<",
+                                Name = "link",
+                                MarginTop = "400px"
+                            }
+                        }
                     },
-                    new ToggleSwitch()
-                    {
-                        Label = "Dark theme",
-                        Name = "toggle",
-                        Margin = "20px"
-                    },
-                    new LinkLabel()
-                    {
-                        Text = ">> Link <<",
-                        Name = "link",
-                        MarginTop = "400px"
-                    }
                 }
             };
 
@@ -503,8 +505,7 @@ namespace HlyssUIDemo
                             new TextBox()
                             {
                                 Width = "100%",
-                                Password = true,
-                                Focused = true,
+                                Password = true
                             },
                             new Component()
                             {
