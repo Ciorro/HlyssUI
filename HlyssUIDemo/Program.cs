@@ -28,7 +28,7 @@ namespace HlyssUIDemo
 
             RenderWindow window = new RenderWindow(new VideoMode(winSize.X, winSize.Y), caption, Styles.Default, contextSettings);
             //window.SetFramerateLimit(60);
-            //window.SetVerticalSyncEnabled(true);
+            window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
             Theme.Load("theme.ini", "dark");
@@ -367,6 +367,7 @@ namespace HlyssUIDemo
                     {
                         Height = "100%",
                         Expand = true,
+                        Layout = LayoutType.Wrap,
                         Children = new List<Component>()
                         {
                             new Button("Czytaj dalej...")
@@ -391,6 +392,86 @@ namespace HlyssUIDemo
                             {
                                 Width = "200px",
                                 MarginTop = "20px"
+                            },
+                            new Component()
+                            {
+                                Name = "exp_list",
+                                Width = "400px",
+                                Height = "768px",
+                                Padding = "5px",
+                                Layout = LayoutType.Column,
+                                Children = new List<Component>()
+                                {
+                                    new ExpansionPanel()
+                                    {
+                                        Name = "exp1",
+                                        Width = "100%",
+                                        Header = "Czy Dibrysoft jest dibry?",
+                                        Slot = new List<Component>()
+                                        {
+                                            new Component()
+                                            {
+                                                Width = "100%",
+                                                AutosizeY = true,
+                                                Padding ="8px",
+                                                Children = new List<Component>()
+                                                {
+                                                    new Label()
+                                                    {
+                                                        Text = "Ta"
+                                                    }
+                                                }
+                                            }
+                                            
+                                        }
+                                    },
+                                    new ExpansionPanel()
+                                    {
+                                        Name = "exp2",
+                                        Width = "100%",
+                                        Header = "Czy Dibrysoft jest dibry?",
+                                        Slot = new List<Component>()
+                                        {
+                                            new Component()
+                                            {
+                                                Width = "100%",
+                                                AutosizeY = true,
+                                                Padding ="8px",
+                                                Children = new List<Component>()
+                                                {
+                                                    new Label()
+                                                    {
+                                                        Text = "Ta"
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    },
+                                    new ExpansionPanel()
+                                    {
+                                        Name = "exp3",
+                                        Width = "100%",
+                                        Header = "Czy Dibrysoft jest dibry?",
+                                        Slot = new List<Component>()
+                                        {
+                                            new Component()
+                                            {
+                                                Width = "100%",
+                                                AutosizeY = true,
+                                                Padding ="8px",
+                                                Children = new List<Component>()
+                                                {
+                                                    new Label()
+                                                    {
+                                                        Text = "Ta"
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
                             }
                         }
                     },
@@ -429,6 +510,11 @@ namespace HlyssUIDemo
             {
                 {"primary-color", "00ffffff" },
                 {"border-radius", "5" }
+            };
+
+            component.FindChild("exp_list").DefaultStyle = new Style()
+            {
+                {"ease", "out" }
             };
 
             component.FindChild("l1").HoverStyle =

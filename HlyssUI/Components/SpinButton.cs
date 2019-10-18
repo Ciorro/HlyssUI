@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace HlyssUI.Components
 {
@@ -27,6 +28,7 @@ namespace HlyssUI.Components
 
         public int MaxValue { get; set; } = 100;
         public int MinValue { get; set; } = -100;
+        public int Step { get; set; } = 1;
 
         public SpinButton()
         {
@@ -62,8 +64,8 @@ namespace HlyssUI.Components
             Value = 0;
 
             GetChild("spinbutton_textbox").FocusLost += SpinButton_FocusLost;
-            GetChild("spinbutton_plus").Clicked += (object sender) => Value++;
-            GetChild("spinbutton_minus").Clicked += (object sender) => Value--;
+            GetChild("spinbutton_plus").Clicked += (object sender) => Value += Step;
+            GetChild("spinbutton_minus").Clicked += (object sender) => Value -= Step;
         }
 
         public override void OnScrolledAnywhere(float scroll)
@@ -71,13 +73,11 @@ namespace HlyssUI.Components
             base.OnScrolledAnywhere(scroll);
 
             if ((GetChild("spinbutton_textbox") as Component).Focused)
-                Value += (int)scroll;
+                Value += Step * Math.Sign(scroll);
         }
 
         private void SpinButton_FocusLost(object sender)
         {
-            System.Console.WriteLine("lost zagubieni");
-
             int val = 0;
             int.TryParse((GetChild("spinbutton_textbox") as TextBox).Text, out val);
 

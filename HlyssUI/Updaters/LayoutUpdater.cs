@@ -68,8 +68,8 @@ namespace HlyssUI.Updaters
         private void ApplyExpand(Component component)
         {
             int expandedCompoentnsCount = 0;
-            int totalWidth = 0;
-            int totalHeight = 0;
+            int totalWidth = component.TargetPaddings.Horizontal;
+            int totalHeight = component.TargetPaddings.Vertical;
 
             foreach (var child in component.Children)
             {

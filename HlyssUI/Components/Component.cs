@@ -76,6 +76,22 @@ namespace HlyssUI.Components
         private LayoutValue _paddingBottom = LayoutValue.Default;
 
         public List<Component> Children { get; set; } = new List<Component>();
+
+        public List<Component> Slot
+        {
+            get
+            {
+                return (string.IsNullOrEmpty(SlotName)) ? Children : GetChild(SlotName).Children;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(SlotName))
+                    Children = value;
+                else
+                    GetChild(SlotName).Children = value;
+            }
+        }
+
         public Component Parent = null;
 
         public Vector2i GlobalPosition
@@ -408,6 +424,8 @@ namespace HlyssUI.Components
         public bool ReversedVertical { get; set; }
         public bool Expand { get; set; }
 
+        public string SlotName { get; set; } = string.Empty;
+
         public bool Reversed
         {
             set
@@ -662,12 +680,12 @@ namespace HlyssUI.Components
                 StyleChanged = true;
         }
 
-        public virtual void OnFocusGained() 
+        public virtual void OnFocusGained()
         {
             FocusGained?.Invoke(this);
         }
 
-        public virtual void OnFocusLost() 
+        public virtual void OnFocusLost()
         {
             FocusLost?.Invoke(this);
         }
@@ -718,9 +736,9 @@ namespace HlyssUI.Components
 
         public virtual void OnMouseReleasedAnywhere(Vector2i location, Mouse.Button button) { }
 
-        public virtual void OnScrolledAnywhere(float scroll) 
+        public virtual void OnScrolledAnywhere(float scroll)
         {
-            if(Hovered)
+            if (Hovered)
             {
                 ScrolledOn?.Invoke(this, scroll);
             }
