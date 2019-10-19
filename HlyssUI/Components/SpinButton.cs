@@ -27,7 +27,7 @@ namespace HlyssUI.Components
         }
 
         public int MaxValue { get; set; } = 100;
-        public int MinValue { get; set; } = -100;
+        public int MinValue { get; set; } = 0;
         public int Step { get; set; } = 1;
 
         public SpinButton()

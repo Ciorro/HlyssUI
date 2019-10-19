@@ -89,10 +89,7 @@ namespace HlyssUI.Components
                                 {"character-size", "15" }
                             }
                         },
-                        new Component()
-                        {
-                            Expand = true
-                        },
+                        new Spacer(),
                         new Icon(Icons.AngleDown)
                         {
                             Name = "expansionpanel_icon"

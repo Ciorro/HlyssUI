@@ -40,12 +40,14 @@ namespace HlyssUI.Updaters
             component.UpdateLocalSize();
             component.UpdateLocalSpacing();
 
+            ApplyExpand(component);
+
             foreach (var child in component.Children)
             {
                 Compose(child);
             }
 
-            ApplyExpand(component);
+            ApplyExpand(component); 
 
             LayoutController layout = LayoutResolver.GetLayout(component.Layout);
             layout.ApplyLayout(component);

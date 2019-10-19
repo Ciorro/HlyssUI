@@ -28,7 +28,7 @@ namespace HlyssUIDemo
 
             RenderWindow window = new RenderWindow(new VideoMode(winSize.X, winSize.Y), caption, Styles.Default, contextSettings);
             //window.SetFramerateLimit(60);
-            window.SetVerticalSyncEnabled(true);
+            //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
             Theme.Load("theme.ini", "dark");
@@ -391,7 +391,8 @@ namespace HlyssUIDemo
                             new SpinButton()
                             {
                                 Width = "200px",
-                                MarginTop = "20px"
+                                MarginTop = "20px",
+                                MinValue = -10000
                             },
                             new Component()
                             {
