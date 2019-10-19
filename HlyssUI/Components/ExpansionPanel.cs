@@ -42,15 +42,29 @@ namespace HlyssUI.Components
                 {
                     content.AutosizeY = true;
                     icon.IconType = Icons.AngleUp;
+
+                    if(ExpandMargins)
+                    {
+                        MarginTop = "5px";
+                        MarginBottom = "5px";
+                    }
                 }
                 else
                 {
                     content.AutosizeY = false;
                     content.Height = "0px";
                     icon.IconType = Icons.AngleDown;
+
+                    if (ExpandMargins)
+                    {
+                        MarginTop = "0px";
+                        MarginBottom = "0px";
+                    }
                 }
             }
         }
+
+        public bool ExpandMargins { get; set; } = true;
 
         public ExpansionPanel()
         {

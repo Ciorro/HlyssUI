@@ -100,7 +100,7 @@ namespace HlyssUI.Components
                         _isExpanding = false;
                         _tweenEase = new TweenOut()
                         {
-                            Speed = 12
+                            Duration = 12
                         };
                         _tweenEase.Start();
                     }

@@ -54,7 +54,6 @@ namespace HlyssUI.Components
                 if (_text.Style != value)
                 {
                     _text.Style = value;
-                    UpdateSize();
                 }
             }
         }

@@ -14,14 +14,13 @@ namespace HlyssUI.Controllers.Tweens
 
         public override void Update()
         {
-            float offset = Math.Abs(-0.01f - progress);
+            timePassed += DeltaTime.Current;
 
-            offset *= DeltaTime.Current * Speed;
-            progress += offset;
+            progress = ((float)Math.Round(Math.Pow(timePassed / Duration, 8), 4));
 
-            if (Percentage > 1)
+            if (timePassed >= Duration)
             {
-                progress = 100;
+                progress = 1;
                 Finish();
                 return;
             }

@@ -11,6 +11,8 @@ namespace HlyssUI.Layout.LayoutControllers
             int x = 0, y = 0;
             int maxY = 0;
 
+            System.Console.WriteLine(component.W);
+
             foreach (var child in component.Children)
             {
                 if (!child.Visible)

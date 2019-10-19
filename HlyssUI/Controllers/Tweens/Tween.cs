@@ -6,15 +6,16 @@
         public FinishHandler OnFinish;
 
         public readonly string Name;
-        public float Speed { get; set; } = 16f;
+        public float Duration { get; set; } = 0.5f;
 
         protected float progress;
+        protected float timePassed = 0;
 
         public float Percentage
         {
             get
             {
-                return progress / 100f;
+                return progress;
             }
         }
 
@@ -31,6 +32,7 @@
             IsRunning = true;
             IsFinished = false;
             progress = 0;
+            timePassed = 0;
         }
 
         protected void Finish()

@@ -11,10 +11,10 @@
 
         public override void Update()
         {
-            if (progress == 100)
+            if (progress == 1)
                 Finish();
 
-            progress = 100;
+            progress = 1;
         }
     }
 }
