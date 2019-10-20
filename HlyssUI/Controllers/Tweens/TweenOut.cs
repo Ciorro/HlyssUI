@@ -16,7 +16,7 @@ namespace HlyssUI.Controllers.Tweens
         {
             timePassed += DeltaTime.Current;
 
-            progress = ((float)-Math.Pow(((timePassed / Duration) - 1), 8) + 1);
+            progress = ((float)-Math.Pow(((timePassed / Duration) - 1), Power) + 1);
             
             if (timePassed >= Duration)
             {

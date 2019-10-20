@@ -28,10 +28,10 @@ namespace HlyssUIDemo
 
             RenderWindow window = new RenderWindow(new VideoMode(winSize.X, winSize.Y), caption, Styles.Default, contextSettings);
             //window.SetFramerateLimit(60);
-            //window.SetVerticalSyncEnabled(true);
+            window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "dark");
+            Theme.Load("theme.ini", "light");
 
             HlyssApp app = new HlyssApp(window);
             app.Root.AddChild(new BasicRouter()
@@ -386,7 +386,7 @@ namespace HlyssUIDemo
                             {
                                 Text = ">> Link <<",
                                 Name = "link",
-                                MarginTop = "400px"
+                                MarginTop = "40px"
                             },
                             new SpinButton()
                             {
@@ -417,13 +417,15 @@ namespace HlyssUIDemo
                                                 Padding ="8px",
                                                 Children = new List<Component>()
                                                 {
-                                                    new Label()
+                                                    new TextArea()
                                                     {
-                                                        Text = "Ta"
+                                                        Width = "100%",
+                                                        Height = "90px",
+                                                        Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                                                     }
                                                 }
                                             }
-                                            
+
                                         }
                                     },
                                     new ExpansionPanel()
@@ -440,9 +442,11 @@ namespace HlyssUIDemo
                                                 Padding ="8px",
                                                 Children = new List<Component>()
                                                 {
-                                                    new Label()
+                                                    new TextArea()
                                                     {
-                                                        Text = "Ta"
+                                                        Width = "100%",
+                                                        Height = "90px",
+                                                        Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                                                     }
                                                 }
                                             }
@@ -463,19 +467,20 @@ namespace HlyssUIDemo
                                                 Padding ="8px",
                                                 Children = new List<Component>()
                                                 {
-                                                    new Label()
+                                                    new TextArea()
                                                     {
-                                                        Text = "Ta"
+                                                        Width = "100%",
+                                                        Height = "90px",
+                                                        Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                                                     }
                                                 }
                                             }
-
                                         }
                                     }
                                 }
                             }
                         }
-                    },
+                    }
                 }
             };
 

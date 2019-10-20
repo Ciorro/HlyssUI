@@ -40,7 +40,7 @@ namespace HlyssUI.Components
 
                 if (value)
                 {
-                    content.AutosizeY = true;
+                    content.Visible = true;
                     icon.IconType = Icons.AngleUp;
 
                     if(ExpandMargins)
@@ -48,11 +48,13 @@ namespace HlyssUI.Components
                         MarginTop = "5px";
                         MarginBottom = "5px";
                     }
+
+                    if (Unique)
+                        FoldOtherPanels();
                 }
                 else
                 {
-                    content.AutosizeY = false;
-                    content.Height = "0px";
+                    content.Visible = false;
                     icon.IconType = Icons.AngleDown;
 
                     if (ExpandMargins)
@@ -65,6 +67,7 @@ namespace HlyssUI.Components
         }
 
         public bool ExpandMargins { get; set; } = true;
+        public bool Unique { get; set; } = true;
 
         public ExpansionPanel()
         {
@@ -94,12 +97,17 @@ namespace HlyssUI.Components
                         {
                             Name = "expansionpanel_icon"
                         }
+                    },
+                    DefaultStyle = new Themes.Style()
+                    {
+                        {"primary-color", "secondary +20" }
                     }
                 },
                 new Component()
                 {
                     Width = "100%",
                     Padding = "1px",
+                    AutosizeY = true,
                     Name = "expansionpanel_content"
                 }
             };
@@ -114,12 +122,26 @@ namespace HlyssUI.Components
                 {"size-ease","out" }
             };
 
-            GetChild("expansionpanel_topbar").DefaultStyle = new Themes.Style()
-            {
-                {"primary-color", "secondary" }
-            };
-
             GetChild("expansionpanel_topbar").Clicked += (object sender) => Expanded = !Expanded;
+
+            Expanded = false;
+        }
+
+        private void FoldOtherPanels()
+        {
+            List<ExpansionPanel> panels = new List<ExpansionPanel>();
+
+            foreach (var panel in Parent.Children)
+            {
+                if (panel is ExpansionPanel)
+                    panels.Add(panel as ExpansionPanel);
+            }
+
+            foreach (var panel in panels)
+            {
+                if (panel != this)
+                    panel.Expanded = false;
+            }
         }
     }
 }

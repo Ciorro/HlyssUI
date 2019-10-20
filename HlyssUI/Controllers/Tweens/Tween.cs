@@ -6,10 +6,12 @@
         public FinishHandler OnFinish;
 
         public readonly string Name;
-        public float Duration { get; set; } = 0.5f;
+        public float Duration { get; set; } = 0.25f;
 
         protected float progress;
         protected float timePassed = 0;
+
+        protected const byte Power = 4;
 
         public float Percentage
         {
