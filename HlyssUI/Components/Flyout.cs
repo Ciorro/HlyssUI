@@ -11,17 +11,21 @@ namespace HlyssUI.Components
         public delegate void HideHandler(object sender);
         public event HideHandler Hidden;
 
+        public bool CloseOnClickOutside { get; set; } = true;
+
         public Flyout()
         {
             Visible = false;
             DisableClipping = false;
         }
 
-        public void Show(Vector2i position)
+        public virtual void Show(Vector2i position)
         {
             Left = $"{position.X}px";
             Top = $"{position.Y}px";
             Visible = true;
+
+            Parent.ReorderChild(this, Parent.Children.Count);
 
             OnShown();
             Shown?.Invoke(this);
@@ -39,7 +43,7 @@ namespace HlyssUI.Components
         {
             base.OnMousePressedAnywhere(location, button);
 
-            if (!Bounds.Contains(location.X, location.Y))
+            if (!Bounds.Contains(location.X, location.Y) && CloseOnClickOutside)
             {
                 Hide();
             }

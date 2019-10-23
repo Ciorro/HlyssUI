@@ -108,6 +108,7 @@ namespace HlyssUI.Components
                     Width = "100%",
                     Padding = "1px",
                     AutosizeY = true,
+                    DisableClipping = false,
                     Name = "expansionpanel_content"
                 }
             };
@@ -115,7 +116,6 @@ namespace HlyssUI.Components
             AutosizeY = true;
             SlotName = "expansionpanel_content";
             Layout = HlyssUI.Layout.LayoutType.Column;
-            DisableClipping = false;
 
             DefaultStyle = new Themes.Style()
             {

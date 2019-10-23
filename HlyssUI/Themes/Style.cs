@@ -134,7 +134,8 @@ namespace HlyssUI.Themes
 
             foreach (var key in keys)
             {
-                newStyle.SetValue(key, style.GetString(key));
+                if (!style.GetString(key).Contains("final"))
+                    newStyle.SetValue(key, style.GetString(key));
             }
 
             return newStyle;

@@ -43,6 +43,11 @@ namespace HlyssUI.Controllers
             {
                 TweenType = component.DefaultStyle.GetString("size-ease");
             }
+
+            if (component.DefaultStyle.ContainsKey("size-ease-duration") && component.DefaultStyle.GetString("size-ease-duration") != tween.Name)
+            {
+                tween.Duration = component.DefaultStyle.GetFloat("size-ease-duration");
+            }
         }
     }
 }

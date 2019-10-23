@@ -12,6 +12,8 @@
             {
                 Children[0] = component;
             }
+
+            System.GC.Collect();
         }
     }
 }

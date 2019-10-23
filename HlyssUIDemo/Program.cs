@@ -28,10 +28,10 @@ namespace HlyssUIDemo
 
             RenderWindow window = new RenderWindow(new VideoMode(winSize.X, winSize.Y), caption, Styles.Default, contextSettings);
             //window.SetFramerateLimit(60);
-            window.SetVerticalSyncEnabled(true);
+            //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "light");
+            Theme.Load("theme.ini", "dark");
 
             HlyssApp app = new HlyssApp(window);
             app.Root.AddChild(new BasicRouter()
@@ -86,6 +86,12 @@ namespace HlyssUIDemo
             {
                 (app.Root.GetChild("router") as Router).Navigate(GetLoginScreen());
             };
+
+            MessageBox mbox = new MessageBox()
+            {
+                Name = "mbox"
+            };
+            app.Root.Children.Add(mbox);
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -329,7 +335,7 @@ namespace HlyssUIDemo
                             new ScrollArea()
                             {
                                 Width = "100%",
-                                Height = "500px",
+                                Expand = true,
                                 Name = "list",
                                 Content = new Component()
                                 {
@@ -360,6 +366,10 @@ namespace HlyssUIDemo
                                         }
                                     }
                                 }
+                            },
+                            new Label()
+                            {
+                                Text = "Dibrysoft Lonczer 0.1"
                             }
                         }
                     },
@@ -394,6 +404,11 @@ namespace HlyssUIDemo
                                 MarginTop = "20px",
                                 MinValue = -10000
                             },
+                            new Button()
+                            {
+                                Label = "Open dialog",
+                                Name = "mbox_btn"
+                            },
                             new Component()
                             {
                                 Name = "exp_list",
@@ -408,7 +423,7 @@ namespace HlyssUIDemo
                                         Name = "exp1",
                                         Width = "100%",
                                         Header = "Czy Dibrysoft jest dibry?",
-                                        Slot = new List<Component>()
+                                        SlotContent = new List<Component>()
                                         {
                                             new Component()
                                             {
@@ -421,7 +436,7 @@ namespace HlyssUIDemo
                                                     {
                                                         Width = "100%",
                                                         Height = "90px",
-                                                        Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                                                        //Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                                                     }
                                                 }
                                             }
@@ -433,7 +448,7 @@ namespace HlyssUIDemo
                                         Name = "exp2",
                                         Width = "100%",
                                         Header = "Czy Dibrysoft jest dibry?",
-                                        Slot = new List<Component>()
+                                        SlotContent = new List<Component>()
                                         {
                                             new Component()
                                             {
@@ -446,7 +461,7 @@ namespace HlyssUIDemo
                                                     {
                                                         Width = "100%",
                                                         Height = "90px",
-                                                        Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                                                        //Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                                                     }
                                                 }
                                             }
@@ -458,7 +473,7 @@ namespace HlyssUIDemo
                                         Name = "exp3",
                                         Width = "100%",
                                         Header = "Czy Dibrysoft jest dibry?",
-                                        Slot = new List<Component>()
+                                        SlotContent = new List<Component>()
                                         {
                                             new Component()
                                             {
@@ -471,7 +486,7 @@ namespace HlyssUIDemo
                                                     {
                                                         Width = "100%",
                                                         Height = "90px",
-                                                        Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                                                        //Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                                                     }
                                                 }
                                             }
@@ -554,6 +569,11 @@ namespace HlyssUIDemo
             component.FindChild("user_menu_btn").Clicked += (object sender) =>
             {
                 (component.App.Root.FindChild("menu") as Flyout).Show((sender as Component).GlobalPosition + new Vector2i(0, (sender as Component).TargetSize.Y));
+            };
+
+            component.FindChild("mbox_btn").Clicked += (object sender) =>
+            {
+                (component.App.Root.FindChild("mbox") as Flyout).Show(new Vector2i());
             };
 
             return component;

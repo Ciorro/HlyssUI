@@ -101,6 +101,12 @@ namespace HlyssUI.Components
             _hScroll.ContentWidth = maxX;
             _vScroll.ContentHeight = maxY;
 
+            if (!_hScroll.Visible)
+                _hScroll.Percentage = 0;
+
+            if (!_vScroll.Visible)
+                _vScroll.Percentage = 0;
+
             int x = (int)((maxX - TargetSize.X) * _hScroll.Percentage) * -1;
             int y = (int)((maxY - TargetSize.Y) * _vScroll.Percentage) * -1;
 

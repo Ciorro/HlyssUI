@@ -77,18 +77,28 @@ namespace HlyssUI.Components
 
         public List<Component> Children { get; set; } = new List<Component>();
 
-        public List<Component> Slot
+        public Component Slot
         {
             get
             {
-                return (string.IsNullOrEmpty(SlotName)) ? Children : GetChild(SlotName).Children;
+                if (!string.IsNullOrEmpty(SlotName))
+                    return FindChild(SlotName);
+                else return this;
+            }
+        }
+
+        public List<Component> SlotContent
+        {
+            get
+            {
+                return (string.IsNullOrEmpty(SlotName)) ? Children : FindChild(SlotName).Children;
             }
             set
             {
                 if (string.IsNullOrEmpty(SlotName))
                     Children = value;
                 else
-                    GetChild(SlotName).Children = value;
+                    FindChild(SlotName).Children = value;
             }
         }
 
@@ -476,7 +486,6 @@ namespace HlyssUI.Components
             TransformChanged = true;
 
             component.Parent = this;
-            //component.OnAdded(this);
             Children.Insert(index, component);
             OnChildAdded(component);
         }
@@ -491,7 +500,6 @@ namespace HlyssUI.Components
             TransformChanged = true;
 
             component.Parent = null;
-            //component.OnRemoved(this);
             Children.Remove(component);
             OnChildRemoved(component);
         }
@@ -545,6 +553,15 @@ namespace HlyssUI.Components
                 return null;
             else
                 return Parent.FindParent(name);
+        }
+
+        public void Reparent(Component newParent)
+        {
+            if (Parent != null)
+                Parent.Children.Remove(this);
+
+            newParent.Children.Add(this);
+            Parent = newParent;
         }
 
         #endregion

@@ -45,8 +45,10 @@ namespace HlyssUI.Utils
 
         private void Window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
         {
-            foreach (var component in _hoverController.HoveredComponents)
+            for (int i = 0; i < _hoverController.HoveredComponents.Count; i++)
             {
+                Component component = _hoverController.HoveredComponents[i];
+
                 if (component != null && component.Visible && e.Button == Mouse.Button.Left && component.Enabled)
                 {
                     component.OnReleased();
@@ -58,8 +60,10 @@ namespace HlyssUI.Utils
 
         private void Window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            foreach (var component in _hoverController.HoveredComponents)
+            for (int i = 0; i < _hoverController.HoveredComponents.Count; i++)
             {
+                Component component = _hoverController.HoveredComponents[i];
+
                 if (component != null && component.Visible && e.Button == Mouse.Button.Left && component.Enabled)
                 {
                     component.OnPressed();
@@ -97,9 +101,9 @@ namespace HlyssUI.Utils
 
             component.OnMouseMovedAnywhere(location);
 
-            foreach (var child in component.Children)
+            for (int i = 0; i < component.Children.Count; i++)
             {
-                sendMouseMoveInfoToAllChildren(child, location);
+                sendMouseMoveInfoToAllChildren(component.Children[i], location);
             }
         }
 
@@ -110,9 +114,9 @@ namespace HlyssUI.Utils
 
             component.OnKeyPressed(key);
 
-            foreach (var child in component.Children)
+            for (int i = 0; i < component.Children.Count; i++)
             {
-                sendKeyPressInfoToAllChildren(child, key);
+                sendKeyPressInfoToAllChildren(component.Children[i], key);
             }
         }
 
@@ -123,9 +127,9 @@ namespace HlyssUI.Utils
 
             component.OnKeyReleased(key);
 
-            foreach (var child in component.Children)
+            for (int i = 0; i < component.Children.Count; i++)
             {
-                sendKeyReleaseInfoToAllChildren(child, key);
+                sendKeyReleaseInfoToAllChildren(component.Children[i], key);
             }
         }
 
@@ -136,9 +140,9 @@ namespace HlyssUI.Utils
 
             component.OnTextInput(text);
 
-            foreach (var child in component.Children)
+            for (int i = 0; i < component.Children.Count; i++)
             {
-                sendTextInputInfoToAllChildren(child, text);
+                sendTextInputInfoToAllChildren(component.Children[i], text);
             }
         }
 
@@ -149,9 +153,9 @@ namespace HlyssUI.Utils
 
             component.OnMousePressedAnywhere(location, button);
 
-            foreach (var child in component.Children)
+            for (int i = 0; i < component.Children.Count; i++)
             {
-                sendMousePressInfoToAllChildren(child, location, button);
+                sendMousePressInfoToAllChildren(component.Children[i], location, button);
             }
         }
 
@@ -162,9 +166,9 @@ namespace HlyssUI.Utils
 
             component.OnMouseReleasedAnywhere(location, button);
 
-            foreach (var child in component.Children)
+            for (int i = 0; i < component.Children.Count; i++)
             {
-                sendMouseReleaseInfoToAllChildren(child, location, button);
+                sendMouseReleaseInfoToAllChildren(component.Children[i], location, button);
             }
         }
 
@@ -175,9 +179,9 @@ namespace HlyssUI.Utils
 
             component.OnScrolledAnywhere(scroll);
 
-            foreach (var child in component.Children)
+            for (int i = 0; i < component.Children.Count; i++)
             {
-                sendScrollInfoToAllChildren(child, scroll);
+                sendScrollInfoToAllChildren(component.Children[i], scroll);
             }
         }
     }

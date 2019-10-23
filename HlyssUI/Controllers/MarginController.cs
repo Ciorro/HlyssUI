@@ -45,6 +45,11 @@ namespace HlyssUI.Controllers
             {
                 TweenType = component.DefaultStyle.GetString("margin-ease");
             }
+
+            if (component.DefaultStyle.ContainsKey("margin-ease-duration") && component.DefaultStyle.GetString("margin-ease-duration") != tween.Name)
+            {
+                tween.Duration = component.DefaultStyle.GetFloat("margin-ease-duration");
+            }
         }
     }
 }
