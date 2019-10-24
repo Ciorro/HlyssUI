@@ -21,7 +21,7 @@ namespace HlyssUI.Components
 
         public VScrollBar(int contentHeight)
         {
-            this.ContentHeight = contentHeight;
+            ContentHeight = contentHeight;
 
             _background = new RectangleShape();
 
@@ -111,9 +111,7 @@ namespace HlyssUI.Components
 
         public override void OnScrolledAnywhere(float scroll)
         {
-            Vector2i mPos = Mouse.GetPosition(App.Window);
-
-            if ((Target == null && Hovered) || ((Target != null && Target.Bounds.Contains(mPos.X, mPos.Y)) || Hovered))
+            if (Target != null && Target.Hovered)
             {
                 _slider.Position += new Vector2f(0, (TargetSize.Y / 50) * scroll * Speed) * -1;
                 KeepInbounds();
@@ -129,6 +127,8 @@ namespace HlyssUI.Components
 
             _background.FillColor = Theme.GetColor("999999");
             _slider.FillColor = Theme.GetColor("999999");
+
+            _tween.Start();
         }
 
         public float GetPercentageFromSliderPosition()

@@ -31,7 +31,7 @@ namespace HlyssUIDemo
             //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "dark");
+            Theme.Load("theme.ini", "light");
 
             HlyssApp app = new HlyssApp(window);
             app.Root.AddChild(new BasicRouter()

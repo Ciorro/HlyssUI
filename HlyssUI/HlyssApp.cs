@@ -59,7 +59,7 @@ namespace HlyssUI
             _renderer.Render(Root);
             Gauge.PauseMeasurement("Render");
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.P))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Num1))
                 Gauge.PrintSummary();
         }
     }

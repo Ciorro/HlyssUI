@@ -49,7 +49,6 @@ namespace HlyssUI.Components
             };
 
             Width = "300px";
-            //CloseOnClickOutside = false;
             Layout = HlyssUI.Layout.LayoutType.Column;
             DisableClipping = false;
 

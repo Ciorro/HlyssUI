@@ -2,6 +2,7 @@
 using HlyssUI.Components;
 using HlyssUI.Layout.LayoutControllers;
 using HlyssUI.Utils;
+using SFML.Window;
 
 namespace HlyssUI.Updaters
 {
@@ -15,8 +16,18 @@ namespace HlyssUI.Updaters
 
             if (_anyTransformChanged)
             {
+                Gauge.StartMeasurement("compose");
                 Compose(component);
+                Gauge.PauseMeasurement("compose");
+                Gauge.StartMeasurement("refresh");
                 Refresh(component);
+                Gauge.PauseMeasurement("refresh");
+
+                if (Keyboard.IsKeyPressed(Keyboard.Key.Num2))
+                    Gauge.PrintSummary("compose", "refresh");
+
+                Gauge.ResetMeasurement("compose");
+                Gauge.ResetMeasurement("refresh");
 
                 _anyTransformChanged = false;
             }

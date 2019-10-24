@@ -112,9 +112,7 @@ namespace HlyssUI.Components
 
         public override void OnScrolledAnywhere(float scroll)
         {
-            Vector2i mPos = Mouse.GetPosition(App.Window);
-
-            if (Keyboard.IsKeyPressed(ScrollKey) && ((Target == null && Hovered) || ((Target != null && Target.Bounds.Contains(mPos.X, mPos.Y)) || Hovered)))
+            if (Keyboard.IsKeyPressed(ScrollKey) && Target != null && Target.Hovered)
             {
                 _slider.Position += new Vector2f((TargetSize.X / 50) * scroll * Speed, 0) * -1;
                 KeepInbounds();
@@ -130,6 +128,8 @@ namespace HlyssUI.Components
 
             _background.FillColor = Theme.GetColor("999999");
             _slider.FillColor = Theme.GetColor("999999");
+
+            _tween.Start();
         }
 
         private float GetPercentageFromSliderPosition()
