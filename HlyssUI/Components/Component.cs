@@ -24,10 +24,10 @@ namespace HlyssUI.Components
         public delegate void DoubleClickedHandler(object sender);
         public event DoubleClickedHandler DoubleClicked;
 
-        public delegate void PressedHandler(object sender);
+        public delegate void PressedHandler(object sender, Mouse.Button button);
         public event PressedHandler Pressed;
 
-        public delegate void ReleasedHandler(object sender);
+        public delegate void ReleasedHandler(object sender, Mouse.Button button);
         public event ReleasedHandler Released;
 
         public delegate void MouseEnteredHandler(object sender);
@@ -291,6 +291,7 @@ namespace HlyssUI.Components
 
         #region Styles
 
+        //TODO: Change to internal
         public Style Style
         {
             get
@@ -655,13 +656,15 @@ namespace HlyssUI.Components
 
         public virtual void OnChildRemoved(Component child) { }
 
-        public virtual void OnPressed()
+        public virtual void OnPressed(Mouse.Button button)
         {
             if (!Style.IsNullOrEmpty(PressedStyle))
                 StyleChanged = true;
 
-            IsPressed = true;
-            Pressed?.Invoke(this);
+            if (button == Mouse.Button.Left)
+                IsPressed = true;
+
+            Pressed?.Invoke(this, button);
 
             if (_doubleClick)
             {
@@ -671,19 +674,22 @@ namespace HlyssUI.Components
 
             Vector2i currentMPos = Mouse.GetPosition(App.Window);
 
-            if (_doubleClickTimer.ElapsedMilliseconds <= 500 && _firstClickPos == currentMPos)
+            if (_doubleClickTimer.ElapsedMilliseconds <= 500 && _firstClickPos == currentMPos && button == Mouse.Button.Left)
             {
                 _doubleClick = true;
                 DoubleClicked?.Invoke(this);
             }
 
-            _doubleClickTimer.Restart();
-            _firstClickPos = currentMPos;
+            if (button == Mouse.Button.Left)
+            {
+                _doubleClickTimer.Restart();
+                _firstClickPos = currentMPos;
+            }
         }
 
-        public virtual void OnReleased()
+        public virtual void OnReleased(Mouse.Button button)
         {
-            if (IsPressed)
+            if (IsPressed && button == Mouse.Button.Left)
             {
                 Focused = true;
                 Clicked?.Invoke(this);
@@ -691,7 +697,7 @@ namespace HlyssUI.Components
             }
 
             IsPressed = false;
-            Released?.Invoke(this);
+            Released?.Invoke(this, button);
 
             if (!Style.IsNullOrEmpty(PressedStyle))
                 StyleChanged = true;
@@ -718,8 +724,6 @@ namespace HlyssUI.Components
         public virtual void OnMouseEntered()
         {
             MouseEntered?.Invoke(this);
-
-            //Console.WriteLine($"Mouse entered {this}");
 
             if (!Style.IsNullOrEmpty(HoverStyle))
                 StyleChanged = true;

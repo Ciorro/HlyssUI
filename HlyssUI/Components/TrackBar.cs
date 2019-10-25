@@ -51,9 +51,9 @@ namespace HlyssUI.Components
             App.Window.Draw(_pointer);
         }
 
-        public override void OnPressed()
+        public override void OnPressed(Mouse.Button button)
         {
-            base.OnPressed();
+            base.OnPressed(button);
             _active = true;
         }
 

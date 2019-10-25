@@ -8,7 +8,8 @@ namespace HlyssUI.Controllers.Tweens
         {
             new TweenIn(),
             new TweenOut(),
-            new TweenInstant()
+            new TweenLinear(),
+            new TweenInstant(),
         };
 
         public static Tween GetTween(string name)

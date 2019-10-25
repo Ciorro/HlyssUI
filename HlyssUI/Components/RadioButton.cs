@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Layout;
 using HlyssUI.Themes;
+using SFML.Window;
 using System.Collections.Generic;
 
 namespace HlyssUI.Components
@@ -89,9 +90,9 @@ namespace HlyssUI.Components
             Style.SetValue("primary-color", "primary");
         }
 
-        public override void OnPressed()
+        public override void OnPressed(Mouse.Button button)
         {
-            base.OnPressed();
+            base.OnPressed(button);
             Style.SetValue("primary-color", "primary -40");
         }
 

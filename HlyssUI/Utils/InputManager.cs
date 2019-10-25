@@ -49,9 +49,9 @@ namespace HlyssUI.Utils
             {
                 Component component = _hoverController.HoveredComponents[i];
 
-                if (component != null && component.Visible && e.Button == Mouse.Button.Left && component.Enabled)
+                if (component != null && component.Visible && component.Enabled)
                 {
-                    component.OnReleased();
+                    component.OnReleased(e.Button);
                 }
             }
 
@@ -64,9 +64,9 @@ namespace HlyssUI.Utils
             {
                 Component component = _hoverController.HoveredComponents[i];
 
-                if (component != null && component.Visible && e.Button == Mouse.Button.Left && component.Enabled)
+                if (component != null && component.Visible && component.Enabled)
                 {
-                    component.OnPressed();
+                    component.OnPressed(e.Button);
                 }
             }
 

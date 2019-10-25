@@ -1,29 +1,27 @@
 ﻿using SFML.Window;
+using System.Diagnostics;
 
 namespace HlyssUI.Components
 {
     public class LinkLabel : Label
     {
-        public LinkLabel()
-        {
-            DefaultStyle = new Themes.Style()
-            {
-                { "text-color", "0000FF" }
-            };
+        public string Link { get; set; }
 
-        }
-
+        //TODO: loading cursors in app
         public override void OnClicked()
         {
             base.OnClicked();
 
-            DefaultStyle = new Themes.Style()
+            if(!string.IsNullOrEmpty(Link))
             {
-                { "text-color", "8000ff" }
-            };
+                if (Link.StartsWith("http") || Link.StartsWith("www"))
+                {
+                    ProcessStartInfo info = new ProcessStartInfo("cmd");
+                    info.Arguments = $"/c start {Link}";
+                    Process.Start(info);
+                }
+            }
         }
-
-        //TODO: loading cursors in app
 
         public override void OnMouseEntered()
         {

@@ -74,7 +74,7 @@ namespace HlyssUI.Components
             KeepInbounds();
         }
 
-        public override void OnPressed()
+        public override void OnPressed(Mouse.Button button)
         {
             Vector2i mpos = Mouse.GetPosition(App.Window);
 

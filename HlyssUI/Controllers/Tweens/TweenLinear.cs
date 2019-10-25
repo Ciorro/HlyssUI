@@ -1,22 +1,24 @@
 ﻿using HlyssUI.Utils;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace HlyssUI.Controllers.Tweens
 {
-    class TweenOut : Tween
+    class TweenLinear : Tween
     {
-        public TweenOut() : base("out") { }
+        public TweenLinear() : base("linear") { }
 
         public override Tween Get()
         {
-            return new TweenOut();
+            return new TweenLinear();
         }
 
         public override void Update()
         {
             timePassed += DeltaTime.Current;
 
-            progress = ((float)-Math.Pow(((timePassed / Duration) - 1), Power) + 1);
+            progress = timePassed / Duration;
 
             if (timePassed >= Duration)
             {

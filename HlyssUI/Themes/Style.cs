@@ -23,7 +23,7 @@ namespace HlyssUI.Themes
                 style.SetValue("information-color", "info");
                 style.SetValue("character-size", "14");
                 style.SetValue("opacity", "1");
-                style.SetValue("border-radius", "3");
+                style.SetValue("border-radius", "4");
                 style.SetValue("border-thickness", "1");
 
                 return style;

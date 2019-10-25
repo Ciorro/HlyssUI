@@ -28,10 +28,10 @@ namespace HlyssUIDemo
 
             RenderWindow window = new RenderWindow(new VideoMode(winSize.X, winSize.Y), caption, Styles.Default, contextSettings);
             //window.SetFramerateLimit(60);
-            //window.SetVerticalSyncEnabled(true);
+            window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "light");
+            Theme.Load("theme.ini", "dark");
 
             HlyssApp app = new HlyssApp(window);
             app.Root.AddChild(new BasicRouter()
@@ -79,7 +79,7 @@ namespace HlyssUIDemo
 
             app.Root.FindChild("menu").DefaultStyle = new Style()
             {
-                {"size-ease", "out" }
+                {"size-ease", "out" },
             };
 
             app.Root.FindChild("menu3").Clicked += (object sender) =>
@@ -367,9 +367,10 @@ namespace HlyssUIDemo
                                     }
                                 }
                             },
-                            new Label()
+                            new LinkLabel()
                             {
-                                Text = "Dibrysoft Lonczer 0.1"
+                                Text = "Copyright © 2019 Dibrysoft",
+                                Link = "http://165.22.21.208",
                             }
                         }
                     },
@@ -394,9 +395,9 @@ namespace HlyssUIDemo
                             },
                             new LinkLabel()
                             {
-                                Text = ">> Link <<",
+                                Text = "LinkLabel",
                                 Name = "link",
-                                MarginTop = "40px"
+                                Margin = "40px 2px"
                             },
                             new SpinButton()
                             {
@@ -581,7 +582,7 @@ namespace HlyssUIDemo
 
         public static Component GetLoginScreen()
         {
-            Component component = new Component()
+            Panel component = new Panel()
             {
                 Width = "100%",
                 Height = "100%",
@@ -640,8 +641,21 @@ namespace HlyssUIDemo
                                     }
                                 }
                             }
+                        },
+                        DefaultStyle = new Style()
+                        {
+                            {"border-radius", "4" },
+                            {"border-thickness", "1" },
+                            {"primary-color", "primary" }
                         }
                     }
+                },
+                Texture = new Texture("gradient.jpg"),
+                DefaultStyle = new Style()
+                {
+                    {"border-radius", "0" },
+                    {"border-thickness", "0" },
+                    {"primary-color", "ffffff" }
                 }
             };
 
