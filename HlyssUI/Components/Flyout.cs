@@ -49,6 +49,44 @@ namespace HlyssUI.Components
             }
         }
 
+        public override void Update()
+        {
+            base.Update();
+            
+            if(Visible)
+            {
+                if (TargetSize.Y < App.Root.TargetSize.Y)
+                {
+                    if (TargetPosition.Y + TargetSize.Y > App.Root.TargetSize.Y)
+                    {
+                        Top = $"{App.Root.TargetSize.Y - TargetSize.Y}px";
+                    }
+                    if (TargetPosition.Y < 0)
+                    {
+                        Top = "0px";
+                    }
+                }
+
+                if(TargetSize.X < App.Root.TargetSize.X)
+                {
+                    if (TargetPosition.X + TargetSize.X > App.Root.TargetSize.X)
+                    {
+                        Left = $"{App.Root.TargetSize.X - TargetSize.X}px";
+                    }
+                    if (TargetPosition.X < 0)
+                    {
+                        Left = "0px";
+                    }
+                }
+            }
+        }
+
+        public override void OnRefresh()
+        {
+            base.OnRefresh();
+            System.Console.WriteLine("erf");
+        }
+
         protected virtual void OnShown() { }
 
         protected virtual void OnHidden() { }
