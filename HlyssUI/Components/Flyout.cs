@@ -81,12 +81,6 @@ namespace HlyssUI.Components
             }
         }
 
-        public override void OnRefresh()
-        {
-            base.OnRefresh();
-            System.Console.WriteLine("erf");
-        }
-
         protected virtual void OnShown() { }
 
         protected virtual void OnHidden() { }
