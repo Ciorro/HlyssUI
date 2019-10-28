@@ -423,7 +423,6 @@ namespace HlyssUI.Components
         public bool TransformChanged { get; private set; } = true;
         public bool StyleChanged { get; set; } = true;
 
-        public bool IsOverlay { get; protected set; }
         public bool Hovered { get; set; }
         public bool Hoverable { get; set; } = true;
         public bool IsPressed { get; private set; }

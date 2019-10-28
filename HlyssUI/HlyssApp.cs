@@ -30,12 +30,7 @@ namespace HlyssUI
             _input = new InputManager(this);
             _input.RegisterEvents();
 
-            Theme.OnThemeLoaded += Theme_OnThemeLoaded;
-        }
-
-        private void Theme_OnThemeLoaded()
-        {
-            Root.StyleChanged = true;
+            Theme.OnThemeLoaded += () => Root.StyleChanged = true;
         }
 
         public void Update()
