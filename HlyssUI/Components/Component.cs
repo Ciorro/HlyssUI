@@ -108,8 +108,15 @@ namespace HlyssUI.Components
         {
             get
             {
-                Vector2i parentPad = (Parent != null) ? Parent.Paddings.TopLeft : new Vector2i();
-                return ((Parent != null) ? Parent.GlobalPosition + Position + parentPad + Margins.TopLeft : Position) + ScrollOffset;
+                if (!OnTop)
+                {
+                    Vector2i parentPad = (Parent != null) ? Parent.Paddings.TopLeft : new Vector2i();
+                    return ((Parent != null) ? Parent.GlobalPosition + Position + parentPad + Margins.TopLeft : Position) + ScrollOffset;
+                }
+                else
+                {
+                    return Position;
+                }
             }
         }
 
@@ -308,7 +315,7 @@ namespace HlyssUI.Components
         {
             get
             {
-                return (Parent != null) ? Parent.DefaultStyle.Combine(_defaultStyle) : _defaultStyle;
+                return (Parent != null && Parent.CascadeStyle && ReceiveStyle) ? Parent.DefaultStyle.Combine(_defaultStyle) : _defaultStyle;
             }
             set
             {
@@ -321,7 +328,7 @@ namespace HlyssUI.Components
         {
             get
             {
-                return (Parent != null) ? Parent.HoverStyle.Combine(_hoverStyle) : _hoverStyle;
+                return (Parent != null && Parent.CascadeStyle && ReceiveStyle) ? Parent.HoverStyle.Combine(_hoverStyle) : _hoverStyle;
             }
             set
             {
@@ -334,7 +341,7 @@ namespace HlyssUI.Components
         {
             get
             {
-                return (Parent != null) ? Parent.PressedStyle.Combine(_pressedStyle) : _pressedStyle;
+                return (Parent != null && Parent.CascadeStyle && ReceiveStyle) ? Parent.PressedStyle.Combine(_pressedStyle) : _pressedStyle;
             }
             set
             {
@@ -347,7 +354,7 @@ namespace HlyssUI.Components
         {
             get
             {
-                return (Parent != null) ? Parent.DisabledStyle.Combine(_disabledStyle) : _disabledStyle;
+                return (Parent != null && Parent.CascadeStyle && ReceiveStyle) ? Parent.DisabledStyle.Combine(_disabledStyle) : _disabledStyle;
             }
             set
             {
@@ -363,7 +370,10 @@ namespace HlyssUI.Components
         {
             get
             {
-                return Spacing.Intersects(Bounds, (Parent != null) ? Parent.Bounds : App.Root.Bounds);
+                if (!OnTop)
+                    return Spacing.Intersects(Bounds, (Parent != null) ? Parent.Bounds : App.Root.Bounds);
+                else
+                    return Spacing.Intersects(Bounds, App.Root.Bounds);
             }
         }
 
@@ -433,6 +443,9 @@ namespace HlyssUI.Components
         public bool ReversedHorizontal { get; set; }
         public bool ReversedVertical { get; set; }
         public bool Expand { get; set; }
+        public bool OnTop { get; set; }
+        public bool CascadeStyle { get; set; } = true;
+        public bool ReceiveStyle { get; set; } = true;
 
         public string SlotName { get; set; } = string.Empty;
 

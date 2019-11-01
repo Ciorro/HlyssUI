@@ -16,6 +16,12 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
+                if(child.OnTop)
+                {
+                    child.UpdateLocalPosition();
+                    continue;
+                }
+
                 if (x + child.TargetSize.X + child.TargetMargins.Horizontal > component.TargetSize.X - component.TargetPaddings.Horizontal)
                 {
                     y += maxY;

@@ -1,4 +1,5 @@
-﻿using HlyssUI.Components;
+﻿using System;
+using HlyssUI.Components;
 using SFML.Graphics;
 using SFML.System;
 
@@ -13,37 +14,34 @@ namespace HlyssUI.Graphics
             _windowArea = new IntRect(0, 0, (int)component.App.Window.Size.X, (int)component.App.Window.Size.Y);
 
             component.App.Window.SetView(component.App.Window.DefaultView);
-            renderComponents(component);
+            RenderComponents(component);
         }
 
-        private void renderComponents(Component component)
+        private void RenderComponents(Component rootComponent)
         {
-            if (!component.IsOnScreen || !component.Visible || !component.Bounds.Intersects(_windowArea))
-                return;
-
-            View area = getNearestClipArea(component);
-
-            if (area != null)
-                component.App.Window.SetView(area);
-
-            component.Draw(component.App.Window);
-            component.DrawDebug();
-
-            component.App.Window.SetView(new View()
+            foreach (var component in rootComponent.App.FlatComponentTree)
             {
-                Center = (Vector2f)component.App.Window.Size / 2,
-                Size = (Vector2f)component.App.Window.Size,
-                Viewport = new FloatRect(0, 0, 1, 1)
-            });
+                if (!component.IsOnScreen || !component.Visible || !component.Bounds.Intersects(_windowArea))
+                    continue;
 
-            foreach (var child in component.Children)
-            {
-                renderComponents(child);
+                View area = GetNearestClipArea(component);
+
+                if (area != null)
+                    component.App.Window.SetView(area);
+
+                component.Draw(component.App.Window);
+                component.DrawDebug();
+
+                component.App.Window.SetView(new View()
+                {
+                    Center = (Vector2f)component.App.Window.Size / 2,
+                    Size = (Vector2f)component.App.Window.Size,
+                    Viewport = new FloatRect(0, 0, 1, 1)
+                });
             }
-
         }
 
-        private View getNearestClipArea(Component component)
+        private View GetNearestClipArea(Component component)
         {
             while (true)
             {

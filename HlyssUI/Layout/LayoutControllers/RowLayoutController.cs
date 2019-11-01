@@ -28,6 +28,12 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
+                if (child.OnTop)
+                {
+                    child.UpdateLocalPosition();
+                    continue;
+                }
+
                 child.Left = $"{x}px";
                 child.Top = "0px";
                 x += child.TargetMargins.Horizontal + child.TargetSize.X;
@@ -46,6 +52,12 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
+                if (child.OnTop)
+                {
+                    child.UpdateLocalPosition();
+                    continue;
+                }
+
                 x -= child.TargetMargins.Horizontal + child.TargetSize.X;
                 child.Left = $"{x}px";
                 child.Top = "0px";
@@ -59,8 +71,11 @@ namespace HlyssUI.Layout.LayoutControllers
         {
             foreach (var child in component.Children)
             {
-                child.Top = $"{(component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2}px";
-                child.UpdateLocalPosition();
+                if (!child.OnTop)
+                {
+                    child.Top = $"{(component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2}px";
+                    child.UpdateLocalPosition();
+                }
             }
         }
     }

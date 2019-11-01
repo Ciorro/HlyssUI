@@ -49,7 +49,7 @@ namespace HlyssUI.Graphics
 
         private void fitInParent(ref IntRect bounds)
         {
-            if (_component.Parent != null)
+            if (_component.Parent != null && !_component.OnTop)
             {
                 if (bounds.Left < _component.Parent.ClipArea.Bounds.Left)
                 {

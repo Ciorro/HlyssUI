@@ -71,15 +71,17 @@ namespace HlyssUI.Components
 
             Component dialogScaffold = new Panel()
             {
-                Width = "100%",
-                Height = "100%",
+                Width = $"{App.Root.W}px",
+                Height = $"{App.Root.H}px",
                 CenterContent = true,
                 Layout = HlyssUI.Layout.LayoutType.Relative,
-                DefaultStyle = new Style()
+                OnTop = true,
+                ReceiveStyle = false,
+                DefaultStyle = Style.DefaultStyle.Combine(new Style()
                 {
                     {"primary-color", "22000000" },
                     {"secondary-color", "22000000" }
-                }
+                })
             };
 
             Parent.Children.Add(dialogScaffold);

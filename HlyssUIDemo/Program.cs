@@ -28,7 +28,7 @@ namespace HlyssUIDemo
 
             RenderWindow window = new RenderWindow(new VideoMode(winSize.X, winSize.Y), caption, Styles.Default, contextSettings);
             //window.SetFramerateLimit(60);
-            window.SetVerticalSyncEnabled(true);
+            //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
             Theme.Load("theme.ini", "dark");
@@ -44,54 +44,8 @@ namespace HlyssUIDemo
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
-            app.Root.Children.Add(new Menu()
-            {
-                Name = "menu",
-                Width = "150px",
-                Items = new List<MenuItem>()
-                {
-                    new MenuItem("Profil")
-                    {
-                        Icon = Icons.User,
-                        Name= "menu1"
-                    },
-                    new MenuItem("Ustawienia")
-                    {
-                        Icon = Icons.Cog,
-                        Name= "menu2"
-                    },
-                    new MenuItem()
-                    {
-                        Hoverable = false,
-                        Padding = "0px",
-                        Children = new List<Component>()
-                        {
-                            new Divider()
-                        }
-                    },
-                    new MenuItem("Wyloguj")
-                    {
-                        Icon = Icons.SignOut,
-                        Name= "menu3"
-                    }
-                }
-            });
 
-            app.Root.FindChild("menu").DefaultStyle = new Style()
-            {
-                {"size-ease", "out" },
-            };
 
-            app.Root.FindChild("menu3").Clicked += (object sender) =>
-            {
-                (app.Root.GetChild("router") as Router).Navigate(GetLoginScreen());
-            };
-
-            MessageBox mbox = new MessageBox()
-            {
-                Name = "mbox"
-            };
-            app.Root.Children.Add(mbox);
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -324,6 +278,42 @@ namespace HlyssUIDemo
                                     {
                                         MarginLeft = "5px",
                                         Name = "user_menu_btn"
+                                    },
+                                    new Menu()
+                                    {
+                                        Name = "menu",
+                                        Width = "150px",
+                                        DefaultStyle = Style.DefaultStyle.Combine(new Style()
+                                        {
+                                            {"size-ease", "out" }
+                                        }),
+                                        Items = new List<MenuItem>()
+                                        {
+                                            new MenuItem("Profil")
+                                            {
+                                                Icon = Icons.User,
+                                                Name= "menu1"
+                                            },
+                                            new MenuItem("Ustawienia")
+                                            {
+                                                Icon = Icons.Cog,
+                                                Name= "menu2"
+                                            },
+                                            new MenuItem()
+                                            {
+                                                Hoverable = false,
+                                                Padding = "0px",
+                                                Children = new List<Component>()
+                                                {
+                                                    new Divider()
+                                                }
+                                            },
+                                            new MenuItem("Wyloguj")
+                                            {
+                                                Icon = Icons.SignOut,
+                                                Name= "menu3"
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -408,7 +398,7 @@ namespace HlyssUIDemo
                             new Button()
                             {
                                 Label = "Open dialog",
-                                Name = "mbox_btn"
+                                Name = "mbox_btn",
                             },
                             new Component()
                             {
@@ -496,6 +486,10 @@ namespace HlyssUIDemo
                                 }
                             }
                         }
+                    },
+                    new MessageBox()
+                    {
+                        Name = "mbox"
                     }
                 }
             };

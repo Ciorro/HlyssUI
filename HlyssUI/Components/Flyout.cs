@@ -17,6 +17,7 @@ namespace HlyssUI.Components
         {
             Visible = false;
             DisableClipping = false;
+            OnTop = true;
         }
 
         public virtual void Show(Vector2i position)
@@ -25,7 +26,7 @@ namespace HlyssUI.Components
             Top = $"{position.Y}px";
             Visible = true;
 
-            Parent.ReorderChild(this, Parent.Children.Count);
+            //Parent.ReorderChild(this, Parent.Children.Count);
 
             OnShown();
             Shown?.Invoke(this);

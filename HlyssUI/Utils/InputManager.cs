@@ -8,7 +8,7 @@ namespace HlyssUI.Utils
     internal class InputManager
     {
         private HlyssApp _app;
-        private HoverController _hoverController = new HoverController();
+        private HoverController2 _hoverController = new HoverController2();
 
         public InputManager(HlyssApp app)
         {
@@ -39,7 +39,7 @@ namespace HlyssUI.Utils
 
         private void Window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
-            _hoverController.Update(_app.Root, Mouse.GetPosition(_app.Window));
+            _hoverController.Update(_app, Mouse.GetPosition(_app.Window));
             sendMouseMoveInfoToAllChildren(_app.Root, new Vector2i(e.X, e.Y));
         }
 
@@ -75,7 +75,7 @@ namespace HlyssUI.Utils
 
         private void Window_MouseWheelScrolled(object sender, MouseWheelScrollEventArgs e)
         {
-            _hoverController.Update(_app.Root, Mouse.GetPosition(_app.Window));
+            _hoverController.Update(_app, Mouse.GetPosition(_app.Window));
             sendScrollInfoToAllChildren(_app.Root, e.Delta);
         }
 

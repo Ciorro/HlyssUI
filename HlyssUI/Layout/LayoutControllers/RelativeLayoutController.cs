@@ -21,6 +21,12 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
+                if (child.OnTop)
+                {
+                    child.UpdateLocalPosition();
+                    continue;
+                }
+
                 if (component.ReversedHorizontal)
                 {
                     int x = component.TargetSize.X - component.TargetPaddings.Horizontal - child.TargetMargins.Horizontal - child.TargetSize.X;
@@ -45,6 +51,12 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
+                if (child.OnTop)
+                {
+                    child.UpdateLocalPosition();
+                    continue;
+                }
+
                 child.UpdateLocalPosition();
                 CompareSize(child);
             }
@@ -59,9 +71,12 @@ namespace HlyssUI.Layout.LayoutControllers
         {
             foreach (var child in component.Children)
             {
-                child.Top = $"{(component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2}px";
-                child.Left = $"{(component.TargetSize.X - component.TargetPaddings.Horizontal - child.W - child.Ml - child.Mr) / 2}px";
-                child.UpdateLocalPosition();
+                if (!child.OnTop)
+                {
+                    child.Top = $"{(component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2}px";
+                    child.Left = $"{(component.TargetSize.X - component.TargetPaddings.Horizontal - child.W - child.Ml - child.Mr) / 2}px";
+                    child.UpdateLocalPosition();
+                }
             }
         }
     }

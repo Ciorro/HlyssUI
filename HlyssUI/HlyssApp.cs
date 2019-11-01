@@ -5,6 +5,8 @@ using HlyssUI.Updaters;
 using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.Window;
+using System;
+using System.Collections.Generic;
 
 namespace HlyssUI
 {
@@ -21,6 +23,9 @@ namespace HlyssUI
         private Renderer _renderer = new Renderer();
 
         private InputManager _input;
+        private TreeFlatter _treeFlatter = new TreeFlatter();
+
+        internal List<Component> FlatComponentTree { get; private set; } = new List<Component>();
 
         public HlyssApp(RenderWindow window)
         {
@@ -36,6 +41,13 @@ namespace HlyssUI
         public void Update()
         {
             DeltaTime.Update();
+
+            Gauge.StartMeasurement("Flattening", true);
+            FlatComponentTree = _treeFlatter.GetComponentList(Root);
+            Gauge.PauseMeasurement("Flattening");
+
+            if(Keyboard.IsKeyPressed(Keyboard.Key.D))
+                System.Console.WriteLine(string.Join(Environment.NewLine, FlatComponentTree) + "\n----");
 
             Gauge.StartMeasurement("Updater", true);
             _componentUpdater.Update(Root);
@@ -55,7 +67,7 @@ namespace HlyssUI
             Gauge.PauseMeasurement("Render");
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Num1))
-                Gauge.PrintSummary();
+                Gauge.PrintSummary("Flattening", "Updater", "Layout", "Style", "Render");
         }
     }
 }

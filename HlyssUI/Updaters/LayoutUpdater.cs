@@ -87,8 +87,10 @@ namespace HlyssUI.Updaters
             foreach (var child in component.Children)
             {
                 if (child.Expand)
+                {
                     expandedCompoentnsCount++;
-                else
+                }
+                else if(!child.OnTop)
                 {
                     totalWidth += child.TargetSize.X + child.TargetMargins.Horizontal;
                     totalHeight += child.TargetSize.Y + child.TargetMargins.Vertical;

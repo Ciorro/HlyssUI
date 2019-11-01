@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace HlyssUI.Updaters
 {
-    class HoverController
+    class HoverController2
     {
         public List<Component> HoveredComponents { get; private set; } = new List<Component>();
 
         private Vector2i _mPos;
 
-        public void Update(Component rootComponent, Vector2i mousePosition)
+        public void Update(HlyssApp app, Vector2i mousePosition)
         {
             _mPos = mousePosition;
 
@@ -19,38 +19,43 @@ namespace HlyssUI.Updaters
             HoveredComponents.CopyTo(prevComponents);
             HoveredComponents.Clear();
 
-            Component hoveredComponent = FindHovered(rootComponent);
-
-            if (hoveredComponent != null)
-            {
-                CompareHover(prevComponents.ToList(), HoveredComponents);
-            }
-
+            FindHovered(app);
+            CompareHover(prevComponents.ToList(), HoveredComponents);
         }
 
-        private Component FindHovered(Component component)
+        private void FindHovered(HlyssApp app)
         {
-            for (int i = component.Children.Count - 1; i >= 0; i--)
+            Component firstHovered = null;
+
+            for (int i = app.FlatComponentTree.Count - 1; i >= 0; i--)
             {
-                Component hoveredComponent = null;
+                Component component = app.FlatComponentTree[i];
 
-                if (component.Children[i].Visible)
-                    hoveredComponent = FindHovered(component.Children[i]);
-
-                if (hoveredComponent != null)
+                if (component.Bounds.Contains(_mPos.X, _mPos.Y) && (component.Parent == null || component.OnTop || (component.Parent != null && component.Parent.ClipArea.Bounds.Contains(_mPos.X, _mPos.Y))) && component.Hoverable && component.Visible)
                 {
+                    firstHovered = component;
                     HoveredComponents.Add(component);
-                    return hoveredComponent;
+                    break;
                 }
             }
 
-            if (component.Bounds.Contains(_mPos.X, _mPos.Y) && (component.Parent == null || (component.Parent != null && component.Parent.ClipArea.Bounds.Contains(_mPos.X, _mPos.Y))) && component.Hoverable && component.Visible)
-            {
-                HoveredComponents.Add(component);
-                return component;
-            }
+            if (firstHovered != null)
+                AddPredecessors(firstHovered);
+        }
 
-            return null;
+        private void AddPredecessors(Component component)
+        {
+            while (true)
+            {
+                if (component.Parent != null)
+                {
+                    HoveredComponents.Add(component.Parent);
+                    component = component.Parent;
+                    continue;
+                }
+
+                break;
+            }
         }
 
         private void CompareHover(List<Component> prevComponents, List<Component> currentComponents)

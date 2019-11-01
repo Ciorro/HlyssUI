@@ -13,6 +13,12 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
+                if (child.OnTop)
+                {
+                    child.UpdateLocalPosition();
+                    continue;
+                }
+
                 child.Left = $"{-component.ScrollOffset.X}px";
                 child.Top = $"{-component.ScrollOffset.Y}px";
 
