@@ -361,6 +361,12 @@ namespace HlyssUIDemo
                             {
                                 Text = "Copyright © 2019 Dibrysoft",
                                 Link = "http://165.22.21.208",
+                                Name = "dibrysoft_link"
+                            },
+                            new ToolTip()
+                            {
+                                Text = "http://165.22.21.208",
+                                Name = "tooltip"
                             }
                         }
                     },
@@ -561,6 +567,11 @@ namespace HlyssUIDemo
                 (component.Parent as Router).Navigate(GetIntelScene());
             };
 
+            component.FindChild("menu3").Clicked += (object sender) =>
+            {
+                (component.Parent as Router).Navigate(GetLoginScreen());
+            };
+
             component.FindChild("user_menu_btn").Clicked += (object sender) =>
             {
                 (component.App.Root.FindChild("menu") as Flyout).Show((sender as Component).GlobalPosition + new Vector2i(0, (sender as Component).TargetSize.Y));
@@ -570,6 +581,8 @@ namespace HlyssUIDemo
             {
                 (component.App.Root.FindChild("mbox") as Flyout).Show(new Vector2i());
             };
+
+            (component.FindChild("tooltip") as ToolTip).Target = component.FindChild("dibrysoft_link");
 
             return component;
         }

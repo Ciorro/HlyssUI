@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 namespace HlyssUI.Components
 {
-    public class ToolTip : Panel
+    public class ToolTip : Flyout
     {
         public Component Target { get; set; }
+        public int Delay { get; set; } = 1000;
 
         private Clock _clock = new Clock();
 
@@ -26,6 +27,7 @@ namespace HlyssUI.Components
             Padding = "5px";
             Autosize = true;
             Name = "tooltip_panel";
+            OnTop = true;
 
             Children = new List<Component>()
             {
@@ -35,31 +37,31 @@ namespace HlyssUI.Components
                 }
             };
 
-            DefaultStyle = new Themes.Style()
+            DefaultStyle = Themes.Style.DefaultStyle.Combine(new Themes.Style()
             {
                 {"character-size", "12" }
-            };
+            });
         }
 
         public override void Update()
         {
             base.Update();
 
-            if(Target != null && Target.Hovered && _clock.ElapsedTime.AsMilliseconds() > 1000 && !Visible)
+            if(Target != null && !Target.Hovered)
             {
-                Visible = true;
                 _clock.Restart();
-                Left = $"{Mouse.GetPosition(App.Window).X + Offset.X}px";
-                Top = $"{Mouse.GetPosition(App.Window).Y + Offset.Y}px";
             }
-        }
 
-        public override void OnMouseMovedAnywhere(Vector2i location)
-        {
-            base.OnMouseMovedAnywhere(location);
+            if(Target != null && Target.Hovered && _clock.ElapsedTime.AsMilliseconds() > Delay && !Visible)
+            {
+                _clock.Restart();
+                Show(Mouse.GetPosition(App.Window) + Offset);
+            }
 
-            _clock.Restart();
-            Visible = false;
+            if(Target != null && !Target.Hovered && Visible)
+            {
+                Hide();
+            }
         }
     }
 }
