@@ -44,7 +44,7 @@ namespace HlyssUI.Components
         {
             base.OnMousePressedAnywhere(location, button);
 
-            if (!Bounds.Contains(location.X, location.Y) && CloseOnClickOutside)
+            if (!Hovered)
             {
                 Hide();
             }

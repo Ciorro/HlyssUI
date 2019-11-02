@@ -27,8 +27,8 @@ namespace HlyssUI.Graphics
             Vector2f winSize = (Vector2f)_component.App.Window.Size;
             IntRect bounds = getShrinkedComponentBounds(_component.Bounds);
 
-            fitInParent(ref bounds);
-            makeEven(ref winSize, ref bounds);
+            FitInParent(ref bounds);
+            MakeEven(ref winSize, ref bounds);
 
             _currentBounds = bounds;
 
@@ -47,26 +47,28 @@ namespace HlyssUI.Graphics
             return bounds;
         }
 
-        private void fitInParent(ref IntRect bounds)
+        private void FitInParent(ref IntRect bounds)
         {
-            if (_component.Parent != null && !_component.OnTop)
+            Component parent = IsComponentOnTop(_component) ? GetNearestTopComponent(_component) : _component.Parent;
+
+            if (parent != null && !_component.OnTop)
             {
-                if (bounds.Left < _component.Parent.ClipArea.Bounds.Left)
+                if (bounds.Left < parent.ClipArea.Bounds.Left)
                 {
-                    bounds.Left = _component.Parent.ClipArea.Bounds.Left;
+                    bounds.Left = parent.ClipArea.Bounds.Left;
                     bounds.Width = _component.Bounds.Left + _component.Bounds.Width - bounds.Left;
                 }
 
-                if (bounds.Top < _component.Parent.ClipArea.Bounds.Top)
+                if (bounds.Top < parent.ClipArea.Bounds.Top)
                 {
-                    bounds.Top = _component.Parent.ClipArea.Bounds.Top;
+                    bounds.Top = parent.ClipArea.Bounds.Top;
                     bounds.Height = _component.Bounds.Top + _component.Bounds.Height - bounds.Top;
                 }
 
-                if (bounds.Left + bounds.Width > _component.Parent.ClipArea.Bounds.Left + _component.Parent.ClipArea.Bounds.Width)
-                    bounds.Width = _component.Parent.ClipArea.Bounds.Left + _component.Parent.ClipArea.Bounds.Width - bounds.Left;
-                if (bounds.Top + bounds.Height > _component.Parent.ClipArea.Bounds.Top + _component.Parent.ClipArea.Bounds.Height)
-                    bounds.Height = _component.Parent.ClipArea.Bounds.Top + _component.Parent.ClipArea.Bounds.Height - bounds.Top;
+                if (bounds.Left + bounds.Width > parent.ClipArea.Bounds.Left + parent.ClipArea.Bounds.Width)
+                    bounds.Width = parent.ClipArea.Bounds.Left + parent.ClipArea.Bounds.Width - bounds.Left;
+                if (bounds.Top + bounds.Height > parent.ClipArea.Bounds.Top + parent.ClipArea.Bounds.Height)
+                    bounds.Height = parent.ClipArea.Bounds.Top + parent.ClipArea.Bounds.Height - bounds.Top;
 
                 if (bounds.Width < 0)
                     bounds.Width = 0;
@@ -75,7 +77,7 @@ namespace HlyssUI.Graphics
             }
         }
 
-        private void makeEven(ref Vector2f winSize, ref IntRect bounds)
+        private void MakeEven(ref Vector2f winSize, ref IntRect bounds)
         {
             if (winSize.X % 2 != 0)
                 winSize.X++;
@@ -90,6 +92,41 @@ namespace HlyssUI.Graphics
                 bounds.Width++;
             if (bounds.Height % 2 != 0)
                 bounds.Height++;
+        }
+
+        private bool IsComponentOnTop(Component component)
+        {
+            while (true)
+            {
+                if (component != null)
+                {
+                    if (component.OnTop)
+                        return true;
+
+
+                    component = component.Parent;
+                    continue;
+                }
+
+                return false;
+            }
+        }
+
+        private Component GetNearestTopComponent(Component component)
+        {
+            while (true)
+            {
+                if (component != null)
+                {
+                    if (component.OnTop)
+                        return component;
+
+                    component = component.Parent;
+                    continue;
+                }
+
+                return null;
+            }
         }
     }
 }

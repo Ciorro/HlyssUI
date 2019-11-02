@@ -24,13 +24,15 @@ namespace HlyssUI.Components
             _icon = new Icon(Graphics.Icons.Empty)
             {
                 MarginRight = "10px",
-                IconSize = 20
+                IconSize = 20,
+                Name = "listitem_icon"
             };
 
             _label = new Label(label)
             {
                 Height = "100%",
-                AutosizeToText = false
+                AutosizeToText = false,
+                Name = "listitem_text"
             };
 
             Children = new List<Component>()
@@ -41,6 +43,7 @@ namespace HlyssUI.Components
             Padding = "10px";
             Width = "100%";
             AutosizeY = true;
+            CenterContent = true;
             DisableClipping = false;
 
             DefaultStyle = new Style()

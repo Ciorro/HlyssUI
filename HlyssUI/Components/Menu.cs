@@ -57,5 +57,12 @@ namespace HlyssUI.Components
             base.OnClicked();
             Hide();
         }
+
+        public override void Draw(RenderTarget target)
+        {
+            base.Draw(target);
+            //if(Name == "menu_test")
+            //    System.Console.WriteLine(ClipArea.Bounds);
+        }
     }
 }

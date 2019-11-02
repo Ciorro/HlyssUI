@@ -26,7 +26,7 @@ namespace HlyssUI.Graphics
 
                 View area = GetNearestClipArea(component);
 
-                if (area != null)
+                if (area != null && !component.OnTop)
                     component.App.Window.SetView(area);
 
                 component.Draw(component.App.Window);

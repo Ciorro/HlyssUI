@@ -279,25 +279,130 @@ namespace HlyssUIDemo
                                         MarginLeft = "5px",
                                         Name = "user_menu_btn"
                                     },
+                                    //new Menu()
+                                    //{
+                                    //    Name = "menu",
+                                    //    Width = "150px",
+                                    //    DefaultStyle = Style.DefaultStyle.Combine(new Style()
+                                    //    {
+                                    //        {"size-ease", "out" }
+                                    //    }),
+                                    //    Items = new List<MenuItem>()
+                                    //    {
+                                    //        new MenuItem("Profil")
+                                    //        {
+                                    //            Icon = Icons.User,
+                                    //            Name= "menu1",
+                                    //            Menu = new Menu()
+                                    //            {
+                                    //                Name = "menu_test",
+                                    //                Width = "150px",
+                                    //                DefaultStyle = Style.DefaultStyle.Combine(new Style()
+                                    //                {
+                                    //                    {"size-ease", "out" }
+                                    //                }),
+                                    //                Items = new List<MenuItem>()
+                                    //                {
+                                    //                    new MenuItem("MenuTest")
+                                    //                }
+                                    //            }
+                                    //        },
+                                    //        new MenuItem("Ustawienia")
+                                    //        {
+                                    //            Icon = Icons.Cog,
+                                    //            Name= "menu2"
+                                    //        },
+                                    //        new MenuItem()
+                                    //        {
+                                    //            Hoverable = false,
+                                    //            Padding = "0px",
+                                    //            Children = new List<Component>()
+                                    //            {
+                                    //                new Divider()
+                                    //            }
+                                    //        },
+                                    //        new MenuItem("Wyloguj")
+                                    //        {
+                                    //            Icon = Icons.SignOut,
+                                    //            Name= "menu3"
+                                    //        }
+                                    //    }
+                                    //}
                                     new Menu()
                                     {
                                         Name = "menu",
-                                        Width = "150px",
+                                        Width = "250px",
                                         DefaultStyle = Style.DefaultStyle.Combine(new Style()
                                         {
                                             {"size-ease", "out" }
                                         }),
                                         Items = new List<MenuItem>()
                                         {
-                                            new MenuItem("Profil")
+                                            new MenuItem("Widok")
                                             {
-                                                Icon = Icons.User,
-                                                Name= "menu1"
+                                                Name= "menu1",
+                                                Menu = new Menu()
+                                                {
+                                                    Name = "menu_test",
+                                                    Width = "350px",
+                                                    DefaultStyle = Style.DefaultStyle.Combine(new Style()
+                                                    {
+                                                        {"size-ease", "out" }
+                                                    }),
+                                                    Items = new List<MenuItem>()
+                                                    {
+                                                        new MenuItem("Duże ikony"),
+                                                        new MenuItem("Średnie ikony"),
+                                                        new MenuItem("Małe ikony"),
+                                                        new MenuItem()
+                                                        {
+                                                            Hoverable = false,
+                                                            Padding = "0px",
+                                                            Children = new List<Component>()
+                                                            {
+                                                                new Divider()
+                                                            }
+                                                        },
+                                                        new MenuItem("Autorozmieszczanie ikon"),
+                                                        new MenuItem("Wyrównaj ikony według siatki"),
+                                                        new MenuItem()
+                                                        {
+                                                            Hoverable = false,
+                                                            Padding = "0px",
+                                                            Children = new List<Component>()
+                                                            {
+                                                                new Divider()
+                                                            }
+                                                        },
+                                                        new MenuItem("Pokaż ikony pulpitu"),
+                                                    }
+                                                }
                                             },
-                                            new MenuItem("Ustawienia")
+                                            new MenuItem("Sortuj według")
                                             {
-                                                Icon = Icons.Cog,
-                                                Name= "menu2"
+                                                Icon = Icons.Sort,
+                                                Name= "menu2",
+                                                Menu = new Menu()
+                                                {
+                                                    Name = "menu_test2",
+                                                    Width = "350px",
+                                                    DefaultStyle = Style.DefaultStyle.Combine(new Style()
+                                                    {
+                                                        {"size-ease", "out" }
+                                                    }),
+                                                    Items = new List<MenuItem>()
+                                                    {
+                                                        new MenuItem("Nazwa"),
+                                                        new MenuItem("Rozmiar"),
+                                                        new MenuItem("Typ elementu"),
+                                                        new MenuItem("Data modyfikacji")
+                                                    }
+                                                }
+                                            },
+                                            new MenuItem("Odśwież")
+                                            {
+                                                Icon = Icons.Refresh,
+                                                Name= "menu3"
                                             },
                                             new MenuItem()
                                             {
@@ -308,11 +413,124 @@ namespace HlyssUIDemo
                                                     new Divider()
                                                 }
                                             },
-                                            new MenuItem("Wyloguj")
+                                            new MenuItem("Wklej")
                                             {
-                                                Icon = Icons.SignOut,
+                                                Icon = Icons.Paste,
+                                                Name= "menu4"
+                                            },
+                                            new MenuItem("Wklej skrót")
+                                            {
+                                                Name= "menu5"
+                                            },
+                                            new MenuItem("Open in Visual Studio")
+                                            {
+                                                Name= "menu7"
+                                            },
+                                            new MenuItem()
+                                            {
+                                                Hoverable = false,
+                                                Padding = "0px",
+                                                Children = new List<Component>()
+                                                {
+                                                    new Divider()
+                                                }
+                                            },
+                                            new MenuItem("Panel sterowania NVIDIA")
+                                            {
+                                                Name= "menu8"
+                                            },
+                                            new MenuItem()
+                                            {
+                                                Hoverable = false,
+                                                Padding = "0px",
+                                                Children = new List<Component>()
+                                                {
+                                                    new Divider()
+                                                }
+                                            },
+                                            new MenuItem("Następne tło pulpitu")
+                                            {
+                                                Icon = Icons.Image,
+                                                Name= "menu9"
+                                            },
+                                            new MenuItem()
+                                            {
+                                                Hoverable = false,
+                                                Padding = "0px",
+                                                Children = new List<Component>()
+                                                {
+                                                    new Divider()
+                                                }
+                                            },
+                                            new MenuItem("Nowy")
+                                            {
+                                                Icon = Icons.Plus,
+                                                Name= "menu10",
+                                                Menu = new Menu()
+                                                {
+                                                    Name = "menu_test",
+                                                    Width = "350px",
+                                                    DefaultStyle = Style.DefaultStyle.Combine(new Style()
+                                                    {
+                                                        {"size-ease", "out" }
+                                                    }),
+                                                    Items = new List<MenuItem>()
+                                                    {
+                                                        new MenuItem("Folder")
+                                                        {
+                                                            Icon = Icons.Folder
+                                                        },
+                                                        new MenuItem("Skrót")
+                                                        {
+                                                            Icon = Icons.ExternalLink
+                                                        },
+                                                        new MenuItem()
+                                                        {
+                                                            Hoverable = false,
+                                                            Padding = "0px",
+                                                            Children = new List<Component>()
+                                                            {
+                                                                new Divider()
+                                                            }
+                                                        },
+                                                        new MenuItem("Obraz — mapa bitowa")
+                                                        {
+                                                            Icon = Icons.FileImage
+                                                        },
+                                                        new MenuItem("Dokument sformatowany")
+                                                        {
+                                                            Icon = Icons.FileWord
+                                                        },
+                                                        new MenuItem("Dokument tekstowy")
+                                                        {
+                                                            Icon = Icons.FileText
+                                                        },
+                                                        new MenuItem("Folder skompresowany (zip)")
+                                                        {
+                                                            Icon = Icons.FileZip
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            new MenuItem()
+                                            {
+                                                Hoverable = false,
+                                                Padding = "0px",
+                                                Children = new List<Component>()
+                                                {
+                                                    new Divider()
+                                                }
+                                            },
+                                            new MenuItem("Ustawienia ekranu")
+                                            {
+                                                Icon = Icons.Desktop,
+                                                Name= "menu11"
+                                            },
+                                            new MenuItem("Personalizuj")
+                                            {
+                                                Icon = Icons.PaintBrush,
                                                 Name= "menu3"
-                                            }
+                                            },
                                         }
                                     }
                                 }
