@@ -28,8 +28,19 @@ namespace HlyssUI.Components
 
             //Parent.ReorderChild(this, Parent.Children.Count);
 
+
             OnShown();
             Shown?.Invoke(this);
+            FitInWindow();
+        }
+
+        public override void OnInitialized()
+        {
+            base.OnInitialized();
+            App.Window.Resized += (object sender, SFML.Window.SizeEventArgs e) =>
+            {
+                FitInWindow();
+            };
         }
 
         public void Hide()
@@ -50,33 +61,35 @@ namespace HlyssUI.Components
             }
         }
 
-        public override void Update()
+        protected virtual void FitInWindow()
         {
-            base.Update();
-            
-            if(Visible)
+            if (Visible)
             {
                 if (TargetSize.Y < App.Root.TargetSize.Y)
                 {
                     if (TargetPosition.Y + TargetSize.Y > App.Root.TargetSize.Y)
                     {
                         Top = $"{App.Root.TargetSize.Y - TargetSize.Y}px";
+                        System.Console.WriteLine("1");
                     }
                     if (TargetPosition.Y < 0)
                     {
                         Top = "0px";
+                        System.Console.WriteLine("2");
                     }
                 }
 
-                if(TargetSize.X < App.Root.TargetSize.X)
+                if (TargetSize.X < App.Root.TargetSize.X)
                 {
                     if (TargetPosition.X + TargetSize.X > App.Root.TargetSize.X)
                     {
                         Left = $"{App.Root.TargetSize.X - TargetSize.X}px";
+                        System.Console.WriteLine("3");
                     }
                     if (TargetPosition.X < 0)
                     {
                         Left = "0px";
+                        System.Console.WriteLine("4");
                     }
                 }
             }

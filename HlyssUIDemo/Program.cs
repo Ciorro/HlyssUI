@@ -385,7 +385,7 @@ namespace HlyssUIDemo
                                                 Menu = new Menu()
                                                 {
                                                     Name = "menu_test2",
-                                                    Width = "350px",
+                                                    Width = "200px",
                                                     DefaultStyle = Style.DefaultStyle.Combine(new Style()
                                                     {
                                                         {"size-ease", "out" }
@@ -465,11 +465,11 @@ namespace HlyssUIDemo
                                             new MenuItem("Nowy")
                                             {
                                                 Icon = Icons.Plus,
-                                                Name= "menu10",
+                                                Name = "menu10",
                                                 Menu = new Menu()
                                                 {
-                                                    Name = "menu_test",
-                                                    Width = "350px",
+                                                    Name = "menu_test3",
+                                                    Width = "300px",
                                                     DefaultStyle = Style.DefaultStyle.Combine(new Style()
                                                     {
                                                         {"size-ease", "out" }
@@ -697,6 +697,13 @@ namespace HlyssUIDemo
                                                 Padding ="8px",
                                                 Children = new List<Component>()
                                                 {
+                                                    new Dropdown()
+                                                    {
+                                                        Items = new List<string>()
+                                                        {
+                                                            "Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5",
+                                                        }
+                                                    },
                                                     new TextArea()
                                                     {
                                                         Width = "100%",

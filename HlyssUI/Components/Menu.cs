@@ -1,6 +1,4 @@
 ﻿using HlyssUI.Layout;
-using SFML.Graphics;
-using SFML.Window;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -58,11 +56,23 @@ namespace HlyssUI.Components
             Hide();
         }
 
-        public override void Draw(RenderTarget target)
+        protected override void FitInWindow()
         {
-            base.Draw(target);
-            //if(Name == "menu_test")
-            //    System.Console.WriteLine(ClipArea.Bounds);
+            base.FitInWindow();
+
+            if (Visible)
+            {
+                if (TargetSize.Y > App.Root.TargetSize.Y)
+                {
+                    FindChild("menu_item_list").Height = $"{App.Root.TargetSize.Y}px";
+                    FindChild("menu_item_list").AutosizeY = false;
+                    Top = "0px";
+                }
+                else
+                {
+                    FindChild("menu_item_list").AutosizeY = true;
+                }
+            }
         }
     }
 }

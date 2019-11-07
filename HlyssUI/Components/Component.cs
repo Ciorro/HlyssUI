@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Controllers;
+using HlyssUI.Extensions;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
 using HlyssUI.Themes;
@@ -686,7 +687,7 @@ namespace HlyssUI.Components
 
             Vector2i currentMPos = Mouse.GetPosition(App.Window);
 
-            if (_doubleClickTimer.ElapsedMilliseconds <= 500 && _firstClickPos == currentMPos && button == Mouse.Button.Left)
+            if (_doubleClickTimer.ElapsedMilliseconds <= 500 && _firstClickPos.Near(currentMPos, 0) && button == Mouse.Button.Left)
             {
                 _doubleClick = true;
                 DoubleClicked?.Invoke(this);
@@ -704,8 +705,12 @@ namespace HlyssUI.Components
             if (IsPressed && button == Mouse.Button.Left)
             {
                 Focused = true;
-                Clicked?.Invoke(this);
-                OnClicked();
+
+                if (_firstClickPos.Near(Mouse.GetPosition(App.Window), 10))
+                {
+                    Clicked?.Invoke(this);
+                    OnClicked();
+                }
             }
 
             IsPressed = false;

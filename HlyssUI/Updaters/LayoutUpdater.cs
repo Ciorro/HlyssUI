@@ -16,6 +16,8 @@ namespace HlyssUI.Updaters
 
             if (_anyTransformChanged)
             {
+                Console.WriteLine("no i jaa");
+
                 Gauge.StartMeasurement("compose");
                 Compose(component);
                 Gauge.PauseMeasurement("compose");
