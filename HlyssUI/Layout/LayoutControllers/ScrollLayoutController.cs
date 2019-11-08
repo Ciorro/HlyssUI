@@ -13,7 +13,7 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
-                if (child.OnTop)
+                if (child.PositionType == PositionType.Fixed)
                 {
                     child.UpdateLocalPosition();
                     continue;

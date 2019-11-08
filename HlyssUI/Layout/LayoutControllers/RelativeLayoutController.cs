@@ -21,7 +21,7 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
-                if (child.OnTop)
+                if (child.PositionType == PositionType.Fixed)
                 {
                     child.UpdateLocalPosition();
                     continue;
@@ -51,7 +51,7 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
-                if (child.OnTop)
+                if (child.PositionType == PositionType.Fixed)
                 {
                     child.UpdateLocalPosition();
                     continue;
@@ -71,7 +71,7 @@ namespace HlyssUI.Layout.LayoutControllers
         {
             foreach (var child in component.Children)
             {
-                if (!child.OnTop)
+                if (child.PositionType != PositionType.Fixed)
                 {
                     child.Top = $"{(component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2}px";
                     child.Left = $"{(component.TargetSize.X - component.TargetPaddings.Horizontal - child.W - child.Ml - child.Mr) / 2}px";

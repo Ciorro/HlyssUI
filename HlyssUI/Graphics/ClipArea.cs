@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Components;
+using HlyssUI.Layout;
 using SFML.Graphics;
 using SFML.System;
 
@@ -51,7 +52,7 @@ namespace HlyssUI.Graphics
         {
             Component parent = IsComponentOnTop(_component) ? GetNearestTopComponent(_component) : _component.Parent;
 
-            if (parent != null && !_component.OnTop)
+            if (parent != null && _component.PositionType != PositionType.Fixed)
             {
                 if (bounds.Left < parent.ClipArea.Bounds.Left)
                 {
@@ -100,7 +101,7 @@ namespace HlyssUI.Graphics
             {
                 if (component != null)
                 {
-                    if (component.OnTop)
+                    if (component.PositionType == PositionType.Fixed)
                         return true;
 
 
@@ -118,7 +119,7 @@ namespace HlyssUI.Graphics
             {
                 if (component != null)
                 {
-                    if (component.OnTop)
+                    if (component.PositionType == PositionType.Fixed)
                         return component;
 
                     component = component.Parent;

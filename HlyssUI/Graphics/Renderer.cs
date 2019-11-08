@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Components;
+using HlyssUI.Layout;
 using SFML.Graphics;
 using SFML.System;
 
@@ -32,7 +33,7 @@ namespace HlyssUI.Graphics
 
                 View area = GetNearestClipArea(component);
 
-                if (area != null && !component.OnTop)
+                if (area != null && component.PositionType != PositionType.Fixed)
                     component.App.Window.SetView(area);
 
                 component.Draw(component.App.Window);

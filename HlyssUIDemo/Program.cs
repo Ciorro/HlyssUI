@@ -807,6 +807,11 @@ namespace HlyssUIDemo
                 (component.App.Root.FindChild("mbox") as Flyout).Show(new Vector2i());
             };
 
+            component.FindChild("l4").Clicked += (object sender) =>
+            {
+                (component.Parent as Router).Navigate(GetPositionTypeTest());
+            };
+
             (component.FindChild("tooltip") as ToolTip).Target = component.FindChild("dibrysoft_link");
 
             return component;
@@ -936,6 +941,40 @@ namespace HlyssUIDemo
             {
                 component.FindChild("b2").Visible = !component.FindChild("b2").Visible;
                 component.FindChild("b1").ScheduleRefresh();
+            };
+
+            return component;
+        }
+
+        public static Component GetPositionTypeTest()
+        {
+            Component component = new Component()
+            {
+                Width = "100%",
+                Height = "100%",
+                Children = new List<Component>()
+                {
+                    new Panel()
+                    {
+                        Expand = true,
+                        Height = "100%",
+                        Children = new List<Component>()
+                        {
+                            new Label("PositionType.Static"),
+                            new Label("Label component 1"),
+                            new Panel()
+                            {
+                                Autosize = true,
+                                PositionType = PositionType.Static,
+                                Children = new List<Component>()
+                                {
+                                    new Label("This panel element has PositionType.Static")
+                                }
+                            },
+                            new Label("Label component 2")
+                        },
+                    },
+                }
             };
 
             return component;

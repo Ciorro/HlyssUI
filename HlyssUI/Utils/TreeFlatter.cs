@@ -32,7 +32,7 @@ namespace HlyssUI.Utils
 
                 foreach (var childComponent in component.Children)
                 {
-                    if (childComponent.OnTop)
+                    if (childComponent.PositionType == Layout.PositionType.Fixed)
                         onTop = true;
 
                     addComponentSubtree(childComponent, onTop);

@@ -1,5 +1,6 @@
 ﻿using System;
 using HlyssUI.Components;
+using HlyssUI.Layout;
 using HlyssUI.Layout.LayoutControllers;
 using HlyssUI.Utils;
 using SFML.Window;
@@ -92,7 +93,7 @@ namespace HlyssUI.Updaters
                 {
                     expandedCompoentnsCount++;
                 }
-                else if(!child.OnTop)
+                else if(child.PositionType != PositionType.Fixed)
                 {
                     totalWidth += child.TargetSize.X + child.TargetMargins.Horizontal;
                     totalHeight += child.TargetSize.Y + child.TargetMargins.Vertical;

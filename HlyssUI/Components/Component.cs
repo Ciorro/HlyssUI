@@ -76,6 +76,9 @@ namespace HlyssUI.Components
         private LayoutValue _paddingTop = LayoutValue.Default;
         private LayoutValue _paddingBottom = LayoutValue.Default;
 
+        private PositionType _positionType = PositionType.Static;
+        private LayoutType _layout = LayoutType.Row;
+
         public List<Component> Children { get; set; } = new List<Component>();
 
         public Component Slot
@@ -109,7 +112,7 @@ namespace HlyssUI.Components
         {
             get
             {
-                if (!OnTop)
+                if (PositionType != PositionType.Fixed)
                 {
                     Vector2i parentPad = (Parent != null) ? Parent.Paddings.TopLeft : new Vector2i();
                     return ((Parent != null) ? Parent.GlobalPosition + Position + parentPad + Margins.TopLeft : Position) + ScrollOffset;
@@ -371,7 +374,7 @@ namespace HlyssUI.Components
         {
             get
             {
-                if (!OnTop)
+                if (PositionType != PositionType.Fixed)
                     return Spacing.Intersects(Bounds, (Parent != null) ? Parent.Bounds : App.Root.Bounds);
                 else
                     return Spacing.Intersects(Bounds, App.Root.Bounds);
@@ -444,7 +447,6 @@ namespace HlyssUI.Components
         public bool ReversedHorizontal { get; set; }
         public bool ReversedVertical { get; set; }
         public bool Expand { get; set; }
-        public bool OnTop { get; set; }
         public bool CascadeStyle { get; set; } = true;
         public bool ReceiveStyle { get; set; } = true;
 
@@ -468,7 +470,31 @@ namespace HlyssUI.Components
             }
         }
 
-        public LayoutType Layout = LayoutType.Row;
+        public LayoutType Layout
+        {
+            get { return _layout; }
+            set
+            {
+                if (value != _layout)
+                {
+                    _layout = value;
+                    ScheduleRefresh();
+                }
+            }
+        }
+
+        public PositionType PositionType
+        {
+            get { return _positionType; }
+            set
+            {
+                if (value != _positionType)
+                {
+                    _positionType = value;
+                    ScheduleRefresh();
+                }
+            }
+        }
 
         public string Name { get; set; } = Guid.NewGuid().ToString();
         public HlyssApp App { get; set; }
