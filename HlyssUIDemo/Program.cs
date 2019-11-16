@@ -813,6 +813,11 @@ namespace HlyssUIDemo
                 (component.Parent as Router).Navigate(GetPositionTypeTest());
             };
 
+            component.FindChild("l3").Clicked += (object sender) =>
+            {
+                (component.Parent as Router).Navigate(Test());
+            };
+
             (component.FindChild("tooltip") as ToolTip).Target = component.FindChild("dibrysoft_link");
 
             return component;
@@ -1006,6 +1011,8 @@ namespace HlyssUIDemo
                                 Autosize = true,
                                 PositionType = PositionType.Relative,
                                 Padding = "5px",
+                                Left = "20px",
+                                Top = "20px",
                                 Children = new List<Component>()
                                 {
                                     new Label("This panel element has PositionType.Relative")
@@ -1037,6 +1044,8 @@ namespace HlyssUIDemo
                                 Autosize = true,
                                 PositionType = PositionType.Fixed,
                                 Padding = "5px",
+                                Left = "20px",
+                                Top = "200px",
                                 Children = new List<Component>()
                                 {
                                     new Label("This panel element has PositionType.Fixed")
@@ -1068,6 +1077,8 @@ namespace HlyssUIDemo
                                 Autosize = true,
                                 PositionType = PositionType.Absolute,
                                 Padding = "5px",
+                                Left = "20px",
+                                Top = "40px",
                                 Children = new List<Component>()
                                 {
                                     new Label("This panel element has PositionType.Absolute")
@@ -1081,6 +1092,36 @@ namespace HlyssUIDemo
                     },
                 }
             };
+
+            return component;
+        }
+
+        public static Component Test()
+        {
+            Panel component = new Panel()
+            {
+                Width = "100%",
+                Height = "100%",
+                Padding = "20px",
+                Layout = LayoutType.Wrap
+            };
+
+            for (int i = 0; i < 100; i++)
+            {
+                PictureBox pictureBox = new PictureBox("img.jpg")
+                {
+                    Width = "100px",
+                    Height = "100px",
+                    Margin = "5px 2px"
+                };
+                component.Children.Add(pictureBox);
+            }
+
+            component.DefaultStyle = component.DefaultStyle.Combine(new Style()
+            {
+                {"position-ease", "out" },
+                {"position-ease-duration", "1" }
+            });
 
             return component;
         }

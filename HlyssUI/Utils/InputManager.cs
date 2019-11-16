@@ -8,7 +8,7 @@ namespace HlyssUI.Utils
     internal class InputManager
     {
         private HlyssApp _app;
-        private HoverController2 _hoverController = new HoverController2();
+        private HoverController _hoverController = new HoverController();
 
         public InputManager(HlyssApp app)
         {
@@ -60,6 +60,9 @@ namespace HlyssUI.Utils
 
         private void Window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
+            if (_hoverController.HoveredComponents.Count > 0 && !_hoverController.HoveredComponents[0].Clickable)
+                return;
+
             for (int i = 0; i < _hoverController.HoveredComponents.Count; i++)
             {
                 Component component = _hoverController.HoveredComponents[i];

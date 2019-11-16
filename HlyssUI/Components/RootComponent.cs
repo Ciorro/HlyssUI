@@ -20,7 +20,7 @@ namespace HlyssUI.Components
 
             Width = $"{App.Window.Size.X}px";
             Height = $"{App.Window.Size.Y}px";
-            Layout = HlyssUI.Layout.LayoutType.Relative;
+            Layout = HlyssUI.Layout.LayoutType.Absolute;
             Name = "root";
 
             UpdateLocalTransform();

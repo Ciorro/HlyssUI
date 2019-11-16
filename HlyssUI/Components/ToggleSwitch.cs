@@ -88,7 +88,7 @@ namespace HlyssUI.Components
                 Width = "12px",
                 Height = "12px",
                 MarginTop = "4px",
-                //Hoverable = false
+                Hoverable = false
             };
 
             _body = new Panel()
@@ -96,7 +96,7 @@ namespace HlyssUI.Components
                 Width = "40px",
                 Height = "20px",
                 MarginRight = "5px",
-                Layout = LayoutType.Relative,
+                Layout = LayoutType.Absolute,
                 Children = new List<Component>() { _toggle }
             };
 

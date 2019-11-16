@@ -30,7 +30,7 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
-                if (child.PositionType == PositionType.Fixed)
+                if (child.PositionType == PositionType.Fixed || child.PositionType == PositionType.Absolute)
                 {
                     child.TargetRelativePosition = child.TargetPosition;
                     continue;
@@ -38,6 +38,11 @@ namespace HlyssUI.Layout.LayoutControllers
 
                 child.TargetRelativePosition = new Vector2i(0, y);
                 y += child.TargetMargins.Vertical + child.TargetSize.Y;
+
+                if (child.PositionType == PositionType.Relative)
+                {
+                    child.TargetRelativePosition += child.TargetPosition;
+                }
 
                 CompareSize(child);
             }
@@ -52,7 +57,7 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
-                if (child.PositionType == PositionType.Fixed)
+                if (child.PositionType == PositionType.Fixed || child.PositionType == PositionType.Absolute)
                 {
                     child.TargetRelativePosition = child.TargetPosition;
                     continue;
@@ -60,6 +65,11 @@ namespace HlyssUI.Layout.LayoutControllers
 
                 y -= child.TargetMargins.Vertical + child.TargetSize.Y;
                 child.TargetRelativePosition = new Vector2i(0, y);
+
+                if (child.PositionType == PositionType.Relative)
+                {
+                    child.TargetRelativePosition += child.TargetPosition;
+                }
 
                 CompareSize(child);
             }
@@ -69,9 +79,14 @@ namespace HlyssUI.Layout.LayoutControllers
         {
             foreach (var child in component.Children)
             {
-                if (child.PositionType != PositionType.Fixed)
+                switch (child.PositionType)
                 {
-                    child.TargetRelativePosition = new Vector2i((component.TargetSize.X - component.TargetPaddings.Horizontal - child.W - child.Ml - child.Mr) / 2, child.TargetRelativePosition.Y);
+                    case PositionType.Static:
+                        child.TargetRelativePosition = new Vector2i((component.TargetSize.X - component.TargetPaddings.Horizontal - child.W - child.Ml - child.Mr) / 2, child.TargetRelativePosition.Y);
+                        break;
+                    case PositionType.Relative:
+                        child.TargetRelativePosition = new Vector2i((component.TargetSize.X - component.TargetPaddings.Horizontal - child.W - child.Ml - child.Mr) / 2 + child.TargetPosition.X, child.TargetRelativePosition.Y);
+                        break;
                 }
             }
         }

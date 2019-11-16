@@ -25,6 +25,7 @@ namespace HlyssUI.Themes
                 style.SetValue("opacity", "1");
                 style.SetValue("border-radius", "4");
                 style.SetValue("border-thickness", "1");
+                style.SetValue("hoverable", true);
 
                 return style;
             }
@@ -58,38 +59,45 @@ namespace HlyssUI.Themes
 
         //TODO: Allow users to add custom getter methods
 
-        public string GetString(string key)
+        public string GetString(string key, string @default = "")
         {
             if (ContainsKey(key))
                 return this[key];
 
-            return string.Empty;
+            return @default;
         }
 
-        public uint GetUint(string key)
+        public uint GetUint(string key, uint @default = 0)
         {
             uint val = 0;
-            uint.TryParse(GetString(key), out val);
+            val = uint.TryParse(GetString(key), out val) ? val : @default;
             return val;
         }
 
-        public int GetInt(string key)
+        public int GetInt(string key, int @default = 0)
         {
             int val = 0;
-            int.TryParse(GetString(key), out val);
+            val = int.TryParse(GetString(key), out val)? val : @default;
             return val;
         }
 
-        public float GetFloat(string key)
+        public float GetFloat(string key, float @default = 0)
         {
             float val = 0;
-            float.TryParse(GetString(key), NumberStyles.Float, CultureInfo.InvariantCulture, out val);
+            val = float.TryParse(GetString(key), NumberStyles.Float, CultureInfo.InvariantCulture, out val) ? val : @default;
             return val;
         }
 
-        public Color GetColor(string key)
+        public bool GetBool(string key, bool @default = false)
         {
-            Color color = ContainsKey(key) ? Theme.GetColor(this[key]) : Color.White;
+            bool val = false;
+            val = bool.TryParse(GetString(key), out val) ? val : @default;
+            return val;
+        }
+
+        public Color GetColor(string key, Color @default = default)
+        {
+            Color color = ContainsKey(key) ? Theme.GetColor(this[key]) : @default;
 
             float opacity = GetFloat("opacity");
             if (opacity < 0) opacity = 0;

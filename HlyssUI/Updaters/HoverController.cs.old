@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace HlyssUI.Updaters
 {
-    class HoverController2
+    class HoverController
     {
         public List<Component> HoveredComponents { get; private set; } = new List<Component>();
 
         private Vector2i _mPos;
 
-        public void Update(HlyssApp app, Vector2i mousePosition)
+        public void Update(Component rootComponent, Vector2i mousePosition)
         {
             _mPos = mousePosition;
 
@@ -19,43 +19,38 @@ namespace HlyssUI.Updaters
             HoveredComponents.CopyTo(prevComponents);
             HoveredComponents.Clear();
 
-            FindHovered(app);
-            CompareHover(prevComponents.ToList(), HoveredComponents);
+            Component hoveredComponent = FindHovered(rootComponent);
+
+            if (hoveredComponent != null)
+            {
+                CompareHover(prevComponents.ToList(), HoveredComponents);
+            }
+
         }
 
-        private void FindHovered(HlyssApp app)
+        private Component FindHovered(Component component)
         {
-            Component firstHovered = null;
-
-            for (int i = app.FlatComponentTree.Count - 1; i >= 0; i--)
+            for (int i = component.Children.Count - 1; i >= 0; i--)
             {
-                Component component = app.FlatComponentTree[i];
+                Component hoveredComponent = null;
 
-                if (component.Bounds.Contains(_mPos.X, _mPos.Y) && (component.Parent == null || component.PositionType == Layout.Positioning.PositionType.Fixed || (component.Parent != null && component.Parent.ClipArea.Bounds.Contains(_mPos.X, _mPos.Y))) && component.Hoverable && component.Visible)
+                if (component.Children[i].Visible)
+                    hoveredComponent = FindHovered(component.Children[i]);
+
+                if (hoveredComponent != null)
                 {
-                    firstHovered = component;
                     HoveredComponents.Add(component);
-                    break;
+                    return hoveredComponent;
                 }
             }
 
-            if (firstHovered != null)
-                AddPredecessors(firstHovered);
-        }
-
-        private void AddPredecessors(Component component)
-        {
-            while (true)
+            if (component.Bounds.Contains(_mPos.X, _mPos.Y) && (component.Parent == null || (component.Parent != null && component.Parent.ClipArea.Bounds.Contains(_mPos.X, _mPos.Y))) && component.Hoverable && component.Visible)
             {
-                if (component.Parent != null)
-                {
-                    HoveredComponents.Add(component.Parent);
-                    component = component.Parent;
-                    continue;
-                }
-
-                break;
+                HoveredComponents.Add(component);
+                return component;
             }
+
+            return null;
         }
 
         private void CompareHover(List<Component> prevComponents, List<Component> currentComponents)

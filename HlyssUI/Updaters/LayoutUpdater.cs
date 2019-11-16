@@ -103,9 +103,9 @@ namespace HlyssUI.Updaters
             {
                 if (child.Expand)
                 {
-                    if(component.Layout == Layout.LayoutType.Row || component.Layout == Layout.LayoutType.Relative)
+                    if(component.Layout == Layout.LayoutType.Row || component.Layout == Layout.LayoutType.Absolute)
                         child.Width = $"{(component.TargetSize.X - totalWidth) / expandedCompoentnsCount - child.TargetMargins.Horizontal}px";
-                    if (component.Layout == Layout.LayoutType.Column || component.Layout == Layout.LayoutType.Relative)
+                    if (component.Layout == Layout.LayoutType.Column || component.Layout == Layout.LayoutType.Absolute)
                         child.Height = $"{(component.TargetSize.Y - totalHeight) / expandedCompoentnsCount - child.TargetMargins.Vertical}px";
 
                     child.UpdateLocalSize();

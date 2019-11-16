@@ -54,7 +54,7 @@ namespace HlyssUI.Components
 
         public ScrollArea()
         {
-            Layout = LayoutType.Relative;
+            Layout = LayoutType.Absolute;
 
             _contentBox = new Component();
 
@@ -72,7 +72,7 @@ namespace HlyssUI.Components
             _scrollBox = new Component();
             _scrollBox.Width = "100%";
             _scrollBox.Height = "100%";
-            _scrollBox.Layout = LayoutType.Relative;
+            _scrollBox.Layout = LayoutType.Absolute;
             _scrollBox.Reversed = true;
             _scrollBox.Hoverable = false;
             AddChild(_scrollBox);

@@ -4,9 +4,9 @@ using SFML.System;
 
 namespace HlyssUI.Layout.LayoutControllers
 {
-    class RelativeLayoutController : LayoutController
+    class AbsoluteLayoutController : LayoutController
     {
-        public RelativeLayoutController() : base(LayoutType.Relative) { }
+        public AbsoluteLayoutController() : base(LayoutType.Absolute) { }
 
         public override void ApplyLayout(Component component)
         {
@@ -65,7 +65,7 @@ namespace HlyssUI.Layout.LayoutControllers
 
         public override LayoutController Get()
         {
-            return new RelativeLayoutController();
+            return new AbsoluteLayoutController();
         }
 
         public override void ApplyContentCentering(Component component)

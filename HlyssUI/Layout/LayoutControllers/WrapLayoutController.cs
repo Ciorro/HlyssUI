@@ -18,7 +18,7 @@ namespace HlyssUI.Layout.LayoutControllers
                 if (!child.Visible)
                     continue;
 
-                if(child.PositionType == PositionType.Fixed)
+                if (child.PositionType == PositionType.Fixed || child.PositionType == PositionType.Absolute)
                 {
                     child.TargetRelativePosition = child.TargetPosition;
                     continue;
@@ -33,6 +33,11 @@ namespace HlyssUI.Layout.LayoutControllers
 
                 child.TargetRelativePosition = new Vector2i(x, y);
                 x += child.TargetMargins.Horizontal + child.TargetSize.X;
+
+                if (child.PositionType == PositionType.Relative)
+                {
+                    child.TargetRelativePosition += child.TargetPosition;
+                }
 
                 if (child.TargetMargins.Vertical + child.TargetSize.Y > maxY)
                 {
@@ -50,6 +55,7 @@ namespace HlyssUI.Layout.LayoutControllers
 
         public override void ApplyContentCentering(Component component)
         {
+            //TODO: Content centering in wrap layout
             return;
         }
     }
