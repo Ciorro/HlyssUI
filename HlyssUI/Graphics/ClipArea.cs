@@ -1,5 +1,5 @@
 ﻿using HlyssUI.Components;
-using HlyssUI.Layout;
+using HlyssUI.Layout.Positioning;
 using SFML.Graphics;
 using SFML.System;
 

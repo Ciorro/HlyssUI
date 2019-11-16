@@ -27,7 +27,7 @@ namespace HlyssUI.Components
             Padding = "5px";
             Autosize = true;
             Name = "tooltip_panel";
-            PositionType = HlyssUI.Layout.PositionType.Fixed;
+            PositionType = HlyssUI.Layout.Positioning.PositionType.Fixed;
 
             Children = new List<Component>()
             {

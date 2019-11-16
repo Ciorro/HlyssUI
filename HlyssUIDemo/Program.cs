@@ -3,6 +3,7 @@ using HlyssUI.Components;
 using HlyssUI.Components.Routers;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
+using HlyssUI.Layout.Positioning;
 using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
@@ -958,20 +959,124 @@ namespace HlyssUIDemo
                     {
                         Expand = true,
                         Height = "100%",
+                        Layout = LayoutType.Column,
                         Children = new List<Component>()
                         {
-                            new Label("PositionType.Static"),
-                            new Label("Label component 1"),
+                            new Label("PositionType.Static")
+                            {
+                                Margin = "5px"
+                            },
+                            new Label("Label component 1")
+                            {
+                                Margin = "5px"
+                            },
                             new Panel()
                             {
                                 Autosize = true,
                                 PositionType = PositionType.Static,
+                                Padding = "5px",
                                 Children = new List<Component>()
                                 {
                                     new Label("This panel element has PositionType.Static")
                                 }
                             },
                             new Label("Label component 2")
+                            {
+                                Margin = "5px"
+                            }
+                        },
+                    },
+                    new Panel()
+                    {
+                        Expand = true,
+                        Height = "100%",
+                        Layout = LayoutType.Column,
+                        Children = new List<Component>()
+                        {
+                            new Label("PositionType.Relative")
+                            {
+                                Margin = "5px"
+                            },
+                            new Label("Label component 1")
+                            {
+                                Margin = "5px"
+                            },
+                            new Panel()
+                            {
+                                Autosize = true,
+                                PositionType = PositionType.Relative,
+                                Padding = "5px",
+                                Children = new List<Component>()
+                                {
+                                    new Label("This panel element has PositionType.Relative")
+                                }
+                            },
+                            new Label("Label component 2")
+                            {
+                                Margin = "5px"
+                            }
+                        },
+                    },
+                    new Panel()
+                    {
+                        Expand = true,
+                        Height = "100%",
+                        Layout = LayoutType.Column,
+                        Children = new List<Component>()
+                        {
+                            new Label("PositionType.Fixed")
+                            {
+                                Margin = "5px"
+                            },
+                            new Label("Label component 1")
+                            {
+                                Margin = "5px"
+                            },
+                            new Panel()
+                            {
+                                Autosize = true,
+                                PositionType = PositionType.Fixed,
+                                Padding = "5px",
+                                Children = new List<Component>()
+                                {
+                                    new Label("This panel element has PositionType.Fixed")
+                                }
+                            },
+                            new Label("Label component 2")
+                            {
+                                Margin = "5px"
+                            }
+                        },
+                    },
+                    new Panel()
+                    {
+                        Expand = true,
+                        Height = "100%",
+                        Layout = LayoutType.Column,
+                        Children = new List<Component>()
+                        {
+                            new Label("PositionType.Absolute")
+                            {
+                                Margin = "5px"
+                            },
+                            new Label("Label component 1")
+                            {
+                                Margin = "5px"
+                            },
+                            new Panel()
+                            {
+                                Autosize = true,
+                                PositionType = PositionType.Absolute,
+                                Padding = "5px",
+                                Children = new List<Component>()
+                                {
+                                    new Label("This panel element has PositionType.Absolute")
+                                }
+                            },
+                            new Label("Label component 2")
+                            {
+                                Margin = "5px"
+                            }
                         },
                     },
                 }

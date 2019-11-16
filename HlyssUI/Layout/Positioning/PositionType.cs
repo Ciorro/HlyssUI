@@ -1,4 +1,4 @@
-﻿namespace HlyssUI.Layout
+﻿namespace HlyssUI.Layout.Positioning
 {
     public enum PositionType
     {

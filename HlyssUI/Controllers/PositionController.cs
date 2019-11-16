@@ -17,7 +17,7 @@ namespace HlyssUI.Controllers
                 UpdateTween();
 
             tween.Start();
-            _from = component.Position;
+            _from = component.RelativePosition;
         }
 
         public override bool Update()
@@ -28,10 +28,10 @@ namespace HlyssUI.Controllers
             {
                 tween.Update();
 
-                int x = (int)(_from.X + (component.TargetPosition.X - _from.X) * tween.Percentage);
-                int y = (int)(_from.Y + (component.TargetPosition.Y - _from.Y) * tween.Percentage);
+                int x = (int)(_from.X + (component.TargetRelativePosition.X - _from.X) * tween.Percentage);
+                int y = (int)(_from.Y + (component.TargetRelativePosition.Y - _from.Y) * tween.Percentage);
 
-                component.Position = new Vector2i(x, y);
+                component.RelativePosition = new Vector2i(x, y);
             }
 
             return isRunning;

@@ -1,4 +1,6 @@
 ﻿using HlyssUI.Components;
+using HlyssUI.Layout.Positioning;
+using SFML.System;
 
 namespace HlyssUI.Layout.LayoutControllers
 {
@@ -15,14 +17,12 @@ namespace HlyssUI.Layout.LayoutControllers
 
                 if (child.PositionType == PositionType.Fixed)
                 {
-                    child.UpdateLocalPosition();
+                    child.TargetRelativePosition = child.TargetPosition;
                     continue;
                 }
 
-                child.Left = $"{-component.ScrollOffset.X}px";
-                child.Top = $"{-component.ScrollOffset.Y}px";
+                child.TargetRelativePosition = new Vector2i(-component.ScrollOffset.X, -component.ScrollOffset.Y); ;
 
-                child.UpdateLocalPosition();
                 CompareSize(child);
             }
         }

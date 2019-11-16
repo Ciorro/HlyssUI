@@ -1,7 +1,7 @@
 ﻿using System;
 using HlyssUI.Components;
-using HlyssUI.Layout;
 using HlyssUI.Layout.LayoutControllers;
+using HlyssUI.Layout.Positioning;
 using HlyssUI.Utils;
 using SFML.Window;
 
@@ -51,8 +51,7 @@ namespace HlyssUI.Updaters
 
         private void Compose(Component component)
         {
-            component.UpdateLocalSize();
-            component.UpdateLocalSpacing();
+            component.UpdateLocalTransform();
 
             ApplyExpand(component);
 

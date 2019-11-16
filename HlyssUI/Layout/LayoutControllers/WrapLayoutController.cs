@@ -1,4 +1,6 @@
 ﻿using HlyssUI.Components;
+using HlyssUI.Layout.Positioning;
+using SFML.System;
 
 namespace HlyssUI.Layout.LayoutControllers
 {
@@ -18,7 +20,7 @@ namespace HlyssUI.Layout.LayoutControllers
 
                 if(child.PositionType == PositionType.Fixed)
                 {
-                    child.UpdateLocalPosition();
+                    child.TargetRelativePosition = child.TargetPosition;
                     continue;
                 }
 
@@ -29,8 +31,7 @@ namespace HlyssUI.Layout.LayoutControllers
                     maxY = 0;
                 }
 
-                child.Left = $"{x}px";
-                child.Top = $"{y}px";
+                child.TargetRelativePosition = new Vector2i(x, y);
                 x += child.TargetMargins.Horizontal + child.TargetSize.X;
 
                 if (child.TargetMargins.Vertical + child.TargetSize.Y > maxY)
@@ -38,7 +39,6 @@ namespace HlyssUI.Layout.LayoutControllers
                     maxY = child.TargetMargins.Vertical + child.TargetSize.Y;
                 }
 
-                child.UpdateLocalPosition();
                 CompareSize(child);
             }
         }
@@ -50,11 +50,7 @@ namespace HlyssUI.Layout.LayoutControllers
 
         public override void ApplyContentCentering(Component component)
         {
-            foreach (var child in component.Children)
-            {
-                //child.Top = $"{(component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2}px";
-                //child.UpdateLocalPosition();
-            }
+            return;
         }
     }
 }

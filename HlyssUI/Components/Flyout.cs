@@ -17,7 +17,7 @@ namespace HlyssUI.Components
         {
             Visible = false;
             DisableClipping = false;
-            PositionType = HlyssUI.Layout.PositionType.Fixed;
+            PositionType = HlyssUI.Layout.Positioning.PositionType.Fixed;
         }
 
         public virtual void Show(Vector2i position)

@@ -1,4 +1,6 @@
 ﻿using HlyssUI.Components;
+using HlyssUI.Layout.Positioning;
+using SFML.System;
 
 namespace HlyssUI.Layout.LayoutControllers
 {
@@ -30,15 +32,13 @@ namespace HlyssUI.Layout.LayoutControllers
 
                 if (child.PositionType == PositionType.Fixed)
                 {
-                    child.UpdateLocalPosition();
+                    child.TargetRelativePosition = child.TargetPosition;
                     continue;
                 }
 
-                child.Left = "0px";
-                child.Top = $"{y}px";
+                child.TargetRelativePosition = new Vector2i(0, y);
                 y += child.TargetMargins.Vertical + child.TargetSize.Y;
 
-                child.UpdateLocalPosition();
                 CompareSize(child);
             }
         }
@@ -54,15 +54,13 @@ namespace HlyssUI.Layout.LayoutControllers
 
                 if (child.PositionType == PositionType.Fixed)
                 {
-                    child.UpdateLocalPosition();
+                    child.TargetRelativePosition = child.TargetPosition;
                     continue;
                 }
 
                 y -= child.TargetMargins.Vertical + child.TargetSize.Y;
-                child.Left = "0px";
-                child.Top = $"{y}px";
+                child.TargetRelativePosition = new Vector2i(0, y);
 
-                child.UpdateLocalPosition();
                 CompareSize(child);
             }
         }
@@ -73,8 +71,7 @@ namespace HlyssUI.Layout.LayoutControllers
             {
                 if (child.PositionType != PositionType.Fixed)
                 {
-                    child.Left = $"{(component.TargetSize.X - component.TargetPaddings.Horizontal - child.W - child.Ml - child.Mr) / 2}px";
-                    child.UpdateLocalPosition();
+                    child.TargetRelativePosition = new Vector2i((component.TargetSize.X - component.TargetPaddings.Horizontal - child.W - child.Ml - child.Mr) / 2, child.TargetRelativePosition.Y);
                 }
             }
         }

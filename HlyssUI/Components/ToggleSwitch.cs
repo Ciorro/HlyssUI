@@ -88,7 +88,7 @@ namespace HlyssUI.Components
                 Width = "12px",
                 Height = "12px",
                 MarginTop = "4px",
-                Hoverable = false
+                //Hoverable = false
             };
 
             _body = new Panel()

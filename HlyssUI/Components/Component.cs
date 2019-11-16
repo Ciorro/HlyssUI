@@ -2,6 +2,7 @@
 using HlyssUI.Extensions;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
+using HlyssUI.Layout.Positioning;
 using HlyssUI.Themes;
 using HlyssUI.Utils;
 using SFML.Graphics;
@@ -115,14 +116,17 @@ namespace HlyssUI.Components
                 if (PositionType != PositionType.Fixed)
                 {
                     Vector2i parentPad = (Parent != null) ? Parent.Paddings.TopLeft : new Vector2i();
-                    return ((Parent != null) ? Parent.GlobalPosition + Position + parentPad + Margins.TopLeft : Position) + ScrollOffset;
+                    return ((Parent != null) ? Parent.GlobalPosition + RelativePosition + parentPad + Margins.TopLeft : RelativePosition) + ScrollOffset;
                 }
                 else
                 {
-                    return Position;
+                    return RelativePosition;
                 }
             }
         }
+
+        internal Vector2i TargetRelativePosition { get; set; } = new Vector2i();
+        internal Vector2i RelativePosition { get; set; } = new Vector2i();
 
         public Vector2i TargetPosition { get; internal set; } = new Vector2i();
         public Vector2i Position { get; internal set; } = new Vector2i();
@@ -731,12 +735,8 @@ namespace HlyssUI.Components
             if (IsPressed && button == Mouse.Button.Left)
             {
                 Focused = true;
-
-                if (_firstClickPos.Near(Mouse.GetPosition(App.Window), 10))
-                {
-                    Clicked?.Invoke(this);
-                    OnClicked();
-                }
+                Clicked?.Invoke(this);
+                OnClicked();
             }
 
             IsPressed = false;

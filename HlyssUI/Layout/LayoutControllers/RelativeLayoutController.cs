@@ -1,4 +1,6 @@
 ﻿using HlyssUI.Components;
+using HlyssUI.Layout.Positioning;
+using SFML.System;
 
 namespace HlyssUI.Layout.LayoutControllers
 {
@@ -23,23 +25,22 @@ namespace HlyssUI.Layout.LayoutControllers
 
                 if (child.PositionType == PositionType.Fixed)
                 {
-                    child.UpdateLocalPosition();
+                    child.TargetRelativePosition = child.TargetPosition;
                     continue;
                 }
 
                 if (component.ReversedHorizontal)
                 {
                     int x = component.TargetSize.X - component.TargetPaddings.Horizontal - child.TargetMargins.Horizontal - child.TargetSize.X;
-                    child.Left = $"{x}px";
+                    child.TargetRelativePosition = new Vector2i(x, child.TargetRelativePosition.Y);
                 }
 
                 if (component.ReversedVertical)
                 {
                     int y = component.TargetSize.Y - component.TargetPaddings.Vertical - child.TargetMargins.Vertical - child.TargetSize.Y;
-                    child.Top = $"{y}px";
+                    child.TargetRelativePosition = new Vector2i(child.TargetRelativePosition.X, y);
                 }
 
-                child.UpdateLocalPosition();
                 CompareSize(child);
             }
         }
@@ -53,11 +54,11 @@ namespace HlyssUI.Layout.LayoutControllers
 
                 if (child.PositionType == PositionType.Fixed)
                 {
-                    child.UpdateLocalPosition();
+                    child.TargetRelativePosition = child.TargetPosition;
                     continue;
                 }
 
-                child.UpdateLocalPosition();
+                child.TargetRelativePosition = child.TargetPosition;
                 CompareSize(child);
             }
         }
@@ -73,9 +74,7 @@ namespace HlyssUI.Layout.LayoutControllers
             {
                 if (child.PositionType != PositionType.Fixed)
                 {
-                    child.Top = $"{(component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2}px";
-                    child.Left = $"{(component.TargetSize.X - component.TargetPaddings.Horizontal - child.W - child.Ml - child.Mr) / 2}px";
-                    child.UpdateLocalPosition();
+                    child.TargetRelativePosition = new Vector2i((component.TargetSize.X - component.TargetPaddings.Horizontal - child.W - child.Ml - child.Mr) / 2, (component.TargetSize.Y - component.TargetPaddings.Vertical - child.H - child.Mt - child.Mb) / 2);
                 }
             }
         }

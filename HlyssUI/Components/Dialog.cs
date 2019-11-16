@@ -75,7 +75,7 @@ namespace HlyssUI.Components
                 Height = $"{App.Root.H}px",
                 CenterContent = true,
                 Layout = HlyssUI.Layout.LayoutType.Relative,
-                PositionType = HlyssUI.Layout.PositionType.Fixed,
+                PositionType = HlyssUI.Layout.Positioning.PositionType.Fixed,
                 ReceiveStyle = false,
                 DefaultStyle = Style.DefaultStyle.Combine(new Style()
                 {

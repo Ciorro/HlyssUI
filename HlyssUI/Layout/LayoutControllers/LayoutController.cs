@@ -37,8 +37,8 @@ namespace HlyssUI.Layout.LayoutControllers
 
         protected void CompareSize(Component component)
         {
-            int componentRight = component.TargetPosition.X + component.TargetMargins.Horizontal + component.TargetSize.X;
-            int componentBottom = component.TargetPosition.Y + component.TargetMargins.Vertical + component.TargetSize.Y;
+            int componentRight = component.TargetRelativePosition.X + component.TargetMargins.Horizontal + component.TargetSize.X;
+            int componentBottom = component.TargetRelativePosition.Y + component.TargetMargins.Vertical + component.TargetSize.Y;
 
             _maxX = Math.Max(_maxX, componentRight);
             _maxY = Math.Max(_maxY, componentBottom);
