@@ -54,8 +54,6 @@ namespace HlyssUI.Components
         private bool _focused = false;
         private bool _enabled = true;
         private bool _visible = true;
-        private bool _hoverable = true;
-        private bool _clickable = true;
         private DebugRect _debugRect = new DebugRect();
         private Controller[] _controllers;
 
@@ -435,30 +433,6 @@ namespace HlyssUI.Components
             }
         }
 
-        public bool Clickable
-        {
-            get
-            {
-                return (Parent != null && !Parent.Clickable) ? false : _clickable;
-            }
-            set
-            {
-                _clickable = value;
-            }
-        }
-
-        public bool Hoverable
-        {
-            get
-            {
-                return (Parent != null && !Parent.Hoverable) ? false : _hoverable;
-            }
-            set
-            {
-                _hoverable = value;
-            }
-        }
-
         public bool IsInitialized
         {
             get { return App != null && (Parent != null || this is RootComponent); }
@@ -468,6 +442,8 @@ namespace HlyssUI.Components
         public bool StyleChanged { get; set; } = true;
 
         public bool Hovered { get; set; }
+        public bool Hoverable { get; set; } = true;
+        public bool Clickable { get; set; } = true;
         public bool IsPressed { get; private set; }
         public bool DisableClipping { get; set; } = true;
         public bool CenterContent { get; set; }

@@ -144,17 +144,16 @@ namespace HlyssUIDemo
             intelLogo.Style.SetValue("opacity", 0);
             topBarRight.AddChild(intelLogo);
 
-            ScrollArea licenseArea = new ScrollArea()
+            ScrollArea2 licenseArea = new ScrollArea2()
             {
                 Width = "95%",
                 Height = "250px",
-                Margin = "10px",
-                Name = "ScrollArea"
+                Margin = "10px"
             };
             component.AddChild(licenseArea);
-            licenseArea.Content.AutosizeY = true;
-            licenseArea.Content.Width = "100%";
-            licenseArea.Content.Padding = "15px";
+            licenseArea.Slot.AutosizeY = true;
+            licenseArea.Slot.Width = "100%";
+            licenseArea.Slot.Padding = "15px";
 
             TextArea license = new TextArea()
             {
@@ -163,7 +162,7 @@ namespace HlyssUIDemo
                 Height = "1970px",
                 Name = "License (TextArea)"
             };
-            licenseArea.Content.AddChild(license);
+            licenseArea.SlotContent.Add(license);
 
             Component bottomBar = new Component()
             {
@@ -541,37 +540,40 @@ namespace HlyssUIDemo
                                 MarginTop = "10px",
                                 MarginBottom = "10px"
                             },
-                            new ScrollArea()
+                            new ScrollArea2()
                             {
                                 Width = "100%",
                                 Expand = true,
                                 Name = "list",
-                                Content = new Component()
+                                SlotContent = new List<Component>()
                                 {
-                                    AutosizeY = true,
-                                    Width = "100%",
-                                    Layout = LayoutType.Column,
-                                    Children = new List<Component>()
+                                    new Component()
                                     {
-                                        new ListItem("Aktualności")
+                                        AutosizeY = true,
+                                        Width = "100%",
+                                        Layout = LayoutType.Column,
+                                        Children = new List<Component>()
                                         {
-                                            Icon = Icons.Newspaper,
-                                            Name = "l1"
-                                        },
-                                        new ListItem("Gry")
-                                        {
-                                            Icon = Icons.Gamepad,
-                                            Name = "l2"
-                                        },
-                                        new ListItem("Aplikacje")
-                                        {
-                                            Icon = Icons.Cogs,
-                                            Name = "l3"
-                                        },
-                                        new ListItem("DibryStore")
-                                        {
-                                            Icon = Icons.ShoppingCart,
-                                            Name = "l4"
+                                            new ListItem("Aktualności")
+                                            {
+                                                Icon = Icons.Newspaper,
+                                                Name = "l1"
+                                            },
+                                            new ListItem("Gry")
+                                            {
+                                                Icon = Icons.Gamepad,
+                                                Name = "l2"
+                                            },
+                                            new ListItem("Aplikacje")
+                                            {
+                                                Icon = Icons.Cogs,
+                                                Name = "l3"
+                                            },
+                                            new ListItem("DibryStore")
+                                            {
+                                                Icon = Icons.ShoppingCart,
+                                                Name = "l4"
+                                            }
                                         }
                                     }
                                 }
@@ -815,7 +817,12 @@ namespace HlyssUIDemo
 
             component.FindChild("l3").Clicked += (object sender) =>
             {
-                (component.Parent as Router).Navigate(Test());
+                (component.Parent as Router).Navigate(ImagesTest());
+            };
+
+            component.FindChild("l2").Clicked += (object sender) =>
+            {
+                (component.Parent as Router).Navigate(ExpandTest());
             };
 
             (component.FindChild("tooltip") as ToolTip).Target = component.FindChild("dibrysoft_link");
@@ -1096,7 +1103,7 @@ namespace HlyssUIDemo
             return component;
         }
 
-        public static Component Test()
+        public static Component ImagesTest()
         {
             Panel component = new Panel()
             {
@@ -1122,6 +1129,62 @@ namespace HlyssUIDemo
                 {"position-ease", "out" },
                 {"position-ease-duration", "1" }
             });
+
+            return component;
+        }
+
+        public static Component ExpandTest()
+        {
+            Panel component = new Panel()
+            {
+                Width = "100%",
+                Height = "100%",
+                Padding = "20px",
+                Layout = LayoutType.Column,
+                Children = new List<Component>()
+                {
+                    new Panel()
+                    {
+                        Width = "100%",
+                        AutosizeY = true,
+                        Padding = "5px",
+                        Children = new List<Component>()
+                        {
+                            new Button()
+                            {
+                                Label = "Toggle visibility",
+                                Appearance = Button.ButtonStyle.Filled,
+                                Name = "tg_vis"
+                            }
+                        }
+                    },
+                    new Panel()
+                    {
+                        Width = "100%",
+                        Expand = true,
+                        Layout = LayoutType.Row,
+                        Children = new List<Component>()
+                        {
+                            new Panel()
+                            {
+                                Height = "100%",
+                                Expand = true
+                            },
+                            new Panel()
+                            {
+                                Height = "100%",
+                                Width = "200px",
+                                Name = "panel"
+                            }
+                        }
+                    }
+                }
+            };
+
+            component.FindChild("tg_vis").Clicked += (object sender) => 
+            { 
+                component.FindChild("panel").Visible = !component.FindChild("panel").Visible; 
+            };
 
             return component;
         }

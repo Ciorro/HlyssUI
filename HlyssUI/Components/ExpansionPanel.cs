@@ -1,7 +1,5 @@
 ﻿using HlyssUI.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Components
 {
@@ -43,7 +41,7 @@ namespace HlyssUI.Components
                     content.Visible = true;
                     icon.IconType = Icons.AngleUp;
 
-                    if(ExpandMargins)
+                    if (ExpandMargins)
                     {
                         MarginTop = "5px";
                         MarginBottom = "5px";

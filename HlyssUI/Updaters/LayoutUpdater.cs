@@ -92,7 +92,7 @@ namespace HlyssUI.Updaters
                 {
                     expandedCompoentnsCount++;
                 }
-                else if(child.PositionType != PositionType.Fixed)
+                else if(child.PositionType != PositionType.Fixed && child.PositionType != PositionType.Absolute && child.Visible)
                 {
                     totalWidth += child.TargetSize.X + child.TargetMargins.Horizontal;
                     totalHeight += child.TargetSize.Y + child.TargetMargins.Vertical;

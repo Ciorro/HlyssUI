@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Components\ScrollArea.cs.old" />
     <None Remove="Updaters\HoverController.cs.old" />
   </ItemGroup>
 
