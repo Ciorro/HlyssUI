@@ -1,5 +1,5 @@
 ﻿using HlyssUI.Components;
-using HlyssUI.Layout.Positioning;
+using HlyssUI.Layout;
 using SFML.Graphics;
 using SFML.System;
 
@@ -49,7 +49,7 @@ namespace HlyssUI.Graphics
             {
                 if (component.Parent != null)
                 {
-                    if (!component.Parent.DisableClipping)
+                    if (component.Parent.Overflow != OverflowType.Visible)
                         return component.Parent.ClipArea.Area;
 
                     component = component.Parent;

@@ -1,4 +1,5 @@
-﻿using SFML.System;
+﻿using HlyssUI.Layout;
+using SFML.System;
 using SFML.Window;
 
 namespace HlyssUI.Components
@@ -16,8 +17,8 @@ namespace HlyssUI.Components
         public Flyout()
         {
             Visible = false;
-            DisableClipping = false;
-            PositionType = HlyssUI.Layout.Positioning.PositionType.Fixed;
+            Overflow = OverflowType.Hidden;
+            PositionType = HlyssUI.Layout.PositionType.Fixed;
         }
 
         public virtual void Show(Vector2i position)
@@ -25,9 +26,6 @@ namespace HlyssUI.Components
             Left = $"{position.X}px";
             Top = $"{position.Y}px";
             Visible = true;
-
-            //Parent.ReorderChild(this, Parent.Children.Count);
-
 
             OnShown();
             Shown?.Invoke(this);
@@ -40,6 +38,8 @@ namespace HlyssUI.Components
             App.Window.Resized += (object sender, SFML.Window.SizeEventArgs e) =>
             {
                 FitInWindow();
+                MaxWidth = $"{e.Width}px";
+                MaxHeight = $"{e.Height}px";
             };
         }
 

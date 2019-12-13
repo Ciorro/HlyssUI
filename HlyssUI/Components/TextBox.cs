@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Components.Internals;
+using HlyssUI.Layout;
 using HlyssUI.Themes;
 using HlyssUI.Utils;
 using SFML.Graphics;
@@ -54,7 +55,7 @@ namespace HlyssUI.Components
             _textView = new Component()
             {
                 Autosize = true,
-                DisableClipping = false,
+                Overflow = OverflowType.Hidden,
                 Padding = "10px",
                 Children = new List<Component>() { _text }
             };
@@ -66,7 +67,7 @@ namespace HlyssUI.Components
             };
 
             AutosizeY = true;
-            DisableClipping = false;
+            Overflow = OverflowType.Hidden;
 
             UpdateValue();
 

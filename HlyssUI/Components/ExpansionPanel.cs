@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Graphics;
+using HlyssUI.Layout;
 using System.Collections.Generic;
 
 namespace HlyssUI.Components
@@ -106,14 +107,14 @@ namespace HlyssUI.Components
                     Width = "100%",
                     Padding = "1px",
                     AutosizeY = true,
-                    DisableClipping = false,
+                    Overflow = OverflowType.Hidden,
                     Name = "expansionpanel_content"
                 }
             };
 
             AutosizeY = true;
             SlotName = "expansionpanel_content";
-            Layout = HlyssUI.Layout.LayoutType.Column;
+            Layout = LayoutType.Column;
 
             DefaultStyle = new Themes.Style()
             {
@@ -127,18 +128,10 @@ namespace HlyssUI.Components
 
         private void FoldOtherPanels()
         {
-            List<ExpansionPanel> panels = new List<ExpansionPanel>();
-
             foreach (var panel in Parent.Children)
             {
-                if (panel is ExpansionPanel)
-                    panels.Add(panel as ExpansionPanel);
-            }
-
-            foreach (var panel in panels)
-            {
-                if (panel != this)
-                    panel.Expanded = false;
+                if (panel is ExpansionPanel && panel != this)
+                    (panel as ExpansionPanel) .Expanded = false;
             }
         }
     }

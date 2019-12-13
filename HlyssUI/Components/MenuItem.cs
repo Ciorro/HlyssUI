@@ -33,6 +33,11 @@ namespace HlyssUI.Components
                 Name = "menuitem_submenuicon",
                 Visible = false
             });
+
+            DefaultStyle = DefaultStyle.Combine(new Themes.Style
+            {
+                {"border-radius", "0" }
+            });
         }
 
         public override void OnMouseEntered()

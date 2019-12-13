@@ -9,8 +9,7 @@ namespace HlyssUI.Layout.LayoutControllers
             new RowLayoutController(),
             new ColumnLayoutController(),
             new WrapLayoutController(),
-            new AbsoluteLayoutController(),
-            new ScrollLayoutController()
+            new AbsoluteLayoutController()
         };
 
         public static LayoutController GetLayout(LayoutType type)

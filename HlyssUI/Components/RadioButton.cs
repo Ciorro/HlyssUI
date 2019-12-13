@@ -20,7 +20,7 @@ namespace HlyssUI.Components
                     _box.Style.SetValue("secondary-color", "accent");
                     _mark.Style.SetValue("opacity", 1);
 
-                    unmarkOthers();
+                    UnmarkOthers();
                 }
                 else
                 {
@@ -107,7 +107,7 @@ namespace HlyssUI.Components
             IsMarked = true;
         }
 
-        private void unmarkOthers()
+        private void UnmarkOthers()
         {
             if (Parent == null)
                 return;

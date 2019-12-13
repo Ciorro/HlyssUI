@@ -1,7 +1,7 @@
 ﻿using System;
 using HlyssUI.Components;
+using HlyssUI.Layout;
 using HlyssUI.Layout.LayoutControllers;
-using HlyssUI.Layout.Positioning;
 using HlyssUI.Utils;
 using SFML.Window;
 
@@ -65,6 +65,7 @@ namespace HlyssUI.Updaters
             LayoutController layout = LayoutResolver.GetLayout(component.Layout);
             layout.ApplyLayout(component);
             layout.ApplyAutosize(component);
+            layout.ApplyMaxSize(component);
 
             if (component.CenterContent)
                 layout.ApplyContentCentering(component);

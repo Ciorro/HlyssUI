@@ -31,7 +31,7 @@ namespace HlyssUI.Updaters
             {
                 Component component = app.FlatComponentTree[i];
 
-                if (component.Bounds.Contains(_mPos.X, _mPos.Y) && (component.Parent == null || component.PositionType == Layout.Positioning.PositionType.Fixed || (component.Parent != null && component.Parent.ClipArea.Bounds.Contains(_mPos.X, _mPos.Y))) && component.Hoverable && component.Visible)
+                if (component.Bounds.Contains(_mPos.X, _mPos.Y) && (component.Parent == null || component.PositionType == Layout.PositionType.Fixed || (component.Parent != null && component.Parent.ClipArea.Bounds.Contains(_mPos.X, _mPos.Y))) && component.Hoverable && component.Visible)
                 {
                     firstHovered = component;
                     HoveredComponents.Add(component);

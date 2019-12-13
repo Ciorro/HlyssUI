@@ -16,6 +16,11 @@ namespace HlyssUI.Layout
             get { return new LayoutValue(0, ValueType.Pixel); }
         }
 
+        public static LayoutValue Max
+        {
+            get { return new LayoutValue(int.MaxValue, ValueType.Pixel); }
+        }
+
         public int Value;
         public ValueType Type;
 
@@ -27,14 +32,14 @@ namespace HlyssUI.Layout
 
         public static int GetPixelSize(LayoutValue inputValue, int parentValue)
         {
-            float value = inputValue.Value;
+            int value = inputValue.Value;
 
             if (inputValue.Type == ValueType.Percent)
             {
-                value *= parentValue / 100f;
+                value = (int)(value * (parentValue / 100f));
             }
 
-            return (int)value;
+            return value;
         }
 
         public static LayoutValue FromString(string str)

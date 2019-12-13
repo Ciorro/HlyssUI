@@ -3,7 +3,6 @@ using HlyssUI.Components;
 using HlyssUI.Components.Routers;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
-using HlyssUI.Layout.Positioning;
 using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
@@ -32,7 +31,7 @@ namespace HlyssUIDemo
             //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "dark");
+            Theme.Load("theme.ini", "light");
 
             HlyssApp app = new HlyssApp(window);
             app.Root.AddChild(new BasicRouter()
@@ -44,9 +43,6 @@ namespace HlyssUIDemo
 
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
-
-
-
 
             window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
@@ -144,7 +140,7 @@ namespace HlyssUIDemo
             intelLogo.Style.SetValue("opacity", 0);
             topBarRight.AddChild(intelLogo);
 
-            ScrollArea2 licenseArea = new ScrollArea2()
+            Component licenseArea = new Component()
             {
                 Width = "95%",
                 Height = "250px",
@@ -351,9 +347,9 @@ namespace HlyssUIDemo
                                                     }),
                                                     Items = new List<MenuItem>()
                                                     {
-                                                        new MenuItem("Duże ikony"),
-                                                        new MenuItem("Średnie ikony"),
-                                                        new MenuItem("Małe ikony"),
+                                                        new RadioMenuItem("Duże ikony"),
+                                                        new RadioMenuItem("Średnie ikony"),
+                                                        new RadioMenuItem("Małe ikony"),
                                                         new MenuItem()
                                                         {
                                                             Hoverable = false,
@@ -363,8 +359,11 @@ namespace HlyssUIDemo
                                                                 new Divider()
                                                             }
                                                         },
-                                                        new MenuItem("Autorozmieszczanie ikon"),
-                                                        new MenuItem("Wyrównaj ikony według siatki"),
+                                                        new CheckMenuItem("Autorozmieszczanie ikon"),
+                                                        new CheckMenuItem("Wyrównaj ikony według siatki")
+                                                        {
+                                                            IsChecked = true
+                                                        },
                                                         new MenuItem()
                                                         {
                                                             Hoverable = false,
@@ -374,7 +373,10 @@ namespace HlyssUIDemo
                                                                 new Divider()
                                                             }
                                                         },
-                                                        new MenuItem("Pokaż ikony pulpitu"),
+                                                        new CheckMenuItem("Pokaż ikony pulpitu")
+                                                        {
+                                                            IsChecked = true
+                                                        },
                                                     }
                                                 }
                                             },
@@ -540,11 +542,12 @@ namespace HlyssUIDemo
                                 MarginTop = "10px",
                                 MarginBottom = "10px"
                             },
-                            new ScrollArea2()
+                            new Component()
                             {
                                 Width = "100%",
                                 Expand = true,
                                 Name = "list",
+                                Overflow = OverflowType.Scroll,
                                 SlotContent = new List<Component>()
                                 {
                                     new Component()
@@ -552,6 +555,7 @@ namespace HlyssUIDemo
                                         AutosizeY = true,
                                         Width = "100%",
                                         Layout = LayoutType.Column,
+                                        Name = "left_panel",
                                         Children = new List<Component>()
                                         {
                                             new ListItem("Aktualności")
@@ -573,7 +577,107 @@ namespace HlyssUIDemo
                                             {
                                                 Icon = Icons.ShoppingCart,
                                                 Name = "l4"
-                                            }
+                                            },
+                                            new ListItem("Aktualności")
+                                            {
+                                                Icon = Icons.Newspaper,
+                                                Name = "l1"
+                                            },
+                                            new ListItem("Gry")
+                                            {
+                                                Icon = Icons.Gamepad,
+                                                Name = "l2"
+                                            },
+                                            new ListItem("Aplikacje")
+                                            {
+                                                Icon = Icons.Cogs,
+                                                Name = "l3"
+                                            },
+                                            new ListItem("DibryStore")
+                                            {
+                                                Icon = Icons.ShoppingCart,
+                                                Name = "l4"
+                                            },
+                                            new ListItem("Aktualności")
+                                            {
+                                                Icon = Icons.Newspaper,
+                                                Name = "l1"
+                                            },
+                                            new ListItem("Gry")
+                                            {
+                                                Icon = Icons.Gamepad,
+                                                Name = "l2"
+                                            },
+                                            new ListItem("Aplikacje")
+                                            {
+                                                Icon = Icons.Cogs,
+                                                Name = "l3"
+                                            },
+                                            new ListItem("DibryStore")
+                                            {
+                                                Icon = Icons.ShoppingCart,
+                                                Name = "l4"
+                                            },
+                                            new ListItem("Aktualności")
+                                            {
+                                                Icon = Icons.Newspaper,
+                                                Name = "l1"
+                                            },
+                                            new ListItem("Gry")
+                                            {
+                                                Icon = Icons.Gamepad,
+                                                Name = "l2"
+                                            },
+                                            new ListItem("Aplikacje")
+                                            {
+                                                Icon = Icons.Cogs,
+                                                Name = "l3"
+                                            },
+                                            new ListItem("DibryStore")
+                                            {
+                                                Icon = Icons.ShoppingCart,
+                                                Name = "l4"
+                                            },
+                                            new ListItem("Aktualności")
+                                            {
+                                                Icon = Icons.Newspaper,
+                                                Name = "l1"
+                                            },
+                                            new ListItem("Gry")
+                                            {
+                                                Icon = Icons.Gamepad,
+                                                Name = "l2"
+                                            },
+                                            new ListItem("Aplikacje")
+                                            {
+                                                Icon = Icons.Cogs,
+                                                Name = "l3"
+                                            },
+                                            new ListItem("DibryStore")
+                                            {
+                                                Icon = Icons.ShoppingCart,
+                                                Name = "l4"
+                                            },
+                                            new ListItem("Aktualności")
+                                            {
+                                                Icon = Icons.Newspaper,
+                                                Name = "l1"
+                                            },
+                                            new ListItem("Gry")
+                                            {
+                                                Icon = Icons.Gamepad,
+                                                Name = "l2"
+                                            },
+                                            new ListItem("Aplikacje")
+                                            {
+                                                Icon = Icons.Cogs,
+                                                Name = "l3"
+                                            },
+                                            new ListItem("DibryStore")
+                                            {
+                                                Icon = Icons.ShoppingCart,
+                                                Name = "l4"
+                                            },
                                         }
                                     }
                                 }
@@ -704,14 +808,18 @@ namespace HlyssUIDemo
                                                     {
                                                         Items = new List<string>()
                                                         {
-                                                            "Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5",
+                                                            "Item1", "Item2", "Item3", "Item4", "Item5"//,"Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5","Item1", "Item2", "Item3", "Item4", "Item5",
+                                                        },
+                                                        DefaultStyle = new Style()
+                                                        {
+                                                            {"position-ease", "instant" }
                                                         }
                                                     },
                                                     new TextArea()
                                                     {
                                                         Width = "100%",
                                                         Height = "90px",
-                                                        //Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                                                        Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                                                     }
                                                 }
                                             }
@@ -792,7 +900,8 @@ namespace HlyssUIDemo
 
             component.FindChild("btn").Clicked += (object sender) =>
             {
-                (component.Parent as Router).Navigate(GetIntelScene());
+                //(component.Parent as Router).Navigate(GetIntelScene());
+                component.FindChild("btn").MaxWidth = "50px";
             };
 
             component.FindChild("menu3").Clicked += (object sender) =>

@@ -1,5 +1,5 @@
 ﻿using HlyssUI.Components;
-using HlyssUI.Layout.Positioning;
+using HlyssUI.Layout;
 using SFML.Graphics;
 using SFML.System;
 
@@ -26,7 +26,7 @@ namespace HlyssUI.Graphics
         public void Update()
         {
             Vector2f winSize = (Vector2f)_component.App.Window.Size;
-            IntRect bounds = getShrinkedComponentBounds(_component.Bounds);
+            IntRect bounds = GetShrinkedComponentBounds(_component.Bounds);
 
             FitInParent(ref bounds);
             MakeEven(ref winSize, ref bounds);
@@ -38,7 +38,7 @@ namespace HlyssUI.Graphics
             Area.Viewport = new FloatRect(bounds.Left / winSize.X, bounds.Top / winSize.Y, bounds.Width / winSize.X, bounds.Height / winSize.Y);
         }
 
-        private IntRect getShrinkedComponentBounds(IntRect bounds)
+        private IntRect GetShrinkedComponentBounds(IntRect bounds)
         {
             bounds.Left += OutlineThickness;
             bounds.Top += OutlineThickness;
@@ -50,7 +50,7 @@ namespace HlyssUI.Graphics
 
         private void FitInParent(ref IntRect bounds)
         {
-            Component parent = IsComponentOnTop(_component) ? GetNearestTopComponent(_component) : _component.Parent;
+            Component parent = IsComponentFixed(_component) ? GetNearestFixedComponent(_component) : _component.Parent;
 
             if (parent != null && _component.PositionType != PositionType.Fixed)
             {
@@ -95,7 +95,7 @@ namespace HlyssUI.Graphics
                 bounds.Height++;
         }
 
-        private bool IsComponentOnTop(Component component)
+        private bool IsComponentFixed(Component component)
         {
             while (true)
             {
@@ -113,7 +113,7 @@ namespace HlyssUI.Graphics
             }
         }
 
-        private Component GetNearestTopComponent(Component component)
+        private Component GetNearestFixedComponent(Component component)
         {
             while (true)
             {

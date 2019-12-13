@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Extensions;
+using HlyssUI.Layout;
 using HlyssUI.Themes;
 using SFML.System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace HlyssUI.Components
 
             Width = "300px";
             Layout = HlyssUI.Layout.LayoutType.Column;
-            DisableClipping = false;
+            Overflow = OverflowType.Hidden;
 
             DefaultStyle = new Style()
             {
@@ -75,7 +76,7 @@ namespace HlyssUI.Components
                 Height = $"{App.Root.H}px",
                 CenterContent = true,
                 Layout = HlyssUI.Layout.LayoutType.Absolute,
-                PositionType = HlyssUI.Layout.Positioning.PositionType.Fixed,
+                PositionType = HlyssUI.Layout.PositionType.Fixed,
                 ReceiveStyle = false,
                 DefaultStyle = Style.DefaultStyle.Combine(new Style()
                 {

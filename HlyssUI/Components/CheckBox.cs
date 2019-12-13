@@ -46,38 +46,41 @@ namespace HlyssUI.Components
         private Panel _box;
         private Icon _check;
         private Label _label;
-        private bool _checked;
+        private bool _checked = false;
 
         public bool IsChecked
         {
             get { return _checked; }
             set
             {
-                if (value)
+                if (value != _checked)
                 {
-                    _box.DefaultStyle = OnStyle;
-                    _box.HoverStyle = OnHoverStyle;
-                    _box.PressedStyle = OnPressedStyle;
-
-                    _check.DefaultStyle = new Style()
+                    if (value)
                     {
-                        {"opacity", "1" }
-                    };
-                }
-                else
-                {
-                    _box.DefaultStyle = OffStyle;
-                    _box.HoverStyle = OffHoverStyle;
-                    _box.PressedStyle = OffPressedStyle;
+                        _box.DefaultStyle = OnStyle;
+                        _box.HoverStyle = OnHoverStyle;
+                        _box.PressedStyle = OnPressedStyle;
 
-                    _check.DefaultStyle = new Style()
+                        _check.DefaultStyle = new Style()
+                        {
+                            {"opacity", "1" }
+                        };
+                    }
+                    else
                     {
-                        {"opacity", "0" }
-                    };
-                }
+                        _box.DefaultStyle = OffStyle;
+                        _box.HoverStyle = OffHoverStyle;
+                        _box.PressedStyle = OffPressedStyle;
 
-                _checked = value;
-                Checked?.Invoke(this, value);
+                        _check.DefaultStyle = new Style()
+                        {
+                            {"opacity", "0" }
+                        };
+                    }
+
+                    _checked = value;
+                    Checked?.Invoke(this, value);
+                }
             }
         }
 

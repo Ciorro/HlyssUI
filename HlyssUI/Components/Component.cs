@@ -2,7 +2,6 @@
 using HlyssUI.Extensions;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
-using HlyssUI.Layout.Positioning;
 using HlyssUI.Themes;
 using HlyssUI.Utils;
 using SFML.Graphics;
@@ -77,6 +76,9 @@ namespace HlyssUI.Components
         private LayoutValue _paddingTop = LayoutValue.Default;
         private LayoutValue _paddingBottom = LayoutValue.Default;
 
+        private LayoutValue _maxWidth = LayoutValue.Max;
+        private LayoutValue _maxHeight = LayoutValue.Max;
+
         private PositionType _positionType = PositionType.Static;
         private LayoutType _layout = LayoutType.Row;
 
@@ -116,7 +118,12 @@ namespace HlyssUI.Components
                 if (PositionType != PositionType.Fixed)
                 {
                     Vector2i parentPad = (Parent != null) ? Parent.Paddings.TopLeft : new Vector2i();
-                    return ((Parent != null) ? Parent.GlobalPosition + RelativePosition + parentPad + Margins.TopLeft : RelativePosition) + ScrollOffset;
+                    Vector2i globalPosition = ((Parent != null) ? Parent.GlobalPosition + RelativePosition + parentPad + Margins.TopLeft : RelativePosition);
+
+                    if (Parent != null && Parent.Overflow == OverflowType.Scroll)
+                        globalPosition += Parent.ScrollOffset;
+
+                    return globalPosition;
                 }
                 else
                 {
@@ -138,9 +145,50 @@ namespace HlyssUI.Components
         public Spacing TargetPaddings { get; internal set; } = new Spacing();
         public Spacing Paddings { get; internal set; } = new Spacing();
 
-        public Vector2i ScrollOffset { get; set; }
+        public Vector2i ScrollOffset { get; internal set; }
+        public Vector2i TargetScrollOffset { get; internal set; } 
 
         public IntRect Bounds => new IntRect(GlobalPosition, Size);
+
+        public int ContentHeight
+        {
+            get
+            {
+                int maxY = 0;
+
+                foreach (var child in Children)
+                {
+                    int y = child.TargetRelativePosition.Y + child.TargetMargins.Vertical + child.TargetSize.Y;
+
+                    if (y > maxY)
+                    {
+                        maxY = y;
+                    }
+                }
+
+                return maxY;
+            }
+        }
+
+        public int ContentWidth
+        {
+            get
+            {
+                int maxX = 0;
+
+                foreach (var child in Children)
+                {
+                    int x = child.TargetRelativePosition.X + child.TargetMargins.Horizontal + child.TargetSize.X;
+
+                    if (x > maxX)
+                    {
+                        maxX = x;
+                    }
+                }
+
+                return maxX;
+            }
+        }
 
         #region Transform getters
 
@@ -151,6 +199,8 @@ namespace HlyssUI.Components
         //Size
         internal int W => LayoutValue.GetPixelSize(_width, (Parent != null) ? Parent.TargetSize.X - Parent.TargetPaddings.Horizontal : 0);
         internal int H => LayoutValue.GetPixelSize(_height, (Parent != null) ? Parent.TargetSize.Y - Parent.TargetPaddings.Vertical : 0);
+        internal int MaxW => LayoutValue.GetPixelSize(_maxWidth, (Parent != null) ? Parent.TargetSize.X - Parent.TargetPaddings.Horizontal : 0);
+        internal int MaxH => LayoutValue.GetPixelSize(_maxHeight, (Parent != null) ? Parent.TargetSize.Y - Parent.TargetPaddings.Vertical : 0);
 
         //Margin
         internal int Ml => LayoutValue.GetPixelSize(_marginLeft, (Parent != null) ? Parent.TargetSize.X : 0);
@@ -199,6 +249,24 @@ namespace HlyssUI.Components
             set
             {
                 _height = LayoutValue.FromString(value);
+                TransformChanged = true;
+            }
+        }
+
+        public string MaxWidth
+        {
+            set
+            {
+                _maxWidth = LayoutValue.FromString(value);
+                TransformChanged = true;
+            }
+        }
+
+        public string MaxHeight
+        {
+            set
+            {
+                _maxHeight = LayoutValue.FromString(value);
                 TransformChanged = true;
             }
         }
@@ -379,9 +447,9 @@ namespace HlyssUI.Components
             get
             {
                 if (PositionType != PositionType.Fixed)
-                    return Spacing.Intersects(Bounds, (Parent != null) ? Parent.Bounds : App.Root.Bounds);
+                    return Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : App.Root.Bounds);
                 else
-                    return Spacing.Intersects(Bounds, App.Root.Bounds);
+                    return Bounds.Intersects(App.Root.Bounds);
             }
         }
 
@@ -445,7 +513,6 @@ namespace HlyssUI.Components
         public bool Hoverable { get; set; } = true;
         public bool Clickable { get; set; } = true;
         public bool IsPressed { get; private set; }
-        public bool DisableClipping { get; set; } = true;
         public bool CenterContent { get; set; }
         public bool AutosizeX { get; set; }
         public bool AutosizeY { get; set; }
@@ -456,6 +523,8 @@ namespace HlyssUI.Components
         public bool ReceiveStyle { get; set; } = true;
 
         public string SlotName { get; set; } = string.Empty;
+
+        public OverflowType Overflow = OverflowType.Visible;
 
         public bool Reversed
         {
@@ -512,7 +581,8 @@ namespace HlyssUI.Components
                 new PositionController(this),
                 new SizeController(this),
                 new MarginController(this),
-                new PaddingController(this)
+                new PaddingController(this),
+                new ScrollController(this)
             };
 
             TransformChanged = true;
@@ -784,7 +854,7 @@ namespace HlyssUI.Components
 
         public virtual void OnMouseMovedAnywhere(Vector2i location) { }
 
-        public virtual void OnRefresh() {/* Logger.Log($"{this} refreshed");*/ }
+        public virtual void OnRefresh() { }
 
         public virtual void OnStyleChanged()
         {
@@ -806,7 +876,56 @@ namespace HlyssUI.Components
             if (Hovered)
             {
                 ScrolledOn?.Invoke(this, scroll);
+
+                if (Overflow == OverflowType.Scroll)
+                    ScrollByY((int)scroll * (int)(ContentHeight * 0.05f));
             }
+        }
+        #endregion
+
+        #region Scrolling
+        public void ScrollTo(Vector2i offset)
+        {
+            int x = offset.X;
+            int y = offset.Y;
+
+            if (x < TargetSize.X - ContentWidth) x = TargetSize.X - ContentWidth;
+            if (y < TargetSize.Y - ContentHeight) y = TargetSize.Y - ContentHeight;
+            if (x > 0) x = 0;
+            if (y > 0) y = 0;
+
+            Vector2i newOffset = new Vector2i(x, y);
+
+            if (newOffset != TargetScrollOffset)
+            {
+                TargetScrollOffset = newOffset;
+                ScheduleRefresh();
+            }
+        }
+
+        public void ScrollX(int xOffset)
+        {
+            ScrollTo(new Vector2i(xOffset, 0));
+        }
+
+        public void ScrollY(int yOffset)
+        {
+            ScrollTo(new Vector2i(0, yOffset));
+        }
+
+        public void ScrollBy(Vector2i amount)
+        {
+            ScrollTo(TargetScrollOffset + amount);
+        }
+
+        public void ScrollByX(int xAmount)
+        {
+            ScrollBy(new Vector2i(xAmount, 0));
+        }
+
+        public void ScrollByY(int yAmount)
+        {
+            ScrollBy(new Vector2i(0, yAmount));
         }
         #endregion
 

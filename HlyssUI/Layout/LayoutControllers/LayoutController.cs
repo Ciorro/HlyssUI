@@ -36,6 +36,11 @@ namespace HlyssUI.Layout.LayoutControllers
             _maxY = 0;
         }
 
+        public void ApplyMaxSize(Component component)
+        {
+            component.TargetSize = new Vector2i(Math.Min(component.TargetSize.X, component.MaxW), Math.Min(component.TargetSize.Y, component.MaxH));
+        }
+
         protected void CompareSize(Component component)
         {
             int componentRight = component.TargetRelativePosition.X + component.TargetMargins.Horizontal + component.TargetSize.X;

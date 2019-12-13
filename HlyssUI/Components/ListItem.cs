@@ -1,4 +1,5 @@
-﻿using HlyssUI.Themes;
+﻿using HlyssUI.Layout;
+using HlyssUI.Themes;
 using System.Collections.Generic;
 
 namespace HlyssUI.Components
@@ -44,7 +45,7 @@ namespace HlyssUI.Components
             Width = "100%";
             AutosizeY = true;
             CenterContent = true;
-            DisableClipping = false;
+            Overflow = OverflowType.Hidden;
 
             DefaultStyle = new Style()
             {
