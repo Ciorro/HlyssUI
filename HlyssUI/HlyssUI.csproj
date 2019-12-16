@@ -9,6 +9,7 @@
     <Compile Remove="Components\HScrollBar.cs" />
     <Compile Remove="Components\ScrollArea.cs" />
     <Compile Remove="Components\ScrollArea2.cs" />
+    <Compile Remove="Components\ScrollBars.cs" />
     <Compile Remove="Components\VScrollBar.cs" />
     <Compile Remove="GuiScene.cs" />
     <Compile Remove="Layout\Box.cs" />
@@ -23,7 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Components\HScrollBar.cs.old" />
+    <None Remove="Components\HScrollBar.old" />
     <None Remove="Components\ScrollArea.cs.old" />
+    <None Remove="Components\ScrollBars.cs.old" />
+    <None Remove="Components\VScrollBar.cs.old" />
+    <None Remove="Components\VScrollBar.old" />
     <None Remove="Updaters\HoverController.cs.old" />
   </ItemGroup>
 

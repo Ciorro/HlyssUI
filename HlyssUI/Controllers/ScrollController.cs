@@ -6,10 +6,9 @@ namespace HlyssUI.Controllers
     class ScrollController : Controller
     {
         private Vector2i _from = new Vector2i();
+        private bool _contentOverflowsComponent = false;
 
-        public ScrollController(Component component) : base(component)
-        {
-        }
+        public ScrollController(Component component) : base(component) { }
 
         public override void Start()
         {

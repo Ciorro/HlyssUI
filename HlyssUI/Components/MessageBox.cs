@@ -41,8 +41,7 @@ namespace HlyssUI.Components
                         new Button()
                         {
                             Label = "ANULUJ",
-                            Appearance = Button.ButtonStyle.Flat,
-                            Visible = false
+                            Appearance = Button.ButtonStyle.Flat
                         }
                     }
                 }

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace HlyssUIDemo
 {
@@ -578,106 +579,21 @@ namespace HlyssUIDemo
                                                 Icon = Icons.ShoppingCart,
                                                 Name = "l4"
                                             },
-                                            new ListItem("Aktualności")
+                                            new Divider()
                                             {
-                                                Icon = Icons.Newspaper,
-                                                Name = "l1"
+                                                Margin = "5px 5%",
+                                                Width = "90%"
                                             },
-                                            new ListItem("Gry")
+                                            new Dropdown()
                                             {
-                                                Icon = Icons.Gamepad,
-                                                Name = "l2"
-                                            },
-                                            new ListItem("Aplikacje")
-                                            {
-                                                Icon = Icons.Cogs,
-                                                Name = "l3"
-                                            },
-                                            new ListItem("DibryStore")
-                                            {
-                                                Icon = Icons.ShoppingCart,
-                                                Name = "l4"
-                                            },
-                                            new ListItem("Aktualności")
-                                            {
-                                                Icon = Icons.Newspaper,
-                                                Name = "l1"
-                                            },
-                                            new ListItem("Gry")
-                                            {
-                                                Icon = Icons.Gamepad,
-                                                Name = "l2"
-                                            },
-                                            new ListItem("Aplikacje")
-                                            {
-                                                Icon = Icons.Cogs,
-                                                Name = "l3"
-                                            },
-                                            new ListItem("DibryStore")
-                                            {
-                                                Icon = Icons.ShoppingCart,
-                                                Name = "l4"
-                                            },
-                                            new ListItem("Aktualności")
-                                            {
-                                                Icon = Icons.Newspaper,
-                                                Name = "l1"
-                                            },
-                                            new ListItem("Gry")
-                                            {
-                                                Icon = Icons.Gamepad,
-                                                Name = "l2"
-                                            },
-                                            new ListItem("Aplikacje")
-                                            {
-                                                Icon = Icons.Cogs,
-                                                Name = "l3"
-                                            },
-                                            new ListItem("DibryStore")
-                                            {
-                                                Icon = Icons.ShoppingCart,
-                                                Name = "l4"
-                                            },
-                                            new ListItem("Aktualności")
-                                            {
-                                                Icon = Icons.Newspaper,
-                                                Name = "l1"
-                                            },
-                                            new ListItem("Gry")
-                                            {
-                                                Icon = Icons.Gamepad,
-                                                Name = "l2"
-                                            },
-                                            new ListItem("Aplikacje")
-                                            {
-                                                Icon = Icons.Cogs,
-                                                Name = "l3"
-                                            },
-                                            new ListItem("DibryStore")
-                                            {
-                                                Icon = Icons.ShoppingCart,
-                                                Name = "l4"
-                                            },
-                                            new ListItem("Aktualności")
-                                            {
-                                                Icon = Icons.Newspaper,
-                                                Name = "l1"
-                                            },
-                                            new ListItem("Gry")
-                                            {
-                                                Icon = Icons.Gamepad,
-                                                Name = "l2"
-                                            },
-                                            new ListItem("Aplikacje")
-                                            {
-                                                Icon = Icons.Cogs,
-                                                Name = "l3"
-                                            },
-                                            new ListItem("DibryStore")
-                                            {
-                                                Icon = Icons.ShoppingCart,
-                                                Name = "l4"
-                                            },
+                                                Width = "90%",
+                                                Margin = "0px 5%",
+                                                Items = new List<string>()
+                                                {
+                                                    "Action", "Another action", "Something else"
+                                                },
+                                                DefaultStyle = Style.DefaultStyle
+                                            }
                                         }
                                     }
                                 }
@@ -813,13 +729,18 @@ namespace HlyssUIDemo
                                                         DefaultStyle = new Style()
                                                         {
                                                             {"position-ease", "instant" }
-                                                        }
+                                                        },
+                                                        ItemString = "Item4"
                                                     },
-                                                    new TextArea()
-                                                    {
-                                                        Width = "100%",
-                                                        Height = "90px",
-                                                        Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                                                    new Button()
+                                                    { 
+                                                        Appearance = Button.ButtonStyle.Filled,
+                                                        MarginLeft = "5px",
+                                                        Children = new List<Component>()
+                                                        {
+                                                            new Label("Dalej"),
+                                                            new Icon(Icons.AngleRight)
+                                                        }
                                                     }
                                                 }
                                             }
@@ -934,6 +855,11 @@ namespace HlyssUIDemo
                 (component.Parent as Router).Navigate(ExpandTest());
             };
 
+            component.FindChild("l1").Clicked += (object sender) =>
+            {
+                (component.Parent as Router).Navigate(GetColorList());
+            };
+
             (component.FindChild("tooltip") as ToolTip).Target = component.FindChild("dibrysoft_link");
 
             return component;
@@ -1031,39 +957,97 @@ namespace HlyssUIDemo
             return component;
         }
 
-        public static Component GetVisibilityTest()
+        public static Component GetColorList()
         {
             Component component = new Component()
             {
                 Width = "100%",
                 Height = "100%",
+                Layout = LayoutType.Column,
                 Children = new List<Component>()
                 {
-                    new Button()
+                    new Component()
                     {
-                        Label = "Button 1",
-                        Name = "b1"
+                        Width = "100%",
+                        Height = "50px",
+                        CenterContent = true,
+                        Children = new List<Component>()
+                        {
+                            new Button()
+                            {
+                                Name = "Back",
+                                Appearance = Button.ButtonStyle.Flat,
+                                Padding = "5px",
+                                Margin = "5px",
+                                Children = new List<Component>()
+                                {
+                                    new Icon(Icons.AngleLeft)
+                                }
+                            },
+                            new Label()
+                            {
+                                MarginLeft = "10px",
+                                Text = "System.Drawing.KnownColor",
+                                Font = Fonts.MontserratSemiBold,
+                                DefaultStyle = new Style()
+                                {
+                                    {"character-size", "25" }
+                                }
+                            }
+                        }
                     },
-                    new TextBox()
+                    new Component()
                     {
-                        //Text= "Button 2",
-                        Name = "b2",
-                        Visible = false,
-                        Width = "200px"
-                    },
-                    new Button()
-                    {
-                        Label = "Button 3",
-                        Name = "b3"
+                        Width = "100%",
+                        Expand = true,
+                        Name = "Colors",
+                        Layout = LayoutType.Wrap,
+                        Overflow = OverflowType.Scroll
                     }
                 }
             };
 
-            component.FindChild("b1").Clicked += (object sender) =>
+            component.FindChild("Back").Clicked += (object sender) => { (component.Parent as Router).Navigate(GetLonczer()); };
+
+            for (int i = 0; i < Enum.GetValues(typeof(System.Drawing.KnownColor)).Length; i++)
             {
-                component.FindChild("b2").Visible = !component.FindChild("b2").Visible;
-                component.FindChild("b1").ScheduleRefresh();
-            };
+                object knownColor = Enum.ToObject(typeof(System.Drawing.KnownColor), i);
+                System.Drawing.Color color = System.Drawing.Color.FromKnownColor((System.Drawing.KnownColor)knownColor);
+
+                component.GetChild("Colors").Children.Add(new Panel()
+                {
+                    Padding = "5px",
+                    Margin = "2px",
+                    Layout = LayoutType.Column,
+                    Width = "100px",
+                    Height = "150px",
+                    CenterContent = true,
+                    Overflow = OverflowType.Hidden,
+                    Children = new List<Component>()
+                    {
+                        new Panel()
+                        {
+                            Width = "90px",
+                            Height = "90px",
+                            DefaultStyle = new Style()
+                            {
+                                {"primary-color", $"#{color.R:X2}{color.G:X2}{color.B:X2}" },
+                                {"border-thickness", "0" }
+                            }
+                        },
+                        new Label(color.Name)
+                        {
+                            Margin = "10px 0px"
+                        }
+                    }
+                });
+
+                component.Children.Add(new ToolTip()
+                {
+                    Text = color.Name,
+                    Target = component.GetChild("Colors").Children.Last()
+                });
+            }
 
             return component;
         }

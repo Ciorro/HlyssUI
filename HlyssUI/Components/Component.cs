@@ -61,8 +61,6 @@ namespace HlyssUI.Components
         private Style _pressedStyle = new Style();
         private Style _disabledStyle = new Style();
 
-        //TODO: Max/Min width and height
-
         private LayoutValue _positionX = LayoutValue.Default;
         private LayoutValue _positionY = LayoutValue.Default;
         private LayoutValue _width = LayoutValue.Default;
@@ -120,7 +118,7 @@ namespace HlyssUI.Components
                     Vector2i parentPad = (Parent != null) ? Parent.Paddings.TopLeft : new Vector2i();
                     Vector2i globalPosition = ((Parent != null) ? Parent.GlobalPosition + RelativePosition + parentPad + Margins.TopLeft : RelativePosition);
 
-                    if (Parent != null && Parent.Overflow == OverflowType.Scroll)
+                    if (Parent != null && Parent.Overflow == OverflowType.Scroll && PositionType != PositionType.Absolute)
                         globalPosition += Parent.ScrollOffset;
 
                     return globalPosition;
@@ -570,7 +568,9 @@ namespace HlyssUI.Components
             }
         }
 
-        public string Name { get; set; } = Guid.NewGuid().ToString();
+        public string Name { get; set; } = string.Empty;
+        public readonly string Id = Guid.NewGuid().ToString();
+
         public HlyssApp App { get; set; }
 
         public Component()

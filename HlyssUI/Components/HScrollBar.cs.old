@@ -6,7 +6,7 @@ using SFML.Window;
 
 namespace HlyssUI.Components
 {
-    public class HScrollBar : Component
+    internal class HScrollBar : Component
     {
         private RectangleShape _background;
         private RectangleShape _slider;
@@ -16,14 +16,11 @@ namespace HlyssUI.Components
 
         public float Speed = 1;
         public float Percentage = 0;
-        public int ContentWidth;
         public Keyboard.Key ScrollKey = Keyboard.Key.LShift;
         public Component Target = null;
 
-        public HScrollBar(int contentWidth)
+        public HScrollBar()
         {
-            this.ContentWidth = contentWidth;
-
             _background = new RectangleShape();
 
             _slider = new RectangleShape();
@@ -38,6 +35,8 @@ namespace HlyssUI.Components
         public override void Update()
         {
             base.Update();
+
+            Visible = Target.ContentWidth > Target.TargetSize.X;
 
             _tween.Update();
 
@@ -134,7 +133,7 @@ namespace HlyssUI.Components
 
         private float GetPercentageFromSliderPosition()
         {
-            if (ContentWidth <= TargetSize.X)
+            if (Target.ContentWidth <= TargetSize.X)
             {
                 return 0;
             }
@@ -153,7 +152,7 @@ namespace HlyssUI.Components
 
         private void UpdateSlider()
         {
-            _slider.Size = new Vector2f((int)System.Math.Max(((float)TargetSize.X / ContentWidth) * TargetSize.X, TargetSize.X * 0.1f), _slider.Size.Y);
+            _slider.Size = new Vector2f((int)System.Math.Max(((float)TargetSize.X / Target.ContentWidth) * TargetSize.X, TargetSize.X * 0.1f), _slider.Size.Y);
 
             if (_active == true)
             {
