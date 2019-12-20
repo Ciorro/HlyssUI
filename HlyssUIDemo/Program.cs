@@ -1007,7 +1007,7 @@ namespace HlyssUIDemo
                 }
             };
 
-            component.FindChild("Back").Clicked += (object sender) => { (component.Parent as Router).Navigate(GetLonczer()); };
+            component.FindChild("Back").Clicked += (object sender) => { (component.Parent as Router).Navigate(GetLoginScreen()); };
 
             for (int i = 0; i < Enum.GetValues(typeof(System.Drawing.KnownColor)).Length; i++)
             {
@@ -1033,19 +1033,27 @@ namespace HlyssUIDemo
                             {
                                 {"primary-color", $"#{color.R:X2}{color.G:X2}{color.B:X2}" },
                                 {"border-thickness", "0" }
+                            },
+                            HoverStyle = new Style
+                            {
+                                {"primary-color", $"#{color.R:X2}{color.G:X2}{color.B:X2}" }
                             }
                         },
                         new Label(color.Name)
                         {
                             Margin = "10px 0px"
                         }
+                    },
+                    HoverStyle = new Style()
+                    {
+                        {"primary-color", "secondary" }
                     }
                 });
 
                 component.Children.Add(new ToolTip()
                 {
                     Text = color.Name,
-                    Target = component.GetChild("Colors").Children.Last()
+                    Target = component.GetChild("Colors").Children.Last(),
                 });
             }
 
