@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HlyssUI.Styling
+﻿namespace HlyssUI.Styling
 {
-    abstract class StyleValue
+    public class StyleValue
     {
-        public string Name;
-        public string Value;
-        public bool Inheritable;
+        public readonly string Name;
+        public readonly bool Inheritable;
+
+        public string Value { get; set; }
+
+        public StyleValue(string name, string value, bool inheritable = false)
+        {
+            Name = name;
+            Value = value;
+            Inheritable = inheritable;
+        }
     }
 }

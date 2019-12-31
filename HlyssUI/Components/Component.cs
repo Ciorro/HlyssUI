@@ -2,6 +2,7 @@
 using HlyssUI.Extensions;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
+using HlyssUI.Styling;
 using HlyssUI.Themes;
 using HlyssUI.Utils;
 using SFML.Graphics;
@@ -372,70 +373,8 @@ namespace HlyssUI.Components
 
         #region Styles
 
-        //TODO: Change to internal
-        public Style Style
-        {
-            get
-            {
-                if (!Enabled) return DefaultStyle.Combine(DisabledStyle);
-                else if (IsPressed) return DefaultStyle.Combine(PressedStyle);
-                else if (Hovered) return DefaultStyle.Combine(HoverStyle);
-
-                return DefaultStyle;
-            }
-        }
-
-        public Style DefaultStyle
-        {
-            get
-            {
-                return (Parent != null && Parent.CascadeStyle && ReceiveStyle) ? Parent.DefaultStyle.Combine(_defaultStyle) : _defaultStyle;
-            }
-            set
-            {
-                _defaultStyle = value;
-                StyleChanged = true;
-            }
-        }
-
-        public Style HoverStyle
-        {
-            get
-            {
-                return (Parent != null && Parent.CascadeStyle && ReceiveStyle) ? Parent.HoverStyle.Combine(_hoverStyle) : _hoverStyle;
-            }
-            set
-            {
-                _hoverStyle = value;
-                StyleChanged = true;
-            }
-        }
-
-        public Style PressedStyle
-        {
-            get
-            {
-                return (Parent != null && Parent.CascadeStyle && ReceiveStyle) ? Parent.PressedStyle.Combine(_pressedStyle) : _pressedStyle;
-            }
-            set
-            {
-                _pressedStyle = value;
-                StyleChanged = true;
-            }
-        }
-
-        public Style DisabledStyle
-        {
-            get
-            {
-                return (Parent != null && Parent.CascadeStyle && ReceiveStyle) ? Parent.DisabledStyle.Combine(_disabledStyle) : _disabledStyle;
-            }
-            set
-            {
-                _disabledStyle = value;
-                StyleChanged = true;
-            }
-        }
+        internal StyleManager StyleManager;
+        public string Style = string.Empty;
         #endregion
 
         public ClipArea ClipArea { get; private set; }
@@ -584,6 +523,8 @@ namespace HlyssUI.Components
                 new PaddingController(this),
                 new ScrollController(this)
             };
+
+            StyleManager = new StyleManager(this);
 
             TransformChanged = true;
             StyleChanged = true;
