@@ -89,7 +89,7 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
             
-            _image.Radius = Style.GetUint("border-radius");
+            _image.Radius = StyleManager.GetUint("border-radius");
         }
 
         public override void Draw(RenderTarget target)

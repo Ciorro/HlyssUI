@@ -8,8 +8,6 @@ namespace HlyssUI.Components
         {
             App = gui;
 
-            CreateStyle();
-
             App.Window.Resized += (object sender, SizeEventArgs e) =>
             {
                 Width = $"{e.Width}px";
@@ -24,12 +22,6 @@ namespace HlyssUI.Components
             Name = "root";
 
             UpdateLocalTransform();
-        }
-
-        private void CreateStyle()
-        {
-            DefaultStyle = Themes.Style.DefaultStyle;
-            DisabledStyle = Themes.Style.DisabledStyle;
         }
     }
 }

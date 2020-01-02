@@ -26,15 +26,15 @@ namespace HlyssUI.Controllers
 
         protected virtual void UpdateTween()
         {
-            if(component.DefaultStyle.ContainsKey("ease") && component.DefaultStyle.GetString("ease") != tween.Name)
-            {
-                TweenType = component.DefaultStyle.GetString("ease");
-            }
+            //if(component.DefaultStyle.ContainsKey("ease") && component.DefaultStyle.GetString("ease") != tween.Name)
+            //{
+            //    TweenType = component.DefaultStyle.GetString("ease");
+            //}
 
-            if (component.DefaultStyle.ContainsKey("ease-duration") && component.DefaultStyle.GetString("ease-duration") != tween.Name)
-            {
-                tween.Duration = component.DefaultStyle.GetFloat("ease-duration");
-            }
+            //if (component.DefaultStyle.ContainsKey("ease-duration") && component.DefaultStyle.GetString("ease-duration") != tween.Name)
+            //{
+            //    tween.Duration = component.DefaultStyle.GetFloat("ease-duration");
+            //}
         }
     }
 }

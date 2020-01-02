@@ -12,46 +12,46 @@ namespace HlyssUI.Components
 
         #region Styles
 
-        protected readonly Style OnStyle = new Style()
-        {
-            {"primary-color", "accent" },
-            {"border-thickness", "0" },
-            {"border-radius", int.MaxValue.ToString() }
-        };
+        //protected readonly Style OnStyle = new Style()
+        //{
+        //    {"primary-color", "accent" },
+        //    {"border-thickness", "0" },
+        //    {"border-radius", int.MaxValue.ToString() }
+        //};
 
-        protected readonly Style OffStyle = Style.EmptyStyle;
+        //protected readonly Style OffStyle = Style.EmptyStyle;
 
-        protected readonly Style OnHoverStyle = new Style()
-        {
-            {"primary-color", "accent -20" }
-        };
+        //protected readonly Style OnHoverStyle = new Style()
+        //{
+        //    {"primary-color", "accent -20" }
+        //};
 
-        protected readonly Style OffHoverStyle = new Style()
-        {
-            {"primary-color", "primary -20" }
-        };
+        //protected readonly Style OffHoverStyle = new Style()
+        //{
+        //    {"primary-color", "primary -20" }
+        //};
 
-        protected readonly Style OnPressedStyle = new Style()
-        {
-            {"primary-color", "accent -40" }
-        };
+        //protected readonly Style OnPressedStyle = new Style()
+        //{
+        //    {"primary-color", "accent -40" }
+        //};
 
-        protected readonly Style OffPressedStyle = new Style()
-        {
-            {"primary-color", "primary -40" }
-        };
+        //protected readonly Style OffPressedStyle = new Style()
+        //{
+        //    {"primary-color", "primary -40" }
+        //};
 
-        protected readonly Style ToggleOnStyle = new Style()
-        {
-            {"primary-color", Theme.GetColor("accent").GetLegibleColor().ToHex() },
-            {"position-ease", "out" }
-        };
+        //protected readonly Style ToggleOnStyle = new Style()
+        //{
+        //    {"primary-color", Theme.GetColor("accent").GetLegibleColor().ToHex() },
+        //    {"position-ease", "out" }
+        //};
 
-        protected readonly Style ToggleOffStyle = new Style()
-        {
-            {"primary-color", "secondary" },
-            {"position-ease", "out" }
-        };
+        //protected readonly Style ToggleOffStyle = new Style()
+        //{
+        //    {"primary-color", "secondary" },
+        //    {"position-ease", "out" }
+        //};
         #endregion
 
         public bool IsToggled
@@ -113,10 +113,10 @@ namespace HlyssUI.Components
             Autosize = true;
             IsToggled = false;
 
-            DefaultStyle = new Style()
-            {
-                {"border-radius", int.MaxValue.ToString() }
-            };
+            //DefaultStyle = new Style()
+            //{
+            //    {"border-radius", int.MaxValue.ToString() }
+            //};
         }
 
         public override void OnClicked()
@@ -131,21 +131,21 @@ namespace HlyssUI.Components
             {
                 _toggle.Left = "24px";
 
-                _body.DefaultStyle = OnStyle;
-                _body.HoverStyle = OnHoverStyle;
-                _body.PressedStyle = OnPressedStyle;
+                //_body.DefaultStyle = OnStyle;
+                //_body.HoverStyle = OnHoverStyle;
+                //_body.PressedStyle = OnPressedStyle;
 
-                _toggle.DefaultStyle = ToggleOnStyle;
+                //_toggle.DefaultStyle = ToggleOnStyle;
             }
             else
             {
                 _toggle.Left = "4px";
 
-                _body.DefaultStyle = OffStyle;
-                _body.HoverStyle = OffHoverStyle;
-                _body.PressedStyle = OffPressedStyle;
+                //_body.DefaultStyle = OffStyle;
+                //_body.HoverStyle = OffHoverStyle;
+                //_body.PressedStyle = OffPressedStyle;
 
-                _toggle.DefaultStyle = ToggleOffStyle;
+                //_toggle.DefaultStyle = ToggleOffStyle;
             }
         }
     }

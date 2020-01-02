@@ -37,10 +37,10 @@ namespace HlyssUI.Components
                 }
             };
 
-            DefaultStyle = Themes.Style.DefaultStyle.Combine(new Themes.Style()
-            {
-                {"character-size", "12" }
-            });
+            //DefaultStyle = Themes.Style.DefaultStyle.Combine(new Themes.Style()
+            //{
+            //    {"font-size", "12" }
+            //});
         }
 
         public override void Update()

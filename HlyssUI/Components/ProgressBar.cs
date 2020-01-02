@@ -71,8 +71,8 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
 
-            _background.FillColor = Style.GetColor("secondary-color");
-            _fill.FillColor = Style.GetColor("accent-color");
+            _background.FillColor = StyleManager.GetColor("secondary-color");
+            _fill.FillColor = StyleManager.GetColor("accent-color");
         }
 
         public override void Draw(RenderTarget target)

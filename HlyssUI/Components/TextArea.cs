@@ -118,10 +118,10 @@ namespace HlyssUI.Components
 
             foreach (var letter in _letters)
             {
-                letter.Color = Style.GetColor("text-color");
+                letter.Color = StyleManager.GetColor("text-color");
             }
 
-            CharacterSize = Style.GetUint("character-size");
+            CharacterSize = StyleManager.GetUint("font-size");
         }
 
         public override void Draw(RenderTarget target)

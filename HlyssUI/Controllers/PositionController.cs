@@ -40,16 +40,16 @@ namespace HlyssUI.Controllers
         protected override void UpdateTween()
         {
             base.UpdateTween();
+            
+            //if (component.DefaultStyle.ContainsKey("position-ease") && component.DefaultStyle.GetString("position-ease") != tween.Name)
+            //{
+            //    TweenType = component.StyleManager.GetValue("position-ease");
+            //}
 
-            if (component.DefaultStyle.ContainsKey("position-ease") && component.DefaultStyle.GetString("position-ease") != tween.Name)
-            {
-                TweenType = component.DefaultStyle.GetString("position-ease");
-            }
-
-            if (component.DefaultStyle.ContainsKey("position-ease-duration") && component.DefaultStyle.GetString("position-ease-duration") != tween.Name)
-            {
-                tween.Duration = component.DefaultStyle.GetFloat("position-ease-duration");
-            }
+            //if (component.DefaultStyle.ContainsKey("position-ease-duration") && component.DefaultStyle.GetString("position-ease-duration") != tween.Name)
+            //{
+            //    tween.Duration = component.StyleManager.GetFloat("position-ease-duration");
+            //}
         }
     }
 }

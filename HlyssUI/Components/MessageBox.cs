@@ -27,11 +27,11 @@ namespace HlyssUI.Components
                         {
                             Label = "TAK",
                             Appearance = Button.ButtonStyle.Flat,
-                            DefaultStyle = new Themes.Style()
-                            {
-                                {"text-color", "accent" },
-                                {"border-thickness", "0" }
-                            }
+                            //DefaultStyle = new Themes.Style()
+                            //{
+                            //    {"text-color", "accent" },
+                            //    {"border-thickness", "0" }
+                            //}
                         },
                         new Button()
                         {

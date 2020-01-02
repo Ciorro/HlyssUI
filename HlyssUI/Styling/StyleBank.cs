@@ -16,14 +16,18 @@ namespace HlyssUI.Styling
 
             foreach (XmlNode styleClassNode in classes)
             {
-                StyleClass styleClass = new StyleClass(styleClassNode);
-
-                if(!_classes.ContainsKey(styleClass.Name))
+                if (styleClassNode is XmlElement)
                 {
-                    _classes.Add(styleClass.Name, new StyleClassContainer());
-                }
 
-                _classes[styleClass.Name].AddClassState(styleClass, styleClass.State);
+                    StyleClass styleClass = new StyleClass(styleClassNode);
+
+                    if (!_classes.ContainsKey(styleClass.Name))
+                    {
+                        _classes.Add(styleClass.Name, new StyleClassContainer());
+                    }
+
+                    _classes[styleClass.Name].AddClassState(styleClass, styleClass.State);
+                }
             }
         }
 
@@ -40,7 +44,11 @@ namespace HlyssUI.Styling
         public static StyleClassContainer GetClass(string name)
         {
             //stanelo na tym jak szukac odpowiedniego stylu (pressed hover def disabled)
-            return _classes[name];
+
+            if (_classes.ContainsKey(name))
+                return _classes[name];
+            else
+                return new StyleClassContainer();
         }
     }
 }

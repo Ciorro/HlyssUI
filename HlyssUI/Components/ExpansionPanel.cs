@@ -86,10 +86,10 @@ namespace HlyssUI.Components
                         {
                             Font = Fonts.MontserratMedium,
                             Name = "expansionpanel_header",
-                            DefaultStyle = new Themes.Style()
-                            {
-                                {"character-size", "15" }
-                            }
+                            //DefaultStyle = new Themes.Style()
+                            //{
+                            //    {"font-size", "15" }
+                            //}
                         },
                         new Spacer(),
                         new Icon(Icons.AngleDown)
@@ -97,10 +97,10 @@ namespace HlyssUI.Components
                             Name = "expansionpanel_icon"
                         }
                     },
-                    DefaultStyle = new Themes.Style()
-                    {
-                        {"primary-color", "secondary +20" }
-                    }
+                    //DefaultStyle = new Themes.Style()
+                    //{
+                    //    {"primary-color", "secondary +20" }
+                    //}
                 },
                 new Component()
                 {
@@ -116,10 +116,10 @@ namespace HlyssUI.Components
             SlotName = "expansionpanel_content";
             Layout = LayoutType.Column;
 
-            DefaultStyle = new Themes.Style()
-            {
-                {"size-ease","out" }
-            };
+            //DefaultStyle = new Themes.Style()
+            //{
+            //    {"size-ease","out" }
+            //};
 
             GetChild("expansionpanel_topbar").Clicked += (object sender) => Expanded = !Expanded;
 

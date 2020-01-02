@@ -77,16 +77,16 @@ namespace HlyssUI.Components
 
             if (Hovered || _active)
             {
-                _pointer.OutlineColor = Style.GetColor("accent-color");
+                _pointer.OutlineColor = StyleManager.GetColor("accent-color");
             }
             else
             {
-                _pointer.OutlineColor = Style.GetColor("secondary-color");
+                _pointer.OutlineColor = StyleManager.GetColor("secondary-color");
             }
 
-            _bar.FillColor = Style.GetColor("secondary-color");
-            _valueBar.FillColor = Style.GetColor("accent-color");
-            _pointer.FillColor = Style.GetColor("primary-color");
+            _bar.FillColor = StyleManager.GetColor("secondary-color");
+            _valueBar.FillColor = StyleManager.GetColor("accent-color");
+            _pointer.FillColor = StyleManager.GetColor("primary-color");
         }
 
         private int setOffsetInbounds(int offset)

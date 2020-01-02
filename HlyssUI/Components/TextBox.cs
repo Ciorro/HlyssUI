@@ -71,10 +71,10 @@ namespace HlyssUI.Components
 
             UpdateValue();
 
-            HoverStyle = new Style()
-            {
-                {"primary-color", "primary -10" }
-            };
+            //HoverStyle = new Style()
+            //{
+            //    {"primary-color", "primary -10" }
+            //};
         }
 
         public override void OnFocusGained()
@@ -86,9 +86,9 @@ namespace HlyssUI.Components
             else if (SelectOnFocus)
                 _text.SelectAll();
 
-            DefaultStyle = DefaultStyle.Combine(new Style() { { "secondary-color", "accent" } });
-            DefaultStyle = DefaultStyle.Combine(new Style() { { "primary-color", "primary -10" } });
-            DefaultStyle = DefaultStyle.Combine(new Style() { { "border-thickness", "2" } });
+            //DefaultStyle = DefaultStyle.Combine(new Style() { { "secondary-color", "accent" } });
+            //DefaultStyle = DefaultStyle.Combine(new Style() { { "primary-color", "primary -10" } });
+            //DefaultStyle = DefaultStyle.Combine(new Style() { { "border-thickness", "2" } });
 
             _currentIndex = _realText.Length;
         }
@@ -100,9 +100,9 @@ namespace HlyssUI.Components
             if (_realText.Length == 0)
                 _text.Text = Placeholder;
 
-            DefaultStyle = DefaultStyle.Combine(new Style() { { "secondary-color", "secondary" } });
-            DefaultStyle = DefaultStyle.Combine(new Style() { { "primary-color", "primary" } });
-            DefaultStyle = DefaultStyle.Combine(new Style() { { "border-thickness", "1" } });
+            //DefaultStyle = DefaultStyle.Combine(new Style() { { "secondary-color", "secondary" } });
+            //DefaultStyle = DefaultStyle.Combine(new Style() { { "primary-color", "primary" } });
+            //DefaultStyle = DefaultStyle.Combine(new Style() { { "border-thickness", "1" } });
         }
 
         public override void OnTextInput(string text)
@@ -216,7 +216,7 @@ namespace HlyssUI.Components
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
-            _cursor.FillColor = Style.GetColor("text-color");
+            _cursor.FillColor = StyleManager.GetColor("text-color");
         }
 
         public override void Update()
@@ -226,7 +226,7 @@ namespace HlyssUI.Components
             if (_cursorTimer.ElapsedTime.AsMilliseconds() > 500)
             {
                 _cursor.Position = _text.GetLetterPosition(_currentIndex) + (Vector2f)_text.GlobalPosition;
-                _cursor.Size = new Vector2f(1, Style.GetUint("character-size"));
+                _cursor.Size = new Vector2f(1, StyleManager.GetUint("font-size"));
 
                 _cursorVisible = !_cursorVisible;
                 _cursorTimer.Restart();

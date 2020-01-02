@@ -10,8 +10,8 @@ namespace HlyssUI.Components
     {
         public uint IconSize
         {
-            get { return Style.GetUint("character-size"); }
-            set { DefaultStyle = DefaultStyle.Combine(new Style() { { "character-size", value.ToString() } }); }
+            get { return StyleManager.GetUint("font-size"); }
+            set { /*DefaultStyle = DefaultStyle.Combine(new Style() { { "font-size", value.ToString() } });*/ }
         }
 
         public Icons IconType
@@ -34,7 +34,7 @@ namespace HlyssUI.Components
         public Icon(Icons icon)
         {
             _iconFont = new Font(Properties.Resources.Line_Awesome);
-            _iconTxt = new Text(string.Empty, _iconFont, Style.GetUint("character-size"));
+            _iconTxt = new Text(string.Empty, _iconFont, StyleManager.GetUint("font-size"));
             IconType = icon;
             updateSize();
         }
@@ -59,11 +59,11 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
 
-            _iconTxt.FillColor = Style.GetColor("text-color");
+            _iconTxt.FillColor = StyleManager.GetColor("text-color");
 
-            if (_iconTxt.CharacterSize != Style.GetUint("character-size"))
+            if (_iconTxt.CharacterSize != StyleManager.GetUint("font-size"))
             {
-                _iconTxt.CharacterSize = Style.GetUint("character-size");
+                _iconTxt.CharacterSize = StyleManager.GetUint("font-size");
                 updateSize();
             }
         }

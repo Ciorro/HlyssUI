@@ -41,14 +41,14 @@ namespace HlyssUI.Controllers
 
         protected override void UpdateTween()
         {
-            if (component.DefaultStyle.ContainsKey("smooth-scroll") && component.DefaultStyle.GetBool("smooth-scroll"))
-            {
-                TweenType = "out";
-            }
-            else
-            {
-                TweenType = "instant";
-            }
+            //if (component.DefaultStyle.ContainsKey("smooth-scroll") && component.DefaultStyle.GetBool("smooth-scroll"))
+            //{
+            //    TweenType = "out";
+            //}
+            //else
+            //{
+            //    TweenType = "instant";
+            //}
         }
     }
 }

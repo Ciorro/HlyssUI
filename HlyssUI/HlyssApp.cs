@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Components;
 using HlyssUI.Graphics;
+using HlyssUI.Styling;
 using HlyssUI.Themes;
 using HlyssUI.Updaters;
 using HlyssUI.Utils;
@@ -7,6 +8,7 @@ using SFML.Graphics;
 using SFML.Window;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace HlyssUI
 {
@@ -30,6 +32,8 @@ namespace HlyssUI
         public HlyssApp(RenderWindow window)
         {
             Window = window;
+            
+            StyleBank.LoadFromString(Encoding.UTF8.GetString(HlyssUI.Properties.Resources.DefaultStyle));
 
             Root = new RootComponent(this);
             _input = new InputManager(this);

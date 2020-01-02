@@ -57,10 +57,10 @@ namespace HlyssUI.Components
         private DebugRect _debugRect = new DebugRect();
         private Controller[] _controllers;
 
-        private Style _defaultStyle = new Style();
-        private Style _hoverStyle = new Style();
-        private Style _pressedStyle = new Style();
-        private Style _disabledStyle = new Style();
+        //private Style _defaultStyle = new Style();
+        //private Style _hoverStyle = new Style();
+        //private Style _pressedStyle = new Style();
+        //private Style _disabledStyle = new Style();
 
         private LayoutValue _positionX = LayoutValue.Default;
         private LayoutValue _positionY = LayoutValue.Default;
@@ -400,8 +400,8 @@ namespace HlyssUI.Components
             {
                 _enabled = value;
 
-                if (!Style.IsNullOrEmpty(DisabledStyle))
-                    StyleChanged = true;
+                //if (!Style.IsNullOrEmpty(DisabledStyle))
+                //    StyleChanged = true;
             }
         }
 
@@ -713,8 +713,8 @@ namespace HlyssUI.Components
 
         public virtual void OnPressed(Mouse.Button button)
         {
-            if (!Style.IsNullOrEmpty(PressedStyle))
-                StyleChanged = true;
+            //if (!Style.IsNullOrEmpty(PressedStyle))
+            //    StyleChanged = true;
 
             if (button == Mouse.Button.Left)
                 IsPressed = true;
@@ -754,8 +754,8 @@ namespace HlyssUI.Components
             IsPressed = false;
             Released?.Invoke(this, button);
 
-            if (!Style.IsNullOrEmpty(PressedStyle))
-                StyleChanged = true;
+            //if (!Style.IsNullOrEmpty(PressedStyle))
+            //    StyleChanged = true;
         }
 
         public virtual void OnFocusGained()
@@ -780,7 +780,7 @@ namespace HlyssUI.Components
         {
             MouseEntered?.Invoke(this);
 
-            if (!Style.IsNullOrEmpty(HoverStyle))
+            //if (!Style.IsNullOrEmpty(HoverStyle))
                 StyleChanged = true;
         }
 
@@ -789,7 +789,7 @@ namespace HlyssUI.Components
             IsPressed = false;
             MouseLeft?.Invoke(this);
 
-            if (!Style.IsNullOrEmpty(HoverStyle))
+            //if (!Style.IsNullOrEmpty(HoverStyle))
                 StyleChanged = true;
         }
 

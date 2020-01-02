@@ -11,38 +11,6 @@ namespace HlyssUI.Components
         public delegate void CheckHandler(object sender, bool isChecked);
         public event CheckHandler Checked;
 
-        #region Styles
-
-        protected readonly Style OnStyle = new Style()
-        {
-            {"primary-color", "accent" },
-            {"text-color", Theme.GetColor("accent").GetLegibleColor().ToHex() },
-            {"border-thickness", "0" }
-        };
-
-        protected readonly Style OffStyle = Style.EmptyStyle;
-
-        protected readonly Style OnHoverStyle = new Style()
-        {
-            {"primary-color", "accent -20" }
-        };
-
-        protected readonly Style OffHoverStyle = new Style()
-        {
-            {"primary-color", "primary -20" }
-        };
-
-        protected readonly Style OnPressedStyle = new Style()
-        {
-            {"primary-color", "accent -40" }
-        };
-
-        protected readonly Style OffPressedStyle = new Style()
-        {
-            {"primary-color", "primary -40" }
-        };
-        #endregion
-
         private Panel _box;
         private Icon _check;
         private Label _label;
@@ -55,28 +23,7 @@ namespace HlyssUI.Components
             {
                 if (value != _checked)
                 {
-                    if (value)
-                    {
-                        _box.DefaultStyle = OnStyle;
-                        _box.HoverStyle = OnHoverStyle;
-                        _box.PressedStyle = OnPressedStyle;
-
-                        _check.DefaultStyle = new Style()
-                        {
-                            {"opacity", "1" }
-                        };
-                    }
-                    else
-                    {
-                        _box.DefaultStyle = OffStyle;
-                        _box.HoverStyle = OffHoverStyle;
-                        _box.PressedStyle = OffPressedStyle;
-
-                        _check.DefaultStyle = new Style()
-                        {
-                            {"opacity", "0" }
-                        };
-                    }
+                    //TODO: Setting styles
 
                     _checked = value;
                     Checked?.Invoke(this, value);

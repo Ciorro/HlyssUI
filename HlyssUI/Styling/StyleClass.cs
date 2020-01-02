@@ -31,7 +31,7 @@ namespace HlyssUI.Styling
                     return value.Value;
             }
 
-            return string.Empty;
+            return null;
         }
 
         public bool Contains(string name)
@@ -65,6 +65,7 @@ namespace HlyssUI.Styling
 
         private void Load(XmlNode node)
         {
+            Console.WriteLine(node);
             if (node.Attributes["state"] != null)
             {
                 State = (StyleState)Enum.Parse(typeof(StyleState), node.Attributes["state"].InnerText, true);

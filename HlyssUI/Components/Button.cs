@@ -1,6 +1,7 @@
 ﻿using HlyssUI.Graphics;
 using HlyssUI.Themes;
 using HlyssUI.Extensions;
+using System.Collections.Generic;
 
 namespace HlyssUI.Components
 {
@@ -11,52 +12,12 @@ namespace HlyssUI.Components
             Outline, Filled, Flat
         }
 
-        #region Styles
-
-        protected readonly Style OutlineDefault = Style.DefaultStyle;
-
-        protected readonly Style OutlineHover = new Style()
+        private Dictionary<ButtonStyle, string> _styles = new Dictionary<ButtonStyle, string>()
         {
-            {"primary-color", "primary -20" }
+            {ButtonStyle.Outline, "outline_button_default" },
+            {ButtonStyle.Filled, "filled_button_default" },
+            {ButtonStyle.Flat, "flat_button_default" }
         };
-
-        protected readonly Style OutlinePressed = new Style()
-        {
-            {"primary-color", "secondary" }
-        };
-
-        protected readonly Style FillDefault = new Style()
-        {
-            {"primary-color", "accent" },
-            {"border-thickness", "0" },
-            {"text-color", Theme.GetColor("accent").GetLegibleColor().ToHex() }
-        };
-
-        protected readonly Style FillHover = new Style()
-        {
-            {"primary-color", "accent -20" }
-        };
-
-        protected readonly Style FillPressed = new Style()
-        {
-            {"primary-color", "accent -40" }
-        };
-
-        protected readonly Style FlatDefault = new Style()
-        {
-            {"border-thickness", "0" }
-        };
-
-        protected readonly Style FlatHover = new Style()
-        {
-            {"primary-color", "secondary " }
-        };
-
-        protected readonly Style FlatPressed = new Style()
-        {
-            {"primary-color", "secondary -20" }
-        };
-        #endregion
 
         private Label _label;
         private ButtonStyle _style;
@@ -76,25 +37,7 @@ namespace HlyssUI.Components
             set
             {
                 _style = value;
-
-                switch (value)
-                {
-                    case ButtonStyle.Outline:
-                        DefaultStyle = OutlineDefault;
-                        HoverStyle = OutlineHover;
-                        PressedStyle = OutlinePressed;
-                        break;
-                    case ButtonStyle.Filled:
-                        DefaultStyle = FillDefault;
-                        HoverStyle = FillHover;
-                        PressedStyle = FillPressed;
-                        break;
-                    case ButtonStyle.Flat:
-                        DefaultStyle = FlatDefault;
-                        HoverStyle = FlatHover;
-                        PressedStyle = FlatPressed;
-                        break;
-                }
+                Style = _styles[value];
             }
         }
 

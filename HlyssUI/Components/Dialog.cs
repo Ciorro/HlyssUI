@@ -24,20 +24,20 @@ namespace HlyssUI.Components
                         new Label()
                         {
                             Text = "Wyjście",
-                            DefaultStyle = new Style()
-                            {
-                                {"character-size", "20" }
-                            }
+                            //DefaultStyle = new Style()
+                            //{
+                            //    {"font-size", "20" }
+                            //}
                         },
                         new Spacer(),
                         new Icon(Graphics.Icons.X)
                         {
                             IconSize = 20,
                             Name = "dialog_close",
-                            HoverStyle = new Style()
-                            {
-                                {"text-color", "e81123" }
-                            }
+                            //HoverStyle = new Style()
+                            //{
+                            //    {"text-color", "e81123" }
+                            //}
                         }
                     }
                 },
@@ -53,12 +53,12 @@ namespace HlyssUI.Components
             Layout = HlyssUI.Layout.LayoutType.Column;
             Overflow = OverflowType.Hidden;
 
-            DefaultStyle = new Style()
-            {
-                {"secondary-color", "accent" },
-                {"primary-color", "primary" },
-                {"size-ease", "out" }
-            };
+            //DefaultStyle = new Style()
+            //{
+            //    {"secondary-color", "accent" },
+            //    {"primary-color", "primary" },
+            //    {"size-ease", "out" }
+            //};
 
             FindChild("dialog_close").Clicked += (object sender) => Hide();
 
@@ -78,11 +78,11 @@ namespace HlyssUI.Components
                 Layout = HlyssUI.Layout.LayoutType.Absolute,
                 PositionType = HlyssUI.Layout.PositionType.Fixed,
                 ReceiveStyle = false,
-                DefaultStyle = Style.DefaultStyle.Combine(new Style()
-                {
-                    {"primary-color", "22000000" },
-                    {"secondary-color", "22000000" }
-                })
+                //DefaultStyle = Style.DefaultStyle.Combine(new Style()
+                //{
+                //    {"primary-color", "22000000" },
+                //    {"secondary-color", "22000000" }
+                //})
             };
 
             Parent.Children.Add(dialogScaffold);

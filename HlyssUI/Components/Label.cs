@@ -110,10 +110,10 @@ namespace HlyssUI.Components
         {
             base.OnStyleChanged();
 
-            if (_text.FillColor != Style.GetColor("text-color") || _text.CharacterSize != Style.GetUint("character-size"))
+            if (_text.FillColor != StyleManager.GetColor("text-color") || _text.CharacterSize != StyleManager.GetUint("font-size"))
             {
-                _text.FillColor = Style.GetColor("text-color");
-                _text.CharacterSize = Style.GetUint("character-size");
+                _text.FillColor = StyleManager.GetColor("text-color");
+                _text.CharacterSize = StyleManager.GetUint("font-size");
 
                 UpdateSize();
             }

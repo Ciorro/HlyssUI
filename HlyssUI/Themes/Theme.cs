@@ -12,15 +12,15 @@ namespace HlyssUI.Themes
         public static event ThemeLoadedHandler OnThemeLoaded;
 
         private static Dictionary<string, Color> _colors = new Dictionary<string, Color>();
-        private static Dictionary<string, Style> _styles = new Dictionary<string, Style>()
-        {
-            {"default", new Style() }
-        };
+        //private static Dictionary<string, Style> _styles = new Dictionary<string, Style>()
+        //{
+        //    {"default", new Style() }
+        //};
 
-        public static Style DefaultStyle
-        {
-            get { return _styles["default"]; }
-        }
+        //public static Style DefaultStyle
+        //{
+        //    get { return _styles["default"]; }
+        //}
 
         public static uint BorderThickness = 1;
         public static uint BorderRadius = 3;
@@ -58,13 +58,13 @@ namespace HlyssUI.Themes
                 _colors.Add(name, color);
         }
 
-        public static Style GetStyle(string name)
-        {
-            if (_styles.ContainsKey(name))
-                return _styles[name];
+        //public static Style GetStyle(string name)
+        //{
+        //    if (_styles.ContainsKey(name))
+        //        return _styles[name];
 
-            return _styles["default"];
-        }
+        //    return _styles["default"];
+        //}
 
         public static void Load(string file, string theme)
         {
@@ -116,7 +116,7 @@ namespace HlyssUI.Themes
             }
             catch
             {
-                Logger.Log("Invalid color [StringToColor]");
+                Logger.Log($"Invalid color ({color}) [StringToColor]");
                 return Color.White;
             }
         }

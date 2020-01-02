@@ -1,0 +1,40 @@
+<hss>
+  <!-- Filled button -->
+  <style name="filled_button_default" state="default">
+    <primary-color>accent</primary-color>
+    <border-thickness>0</border-thickness>
+  </style>
+
+  <style name="filled_button_default" state="hovered">
+    <primary-color>accent -20</primary-color>
+  </style>
+
+  <style name="filled_button_default" state="pressed">
+    <primary-color>accent -40</primary-color>
+  </style>
+
+  <!--Outline button-->
+  <style name="outline_button_default" state="hovered">
+    <primary-color>primary -20</primary-color>
+  </style>
+
+  <style name="outline_button_default" state="pressed">
+    <primary-color>secondary</primary-color>
+  </style>
+
+  <!--Flat button-->
+  <style name="flat_button_default" state="default">
+    <border-thickness>0</border-thickness>
+  </style>
+
+  <style name="flat_button_default" state="hovered">
+    <primary-color>secondary</primary-color>
+  </style>
+
+  <style name="flat_button_default" state="pressed">
+    <primary-color>secondary -20</primary-color>
+  </style>
+
+  <!--Checkbox-->
+
+</hss>

@@ -47,20 +47,20 @@ namespace HlyssUI.Components
             CenterContent = true;
             Overflow = OverflowType.Hidden;
 
-            DefaultStyle = new Style()
-            {
-                {"border-thickness", "0" }
-            };
+            //DefaultStyle = new Style()
+            //{
+            //    {"border-thickness", "0" }
+            //};
 
-            HoverStyle = new Style()
-            {
-                {"primary-color", "secondary" }
-            };
+            //HoverStyle = new Style()
+            //{
+            //    {"primary-color", "secondary" }
+            //};
 
-            PressedStyle = new Style()
-            {
-                {"primary-color", "secondary -20" }
-            };
+            //PressedStyle = new Style()
+            //{
+            //    {"primary-color", "secondary -20" }
+            //};
         }
     }
 }

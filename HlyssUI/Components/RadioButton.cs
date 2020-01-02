@@ -17,15 +17,15 @@ namespace HlyssUI.Components
             {
                 if (value)
                 {
-                    _box.Style.SetValue("secondary-color", "accent");
-                    _mark.Style.SetValue("opacity", 1);
+                    //_box.Style.SetValue("secondary-color", "accent");
+                    //_mark.Style.SetValue("opacity", 1);
 
                     UnmarkOthers();
                 }
                 else
                 {
-                    _box.Style.SetValue("secondary-color", "secondary");
-                    _mark.Style.SetValue("opacity", 0);
+                    //_box.Style.SetValue("secondary-color", "secondary");
+                    //_mark.Style.SetValue("opacity", 0);
                 }
 
                 _marked = value;
@@ -81,19 +81,19 @@ namespace HlyssUI.Components
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            Style.SetValue("primary-color", "primary -20");
+            //Style.SetValue("primary-color", "primary -20");
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-            Style.SetValue("primary-color", "primary");
+            //Style.SetValue("primary-color", "primary");
         }
 
         public override void OnPressed(Mouse.Button button)
         {
             base.OnPressed(button);
-            Style.SetValue("primary-color", "primary -40");
+            //Style.SetValue("primary-color", "primary -40");
         }
 
         public override void OnChildAdded(Component child)

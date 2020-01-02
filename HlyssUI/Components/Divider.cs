@@ -48,7 +48,7 @@ namespace HlyssUI.Components
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
-            _divider.FillColor = Style.GetColor("secondary-color");
+            _divider.FillColor = StyleManager.GetColor("secondary-color");
         }
 
         public override void Draw(RenderTarget target)

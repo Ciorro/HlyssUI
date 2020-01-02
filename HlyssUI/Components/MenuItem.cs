@@ -34,10 +34,10 @@ namespace HlyssUI.Components
                 Visible = false
             });
 
-            DefaultStyle = DefaultStyle.Combine(new Themes.Style
-            {
-                {"border-radius", "0" }
-            });
+            //DefaultStyle = DefaultStyle.Combine(new Themes.Style
+            //{
+            //    {"border-radius", "0" }
+            //});
         }
 
         public override void OnMouseEntered()

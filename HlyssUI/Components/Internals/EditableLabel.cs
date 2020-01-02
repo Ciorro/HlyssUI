@@ -130,7 +130,7 @@ namespace HlyssUI.Components.Internals
         public EditableLabel()
         {
             Font = Fonts.MontserratRegular;
-            CharacterSize = Style.GetUint("character-size");
+            CharacterSize = StyleManager.GetUint("font-size");
             TextStyle = SFML.Graphics.Text.Styles.Regular;
             Text = string.Empty;
         }
@@ -138,7 +138,7 @@ namespace HlyssUI.Components.Internals
         public EditableLabel(string text)
         {
             Font = Fonts.MontserratRegular;
-            CharacterSize = Style.GetUint("character-size");
+            CharacterSize = StyleManager.GetUint("font-size");
             TextStyle = SFML.Graphics.Text.Styles.Regular;
             Text = text;
         }
@@ -155,8 +155,8 @@ namespace HlyssUI.Components.Internals
 
             foreach (var letter in _letters)
             {
-                letter.Color = Style.GetColor("text-color");
-                letter.CharacterSize = Style.GetUint("character-size");
+                letter.Color = StyleManager.GetColor("text-color");
+                letter.CharacterSize = StyleManager.GetUint("font-size");
             }
         }
 
@@ -304,7 +304,7 @@ namespace HlyssUI.Components.Internals
             {
                 if (letter.IsNewLine)
                 {
-                    y += Font.GetLineSpacing(Style.GetUint("character-size"));
+                    y += Font.GetLineSpacing(StyleManager.GetUint("font-size"));
                     x = GlobalPosition.X;
                 }
 
@@ -325,7 +325,7 @@ namespace HlyssUI.Components.Internals
             }
 
             Width = $"{width}px";
-            Height = $"{(int)(Font.GetLineSpacing(Style.GetUint("character-size")) * Lines)}px";
+            Height = $"{(int)(Font.GetLineSpacing(StyleManager.GetUint("font-size")) * Lines)}px";
         }
 
         private void UpdateSelection()

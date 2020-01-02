@@ -17,6 +17,7 @@
     <Compile Remove="Layout\LayoutComponent.cs" />
     <Compile Remove="Layout\LayoutControllers\ScrollLayoutController.cs" />
     <Compile Remove="Navigator.cs" />
+    <Compile Remove="Themes\Style.cs" />
     <Compile Remove="Updaters\GlobalTransformUpdater.cs" />
     <Compile Remove="Updaters\HoverUpdater.cs" />
     <Compile Remove="Updaters\LocalTransformUpdater.cs" />
