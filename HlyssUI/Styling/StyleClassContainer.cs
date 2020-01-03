@@ -11,7 +11,14 @@ namespace HlyssUI.Styling
 
         public void AddClassState(StyleClass styleClass, StyleState state)
         {
-            _classStates.Add(state, styleClass);
+            if (!_classStates.ContainsKey(state))
+            {
+                _classStates.Add(state, styleClass);
+            }
+            else
+            {
+                //TODO: Combining classes
+            }
         }
 
         public string GetValue(string name, StyleState state = StyleState.Default)
@@ -54,12 +61,8 @@ namespace HlyssUI.Styling
             
             if (_classStates.ContainsKey(StyleState.Default))
                 return _classStates[StyleState.Default].GetValue(name);
-
-            StyleValue styleValue = StyleValueResolver.Get(name);
-
-            if (styleValue != null) 
-                return styleValue.Value;
-            else return null;
+            
+            return null;
         }
     }
 }

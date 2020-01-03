@@ -714,7 +714,7 @@ namespace HlyssUI.Components
         public virtual void OnPressed(Mouse.Button button)
         {
             //if (!Style.IsNullOrEmpty(PressedStyle))
-            //    StyleChanged = true;
+                StyleChanged = true;
 
             if (button == Mouse.Button.Left)
                 IsPressed = true;
@@ -755,7 +755,7 @@ namespace HlyssUI.Components
             Released?.Invoke(this, button);
 
             //if (!Style.IsNullOrEmpty(PressedStyle))
-            //    StyleChanged = true;
+                StyleChanged = true;
         }
 
         public virtual void OnFocusGained()

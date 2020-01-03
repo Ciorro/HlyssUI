@@ -41,15 +41,15 @@ namespace HlyssUI.Controllers
         {
             base.UpdateTween();
 
-            //if (component.DefaultStyle.ContainsKey("size-ease") && component.DefaultStyle.GetString("size-ease") != tween.Name)
-            //{
-            //    TweenType = component.DefaultStyle.GetString("size-ease");
-            //}
+            if (component.StyleManager.GetString("size-ease") != tween.Name)
+            {
+                TweenType = component.StyleManager.GetString("size-ease");
+            }
 
-            //if (component.DefaultStyle.ContainsKey("size-ease-duration") && component.DefaultStyle.GetString("size-ease-duration") != tween.Name)
-            //{
-            //    tween.Duration = component.DefaultStyle.GetFloat("size-ease-duration");
-            //}
+            if (component.StyleManager.GetString("size-ease-duration") != tween.Name)
+            {
+                tween.Duration = component.StyleManager.GetFloat("size-ease-duration");
+            }
         }
     }
 }

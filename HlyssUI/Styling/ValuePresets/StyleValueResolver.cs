@@ -6,6 +6,7 @@ namespace HlyssUI.Styling.ValuePresets
 {
     public static class StyleValueResolver
     {
+        //Registering all available hss values
         private static List<StyleValuePreset> _presets = new List<StyleValuePreset>()
         {
             new PrimaryColorPreset(),
@@ -21,6 +22,16 @@ namespace HlyssUI.Styling.ValuePresets
             new OpacityPreset(),
             new BorderRadiusPreset(),
             new BorderThicknessPreset(),
+            new EasePreset(),
+            new EaseDurationPreset(),
+            new MarginEasePreset(),
+            new MarginEaseDurationPreset(),
+            new PaddingEasePreset(),
+            new PaddingEaseDurationPreset(),
+            new PositionEasePreset(),
+            new PositionEaseDurationPreset(),
+            new SizeEasePreset(),
+            new SizeEaseDurationPreset()
         };
 
         public static StyleValue Get(string name, string value = "")
@@ -32,6 +43,16 @@ namespace HlyssUI.Styling.ValuePresets
             }
 
             return null;
+        }
+
+        public static bool IsValueInheritable(string name)
+        {
+            StyleValue value = Get(name);
+
+            if (value != null)
+                return value.Inheritable;
+
+            return false;
         }
 
         public static void AddPreset(StyleValuePreset preset)

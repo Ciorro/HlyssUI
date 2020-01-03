@@ -83,16 +83,34 @@ namespace HlyssUIDemo
 
         static Component Test()
         {
-            return new Component()
+            return new Panel()
             {
                 Width = "100%",
                 Height = "100%",
+                Padding = "5px",
                 Children = new List<Component>()
                 {
-                    new Button("Przycisk")
+                    new Button("Przycisk 1")
                     {
-                        Name = "Przycisk1",
+                        Name = "Przycisk 1",
                         Appearance = Button.ButtonStyle.Filled
+                    },
+                    new CheckBox("Pole wyboru 1")
+                    {
+                        Name = "Pole wyboru 1"
+                    },
+                    new Panel()
+                    {
+                        Width = "100px",
+                        Height = "100px",
+                        Name = "Panel 1",
+                        Children = new List<Component>()
+                        {
+                            new Label("Label 1")
+                            {
+                                Name = "Label 1"
+                            }
+                        }
                     }
                 }
             };

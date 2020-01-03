@@ -11,6 +11,12 @@ namespace HlyssUI.Components
         public delegate void CheckHandler(object sender, bool isChecked);
         public event CheckHandler Checked;
 
+        private Dictionary<bool, string> _styles = new Dictionary<bool, string>()
+        {
+            {false, "checkbox_off_default" },
+            {true, "checkbox_on_default" }
+        };
+
         private Panel _box;
         private Icon _check;
         private Label _label;
@@ -23,8 +29,8 @@ namespace HlyssUI.Components
             {
                 if (value != _checked)
                 {
-                    //TODO: Setting styles
-
+                    _box.Style = _styles[value];
+                    
                     _checked = value;
                     Checked?.Invoke(this, value);
                 }
@@ -66,6 +72,7 @@ namespace HlyssUI.Components
 
             Autosize = true;
             IsChecked = false;
+            _box.Style = _styles[false];
         }
 
         public override void OnClicked()

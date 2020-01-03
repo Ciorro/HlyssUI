@@ -43,15 +43,15 @@ namespace HlyssUI.Controllers
         {
             base.UpdateTween();
 
-            //if (component.DefaultStyle.ContainsKey("margin-ease") && component.DefaultStyle.GetString("margin-ease") != tween.Name)
-            //{
-            //    TweenType = component.DefaultStyle.GetString("margin-ease");
-            //}
+            if (component.StyleManager.GetString("margin-ease") != tween.Name)
+            {
+                TweenType = component.StyleManager.GetString("margin-ease");
+            }
 
-            //if (component.DefaultStyle.ContainsKey("margin-ease-duration") && component.DefaultStyle.GetString("margin-ease-duration") != tween.Name)
-            //{
-            //    tween.Duration = component.DefaultStyle.GetFloat("margin-ease-duration");
-            //}
+            if (component.StyleManager.GetString("margin-ease-duration") != tween.Name)
+            {
+                tween.Duration = component.StyleManager.GetFloat("margin-ease-duration");
+            }
         }
     }
 }

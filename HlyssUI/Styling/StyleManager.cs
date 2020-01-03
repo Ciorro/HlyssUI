@@ -22,8 +22,8 @@ namespace HlyssUI.Styling
 
         public string GetValue(string name)
         {
-
             StyleState state = ResolveState();
+
             Console.Write($"{_component.Name} [{state}]: {name}");
 
             string value = null;
@@ -31,22 +31,25 @@ namespace HlyssUI.Styling
 
             while(value == null)
             {
-                value = StyleBank.GetClass(_component.Style).GetValue(name, state);
+                value = StyleBank.GetClass(component.Style).GetValue(name, state);
 
-                if (component.Parent != null)
+                if (StyleValueResolver.IsValueInheritable(name) && component.Parent != null)
                     component = component.Parent;
-                else
-                    break;
+                else break;
             }
 
             if(value == null)
             {
+                Console.Write(" [null] ");
+
                 StyleValue styleValue = StyleValueResolver.Get(name);
 
                 if (styleValue != null)
                     value = styleValue.Value;
                 else value = string.Empty;
             }
+            else
+                Console.Write($" [from {component.Name}] ");
 
             Console.WriteLine(" " + value);
             return value;
@@ -62,6 +65,11 @@ namespace HlyssUI.Styling
         }
 
         #region Getters
+
+        public string GetString(string key)
+        {
+            return GetValue(key);
+        }
 
         public uint GetUint(string key)
         {

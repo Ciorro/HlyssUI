@@ -2,6 +2,6 @@
 {
     class FontSizePreset : StyleValuePreset
     {
-        public FontSizePreset() : base("font-size", "14", false) { }
+        public FontSizePreset() : base("font-size", "14", true) { }
     }
 }

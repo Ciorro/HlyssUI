@@ -43,15 +43,15 @@ namespace HlyssUI.Controllers
         {
             base.UpdateTween();
 
-            //if (component.DefaultStyle.ContainsKey("padding-ease") && component.DefaultStyle.GetString("padding-ease") != tween.Name)
-            //{
-            //    TweenType = component.DefaultStyle.GetString("padding-ease");
-            //}
+            if (component.StyleManager.GetString("padding-ease") != tween.Name)
+            {
+                TweenType = component.StyleManager.GetString("padding-ease");
+            }
 
-            //if (component.DefaultStyle.ContainsKey("padding-ease-duration") && component.DefaultStyle.GetString("padding-ease-duration") != tween.Name)
-            //{
-            //    tween.Duration = component.DefaultStyle.GetFloat("padding-ease-duration");
-            //}
+            if (component.StyleManager.GetString("padding-ease-duration") != tween.Name)
+            {
+                tween.Duration = component.StyleManager.GetFloat("padding-ease-duration");
+            }
         }
     }
 }

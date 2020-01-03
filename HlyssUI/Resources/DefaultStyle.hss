@@ -3,6 +3,7 @@
   <style name="filled_button_default" state="default">
     <primary-color>accent</primary-color>
     <border-thickness>0</border-thickness>
+    <text-color>#FFFFFF</text-color>
   </style>
 
   <style name="filled_button_default" state="hovered">
@@ -35,6 +36,40 @@
     <primary-color>secondary -20</primary-color>
   </style>
 
-  <!--Checkbox-->
+  <!--Checkbox on-->
+  <style name="checkbox_on_default" state="default">
+    <primary-color>accent</primary-color>
+    <secondary-color>accent</secondary-color>
+    <text-color>#FFFFFF</text-color>
+  </style>
 
+  <style name="checkbox_on_default" state="hovered">
+    <primary-color>accent -20</primary-color>
+    <secondary-color>accent -20</secondary-color>
+    <text-color>#FFFFFF</text-color>
+  </style>
+
+  <style name="checkbox_on_default" state="pressed">
+    <primary-color>accent -40</primary-color>
+    <secondary-color>accent -40</secondary-color>
+    <text-color>#FFFFFF</text-color>
+  </style>
+
+  <!--Checkbox off-->
+  <style name="checkbox_off_default" state="default">
+    <text-color>primary</text-color>
+  </style>
+  
+  <style name="checkbox_off_default" state="hovered">
+    <primary-color>primary -20</primary-color>
+    <text-color>primary -20</text-color>
+    <secondary-color>secondary</secondary-color>
+  </style>
+
+  <style name="checkbox_off_default" state="pressed">
+    <primary-color>secondary</primary-color>
+    <text-color>secondary</text-color>
+    <secondary-color>secondary</secondary-color>
+  </style>
+  
 </hss>
