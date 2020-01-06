@@ -10,8 +10,6 @@ using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 
 namespace HlyssUIDemo
 {
@@ -42,7 +40,7 @@ namespace HlyssUIDemo
 
             (app.Root.GetChild("router") as Router).Navigate(Test());
 
-            (app.Root.FindChild("Dymek podpowiedzi 1") as ToolTip).Target = app.Root.FindChild("Panel 1");
+            Handle(app);
 
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
@@ -81,6 +79,15 @@ namespace HlyssUIDemo
             }
 
             HlyssUI.Utils.Logger.SaveLog();
+        }
+
+        private static void Handle(HlyssApp app)
+        {
+            (app.Root.FindChild("Dymek podpowiedzi 1") as ToolTip).Target = app.Root.FindChild("Panel 1");
+            app.Root.FindChild("Panel 1").Clicked += (object sender) =>
+            {
+                (app.Root.FindChild("Menu 1") as Menu).Show(app.MousePosition);
+            };
         }
 
         static Component Test()
@@ -158,7 +165,7 @@ namespace HlyssUIDemo
                         Name = "Przycisk radiowy 1"
                     },
                     new RadioButton("Przycisk radiowy 2")
-                    { 
+                    {
                         Name = "Przycisk radiowy 2"
                     },
                     new SpinButton()
@@ -180,7 +187,30 @@ namespace HlyssUIDemo
                         Width = "150px",
                         Height = "20px",
                         Name = "Suwak 1"
-                    }
+                    },
+                    new Panel()
+                    {
+                        Width = "200px",
+                        AutosizeY = true,
+                        Layout = LayoutType.Column,
+                        Padding = "5px 1px",
+                        Children = new List<Component>()
+                        {
+                            new ListItem("Element listy 1"),
+                            new ListItem("Element listy 2"),
+                            new ListItem("Element listy 3"),
+                        }
+                    },
+                    new Menu()
+                    {
+                        Name = "Menu 1",
+                        Items = new List<MenuItem>()
+                        {
+                            new MenuItem("Akcja menu 1"),
+                            new MenuItem("Akcja menu 2"),
+                            new MenuItem("Akcja menu 3"),
+                        }
+                    },
                 }
             };
         }

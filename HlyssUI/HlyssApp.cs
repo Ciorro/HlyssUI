@@ -5,6 +5,7 @@ using HlyssUI.Themes;
 using HlyssUI.Updaters;
 using HlyssUI.Utils;
 using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,12 @@ namespace HlyssUI
         public RenderWindow Window { get; private set; }
 
         public RootComponent Root { get; private set; }
+
+        public Vector2i MousePosition
+        {
+            get { return Mouse.GetPosition(Window); }
+            set { Mouse.SetPosition(value, Window); }
+        }
 
         private ComponentUpdater _componentUpdater = new ComponentUpdater();
         private LayoutUpdater _layoutUpdater = new LayoutUpdater();

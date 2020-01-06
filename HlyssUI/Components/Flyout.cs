@@ -18,7 +18,7 @@ namespace HlyssUI.Components
         {
             Visible = false;
             Overflow = OverflowType.Hidden;
-            PositionType = HlyssUI.Layout.PositionType.Fixed;
+            PositionType = PositionType.Fixed;
         }
 
         public virtual void Show(Vector2i position)

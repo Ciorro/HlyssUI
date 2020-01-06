@@ -96,10 +96,12 @@
     <primary-color>secondary +20</primary-color>
   </style>
   
-  <!--Radio button-->
+  <!--Radio button  >>TODO<<-->
   <style name="radio_button_off_default" state="default">
     <border-radius>1000</border-radius>
   </style>
+  
+  <!--Toggle switch >>TODO<<-->
   
   <!--Textbox off-->
   <style name="textbox_off_default" state="hovered">

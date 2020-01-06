@@ -65,7 +65,6 @@ namespace HlyssUI.Styling
 
         private void Load(XmlNode node)
         {
-            Console.WriteLine(node);
             if (node.Attributes["state"] != null)
             {
                 State = (StyleState)Enum.Parse(typeof(StyleState), node.Attributes["state"].InnerText, true);

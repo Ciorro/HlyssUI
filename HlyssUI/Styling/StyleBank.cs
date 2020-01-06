@@ -18,7 +18,6 @@ namespace HlyssUI.Styling
             {
                 if (styleClassNode is XmlElement)
                 {
-
                     StyleClass styleClass = new StyleClass(styleClassNode);
 
                     if (!_classes.ContainsKey(styleClass.Name))
