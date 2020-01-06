@@ -89,6 +89,8 @@
   <!--Expansion panel-->
   <style name="expansion_panel_default" state="default">
     <size-ease>out</size-ease>
+    <margin-ease>out</margin-ease>
+    <position-ease>out</position-ease>
   </style>
 
   <style name="expansion_panel_header_default" state="default">

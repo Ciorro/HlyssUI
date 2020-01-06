@@ -70,12 +70,10 @@ namespace HlyssUI.Components
                     if (TargetPosition.Y + TargetSize.Y > App.Root.TargetSize.Y)
                     {
                         Top = $"{App.Root.TargetSize.Y - TargetSize.Y}px";
-                        System.Console.WriteLine("1");
                     }
                     if (TargetPosition.Y < 0)
                     {
                         Top = "0px";
-                        System.Console.WriteLine("2");
                     }
                 }
 
@@ -84,12 +82,10 @@ namespace HlyssUI.Components
                     if (TargetPosition.X + TargetSize.X > App.Root.TargetSize.X)
                     {
                         Left = $"{App.Root.TargetSize.X - TargetSize.X}px";
-                        System.Console.WriteLine("3");
                     }
                     if (TargetPosition.X < 0)
                     {
                         Left = "0px";
-                        System.Console.WriteLine("4");
                     }
                 }
             }
