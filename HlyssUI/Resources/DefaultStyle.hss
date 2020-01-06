@@ -72,4 +72,44 @@
     <secondary-color>secondary</secondary-color>
   </style>
   
+  <!--List item-->
+  <style name="list_item_default" state="default">
+    <border-radius>0</border-radius>
+    <border-thickness>0</border-thickness>
+  </style>
+
+  <style name="list_item_default" state="hovered">
+    <primary-color>secondary</primary-color>
+  </style>
+
+  <style name="list_item_default" state="pressed">
+    <primary-color>secondary -20</primary-color>
+  </style>
+  
+  <!--Expansion panel-->
+  <style name="expansion_panel_default" state="default">
+    <size-ease>out</size-ease>
+  </style>
+
+  <style name="expansion_panel_header_default" state="default">
+    <font-size>15</font-size>
+    <primary-color>secondary +20</primary-color>
+  </style>
+  
+  <!--Radio button-->
+  <style name="radio_button_off_default" state="default">
+    <border-radius>1000</border-radius>
+  </style>
+  
+  <!--Textbox off-->
+  <style name="textbox_off_default" state="hovered">
+    <primary-color>primary -10</primary-color>
+  </style>
+
+  <!--Textbox on-->
+  <style name="textbox_on_default" state="default">
+    <primary-color>primary -10</primary-color>
+    <secondary-color>accent</secondary-color>
+    <border-thickness>2</border-thickness>
+  </style>
 </hss>

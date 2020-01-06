@@ -1,5 +1,4 @@
 ﻿using HlyssUI.Layout;
-using HlyssUI.Themes;
 using SFML.Window;
 using System.Collections.Generic;
 
@@ -10,6 +9,12 @@ namespace HlyssUI.Components
         public delegate void MarkHandler(object sender, bool isToggled);
         public event MarkHandler Marked;
 
+        private Dictionary<bool, string> _styles = new Dictionary<bool, string>()
+        {
+            {false, "radio_button_off_default" },
+            {true, "radio_button_on_default" }
+        };
+
         public bool IsMarked
         {
             get { return _marked; }
@@ -17,16 +22,10 @@ namespace HlyssUI.Components
             {
                 if (value)
                 {
-                    //_box.Style.SetValue("secondary-color", "accent");
-                    //_mark.Style.SetValue("opacity", 1);
-
                     UnmarkOthers();
                 }
-                else
-                {
-                    //_box.Style.SetValue("secondary-color", "secondary");
-                    //_mark.Style.SetValue("opacity", 0);
-                }
+
+                Style = _styles[value];
 
                 _marked = value;
                 Marked?.Invoke(this, value);
@@ -49,6 +48,8 @@ namespace HlyssUI.Components
 
         public RadioButton(string label = "")
         {
+            //TODO: Radio button nie z paneli tylko wlasny component :D\
+
             Layout = LayoutType.Row;
 
             _mark = new Panel()
@@ -76,6 +77,7 @@ namespace HlyssUI.Components
             };
 
             Autosize = true;
+            IsMarked = false;
         }
 
         public override void OnMouseEntered()

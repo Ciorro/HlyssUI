@@ -46,21 +46,7 @@ namespace HlyssUI.Components
             AutosizeY = true;
             CenterContent = true;
             Overflow = OverflowType.Hidden;
-
-            //DefaultStyle = new Style()
-            //{
-            //    {"border-thickness", "0" }
-            //};
-
-            //HoverStyle = new Style()
-            //{
-            //    {"primary-color", "secondary" }
-            //};
-
-            //PressedStyle = new Style()
-            //{
-            //    {"primary-color", "secondary -20" }
-            //};
+            Style = "list_item_default";
         }
     }
 }

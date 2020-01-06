@@ -32,7 +32,7 @@ namespace HlyssUIDemo
             //window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
-            Theme.Load("theme.ini", "light");
+            Theme.Load("theme.ini", "dark");
 
             HlyssApp app = new HlyssApp(window);
             app.Root.AddChild(new BasicRouter()
@@ -41,6 +41,8 @@ namespace HlyssUIDemo
             });
 
             (app.Root.GetChild("router") as Router).Navigate(Test());
+
+            (app.Root.FindChild("Dymek podpowiedzi 1") as ToolTip).Target = app.Root.FindChild("Panel 1");
 
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
@@ -88,6 +90,7 @@ namespace HlyssUIDemo
                 Width = "100%",
                 Height = "100%",
                 Padding = "5px",
+                Layout = LayoutType.Wrap,
                 Children = new List<Component>()
                 {
                     new Button("Przycisk 1")
@@ -99,18 +102,84 @@ namespace HlyssUIDemo
                     {
                         Name = "Pole wyboru 1"
                     },
+                    new Dropdown()
+                    {
+                        Name = "Menu rozwijane 1",
+                        Items = new List<string>()
+                        {
+                            "Akcja 1", "Akcja 2", "Akcja 3"
+                        }
+                    },
+                    new ExpansionPanel()
+                    {
+                        Name = "Panel rozwijany 1",
+                        Width = "200px",
+                        Header = "Panel rozwijany 1",
+                        SlotContent = new List<Component>()
+                        {
+                            new Component()
+                            {
+                                Width = "100px",
+                                Height = "100px"
+                            }
+                        }
+                    },
+                    new Icon(Icons.User)
+                    {
+                        Name = "Ikona 1"
+                    },
+                    new Label("Tekst 1")
+                    {
+                        Name = "Napis 1"
+                    },
+                    new LinkLabel("Link 1", "")
+                    {
+                        Name = "Link 1"
+                    },
                     new Panel()
                     {
                         Width = "100px",
                         Height = "100px",
-                        Name = "Panel 1",
-                        Children = new List<Component>()
-                        {
-                            new Label("Label 1")
-                            {
-                                Name = "Label 1"
-                            }
-                        }
+                        Name = "Panel 1"
+                    },
+                    new PictureBox("img.jpg")
+                    {
+                        Width = "100px",
+                        Height = "100px",
+                        Name = "Zdjęcie 1"
+                    },
+                    new ProgressBar()
+                    {
+                        Intermediate = true,
+                        Name = "Pasek postępu 1"
+                    },
+                    new RadioButton("Przycisk radiowy 1")
+                    {
+                        Name = "Przycisk radiowy 1"
+                    },
+                    new RadioButton("Przycisk radiowy 2")
+                    { 
+                        Name = "Przycisk radiowy 2"
+                    },
+                    new SpinButton()
+                    {
+                        Width = "150px",
+                        Name = "Przycisk numeryczny 1"
+                    },
+                    new ToggleSwitch("Przełącznik 1")
+                    {
+                        Name = "Przełącznik 1"
+                    },
+                    new ToolTip()
+                    {
+                        Text = "Dymek podpowiedzi 1",
+                        Name = "Dymek podpowiedzi 1"
+                    },
+                    new TrackBar()
+                    {
+                        Width = "150px",
+                        Height = "20px",
+                        Name = "Suwak 1"
                     }
                 }
             };

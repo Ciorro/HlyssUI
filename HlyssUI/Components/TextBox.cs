@@ -71,10 +71,7 @@ namespace HlyssUI.Components
 
             UpdateValue();
 
-            //HoverStyle = new Style()
-            //{
-            //    {"primary-color", "primary -10" }
-            //};
+            Style = "textbox_off_default";
         }
 
         public override void OnFocusGained()
@@ -86,9 +83,7 @@ namespace HlyssUI.Components
             else if (SelectOnFocus)
                 _text.SelectAll();
 
-            //DefaultStyle = DefaultStyle.Combine(new Style() { { "secondary-color", "accent" } });
-            //DefaultStyle = DefaultStyle.Combine(new Style() { { "primary-color", "primary -10" } });
-            //DefaultStyle = DefaultStyle.Combine(new Style() { { "border-thickness", "2" } });
+            Style = "textbox_on_default";
 
             _currentIndex = _realText.Length;
         }
@@ -100,9 +95,7 @@ namespace HlyssUI.Components
             if (_realText.Length == 0)
                 _text.Text = Placeholder;
 
-            //DefaultStyle = DefaultStyle.Combine(new Style() { { "secondary-color", "secondary" } });
-            //DefaultStyle = DefaultStyle.Combine(new Style() { { "primary-color", "primary" } });
-            //DefaultStyle = DefaultStyle.Combine(new Style() { { "border-thickness", "1" } });
+            Style = "textbox_off_default";
         }
 
         public override void OnTextInput(string text)

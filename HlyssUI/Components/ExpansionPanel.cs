@@ -80,27 +80,20 @@ namespace HlyssUI.Components
                     CenterContent = true,
                     Layout = HlyssUI.Layout.LayoutType.Row,
                     Name = "expansionpanel_topbar",
+                    Style = "expansion_panel_header_default",
                     Children = new List<Component>()
                     {
                         new Label()
                         {
                             Font = Fonts.MontserratMedium,
-                            Name = "expansionpanel_header",
-                            //DefaultStyle = new Themes.Style()
-                            //{
-                            //    {"font-size", "15" }
-                            //}
+                            Name = "expansionpanel_header"
                         },
                         new Spacer(),
                         new Icon(Icons.AngleDown)
                         {
                             Name = "expansionpanel_icon"
                         }
-                    },
-                    //DefaultStyle = new Themes.Style()
-                    //{
-                    //    {"primary-color", "secondary +20" }
-                    //}
+                    }
                 },
                 new Component()
                 {
@@ -115,11 +108,7 @@ namespace HlyssUI.Components
             AutosizeY = true;
             SlotName = "expansionpanel_content";
             Layout = LayoutType.Column;
-
-            //DefaultStyle = new Themes.Style()
-            //{
-            //    {"size-ease","out" }
-            //};
+            Style = "expansion_panel_default";
 
             GetChild("expansionpanel_topbar").Clicked += (object sender) => Expanded = !Expanded;
 
@@ -131,7 +120,7 @@ namespace HlyssUI.Components
             foreach (var panel in Parent.Children)
             {
                 if (panel is ExpansionPanel && panel != this)
-                    (panel as ExpansionPanel) .Expanded = false;
+                    (panel as ExpansionPanel).Expanded = false;
             }
         }
     }

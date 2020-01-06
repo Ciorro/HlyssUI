@@ -7,6 +7,13 @@ namespace HlyssUI.Components
     {
         public string Link { get; set; }
 
+        public LinkLabel() { }
+
+        public LinkLabel(string text, string link) : base(text)
+        {
+            Link = link;
+        }
+
         //TODO: loading cursors in app
         public override void OnClicked()
         {
