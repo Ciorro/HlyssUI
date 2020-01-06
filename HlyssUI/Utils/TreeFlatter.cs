@@ -19,12 +19,16 @@ namespace HlyssUI.Utils
             return components.Concat(onTopComponents).ToList();
         }
 
-        private void addComponentSubtree(Component component, bool onTop)
+        private void addComponentSubtree(Component component, bool isFixed)
         {
             if (component.Visible)
             {
-                if (!onTop)
+                //System.Console.WriteLine($"{component.ToString(true)} ONTOP: {onTop}");
+                
+                if (!isFixed)
+                {
                     components.Add(component);
+                }
                 else
                 {
                     onTopComponents.Add(component);
@@ -32,10 +36,13 @@ namespace HlyssUI.Utils
 
                 foreach (var childComponent in component.Children)
                 {
-                    if (childComponent.PositionType == Layout.PositionType.Fixed)
-                        onTop = true;
+                    if (childComponent.PositionType == Layout.PositionType.Fixed && childComponent.Visible)
+                        isFixed = true;
 
-                    addComponentSubtree(childComponent, onTop);
+                    addComponentSubtree(childComponent, isFixed);
+
+                    if (childComponent.PositionType == Layout.PositionType.Fixed && childComponent.Visible)
+                        isFixed = false;
                 }
             }
         }

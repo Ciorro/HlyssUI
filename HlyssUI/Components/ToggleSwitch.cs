@@ -1,4 +1,5 @@
-﻿using HlyssUI.Extensions;
+﻿using HlyssUI.Components.Internals;
+using HlyssUI.Extensions;
 using HlyssUI.Layout;
 using HlyssUI.Themes;
 using System.Collections.Generic;
@@ -56,12 +57,11 @@ namespace HlyssUI.Components
 
         public bool IsToggled
         {
-            get { return _toggled; }
+            get { return _toggle.Toggled; }
             set
             {
-                _toggled = value;
                 Toggled?.Invoke(this, value);
-                toggle();
+                _toggle.Toggled = value;
             }
         }
 
@@ -74,30 +74,18 @@ namespace HlyssUI.Components
             }
         }
 
-        private bool _toggled;
-        private Panel _body;
-        private Panel _toggle;
+        private Switch _toggle;
         private Label _label;
 
         public ToggleSwitch(string label = "")
         {
             Layout = LayoutType.Row;
 
-            _toggle = new Panel()
-            {
-                Width = "12px",
-                Height = "12px",
-                MarginTop = "4px",
-                Hoverable = false
-            };
-
-            _body = new Panel()
+            _toggle = new Switch()
             {
                 Width = "40px",
                 Height = "20px",
-                MarginRight = "5px",
-                Layout = LayoutType.Absolute,
-                Children = new List<Component>() { _toggle }
+                MarginRight = "5px"
             };
 
             _label = new Label(label)
@@ -107,46 +95,29 @@ namespace HlyssUI.Components
 
             Children = new List<Component>()
             {
-                _body, _label
+                _toggle, _label
             };
 
             Autosize = true;
             IsToggled = false;
+        }
 
-            //DefaultStyle = new Style()
-            //{
-            //    {"border-radius", int.MaxValue.ToString() }
-            //};
+        public override void OnMouseEntered()
+        {
+            base.OnMouseEntered();
+            _toggle.Hovered = true;
+        }
+
+        public override void OnMouseLeft()
+        {
+            base.OnMouseLeft();
+            _toggle.Hovered = false;
         }
 
         public override void OnClicked()
         {
             base.OnClicked();
             IsToggled = !IsToggled;
-        }
-
-        private void toggle()
-        {
-            if (_toggled)
-            {
-                _toggle.Left = "24px";
-
-                //_body.DefaultStyle = OnStyle;
-                //_body.HoverStyle = OnHoverStyle;
-                //_body.PressedStyle = OnPressedStyle;
-
-                //_toggle.DefaultStyle = ToggleOnStyle;
-            }
-            else
-            {
-                _toggle.Left = "4px";
-
-                //_body.DefaultStyle = OffStyle;
-                //_body.HoverStyle = OffHoverStyle;
-                //_body.PressedStyle = OffPressedStyle;
-
-                //_toggle.DefaultStyle = ToggleOffStyle;
-            }
         }
     }
 }

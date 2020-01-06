@@ -18,6 +18,7 @@ namespace HlyssUI.Components
             Layout = LayoutType.Column;
             Overflow = OverflowType.Scroll;
             Padding = "5px 1px";
+            Style = "menu_default";
         }
 
         protected override void OnShown()

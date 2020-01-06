@@ -15,6 +15,8 @@ namespace HlyssUI.Utils
         private RectangleShape _paddingRect4 = new RectangleShape();
         private RectangleShape _paddingRect5 = new RectangleShape();
 
+        private RectangleShape _clipAreaRect = new RectangleShape();
+
         private VertexArray _marginLines = new VertexArray(PrimitiveType.Lines);
 
         public void Draw(Component component)
@@ -35,6 +37,7 @@ namespace HlyssUI.Utils
             component.App.Window.Draw(_paddingRect3);
             component.App.Window.Draw(_paddingRect4);
             component.App.Window.Draw(_paddingRect5);
+            component.App.Window.Draw(_clipAreaRect);
 
             component.App.Window.SetView(tmpView);
         }
@@ -44,6 +47,7 @@ namespace HlyssUI.Utils
             setRect(component);
             setMargin(component);
             setPadding(component);
+            setClipArea(component);
         }
 
         private void setPadding(Component component)
@@ -110,6 +114,15 @@ namespace HlyssUI.Utils
             _marginLines.Append(new Vertex((Vector2f)component.GlobalPosition + new Vector2f(0, component.Size.Y), _margin.OutlineColor));
             _marginLines.Append(new Vertex(_margin.Position + _margin.Size, _margin.OutlineColor));
             _marginLines.Append(new Vertex((Vector2f)component.GlobalPosition + (Vector2f)component.Size, _margin.OutlineColor));
+        }
+
+        private void setClipArea(Component component)
+        {
+            _clipAreaRect.Position = new Vector2f(component.ClipArea.Bounds.Left, component.ClipArea.Bounds.Top);
+            _clipAreaRect.Size = new Vector2f(component.ClipArea.Bounds.Width, component.ClipArea.Bounds.Height);
+            _clipAreaRect.OutlineThickness = 1;
+            _clipAreaRect.FillColor = Color.Transparent;
+            _clipAreaRect.OutlineColor = Color.Blue;
         }
     }
 }

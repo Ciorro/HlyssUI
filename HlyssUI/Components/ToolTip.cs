@@ -27,7 +27,6 @@ namespace HlyssUI.Components
             Padding = "5px";
             Autosize = true;
             Name = "tooltip_panel";
-            PositionType = HlyssUI.Layout.PositionType.Fixed;
 
             Children = new List<Component>()
             {
@@ -37,10 +36,7 @@ namespace HlyssUI.Components
                 }
             };
 
-            //DefaultStyle = Themes.Style.DefaultStyle.Combine(new Themes.Style()
-            //{
-            //    {"font-size", "12" }
-            //});
+            Style = "tooltip_default";
         }
 
         public override void Update()

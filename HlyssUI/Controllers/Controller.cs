@@ -6,7 +6,7 @@ namespace HlyssUI.Controllers
     abstract class Controller
     {
         protected Component component;
-        protected Tween tween = new TweenOut();
+        protected Tween tween = new TweenInstant();
 
         public string TweenType
         {
@@ -24,17 +24,6 @@ namespace HlyssUI.Controllers
         public abstract void Start();
         public abstract bool Update();
 
-        protected virtual void UpdateTween()
-        {
-            if (component.StyleManager.GetString("ease") != tween.Name)
-            {
-                TweenType = component.StyleManager.GetString("ease");
-            }
-
-            if (component.StyleManager.GetString("ease-duration") != tween.Name)
-            {
-                tween.Duration = component.StyleManager.GetFloat("ease-duration");
-            }
-        }
+        protected virtual void UpdateTween() { }
     }
 }

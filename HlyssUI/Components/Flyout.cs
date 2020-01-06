@@ -35,7 +35,7 @@ namespace HlyssUI.Components
         public override void OnInitialized()
         {
             base.OnInitialized();
-            App.Window.Resized += (object sender, SFML.Window.SizeEventArgs e) =>
+            App.Window.Resized += (object sender, SizeEventArgs e) =>
             {
                 FitInWindow();
                 MaxWidth = $"{e.Width}px";

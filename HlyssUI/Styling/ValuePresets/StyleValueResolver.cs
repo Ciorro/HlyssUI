@@ -22,8 +22,6 @@ namespace HlyssUI.Styling.ValuePresets
             new OpacityPreset(),
             new BorderRadiusPreset(),
             new BorderThicknessPreset(),
-            new EasePreset(),
-            new EaseDurationPreset(),
             new MarginEasePreset(),
             new MarginEaseDurationPreset(),
             new PaddingEasePreset(),

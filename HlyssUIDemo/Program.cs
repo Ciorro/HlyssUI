@@ -88,6 +88,11 @@ namespace HlyssUIDemo
             {
                 (app.Root.FindChild("Menu 1") as Menu).Show(app.MousePosition);
             };
+
+            (app.Root.FindChild("Pole tekstowe 1") as TextBox).OnTextChanged += (object sender, string text) =>
+            {
+                Console.WriteLine(text);
+            };
         }
 
         static Component Test()
@@ -100,12 +105,12 @@ namespace HlyssUIDemo
                 Layout = LayoutType.Wrap,
                 Children = new List<Component>()
                 {
-                    new Button("Przycisk 1")
+                    new Button("Button 1")
                     {
                         Name = "Przycisk 1",
                         Appearance = Button.ButtonStyle.Filled
                     },
-                    new CheckBox("Pole wyboru 1")
+                    new CheckBox("CheckBox 1")
                     {
                         Name = "Pole wyboru 1"
                     },
@@ -114,32 +119,28 @@ namespace HlyssUIDemo
                         Name = "Menu rozwijane 1",
                         Items = new List<string>()
                         {
-                            "Akcja 1", "Akcja 2", "Akcja 3"
+                            "Action 1", "Action 2", "Action 3"
                         }
                     },
                     new ExpansionPanel()
                     {
                         Name = "Panel rozwijany 1",
                         Width = "200px",
-                        Header = "Panel rozwijany 1",
+                        Header = "Expansion panel 1",
                         SlotContent = new List<Component>()
                         {
-                            new Component()
-                            {
-                                Width = "100px",
-                                Height = "100px"
-                            }
+                            new Button("Hidden button")
                         }
                     },
                     new Icon(Icons.User)
                     {
                         Name = "Ikona 1"
                     },
-                    new Label("Tekst 1")
+                    new Label("Label 1")
                     {
                         Name = "Napis 1"
                     },
-                    new LinkLabel("Link 1", "")
+                    new LinkLabel("Link 1", "https://www.messenger.com/t/800981486648843")
                     {
                         Name = "Link 1"
                     },
@@ -160,11 +161,11 @@ namespace HlyssUIDemo
                         Intermediate = true,
                         Name = "Pasek postępu 1"
                     },
-                    new RadioButton("Przycisk radiowy 1")
+                    new RadioButton("RadioButton 1")
                     {
                         Name = "Przycisk radiowy 1"
                     },
-                    new RadioButton("Przycisk radiowy 2")
+                    new RadioButton("RadioButton 2")
                     {
                         Name = "Przycisk radiowy 2"
                     },
@@ -173,13 +174,13 @@ namespace HlyssUIDemo
                         Width = "150px",
                         Name = "Przycisk numeryczny 1"
                     },
-                    new ToggleSwitch("Przełącznik 1")
+                    new ToggleSwitch("ToggleSwitch 1")
                     {
                         Name = "Przełącznik 1"
                     },
                     new ToolTip()
                     {
-                        Text = "Dymek podpowiedzi 1",
+                        Text = "ToolTip 1",
                         Name = "Dymek podpowiedzi 1"
                     },
                     new TrackBar()
@@ -196,9 +197,9 @@ namespace HlyssUIDemo
                         Padding = "5px 1px",
                         Children = new List<Component>()
                         {
-                            new ListItem("Element listy 1"),
-                            new ListItem("Element listy 2"),
-                            new ListItem("Element listy 3"),
+                            new ListItem("ListItem 1"),
+                            new ListItem("ListItem 2"),
+                            new ListItem("ListItem 3"),
                         }
                     },
                     new Menu()
@@ -206,11 +207,27 @@ namespace HlyssUIDemo
                         Name = "Menu 1",
                         Items = new List<MenuItem>()
                         {
-                            new MenuItem("Akcja menu 1"),
-                            new MenuItem("Akcja menu 2"),
-                            new MenuItem("Akcja menu 3"),
+                            new MenuItem("MenuItem 1"),
+                            new MenuItem("MenuItem 2"),
+                            new MenuItem("MenuItem 3")
+                            {
+                                Menu = new Menu()
+                                {
+                                    Items = new List<MenuItem>()
+                                    {
+                                        new MenuItem("MenuItem 1"),
+                                        new MenuItem("MenuItem 2"),
+                                    }
+                                }
+                            }
                         }
                     },
+                    new TextBox()
+                    {
+                        Name = "Pole tekstowe 1",
+                        Text = "TextBox 1",
+                        Width = "200px"
+                    }
                 }
             };
         }

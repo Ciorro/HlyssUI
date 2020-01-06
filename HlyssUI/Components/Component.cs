@@ -54,13 +54,9 @@ namespace HlyssUI.Components
         private bool _focused = false;
         private bool _enabled = true;
         private bool _visible = true;
+        private string _style = string.Empty;
         private DebugRect _debugRect = new DebugRect();
         private Controller[] _controllers;
-
-        //private Style _defaultStyle = new Style();
-        //private Style _hoverStyle = new Style();
-        //private Style _pressedStyle = new Style();
-        //private Style _disabledStyle = new Style();
 
         private LayoutValue _positionX = LayoutValue.Default;
         private LayoutValue _positionY = LayoutValue.Default;
@@ -374,7 +370,15 @@ namespace HlyssUI.Components
         #region Styles
 
         internal StyleManager StyleManager;
-        public string Style = string.Empty;
+        public string Style
+        {
+            get { return _style; }
+            set
+            {
+                _style = value;
+                StyleChanged = true;
+            }
+        }
         #endregion
 
         public ClipArea ClipArea { get; private set; }
@@ -622,13 +626,6 @@ namespace HlyssUI.Components
 
         #endregion
 
-        #region Theming
-        public void ResetColors()
-        {
-            //Style.Reset();
-        }
-        #endregion
-
         #region Updating
         public virtual void Update()
         {
@@ -642,8 +639,7 @@ namespace HlyssUI.Components
 
             if (anyTransitionApplied && IsOnScreen)
             {
-                OnRefresh();
-                ClipArea.Update();
+                ForceRefreshAllSubcomponents();
             }
         }
 
@@ -655,6 +651,17 @@ namespace HlyssUI.Components
         public void ForceRefresh()
         {
             OnRefresh();
+            ClipArea.Update();
+        }
+
+        public void ForceRefreshAllSubcomponents()
+        {
+            ForceRefresh();
+
+            foreach (var child in Children)
+            {
+                child.ForceRefreshAllSubcomponents();
+            }
         }
         #endregion
 

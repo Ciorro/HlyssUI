@@ -78,7 +78,7 @@ namespace HlyssUI.Components
                     Height = "40px",
                     Padding = "5px",
                     CenterContent = true,
-                    Layout = HlyssUI.Layout.LayoutType.Row,
+                    Layout = LayoutType.Row,
                     Name = "expansionpanel_topbar",
                     Style = "expansion_panel_header_default",
                     Children = new List<Component>()

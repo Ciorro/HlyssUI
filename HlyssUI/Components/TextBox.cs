@@ -11,6 +11,9 @@ namespace HlyssUI.Components
 {
     public class TextBox : Panel
     {
+        public delegate void TextChangedHandler(object sender, string currentText);
+        public event TextChangedHandler OnTextChanged;
+
         private RectangleShape _cursor = new RectangleShape();
         private Clock _cursorTimer = new Clock();
         private Component _textView;
@@ -157,7 +160,7 @@ namespace HlyssUI.Components
 
                 if (_realText != tmpText)
                 {
-                    //OnTextChanged?.Invoke(this, _realText);
+                    OnTextChanged?.Invoke(this, _realText);
                 }
             }
         }
