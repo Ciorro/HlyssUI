@@ -650,8 +650,11 @@ namespace HlyssUI.Components
 
         public void ForceRefresh()
         {
-            OnRefresh();
-            ClipArea.Update();
+            if (IsInitialized)
+            {
+                OnRefresh();
+                ClipArea.Update();
+            }
         }
 
         public void ForceRefreshAllSubcomponents()
