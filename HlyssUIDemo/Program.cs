@@ -20,14 +20,12 @@ namespace HlyssUIDemo
         static void Main(string[] args)
         {
             Vector2u winSize = new Vector2u(1280, 720);
-            //Vector2u winSize = new Vector2u(630, 380);
 
             ContextSettings contextSettings = new ContextSettings();
             contextSettings.AntialiasingLevel = 8;
 
             RenderWindow window = new RenderWindow(new VideoMode(winSize.X, winSize.Y), caption, Styles.Default, contextSettings);
-            //window.SetFramerateLimit(60);
-            //window.SetVerticalSyncEnabled(true);
+            window.SetVerticalSyncEnabled(true);
             window.Closed += (object sender, EventArgs e) => { window.Close(); };
 
             Theme.Load("theme.ini", "dark");
@@ -51,12 +49,6 @@ namespace HlyssUIDemo
                     HlyssApp.Debug = !HlyssApp.Debug;
                 if (e.Code == Keyboard.Key.C)
                     Console.Clear();
-            };
-
-            window.MouseButtonPressed += (object sender, MouseButtonEventArgs e) =>
-            {
-                //if (e.Button == Mouse.Button.XButton1)
-                //    gui.Navigator.Back();
             };
 
             while (window.IsOpen)
@@ -83,15 +75,10 @@ namespace HlyssUIDemo
 
         private static void Handle(HlyssApp app)
         {
-            (app.Root.FindChild("Dymek podpowiedzi 1") as ToolTip).Target = app.Root.FindChild("Panel 1");
+            (app.Root.FindChild("ToolTip 1") as ToolTip).Target = app.Root.FindChild("Panel 1");
             app.Root.FindChild("Panel 1").Clicked += (object sender) =>
             {
                 (app.Root.FindChild("Menu 1") as Menu).Show(app.MousePosition);
-            };
-
-            (app.Root.FindChild("Pole tekstowe 1") as TextBox).OnTextChanged += (object sender, string text) =>
-            {
-                Console.WriteLine(text);
             };
         }
 
@@ -108,16 +95,11 @@ namespace HlyssUIDemo
                     new Button("Button 1")
                     {
                         Enabled = false,
-                        Name = "Przycisk 1",
                         Appearance = Button.ButtonStyle.Filled
                     },
-                    new CheckBox("CheckBox 1")
-                    {
-                        Name = "Pole wyboru 1"
-                    },
+                    new CheckBox("CheckBox 1"),
                     new Dropdown()
                     {
-                        Name = "Menu rozwijane 1",
                         Items = new List<string>()
                         {
                             "Action 1", "Action 2", "Action 3"
@@ -125,7 +107,6 @@ namespace HlyssUIDemo
                     },
                     new ExpansionPanel()
                     {
-                        Name = "Panel rozwijany 1",
                         Width = "200px",
                         Header = "Expansion panel 1",
                         SlotContent = new List<Component>()
@@ -133,18 +114,9 @@ namespace HlyssUIDemo
                             new Button("Hidden button")
                         }
                     },
-                    new Icon(Icons.User)
-                    {
-                        Name = "Ikona 1"
-                    },
-                    new Label("Label 1")
-                    {
-                        Name = "Napis 1"
-                    },
-                    new LinkLabel("Link 1", "https://www.messenger.com/t/800981486648843")
-                    {
-                        Name = "Link 1"
-                    },
+                    new Icon(Icons.User),
+                    new Label("Label 1"),
+                    new LinkLabel("Link 1", "https://google.com"),
                     new Panel()
                     {
                         Width = "100px",
@@ -154,41 +126,29 @@ namespace HlyssUIDemo
                     new PictureBox("img.jpg")
                     {
                         Width = "100px",
-                        Height = "100px",
-                        Name = "Zdjęcie 1"
+                        Height = "100px"
                     },
                     new ProgressBar()
                     {
-                        Intermediate = true,
-                        Name = "Pasek postępu 1"
+                        Intermediate = true
                     },
-                    new RadioButton("RadioButton 1")
-                    {
-                        Name = "Przycisk radiowy 1"
-                    },
-                    new RadioButton("RadioButton 2")
-                    {
-                        Name = "Przycisk radiowy 2"
-                    },
+                    new RadioButton("RadioButton 1"),
+                    new RadioButton("RadioButton 2"),
                     new SpinButton()
                     {
                         Width = "150px",
-                        Name = "Przycisk numeryczny 1"
+                        Name = "SpinButton 1"
                     },
-                    new ToggleSwitch("ToggleSwitch 1")
-                    {
-                        Name = "Przełącznik 1"
-                    },
+                    new ToggleSwitch("ToggleSwitch 1"),
                     new ToolTip()
                     {
                         Text = "ToolTip 1",
-                        Name = "Dymek podpowiedzi 1"
+                        Name = "ToolTip 1"
                     },
                     new TrackBar()
                     {
                         Width = "150px",
-                        Height = "20px",
-                        Name = "Suwak 1"
+                        Height = "20px"
                     },
                     new Panel()
                     {
@@ -225,7 +185,6 @@ namespace HlyssUIDemo
                     },
                     new TextBox()
                     {
-                        Name = "Pole tekstowe 1",
                         Text = "TextBox 1",
                         Width = "200px"
                     }

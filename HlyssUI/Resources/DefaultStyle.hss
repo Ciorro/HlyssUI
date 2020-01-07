@@ -127,6 +127,7 @@
   <style name="toggle_on_default" state="default">
     <primary-color>accent</primary-color> 
     <secondary-color>accent</secondary-color>
+    <text-color>white</text-color>
   </style>
 
   <style name="toggle_on_default" state="hovered">
