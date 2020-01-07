@@ -23,8 +23,6 @@ namespace HlyssUI.Utils
         {
             if (component.Visible)
             {
-                //System.Console.WriteLine($"{component.ToString(true)} ONTOP: {onTop}");
-                
                 if (!isFixed)
                 {
                     components.Add(component);

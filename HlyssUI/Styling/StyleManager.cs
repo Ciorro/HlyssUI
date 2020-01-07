@@ -24,8 +24,6 @@ namespace HlyssUI.Styling
         {
             StyleState state = ResolveState();
 
-            //Console.Write($"{_component.Name} [{state}]: {name}");
-
             string value = null;
             Component component = _component;
 
@@ -40,18 +38,13 @@ namespace HlyssUI.Styling
 
             if(value == null)
             {
-                //Console.Write(" [null] ");
-
                 StyleValue styleValue = StyleValueResolver.Get(name);
 
                 if (styleValue != null)
                     value = styleValue.Value;
                 else value = string.Empty;
             }
-            //else
-                //Console.Write($" [from {component.Name}] ");
-
-            //Console.WriteLine(" " + value);
+            
             return value;
         }
 

@@ -174,7 +174,6 @@ namespace HlyssUI.Components.Internals
         {
             base.OnMouseReleasedAnywhere(location, button);
             _isSeleting = false;
-            //_selectionEnd = GetLetterByPosition(location);
         }
 
         public override void OnKeyPressed(Keyboard.Key key)
@@ -193,14 +192,6 @@ namespace HlyssUI.Components.Internals
             {
                 _selectionEnd = GetLetterByPosition(location);
             }
-
-            //for (int i = 0; i < _letters.Count; i++)
-            //{
-            //    if (i >= 0 && i < _letters.Count && i >= Math.Min(_selectionEnd, _selectionStart) && i <= Math.Max(_selectionEnd, _selectionStart))
-            //        _letters[i].Selected = true;
-            //    else
-            //        _letters[i].Selected = false;
-            //}
         }
 
         public override void Update()
@@ -211,11 +202,6 @@ namespace HlyssUI.Components.Internals
             {
                 UpdateSize();
             }
-
-            //if (_isSeleting)
-            //{
-            //    _selectionEnd = GetLetterByPosition(Mouse.GetPosition(Gui.Window));
-            //}
 
             if (IsAnyTextSelected)
             {

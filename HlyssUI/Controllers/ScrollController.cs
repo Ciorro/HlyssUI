@@ -14,9 +14,6 @@ namespace HlyssUI.Controllers
         {
             if (component.Overflow == Layout.OverflowType.Scroll)
             {
-                if (component.StyleChanged || SFML.Window.Keyboard.IsKeyPressed(SFML.Window.Keyboard.Key.W))
-                    UpdateTween();
-
                 tween.Start();
                 _from = component.ScrollOffset;
             }
@@ -37,18 +34,6 @@ namespace HlyssUI.Controllers
             }
 
             return isRunning;
-        }
-
-        protected override void UpdateTween()
-        {
-            //if (component.DefaultStyle.ContainsKey("smooth-scroll") && component.DefaultStyle.GetBool("smooth-scroll"))
-            //{
-            //    TweenType = "out";
-            //}
-            //else
-            //{
-            //    TweenType = "instant";
-            //}
         }
     }
 }

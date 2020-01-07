@@ -403,9 +403,7 @@ namespace HlyssUI.Components
             set
             {
                 _enabled = value;
-
-                //if (!Style.IsNullOrEmpty(DisabledStyle))
-                //    StyleChanged = true;
+                StyleChanged = true;
             }
         }
 
@@ -723,8 +721,7 @@ namespace HlyssUI.Components
 
         public virtual void OnPressed(Mouse.Button button)
         {
-            //if (!Style.IsNullOrEmpty(PressedStyle))
-                StyleChanged = true;
+            StyleChanged = true;
 
             if (button == Mouse.Button.Left)
                 IsPressed = true;
@@ -764,8 +761,7 @@ namespace HlyssUI.Components
             IsPressed = false;
             Released?.Invoke(this, button);
 
-            //if (!Style.IsNullOrEmpty(PressedStyle))
-                StyleChanged = true;
+            StyleChanged = true;
         }
 
         public virtual void OnFocusGained()
@@ -789,9 +785,7 @@ namespace HlyssUI.Components
         public virtual void OnMouseEntered()
         {
             MouseEntered?.Invoke(this);
-
-            //if (!Style.IsNullOrEmpty(HoverStyle))
-                StyleChanged = true;
+            StyleChanged = true;
         }
 
         public virtual void OnMouseLeft()
@@ -799,8 +793,7 @@ namespace HlyssUI.Components
             IsPressed = false;
             MouseLeft?.Invoke(this);
 
-            //if (!Style.IsNullOrEmpty(HoverStyle))
-                StyleChanged = true;
+            StyleChanged = true;
         }
 
         public virtual void OnMouseMovedAnywhere(Vector2i location) { }

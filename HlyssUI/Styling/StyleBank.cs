@@ -42,8 +42,6 @@ namespace HlyssUI.Styling
 
         public static StyleClassContainer GetClass(string name)
         {
-            //stanelo na tym jak szukac odpowiedniego stylu (pressed hover def disabled)
-
             if (_classes.ContainsKey(name))
                 return _classes[name];
             else

@@ -14,6 +14,12 @@
     <primary-color>accent -40</primary-color>
   </style>
 
+  <style name="filled_button_default" state="disabled">
+    <primary-color>grey</primary-color>
+    <secondary-color>dim-grey</secondary-color>
+    <text-color>dark-grey</text-color>
+  </style>
+  
   <!--Outline button-->
   <style name="outline_button_default" state="hovered">
     <primary-color>primary -20</primary-color>
@@ -159,4 +165,6 @@
   <style name="menu_default" state="default">
     <size-ease>out</size-ease>
   </style>
+  
+  <!--//TODO: Add disabled styles-->
 </hss>

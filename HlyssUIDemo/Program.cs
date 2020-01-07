@@ -107,6 +107,7 @@ namespace HlyssUIDemo
                 {
                     new Button("Button 1")
                     {
+                        Enabled = false,
                         Name = "Przycisk 1",
                         Appearance = Button.ButtonStyle.Filled
                     },

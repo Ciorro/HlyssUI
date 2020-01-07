@@ -11,50 +11,6 @@ namespace HlyssUI.Components
         public delegate void ToggleHandler(object sender, bool isToggled);
         public event ToggleHandler Toggled;
 
-        #region Styles
-
-        //protected readonly Style OnStyle = new Style()
-        //{
-        //    {"primary-color", "accent" },
-        //    {"border-thickness", "0" },
-        //    {"border-radius", int.MaxValue.ToString() }
-        //};
-
-        //protected readonly Style OffStyle = Style.EmptyStyle;
-
-        //protected readonly Style OnHoverStyle = new Style()
-        //{
-        //    {"primary-color", "accent -20" }
-        //};
-
-        //protected readonly Style OffHoverStyle = new Style()
-        //{
-        //    {"primary-color", "primary -20" }
-        //};
-
-        //protected readonly Style OnPressedStyle = new Style()
-        //{
-        //    {"primary-color", "accent -40" }
-        //};
-
-        //protected readonly Style OffPressedStyle = new Style()
-        //{
-        //    {"primary-color", "primary -40" }
-        //};
-
-        //protected readonly Style ToggleOnStyle = new Style()
-        //{
-        //    {"primary-color", Theme.GetColor("accent").GetLegibleColor().ToHex() },
-        //    {"position-ease", "out" }
-        //};
-
-        //protected readonly Style ToggleOffStyle = new Style()
-        //{
-        //    {"primary-color", "secondary" },
-        //    {"position-ease", "out" }
-        //};
-        #endregion
-
         public bool IsToggled
         {
             get { return _toggle.Toggled; }
