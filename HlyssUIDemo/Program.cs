@@ -80,6 +80,11 @@ namespace HlyssUIDemo
             {
                 (app.Root.FindChild("Menu 1") as Menu).Show(app.MousePosition);
             };
+
+            app.Root.FindChild("show_form").Clicked += (object sender) =>
+            {
+                (app.Root.FindChild("form1") as Form).Show();
+            };
         }
 
         static Component Test()
@@ -94,8 +99,8 @@ namespace HlyssUIDemo
                 {
                     new Button("Button 1")
                     {
-                        Enabled = false,
-                        Appearance = Button.ButtonStyle.Filled
+                        Appearance = Button.ButtonStyle.Filled,
+                        Name = "show_form"
                     },
                     new CheckBox("CheckBox 1"),
                     new Dropdown()
@@ -187,6 +192,10 @@ namespace HlyssUIDemo
                     {
                         Text = "TextBox 1",
                         Width = "200px"
+                    },
+                    new Form()
+                    {
+                        Name = "form1"
                     }
                 }
             };

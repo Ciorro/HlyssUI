@@ -25,7 +25,6 @@ namespace HlyssUI.Components
             _icon = new Icon(Graphics.Icons.Empty)
             {
                 MarginRight = "10px",
-                IconSize = 20,
                 Name = "listitem_icon"
             };
 

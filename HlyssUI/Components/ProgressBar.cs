@@ -65,6 +65,8 @@ namespace HlyssUI.Components
 
             if (Enabled)
                 HandleIntermediate();
+
+            _tweenEase.Duration = Size.X / 1000f;
         }
 
         public override void OnStyleChanged()
@@ -73,6 +75,9 @@ namespace HlyssUI.Components
 
             _background.FillColor = StyleManager.GetColor("secondary-color");
             _fill.FillColor = StyleManager.GetColor("accent-color");
+
+            _background.Radius = StyleManager.GetUint("border-radius");
+            _fill.Radius = StyleManager.GetUint("border-radius");
         }
 
         public override void Draw(RenderTarget target)

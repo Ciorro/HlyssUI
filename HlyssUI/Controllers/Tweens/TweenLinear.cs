@@ -16,7 +16,9 @@ namespace HlyssUI.Controllers.Tweens
 
         public override void Update()
         {
-            timePassed += DeltaTime.Current;
+            base.Update();
+
+            timePassed += _deltaTime.Current;
 
             progress = timePassed / Duration;
 

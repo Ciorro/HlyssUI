@@ -369,7 +369,7 @@ namespace HlyssUI.Components
 
         #region Styles
 
-        internal StyleManager StyleManager;
+        public StyleManager StyleManager;
         public string Style
         {
             get { return _style; }
@@ -833,8 +833,8 @@ namespace HlyssUI.Components
             int x = offset.X;
             int y = offset.Y;
 
-            if (x < TargetSize.X - ContentWidth) x = TargetSize.X - ContentWidth;
-            if (y < TargetSize.Y - ContentHeight) y = TargetSize.Y - ContentHeight;
+            if (x < TargetSize.X - ContentWidth - Paddings.Horizontal) x = TargetSize.X - ContentWidth - Paddings.Horizontal;
+            if (y < TargetSize.Y - ContentHeight - Paddings.Vertical) y = TargetSize.Y - ContentHeight - Paddings.Vertical;
             if (x > 0) x = 0;
             if (y > 0) y = 0;
 

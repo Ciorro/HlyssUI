@@ -32,7 +32,6 @@ namespace HlyssUI.Components
                         new Spacer(),
                         new Icon(Graphics.Icons.X)
                         {
-                            IconSize = 20,
                             Name = "dialog_close",
                             //HoverStyle = new Style()
                             //{

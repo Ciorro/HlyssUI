@@ -9,7 +9,7 @@ using System.Text;
 
 namespace HlyssUI.Styling
 {
-    internal class StyleManager
+    public class StyleManager
     {
         private Component _component;
 
@@ -105,7 +105,6 @@ namespace HlyssUI.Styling
             return color;
         }
         #endregion
-        //TODO: Getting values from style set in the component
         //TODO: Setting value overrides
     }
 }

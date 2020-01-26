@@ -167,5 +167,10 @@
     <size-ease>out</size-ease>
   </style>
   
+  <!--Divider-->
+  <style name="divider_default" state="default">
+    <primary-color>grey</primary-color>
+  </style>
+
   <!--//TODO: Add disabled styles-->
 </hss>

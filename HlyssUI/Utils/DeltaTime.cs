@@ -1,8 +1,8 @@
 ﻿namespace HlyssUI.Utils
 {
-    internal static class DeltaTime
+    internal class DeltaTime
     {
-        public static float Current
+        public float Current
         {
             get
             {
@@ -11,10 +11,10 @@
             }
         }
 
-        private static long _lastMs = System.Environment.TickCount;
-        private static float _deltaTime = 0;
+        private long _lastMs = System.Environment.TickCount;
+        private float _deltaTime = 0;
 
-        public static void Update()
+        public void Update()
         {
             long currentMs = System.Environment.TickCount;
             _deltaTime = currentMs - _lastMs;

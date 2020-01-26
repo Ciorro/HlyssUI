@@ -8,12 +8,6 @@ namespace HlyssUI.Components
 {
     public class Icon : Component
     {
-        public uint IconSize
-        {
-            get { return StyleManager.GetUint("font-size"); }
-            set { /*DefaultStyle = DefaultStyle.Combine(new Style() { { "font-size", value.ToString() } });*/ }
-        }
-
         public Icons IconType
         {
             set
@@ -63,7 +57,7 @@ namespace HlyssUI.Components
 
             if (_iconTxt.CharacterSize != StyleManager.GetUint("font-size"))
             {
-                _iconTxt.CharacterSize = StyleManager.GetUint("font-size");
+                _iconTxt.CharacterSize = StyleManager.GetUint("font-size") + 4;
                 updateSize();
             }
         }

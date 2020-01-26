@@ -35,6 +35,7 @@ namespace HlyssUI.Components
         public Divider(DividerType type = DividerType.Horizontal)
         {
             Type = type;
+            Style = "divider_default";
         }
 
         public override void OnRefresh()
@@ -48,7 +49,7 @@ namespace HlyssUI.Components
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
-            _divider.FillColor = StyleManager.GetColor("secondary-color");
+            _divider.FillColor = StyleManager.GetColor("primary-color");
         }
 
         public override void Draw(RenderTarget target)

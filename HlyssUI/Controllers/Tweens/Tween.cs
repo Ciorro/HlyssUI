@@ -1,4 +1,6 @@
-﻿namespace HlyssUI.Controllers.Tweens
+﻿using HlyssUI.Utils;
+
+namespace HlyssUI.Controllers.Tweens
 {
     abstract class Tween
     {
@@ -10,6 +12,7 @@
 
         protected float progress;
         protected float timePassed = 0;
+        protected DeltaTime _deltaTime = new DeltaTime();
 
         protected const byte Power = 6;
 
@@ -27,7 +30,11 @@
         public Tween(string name) => Name = name;
 
         public abstract Tween Get();
-        public abstract void Update();
+
+        public virtual void Update()
+        {
+            _deltaTime.Update();
+        }
 
         public virtual void Start()
         {

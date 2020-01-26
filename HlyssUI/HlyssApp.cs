@@ -51,34 +51,16 @@ namespace HlyssUI
 
         public void Update()
         {
-            DeltaTime.Update();
-
-            Gauge.StartMeasurement("Flattening", true);
             FlatComponentTree = _treeFlatter.GetComponentList(Root);
-            Gauge.PauseMeasurement("Flattening");
 
-            if(Keyboard.IsKeyPressed(Keyboard.Key.D))
-                System.Console.WriteLine(string.Join(Environment.NewLine, FlatComponentTree) + "\n----");
-
-            Gauge.StartMeasurement("Updater", true);
             _componentUpdater.Update(Root);
-            Gauge.PauseMeasurement("Updater");
-            Gauge.StartMeasurement("Layout", true);
             _layoutUpdater.Update(Root);
-            Gauge.PauseMeasurement("Layout");
-            Gauge.StartMeasurement("Style", true);
             _styleUpdater.Update(Root);
-            Gauge.PauseMeasurement("Style");
         }
 
         public void Draw()
         {
-            Gauge.StartMeasurement("Render", true);
             _renderer.Render(Root);
-            Gauge.PauseMeasurement("Render");
-
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Num1))
-                Gauge.PrintSummary("Flattening", "Updater", "Layout", "Style", "Render");
         }
     }
 }
