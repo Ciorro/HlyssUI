@@ -55,7 +55,9 @@ namespace HlyssUI.Components
         public TextBox()
         {
             Padding = "10px";
+
             _text = new EditableLabel();
+            _text.ClipArea.OutlineThickness = -2;
 
             _textView = new Component()
             {
@@ -65,8 +67,6 @@ namespace HlyssUI.Components
                 ScrollOffset = new Vector2i(20,10),
                 Children = new List<Component>() { _text }
             };
-
-            _text.ClipArea.OutlineThickness = -2;
 
             Children = new List<Component>()
             {

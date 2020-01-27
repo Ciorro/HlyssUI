@@ -34,29 +34,36 @@ namespace HlyssUI.Components
         {
             Children = new List<Component>()
             {
-                new Button()
-                {
-                    Children = new List<Component>(){new Icon(Graphics.Icons.Minus) },
-                    Padding = "5px",
-                    Appearance = Button.ButtonStyle.Flat,
-                    Name = "spinbutton_minus"
-                },
                 new TextBox()
                 {
                     AllowLetters = false,
                     AllowSpecialCharacters = false,
                     Expand = true,
-                    Margin = "0px 2px",
-                    Name = "spinbutton_textbox"
+                    //Margin = "0px 2px",
+                    Padding = "2px 2px 2px 10px",
+                    CenterContent = true,
+                    Name = "spinbutton_textbox",
+                },
+               
+            };
+
+            GetChild("spinbutton_textbox").Children.AddRange(new List<Component>()
+            {
+                new Button()
+                {
+                    Children = new List<Component>(){new Icon(Graphics.Icons.AngleUp) },
+                    Padding = "10px",
+                    Appearance = Button.ButtonStyle.Flat,
+                    Name = "spinbutton_plus"
                 },
                 new Button()
                 {
-                    Children = new List<Component>(){new Icon(Graphics.Icons.Plus) },
-                    Padding = "5px",
+                    Children = new List<Component>(){new Icon(Graphics.Icons.AngleDown) },
+                    Padding = "10px",
                     Appearance = Button.ButtonStyle.Flat,
-                    Name = "spinbutton_plus"
-                }
-            };
+                    Name = "spinbutton_minus"
+                },
+            });
 
             AutosizeY = true;
             CenterContent = true;
@@ -64,8 +71,8 @@ namespace HlyssUI.Components
             Value = 0;
 
             GetChild("spinbutton_textbox").FocusLost += SpinButton_FocusLost;
-            GetChild("spinbutton_plus").Clicked += (object sender) => Value += Step;
-            GetChild("spinbutton_minus").Clicked += (object sender) => Value -= Step;
+            FindChild("spinbutton_plus").Clicked += (object sender) => Value += Step;
+            FindChild("spinbutton_minus").Clicked += (object sender) => Value -= Step;
         }
 
         public override void OnScrolledAnywhere(float scroll)

@@ -66,6 +66,7 @@ namespace HlyssUI.Themes
                 {"info", stringToColor(data[theme]["InformationColor"]) },
                 {"white-transparent", new Color(255, 255, 255, 0) },
                 {"black-transparent", new Color(0, 0, 0, 0) },
+                {"transparent", new Color(0, 0, 0, 0) },
                 //HTML KNOWN COLORS
                 {"maroon", new Color(128,0,0) },
                 {"dark-red", new Color(139,0,0) },

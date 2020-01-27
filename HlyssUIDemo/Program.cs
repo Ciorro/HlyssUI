@@ -83,7 +83,7 @@ namespace HlyssUIDemo
 
             app.Root.FindChild("show_form").Clicked += (object sender) =>
             {
-                (app.Root.FindChild("form1") as Form).Show();
+                
             };
         }
 
@@ -139,11 +139,11 @@ namespace HlyssUIDemo
                     },
                     new RadioButton("RadioButton 1"),
                     new RadioButton("RadioButton 2"),
-                    //new SpinButton()
-                    //{
-                    //    Width = "150px",
-                    //    Name = "SpinButton 1"
-                    //},
+                    new SpinButton()
+                    {
+                        Width = "150px",
+                        Name = "SpinButton 1"
+                    },
                     new ToggleSwitch("ToggleSwitch 1"),
                     new ToolTip()
                     {
@@ -192,7 +192,8 @@ namespace HlyssUIDemo
                     {
                         Text = "TextBox 1",
                         Width = "200px",
-                        MaxLines = 10
+                        MaxLines = 10,
+                        SelectOnFocus = false
                     }
                 }
             };

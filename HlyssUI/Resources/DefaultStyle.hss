@@ -32,6 +32,7 @@
   <!--Flat button-->
   <style name="flat_button_default" state="default">
     <border-thickness>0</border-thickness>
+    <primary-color>transparent</primary-color>
   </style>
 
   <style name="flat_button_default" state="hovered">
