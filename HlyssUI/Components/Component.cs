@@ -1,4 +1,5 @@
-﻿using HlyssUI.Controllers;
+﻿using HlyssUI.Components.Routers;
+using HlyssUI.Controllers;
 using HlyssUI.Extensions;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
@@ -611,6 +612,26 @@ namespace HlyssUI.Components
                 return null;
             else
                 return Parent.FindParent(name);
+        }
+
+        public Form GetForm()
+        {
+            if (Parent != null && Parent is Form)
+                return Parent as Form;
+            else if (Parent == null)
+                return null;
+            else
+                return Parent.GetForm();
+        }
+
+        public Router GetClosestRouter()
+        {
+            if (Parent != null && Parent is Router)
+                return Parent as Router;
+            else if (Parent == null)
+                return null;
+            else
+                return Parent.GetClosestRouter();
         }
 
         public void Reparent(Component newParent)
