@@ -842,7 +842,9 @@ namespace HlyssUI.Components
             {
                 ScrolledOn?.Invoke(this, scroll);
 
-                if (Overflow == OverflowType.Scroll)
+                if (Overflow == OverflowType.Scroll && Keyboard.IsKeyPressed(Keyboard.Key.LShift))
+                    ScrollByX((int)scroll * (int)(ContentWidth * 0.05f));
+                else if (Overflow == OverflowType.Scroll)
                     ScrollByY((int)scroll * (int)(ContentHeight * 0.05f));
             }
         }
@@ -868,12 +870,12 @@ namespace HlyssUI.Components
             }
         }
 
-        public void ScrollX(int xOffset)
+        public void ScrollToX(int xOffset)
         {
             ScrollTo(new Vector2i(xOffset, 0));
         }
 
-        public void ScrollY(int yOffset)
+        public void ScrollToY(int yOffset)
         {
             ScrollTo(new Vector2i(0, yOffset));
         }

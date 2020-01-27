@@ -5,6 +5,7 @@ using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System;
 using System.Collections.Generic;
 
 namespace HlyssUI.Components
@@ -53,15 +54,18 @@ namespace HlyssUI.Components
 
         public TextBox()
         {
+            Padding = "10px";
             _text = new EditableLabel();
 
             _textView = new Component()
             {
-                Autosize = true,
-                Overflow = OverflowType.Hidden,
-                Padding = "10px",
+                AutosizeY = true,
+                Expand = true,
+                Overflow = OverflowType.Scroll,
+                ScrollOffset = new Vector2i(20,10),
                 Children = new List<Component>() { _text }
             };
+
             _text.ClipArea.OutlineThickness = -2;
 
             Children = new List<Component>()
@@ -221,7 +225,9 @@ namespace HlyssUI.Components
 
             if (_cursorTimer.ElapsedTime.AsMilliseconds() > 500)
             {
-                _cursor.Position = _text.GetLetterPosition(_currentIndex) + (Vector2f)_text.GlobalPosition;
+                Vector2f letterPos = _text.GetLetterPosition(_currentIndex);
+
+                _cursor.Position = letterPos + (Vector2f)_text.GlobalPosition;
                 _cursor.Size = new Vector2f(1, StyleManager.GetUint("font-size"));
 
                 _cursorVisible = !_cursorVisible;
@@ -284,7 +290,24 @@ namespace HlyssUI.Components
                 _text.ScrollOffset = new Vector2i();
             }
 
+            UpdateScrollOffset();
+
             _cursor.Position = _text.GetLetterPosition(_currentIndex) + (Vector2f)_text.GlobalPosition;
+        }
+
+        private void UpdateScrollOffset()
+        {
+            Vector2f letterPos = _cursor.Position - (Vector2f)_text.GlobalPosition;
+            Vector2f localCursorPosition = _cursor.Position - (Vector2f)_textView.GlobalPosition;
+
+            if (localCursorPosition.X > _textView.Size.X)
+            {
+                _textView.ScrollToX(-(int)(letterPos.X - _textView.Size.X));
+            }
+            if (localCursorPosition.X < 0)
+            {
+                _textView.ScrollToX(-(int)(letterPos.X));
+            }
         }
 
         private void RemoveSelectedText()

@@ -139,11 +139,11 @@ namespace HlyssUIDemo
                     },
                     new RadioButton("RadioButton 1"),
                     new RadioButton("RadioButton 2"),
-                    new SpinButton()
-                    {
-                        Width = "150px",
-                        Name = "SpinButton 1"
-                    },
+                    //new SpinButton()
+                    //{
+                    //    Width = "150px",
+                    //    Name = "SpinButton 1"
+                    //},
                     new ToggleSwitch("ToggleSwitch 1"),
                     new ToolTip()
                     {
@@ -191,11 +191,8 @@ namespace HlyssUIDemo
                     new TextBox()
                     {
                         Text = "TextBox 1",
-                        Width = "200px"
-                    },
-                    new Form()
-                    {
-                        Name = "form1"
+                        Width = "200px",
+                        MaxLines = 10
                     }
                 }
             };
