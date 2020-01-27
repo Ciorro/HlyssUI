@@ -3,7 +3,6 @@ using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using System;
 using System.Collections.Generic;
 
 namespace HlyssUI.Components.Internals
@@ -59,7 +58,7 @@ namespace HlyssUI.Components.Internals
 
                 foreach (var letter in _text)
                 {
-                    if (letter == '\n' || letter.ToString() == Environment.NewLine)
+                    if (letter == '\n' || letter.ToString() == System.Environment.NewLine)
                         newLineCount++;
                 }
 
@@ -267,7 +266,7 @@ namespace HlyssUI.Components.Internals
             }
             else if (diff < 0)
             {
-                _letters.RemoveRange(_letters.Count + diff, Math.Abs(diff));
+                _letters.RemoveRange(_letters.Count + diff, System.Math.Abs(diff));
             }
 
             for (int i = 0; i < _letters.Count; i++)
@@ -307,7 +306,7 @@ namespace HlyssUI.Components.Internals
 
             foreach (var letter in _letters)
             {
-                width = (int)Math.Max(width, letter.Position.X - GlobalPosition.X + letter.Advance);
+                width = (int)System.Math.Max(width, letter.Position.X - GlobalPosition.X + letter.Advance);
             }
 
             Width = $"{width}px";
@@ -318,7 +317,7 @@ namespace HlyssUI.Components.Internals
         {
             for (int i = 0; i < _letters.Count; i++)
             {
-                if (i >= 0 && i < _letters.Count && i >= Math.Min(_selectionEnd, _selectionStart) && i <= Math.Max(_selectionEnd, _selectionStart))
+                if (i >= 0 && i < _letters.Count && i >= System.Math.Min(_selectionEnd, _selectionStart) && i <= System.Math.Max(_selectionEnd, _selectionStart))
                     _letters[i].Selected = true;
                 else
                     _letters[i].Selected = false;

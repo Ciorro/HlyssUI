@@ -3,6 +3,7 @@ using HlyssUI.Graphics;
 using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
+using System;
 
 namespace HlyssUI.Components
 {
@@ -66,7 +67,7 @@ namespace HlyssUI.Components
             if (Enabled)
                 HandleIntermediate();
 
-            _tweenEase.Duration = Size.X / 1000f;
+            _tweenEase.Duration = Math.Min(Math.Max(Size.X / 1000f, 0.5f), 2);
         }
 
         public override void OnStyleChanged()

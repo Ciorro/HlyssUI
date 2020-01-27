@@ -39,7 +39,6 @@ namespace HlyssUI.Components
                     AllowLetters = false,
                     AllowSpecialCharacters = false,
                     Expand = true,
-                    //Margin = "0px 2px",
                     Padding = "2px 2px 2px 10px",
                     CenterContent = true,
                     Name = "spinbutton_textbox",
@@ -62,7 +61,7 @@ namespace HlyssUI.Components
                     Padding = "10px",
                     Appearance = Button.ButtonStyle.Flat,
                     Name = "spinbutton_minus"
-                },
+                }
             });
 
             AutosizeY = true;

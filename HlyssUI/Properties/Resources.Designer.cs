@@ -119,5 +119,15 @@ namespace HlyssUI.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Progress_Ring {
+            get {
+                object obj = ResourceManager.GetObject("Progress_Ring", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

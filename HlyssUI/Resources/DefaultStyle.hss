@@ -158,6 +158,11 @@
     <border-thickness>2</border-thickness>
   </style>
   
+  <!-- Textbox placeholder-->
+  <style name="textbox_placeholder_default">
+    <text-color>grey</text-color>
+  </style>
+  
   <!--ToolTip-->
   <style name="tooltip_default" state="default">
     <font-size>12</font-size>

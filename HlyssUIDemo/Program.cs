@@ -193,8 +193,10 @@ namespace HlyssUIDemo
                         Text = "TextBox 1",
                         Width = "200px",
                         MaxLines = 10,
-                        SelectOnFocus = false
-                    }
+                        SelectOnFocus = false,
+                        Placeholder = "Enter text here"
+                    },
+                    new ProgressRing()
                 }
             };
         }

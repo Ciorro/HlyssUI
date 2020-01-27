@@ -1,11 +1,9 @@
 ﻿using HlyssUI.Components.Internals;
 using HlyssUI.Layout;
-using HlyssUI.Themes;
 using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using System;
 using System.Collections.Generic;
 
 namespace HlyssUI.Components
@@ -64,7 +62,7 @@ namespace HlyssUI.Components
                 AutosizeY = true,
                 Expand = true,
                 Overflow = OverflowType.Scroll,
-                ScrollOffset = new Vector2i(20,10),
+                ScrollOffset = new Vector2i(20, 10),
                 Children = new List<Component>() { _text }
             };
 
@@ -271,7 +269,12 @@ namespace HlyssUI.Components
             }
 
             if (_realText.Length == 0)
+            {
                 _text.Text = Placeholder;
+                _text.Style = "textbox_placeholder_default";
+            }
+            else
+                _text.Style = string.Empty;
 
             if (_currentIndex > _realText.Length)
                 _currentIndex = _realText.Length;
