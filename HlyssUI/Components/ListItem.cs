@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Layout;
 using HlyssUI.Themes;
+using System;
 using System.Collections.Generic;
 
 namespace HlyssUI.Components
@@ -16,6 +17,8 @@ namespace HlyssUI.Components
         {
             set { _icon.IconType = value; }
         }
+
+        public Action Action { get; set; }
 
         private Icon _icon;
         private Label _label;
@@ -46,6 +49,12 @@ namespace HlyssUI.Components
             CenterContent = true;
             Overflow = OverflowType.Hidden;
             Style = "list_item_default";
+        }
+
+        public override void OnClicked()
+        {
+            base.OnClicked();
+            Action?.Invoke();
         }
     }
 }

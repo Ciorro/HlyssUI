@@ -2,6 +2,7 @@
 using HlyssUI.Themes;
 using HlyssUI.Extensions;
 using System.Collections.Generic;
+using System;
 
 namespace HlyssUI.Components
 {
@@ -11,6 +12,8 @@ namespace HlyssUI.Components
         {
             Outline, Filled, Flat
         }
+
+        public Action Action { get; set; }
 
         private Dictionary<ButtonStyle, string> _styles = new Dictionary<ButtonStyle, string>()
         {
@@ -59,6 +62,12 @@ namespace HlyssUI.Components
             Autosize = true;
 
             Children.Add(_label);
+        }
+
+        public override void OnClicked()
+        {
+            base.OnClicked();
+            Action?.Invoke();
         }
     }
 }

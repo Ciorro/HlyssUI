@@ -10,6 +10,7 @@ using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 
 namespace HlyssUIDemo
 {
@@ -89,6 +90,8 @@ namespace HlyssUIDemo
 
         static Component Test()
         {
+            PictureBox.Stretch stretch = PictureBox.Stretch.Letterbox;
+
             return new Panel()
             {
                 Width = "100%",
@@ -196,7 +199,65 @@ namespace HlyssUIDemo
                         SelectOnFocus = false,
                         Placeholder = "Enter text here"
                     },
-                    new ProgressRing()
+                    new ProgressRing(),
+                    new FlipView()
+                    {
+                        Width = "640px",
+                        Height = "360px",
+                        Continous = true,
+                        SlotContent = new List<Component>()
+                        {
+                            new PictureBox("bgs/image (1).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (2).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (3).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (4).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (5).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (6).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (7).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                        }
+                    }
                 }
             };
         }

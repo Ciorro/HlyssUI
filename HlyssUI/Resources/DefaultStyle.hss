@@ -178,5 +178,20 @@
     <primary-color>grey</primary-color>
   </style>
 
+  <!--FlipViewButton-->
+  <style name="flipview_button_default">
+    <border-radius>0</border-radius>
+    <border-thickness>0</border-thickness>
+    <primary-color>66000000</primary-color>
+  </style>
+
+  <style name="flipview_button_default" state="hovered">
+    <primary-color>88000000</primary-color>
+  </style>
+
+  <style name="flipview_button_default" state="pressed">
+    <primary-color>AA000000</primary-color>
+  </style>
+  
   <!--//TODO: Add disabled styles-->
 </hss>

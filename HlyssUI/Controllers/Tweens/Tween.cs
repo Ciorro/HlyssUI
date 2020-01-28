@@ -5,7 +5,7 @@ namespace HlyssUI.Controllers.Tweens
     abstract class Tween
     {
         public delegate void FinishHandler();
-        public FinishHandler OnFinish;
+        public event FinishHandler OnFinish;
 
         public readonly string Name;
         public float Duration { get; set; } = 0.3f;
@@ -47,7 +47,6 @@ namespace HlyssUI.Controllers.Tweens
         protected void Finish()
         {
             OnFinish?.Invoke();
-            OnFinish = null;
 
             IsRunning = false;
             IsFinished = true;
