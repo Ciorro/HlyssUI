@@ -41,8 +41,6 @@ namespace HlyssUI.Controllers
 
         protected override void UpdateTween()
         {
-            base.UpdateTween();
-
             if (component.StyleManager.GetString("padding-ease") != tween.Name)
             {
                 TweenType = component.StyleManager.GetString("padding-ease");

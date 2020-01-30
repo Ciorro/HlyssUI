@@ -41,8 +41,6 @@ namespace HlyssUI.Controllers
 
         protected override void UpdateTween()
         {
-            base.UpdateTween();
-
             if (component.StyleManager.GetString("margin-ease") != tween.Name)
             {
                 TweenType = component.StyleManager.GetString("margin-ease");

@@ -29,7 +29,8 @@ namespace HlyssUI.Styling.ValuePresets
             new PositionEasePreset(),
             new PositionEaseDurationPreset(),
             new SizeEasePreset(),
-            new SizeEaseDurationPreset()
+            new SizeEaseDurationPreset(),
+            new SmoothScrollPreset()
         };
 
         public static StyleValue Get(string name, string value = "")

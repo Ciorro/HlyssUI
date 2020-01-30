@@ -205,6 +205,8 @@ namespace HlyssUIDemo
                         Width = "640px",
                         Height = "360px",
                         Continous = true,
+                        Cycle = true,
+                        DisplayArrows = false,
                         SlotContent = new List<Component>()
                         {
                             new PictureBox("bgs/image (1).jpg")

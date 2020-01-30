@@ -24,6 +24,6 @@ namespace HlyssUI.Controllers
         public abstract void Start();
         public abstract bool Update();
 
-        protected virtual void UpdateTween() { }
+        protected abstract void UpdateTween();
     }
 }

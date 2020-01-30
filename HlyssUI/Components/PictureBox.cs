@@ -170,5 +170,10 @@ namespace HlyssUI.Components
             Width = $"{Image.Size.X}px";
             Height = $"{Image.Size.Y}px";
         }
+
+        ~PictureBox()
+        {
+            _image.Dispose();
+        }
     }
 }

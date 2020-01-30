@@ -1,12 +1,14 @@
 ﻿using HlyssUI.Components;
+using HlyssUI.Controllers.Tweens;
 using SFML.System;
+using HlyssUI.Extensions;
 
 namespace HlyssUI.Controllers
 {
     class ScrollController : Controller
     {
         private Vector2i _from = new Vector2i();
-        private bool _contentOverflowsComponent = false;
+        private Vector2i _to = new Vector2i();
 
         public ScrollController(Component component) : base(component) { }
 
@@ -14,8 +16,13 @@ namespace HlyssUI.Controllers
         {
             if (component.Overflow == Layout.OverflowType.Scroll)
             {
-                tween.Start();
+                if (component.StyleChanged)
+                    UpdateTween();
+
                 _from = component.ScrollOffset;
+                _to = component.TargetScrollOffset;
+
+                tween.Start();
             }
         }
 
@@ -27,13 +34,25 @@ namespace HlyssUI.Controllers
             {
                 tween.Update();
 
-                int x = (int)(_from.X + (component.TargetScrollOffset.X - _from.X) * tween.Percentage);
-                int y = (int)(_from.Y + (component.TargetScrollOffset.Y - _from.Y) * tween.Percentage);
+                int x = (int)(_from.X + (_to.X - _from.X) * tween.Percentage);
+                int y = (int)(_from.Y + (_to.Y - _from.Y) * tween.Percentage);
 
                 component.ScrollOffset = new Vector2i(x, y);
             }
 
             return isRunning;
+        }
+
+        protected override void UpdateTween()
+        {
+            bool smooth = component.StyleManager.GetBool("smooth-scroll");
+            bool isSmooth = tween is TweenOut;
+
+            if (isSmooth != smooth)
+            {
+                TweenType = (smooth) ? "out" : "instant";
+                tween.Duration = 0.5f;
+            }
         }
     }
 }

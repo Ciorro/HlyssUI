@@ -8,7 +8,7 @@ namespace HlyssUI.Components
 {
     public class FlipView : Component
     {
-        private TweenOut _tween = new TweenOut();
+        private Tween _tween = new TweenOut();
         private int _startX = 0;
         private int _scrollOffsetX = 0;
         private int _currentView = 0;
@@ -45,6 +45,20 @@ namespace HlyssUI.Components
             set { _tween.Duration = value; }
         }
 
+        public string TweenType
+        {
+            set
+            {
+                _tween = TweenResolver.GetTween(value);
+            }
+        }
+
+        public bool DisplayArrows
+        {
+            get { return FindChild("arrows_container").Visible; }
+            set { FindChild("arrows_container").Visible = value; }
+        }
+
         public bool Continous { get; set; }
         public bool Cycle { get; set; }
         public float Interval { get; set; } = 2;
@@ -64,6 +78,7 @@ namespace HlyssUI.Components
                 {
                     Width = "100%",
                     Height = "100%",
+                    Name = "arrows_container",
                     CenterContent = true,
                     Hoverable = false,
                     PositionType = HlyssUI.Layout.PositionType.Absolute,
@@ -96,7 +111,7 @@ namespace HlyssUI.Components
 
             SlotName = "flipview_content";
             _tween.OnFinish += HideViews;
-            _tween.Duration = 0.5f;
+            _tween.Duration = 1f;
         }
 
         public override void Update()
@@ -112,9 +127,9 @@ namespace HlyssUI.Components
             }
 
             _tween.Update();
+            _scrollOffsetX = -(int)(_startX + (CurrentView * Size.X - _startX) * _tween.Percentage);
             if (_tween.IsRunning)
             {
-                _scrollOffsetX = -(int)(_startX + (CurrentView * Size.X - _startX) * _tween.Percentage);
                 Slot.ScrollToX(_scrollOffsetX);
             }
         }

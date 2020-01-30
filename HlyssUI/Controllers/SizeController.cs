@@ -39,8 +39,6 @@ namespace HlyssUI.Controllers
 
         protected override void UpdateTween()
         {
-            base.UpdateTween();
-            
             if (component.StyleManager.GetString("size-ease") != tween.Name)
             {
                 TweenType = component.StyleManager.GetString("size-ease");

@@ -12,7 +12,7 @@ namespace HlyssUI.Extensions
             return Distance(v1, v2) <= maxDiff;
         }
 
-        private static float Distance(Vector2i point1, Vector2i point2)
+        public static float Distance(this Vector2i point1, Vector2i point2)
         {
             float xDistance = Math.Abs(point1.X - point2.X);
             float yDistance = Math.Abs(point1.Y - point2.Y);

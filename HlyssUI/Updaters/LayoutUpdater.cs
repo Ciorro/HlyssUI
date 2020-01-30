@@ -92,10 +92,17 @@ namespace HlyssUI.Updaters
             {
                 if (child.Expand)
                 {
-                    if(component.Layout == Layout.LayoutType.Row || component.Layout == Layout.LayoutType.Absolute)
-                        child.Width = $"{(component.TargetSize.X - totalWidth) / expandedCompoentnsCount - child.TargetMargins.Horizontal}px";
-                    if (component.Layout == Layout.LayoutType.Column || component.Layout == Layout.LayoutType.Absolute)
-                        child.Height = $"{(component.TargetSize.Y - totalHeight) / expandedCompoentnsCount - child.TargetMargins.Vertical}px";
+                    if(component.Layout == LayoutType.Row || component.Layout == LayoutType.Absolute)
+                    {
+                        int width = (component.TargetSize.X - totalWidth) / expandedCompoentnsCount - child.TargetMargins.Horizontal;
+                        child.Width = $"{Math.Max(width, 0)}px";
+                    }
+
+                    if (component.Layout == LayoutType.Column || component.Layout == LayoutType.Absolute)
+                    {
+                        int height = (component.TargetSize.Y - totalHeight) / expandedCompoentnsCount - child.TargetMargins.Vertical;
+                        child.Height = $"{Math.Max(height, 0)}px";
+                    }
 
                     child.UpdateLocalSize();
                 }

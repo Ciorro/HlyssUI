@@ -137,5 +137,10 @@ namespace HlyssUI.Components
                 Height = $"{GetHeight()}px";
             }
         }
+
+        ~Label()
+        {
+            _text.Dispose();
+        }
     }
 }
