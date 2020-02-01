@@ -16,7 +16,8 @@ namespace HlyssUI.Components
                 {
                     _icon = value;
                     _iconTxt.DisplayedString = ((char)_icon).ToString();
-                    updateSize();
+                    UpdateGlyph();
+                    UpdateSize();
                 }
             }
         }
@@ -24,13 +25,14 @@ namespace HlyssUI.Components
         private Font _iconFont;
         private Text _iconTxt;
         private Icons _icon;
+        private Glyph _glyph;
 
         public Icon(Icons icon)
         {
             _iconFont = new Font(Properties.Resources.Line_Awesome);
             _iconTxt = new Text(string.Empty, _iconFont, StyleManager.GetUint("font-size"));
             IconType = icon;
-            updateSize();
+            UpdateSize();
         }
 
         public override void Update()
@@ -39,14 +41,14 @@ namespace HlyssUI.Components
 
             if (TransformChanged)
             {
-                updateSize();
+                UpdateSize();
             }
         }
 
         public override void OnRefresh()
         {
             base.OnRefresh();
-            _iconTxt.Position = new Vector2f((int)(GlobalPosition.X + (TargetSize.X - _iconTxt.GetGlobalBounds().Width) / 2), GlobalPosition.Y);
+            _iconTxt.Position = new Vector2f(GlobalPosition.X - (_glyph.Advance - _glyph.Bounds.Width) / 2, GlobalPosition.Y);
         }
 
         public override void OnStyleChanged()
@@ -58,7 +60,7 @@ namespace HlyssUI.Components
             if (_iconTxt.CharacterSize != StyleManager.GetUint("font-size"))
             {
                 _iconTxt.CharacterSize = StyleManager.GetUint("font-size") + 4;
-                updateSize();
+                UpdateSize();
             }
         }
 
@@ -67,7 +69,7 @@ namespace HlyssUI.Components
             target.Draw(_iconTxt);
         }
 
-        private int getHeight()
+        private int GetHeight()
         {
             int newLineCount = 0;
             foreach (var letter in _iconTxt.DisplayedString)
@@ -79,12 +81,17 @@ namespace HlyssUI.Components
             return (int)(_iconTxt.Font.GetLineSpacing(_iconTxt.CharacterSize) * (newLineCount + 1));
         }
 
-        private void updateSize()
+        private void UpdateSize()
         {
-            int size = (int)Math.Max(_iconTxt.GetGlobalBounds().Width, getHeight());
+            int size = (int)(_glyph.Bounds.Width );
 
             Width = $"{size}px";
-            Height = $"{size}px";
+            Height = $"{GetHeight()}px";
+        }
+
+        private void UpdateGlyph()
+        {
+            _glyph = _iconFont.GetGlyph(_iconTxt.DisplayedString[0], _iconTxt.CharacterSize, false, 0);
         }
     }
 }

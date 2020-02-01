@@ -83,6 +83,7 @@
   <style name="list_item_default" state="default">
     <border-radius>0</border-radius>
     <border-thickness>0</border-thickness>
+    <primary-color>transparent</primary-color>
   </style>
 
   <style name="list_item_default" state="hovered">
