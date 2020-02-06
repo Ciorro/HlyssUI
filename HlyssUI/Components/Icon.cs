@@ -60,6 +60,7 @@ namespace HlyssUI.Components
             if (_iconTxt.CharacterSize != StyleManager.GetUint("font-size"))
             {
                 _iconTxt.CharacterSize = StyleManager.GetUint("font-size") + 4;
+                UpdateGlyph();
                 UpdateSize();
             }
         }

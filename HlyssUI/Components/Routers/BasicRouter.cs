@@ -6,10 +6,12 @@
         {
             if (Children.Count == 0)
             {
+                component.Visible = true;
                 Children.Add(component);
             }
             else
             {
+                Children[0].Visible = false;
                 Children[0] = component;
             }
 
