@@ -69,5 +69,11 @@ namespace HlyssUI.Components
             base.OnClicked();
             Action?.Invoke();
         }
+
+        public override void OnRefresh()
+        {
+            base.OnRefresh();
+            //Console.WriteLine($"{Name}: [Pad] {Paddings}, [Mar] {Margins}, [Size] {Size}, [Pos] {Position}");
+        }
     }
 }

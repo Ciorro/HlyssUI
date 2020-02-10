@@ -54,8 +54,8 @@ namespace HlyssUI
             FlatComponentTree = _treeFlatter.GetComponentList(Root);
 
             _componentUpdater.Update(Root);
-            _layoutUpdater.Update(Root);
             _styleUpdater.Update(Root);
+            _layoutUpdater.Update(Root);
         }
 
         public void Draw()

@@ -1,13 +1,8 @@
-﻿using HlyssUI.Graphics;
-using HlyssUI.Layout;
-using HlyssUI.Styling;
-using HlyssUI.Themes;
+﻿using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Components
 {
@@ -16,7 +11,7 @@ namespace HlyssUI.Components
         private HlyssApp _internalApp;
         private bool _shouldClose = false;
         private string _caption = string.Empty;
-        
+
         public RenderWindow Window { get; private set; }
 
         public string Caption
@@ -113,7 +108,7 @@ namespace HlyssUI.Components
 
         private void UpdateWindow()
         {
-            if(!IsOpen) return;
+            if (!IsOpen) return;
 
             Window.SetTitle(_caption);
 

@@ -13,8 +13,7 @@ namespace HlyssUI.Controllers
 
         public override void Start()
         {
-            if (component.StyleChanged)
-                UpdateTween();
+            UpdateTween();
 
             tween.Start();
             _from = component.Margins;

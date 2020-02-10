@@ -62,7 +62,7 @@ namespace HlyssUI.Components
         {
             get
             {
-                int newLineCount = 0;
+                int newLineCount = 1;
 
                 foreach (var letter in _text.DisplayedString)
                 {
@@ -70,7 +70,7 @@ namespace HlyssUI.Components
                         newLineCount++;
                 }
 
-                return ++newLineCount;
+                return newLineCount;
             }
         }
 

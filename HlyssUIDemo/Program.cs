@@ -200,6 +200,11 @@ namespace HlyssUIDemo
                         Placeholder = "Enter text here"
                     },
                     new ProgressRing(),
+                    new Panel()
+                    {
+                        Width = "500px",
+                        Height = "400px",
+                    },
                     new FlipView()
                     {
                         Width = "640px",

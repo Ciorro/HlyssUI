@@ -16,8 +16,7 @@ namespace HlyssUI.Controllers
         {
             if (component.Overflow == Layout.OverflowType.Scroll)
             {
-                if (component.StyleChanged)
-                    UpdateTween();
+                UpdateTween();
 
                 _from = component.ScrollOffset;
                 _to = component.TargetScrollOffset;
