@@ -67,7 +67,7 @@ namespace HlyssUI.Components
             if (Enabled)
                 HandleIntermediate();
 
-            _tweenEase.Duration = Math.Min(Math.Max(Size.X / 1000f, 0.5f), 2);
+            _tweenEase.Duration = Math.Min(Math.Max(Size.X / 1000f, 0.75f), 2);
         }
 
         public override void OnStyleChanged()
@@ -104,10 +104,7 @@ namespace HlyssUI.Components
                     if (_tweenEase.IsFinished)
                     {
                         _isExpanding = false;
-                        _tweenEase = new TweenOut()
-                        {
-                            Duration = 1
-                        };
+                        _tweenEase = new TweenOut();
                         _tweenEase.Start();
                     }
                 }

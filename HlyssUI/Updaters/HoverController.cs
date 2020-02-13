@@ -11,7 +11,7 @@ namespace HlyssUI.Updaters
 
         private Vector2i _mPos;
 
-        public void Update(HlyssApp app, Vector2i mousePosition)
+        public void Update(HlyssForm form, Vector2i mousePosition)
         {
             _mPos = mousePosition;
 
@@ -19,17 +19,17 @@ namespace HlyssUI.Updaters
             HoveredComponents.CopyTo(prevComponents);
             HoveredComponents.Clear();
 
-            FindHovered(app);
+            FindHovered(form);
             CompareHover(prevComponents.ToList(), HoveredComponents);
         }
 
-        private void FindHovered(HlyssApp app)
+        private void FindHovered(HlyssForm form)
         {
             Component firstHovered = null;
 
-            for (int i = app.FlatComponentTree.Count - 1; i >= 0; i--)
+            for (int i = form.FlatComponentTree.Count - 1; i >= 0; i--)
             {
-                Component component = app.FlatComponentTree[i];
+                Component component = form.FlatComponentTree[i];
 
                 if (component.Bounds.Contains(_mPos.X, _mPos.Y) && (component.Parent == null || component.PositionType == Layout.PositionType.Fixed || (component.Parent != null && component.Parent.ClipArea.Bounds.Contains(_mPos.X, _mPos.Y))) && component.Hoverable && component.Visible)
                 {

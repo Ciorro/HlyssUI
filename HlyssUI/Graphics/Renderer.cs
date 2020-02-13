@@ -12,21 +12,21 @@ namespace HlyssUI.Graphics
 
         public void Render(Component component)
         {
-            _windowArea = new IntRect(0, 0, (int)component.App.Window.Size.X, (int)component.App.Window.Size.Y);
+            _windowArea = new IntRect(0, 0, (int)component.Form.Window.Size.X, (int)component.Form.Window.Size.Y);
             _defaultView = new View()
             {
-                Center = (Vector2f)component.App.Window.Size / 2,
-                Size = (Vector2f)component.App.Window.Size,
+                Center = (Vector2f)component.Form.Window.Size / 2,
+                Size = (Vector2f)component.Form.Window.Size,
                 Viewport = new FloatRect(0, 0, 1, 1)
             };
 
-            component.App.Window.SetView(component.App.Window.DefaultView);
+            component.Form.Window.SetView(component.Form.Window.DefaultView);
             RenderComponents(component);
         }
 
         private void RenderComponents(Component rootComponent)
         {
-            foreach (var component in rootComponent.App.FlatComponentTree)
+            foreach (var component in rootComponent.Form.FlatComponentTree)
             {
                 if (!component.IsOnScreen || !component.Visible || !component.Bounds.Intersects(_windowArea))
                     continue;
@@ -34,12 +34,12 @@ namespace HlyssUI.Graphics
                 View area = GetNearestClipArea(component);
 
                 if (area != null && component.PositionType != PositionType.Fixed)
-                    component.App.Window.SetView(area);
+                    component.Form.Window.SetView(area);
 
-                component.Draw(component.App.Window);
+                component.Draw(component.Form.Window);
                 component.DrawDebug();
 
-                component.App.Window.SetView(_defaultView);
+                component.Form.Window.SetView(_defaultView);
             }
         }
 

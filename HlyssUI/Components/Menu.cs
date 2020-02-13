@@ -46,9 +46,9 @@ namespace HlyssUI.Components
 
             if (Visible)
             {
-                if (TargetSize.Y > App.Root.TargetSize.Y)
+                if (TargetSize.Y > Form.Root.TargetSize.Y)
                 {
-                    Height = $"{App.Root.TargetSize.Y}px";
+                    Height = $"{Form.Root.TargetSize.Y}px";
                     AutosizeY = false;
                     Top = "0px";
                 }

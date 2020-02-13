@@ -25,7 +25,7 @@ namespace HlyssUI.Graphics
 
         public void Update()
         {
-            Vector2f winSize = (Vector2f)_component.App.Window.Size;
+            Vector2f winSize = (Vector2f)_component.Form.Window.Size;
             IntRect bounds = GetShrinkedComponentBounds(_component.Bounds);
 
             FitInParent(ref bounds);

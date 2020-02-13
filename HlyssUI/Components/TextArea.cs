@@ -1,6 +1,4 @@
 ﻿using HlyssUI.Components.Internals;
-using HlyssUI.Layout;
-using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -22,6 +20,7 @@ namespace HlyssUI.Components
             get { return _text; }
             set
             {
+                ScheduleRefresh();
                 SetText(value);
             }
         }
@@ -128,8 +127,7 @@ namespace HlyssUI.Components
         {
             foreach (var letter in _letters)
             {
-
-                if (letter.Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : App.Root.Bounds))
+                if (letter.Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : Form.Root.Bounds))
                 {
                     letter.Draw(target);
                 }
@@ -140,7 +138,7 @@ namespace HlyssUI.Components
         {
             base.OnMousePressedAnywhere(location, button);
 
-            _selectionStart = GetLetterByPosition(Mouse.GetPosition(App.Window));
+            _selectionStart = GetLetterByPosition(Mouse.GetPosition(Form.Window));
             _isSeleting = true;
             _selectionEnd = -1;
         }
@@ -168,7 +166,7 @@ namespace HlyssUI.Components
                 return;
 
             if (_isSeleting)
-                _selectionEnd = GetLetterByPosition(Mouse.GetPosition(App.Window));
+                _selectionEnd = GetLetterByPosition(Mouse.GetPosition(Form.Window));
 
             for (int i = 0; i < _letters.Count; i++)
             {
@@ -241,11 +239,11 @@ namespace HlyssUI.Components
                 _letters.Add(new Letter(letter));
             }
 
-            ForceRefresh();
+            CreateLines();
             OnStyleChanged();
 
             if (TextAutosize)
-                updateSize();
+                UpdateTextSize();
         }
 
         private int GetLetterByPosition(Vector2i position)
@@ -259,7 +257,7 @@ namespace HlyssUI.Components
             return -1;
         }
 
-        private void updateSize()
+        private void UpdateTextSize()
         {
             Height = $"{getHeight()}px";
 

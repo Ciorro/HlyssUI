@@ -193,6 +193,9 @@
   <style name="flipview_button_default" state="pressed">
     <primary-color>AA000000</primary-color>
   </style>
-  
+
+  <style name="mbox_icon_default">
+    <font-size>25</font-size>
+  </style>
   <!--//TODO: Add disabled styles-->
 </hss>

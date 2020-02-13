@@ -389,9 +389,9 @@ namespace HlyssUI.Components
             get
             {
                 if (PositionType != PositionType.Fixed)
-                    return Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : App.Root.Bounds);
+                    return Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : Form.Root.Bounds);
                 else
-                    return Bounds.Intersects(App.Root.Bounds);
+                    return Bounds.Intersects(Form.Root.Bounds);
             }
         }
 
@@ -443,7 +443,7 @@ namespace HlyssUI.Components
 
         public bool IsInitialized
         {
-            get { return App != null && (Parent != null || this is RootComponent); }
+            get { return Form != null && (Parent != null || this is RootComponent); }
         }
 
         public bool TransformChanged { get; private set; } = true;
@@ -513,7 +513,7 @@ namespace HlyssUI.Components
         public string Name { get; set; } = string.Empty;
         public readonly string Id = Guid.NewGuid().ToString();
 
-        public HlyssApp App { get; set; }
+        public HlyssForm Form { get; set; }
 
         public Component()
         {
@@ -612,16 +612,6 @@ namespace HlyssUI.Components
                 return null;
             else
                 return Parent.FindParent(name);
-        }
-
-        public Form GetForm()
-        {
-            if (Parent != null && Parent is Form)
-                return Parent as Form;
-            else if (Parent == null)
-                return null;
-            else
-                return Parent.GetForm();
         }
 
         public Router GetClosestRouter()
@@ -755,7 +745,7 @@ namespace HlyssUI.Components
                 return;
             }
 
-            Vector2i currentMPos = Mouse.GetPosition(App.Window);
+            Vector2i currentMPos = Mouse.GetPosition(Form.Window);
 
             if (_doubleClickTimer.ElapsedMilliseconds <= 500 && _firstClickPos.Near(currentMPos, 0) && button == Mouse.Button.Left)
             {
@@ -900,7 +890,7 @@ namespace HlyssUI.Components
 
         public void DrawDebug()
         {
-            if (HlyssApp.Debug)
+            if (HlyssForm.Debug)
             {
                 _debugRect.Update(this);
                 _debugRect.Draw(this);

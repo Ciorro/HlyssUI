@@ -33,14 +33,14 @@ namespace HlyssUI.Components
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            App.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Hand));
+            Form.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Hand));
             TextStyle = SFML.Graphics.Text.Styles.Underlined;
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-            App.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Arrow));
+            Form.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Arrow));
             TextStyle = SFML.Graphics.Text.Styles.Regular;
         }
     }

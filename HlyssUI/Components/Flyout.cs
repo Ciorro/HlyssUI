@@ -35,7 +35,7 @@ namespace HlyssUI.Components
         public override void OnInitialized()
         {
             base.OnInitialized();
-            App.Window.Resized += (object sender, SizeEventArgs e) =>
+            Form.Window.Resized += (object sender, SizeEventArgs e) =>
             {
                 FitInWindow();
                 MaxWidth = $"{e.Width}px";
@@ -65,11 +65,11 @@ namespace HlyssUI.Components
         {
             if (Visible)
             {
-                if (TargetSize.Y < App.Root.TargetSize.Y)
+                if (TargetSize.Y < Form.Root.TargetSize.Y)
                 {
-                    if (TargetPosition.Y + TargetSize.Y > App.Root.TargetSize.Y)
+                    if (TargetPosition.Y + TargetSize.Y > Form.Root.TargetSize.Y)
                     {
-                        Top = $"{App.Root.TargetSize.Y - TargetSize.Y}px";
+                        Top = $"{Form.Root.TargetSize.Y - TargetSize.Y}px";
                     }
                     if (TargetPosition.Y < 0)
                     {
@@ -77,11 +77,11 @@ namespace HlyssUI.Components
                     }
                 }
 
-                if (TargetSize.X < App.Root.TargetSize.X)
+                if (TargetSize.X < Form.Root.TargetSize.X)
                 {
-                    if (TargetPosition.X + TargetSize.X > App.Root.TargetSize.X)
+                    if (TargetPosition.X + TargetSize.X > Form.Root.TargetSize.X)
                     {
-                        Left = $"{App.Root.TargetSize.X - TargetSize.X}px";
+                        Left = $"{Form.Root.TargetSize.X - TargetSize.X}px";
                     }
                     if (TargetPosition.X < 0)
                     {

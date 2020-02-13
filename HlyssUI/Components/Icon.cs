@@ -29,7 +29,7 @@ namespace HlyssUI.Components
 
         public Icon(Icons icon)
         {
-            _iconFont = new Font(Properties.Resources.Line_Awesome);
+            _iconFont = Fonts.LineAwesome;
             _iconTxt = new Text(string.Empty, _iconFont, StyleManager.GetUint("font-size"));
             IconType = icon;
             UpdateSize();

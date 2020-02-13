@@ -19,7 +19,7 @@ namespace HlyssUI.Updaters
 
         private static void InitializeComponent(Component component, Component child)
         {
-            child.App = component.App;
+            child.Form = component.Form;
             child.Parent = component;
 
             child.OnInitialized();

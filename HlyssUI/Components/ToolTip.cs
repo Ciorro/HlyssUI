@@ -51,7 +51,7 @@ namespace HlyssUI.Components
             if(Target != null && Target.Hovered && _clock.ElapsedTime.AsMilliseconds() > Delay && !Visible)
             {
                 _clock.Restart();
-                Show(Mouse.GetPosition(App.Window) + Offset);
+                Show(Mouse.GetPosition(Form.Window) + Offset);
             }
 
             if(Target != null && !Target.Hovered && Visible)

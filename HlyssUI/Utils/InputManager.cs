@@ -7,40 +7,39 @@ namespace HlyssUI.Utils
 {
     internal class InputManager
     {
-        private HlyssApp _app;
+        private HlyssForm _form;
         private HoverController _hoverController = new HoverController();
 
-        public InputManager(HlyssApp app)
+        public void RegisterEvents(HlyssForm form)
         {
-            _app = app;
-        }
+            _form = form;
 
-        public void RegisterEvents()
-        {
-            _app.Window.MouseButtonPressed += Window_MouseButtonPressed;
-            _app.Window.MouseButtonReleased += Window_MouseButtonReleased;
-            _app.Window.MouseMoved += Window_MouseMoved;
-            _app.Window.MouseWheelScrolled += Window_MouseWheelScrolled;
-            _app.Window.KeyPressed += Window_KeyPressed;
-            _app.Window.KeyReleased += Window_KeyReleased;
-            _app.Window.TextEntered += Window_TextEntered;
+            _form.Window.MouseButtonPressed += Window_MouseButtonPressed;
+            _form.Window.MouseButtonReleased += Window_MouseButtonReleased;
+            _form.Window.MouseMoved += Window_MouseMoved;
+            _form.Window.MouseWheelScrolled += Window_MouseWheelScrolled;
+            _form.Window.KeyPressed += Window_KeyPressed;
+            _form.Window.KeyReleased += Window_KeyReleased;
+            _form.Window.TextEntered += Window_TextEntered;
         }
 
         public void UnregisterEvents()
         {
-            _app.Window.MouseButtonPressed -= Window_MouseButtonPressed;
-            _app.Window.MouseButtonReleased -= Window_MouseButtonReleased;
-            _app.Window.MouseMoved -= Window_MouseMoved;
-            _app.Window.MouseWheelScrolled -= Window_MouseWheelScrolled;
-            _app.Window.KeyPressed -= Window_KeyPressed;
-            _app.Window.KeyReleased -= Window_KeyReleased;
-            _app.Window.TextEntered -= Window_TextEntered;
+            _form.Window.MouseButtonPressed -= Window_MouseButtonPressed;
+            _form.Window.MouseButtonReleased -= Window_MouseButtonReleased;
+            _form.Window.MouseMoved -= Window_MouseMoved;
+            _form.Window.MouseWheelScrolled -= Window_MouseWheelScrolled;
+            _form.Window.KeyPressed -= Window_KeyPressed;
+            _form.Window.KeyReleased -= Window_KeyReleased;
+            _form.Window.TextEntered -= Window_TextEntered;
+
+            _form = null;
         }
 
         private void Window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
-            _hoverController.Update(_app, Mouse.GetPosition(_app.Window));
-            sendMouseMoveInfoToAllChildren(_app.Root, new Vector2i(e.X, e.Y));
+            _hoverController.Update(_form, Mouse.GetPosition(_form.Window));
+            sendMouseMoveInfoToAllChildren(_form.Root, new Vector2i(e.X, e.Y));
         }
 
         private void Window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
@@ -55,7 +54,7 @@ namespace HlyssUI.Utils
                 }
             }
 
-            sendMouseReleaseInfoToAllChildren(_app.Root, new Vector2i(e.X, e.Y), e.Button);
+            sendMouseReleaseInfoToAllChildren(_form.Root, new Vector2i(e.X, e.Y), e.Button);
         }
 
         private void Window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
@@ -73,28 +72,28 @@ namespace HlyssUI.Utils
                 }
             }
 
-            sendMousePressInfoToAllChildren(_app.Root, new Vector2i(e.X, e.Y), e.Button);
+            sendMousePressInfoToAllChildren(_form.Root, new Vector2i(e.X, e.Y), e.Button);
         }
 
         private void Window_MouseWheelScrolled(object sender, MouseWheelScrollEventArgs e)
         {
-            _hoverController.Update(_app, Mouse.GetPosition(_app.Window));
-            sendScrollInfoToAllChildren(_app.Root, e.Delta);
+            _hoverController.Update(_form, Mouse.GetPosition(_form.Window));
+            sendScrollInfoToAllChildren(_form.Root, e.Delta);
         }
 
         private void Window_TextEntered(object sender, TextEventArgs e)
         {
-            sendTextInputInfoToAllChildren(_app.Root, e.Unicode);
+            sendTextInputInfoToAllChildren(_form.Root, e.Unicode);
         }
 
         private void Window_KeyReleased(object sender, KeyEventArgs e)
         {
-            sendKeyReleaseInfoToAllChildren(_app.Root, e.Code);
+            sendKeyReleaseInfoToAllChildren(_form.Root, e.Code);
         }
 
         private void Window_KeyPressed(object sender, KeyEventArgs e)
         {
-            sendKeyPressInfoToAllChildren(_app.Root, e.Code);
+            sendKeyPressInfoToAllChildren(_form.Root, e.Code);
         }
 
         private void sendMouseMoveInfoToAllChildren(Component component, Vector2i location)

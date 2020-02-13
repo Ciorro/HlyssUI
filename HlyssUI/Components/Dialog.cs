@@ -71,8 +71,8 @@ namespace HlyssUI.Components
 
             Component dialogScaffold = new Panel()
             {
-                Width = $"{App.Root.W}px",
-                Height = $"{App.Root.H}px",
+                Width = $"{Form.Root.W}px",
+                Height = $"{Form.Root.H}px",
                 CenterContent = true,
                 Layout = HlyssUI.Layout.LayoutType.Absolute,
                 PositionType = HlyssUI.Layout.PositionType.Fixed,

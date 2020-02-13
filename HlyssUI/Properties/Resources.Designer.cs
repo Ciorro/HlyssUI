@@ -73,6 +73,16 @@ namespace HlyssUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Empty_Image {
+            get {
+                object obj = ResourceManager.GetObject("Empty_Image", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] Line_Awesome {
             get {
                 object obj = ResourceManager.GetObject("Line_Awesome", resourceCulture);

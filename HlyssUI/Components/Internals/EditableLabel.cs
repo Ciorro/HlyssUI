@@ -165,7 +165,7 @@ namespace HlyssUI.Components.Internals
 
             ResetSelection();
 
-            _selectionStart = GetLetterByPosition(Mouse.GetPosition(App.Window));
+            _selectionStart = GetLetterByPosition(Mouse.GetPosition(Form.Window));
             _isSeleting = true;
         }
 

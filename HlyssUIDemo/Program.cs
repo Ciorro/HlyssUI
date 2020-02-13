@@ -1,8 +1,10 @@
 ﻿using HlyssUI;
 using HlyssUI.Components;
+using HlyssUI.Components.Dialogs;
 using HlyssUI.Components.Routers;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
+using HlyssUI.ResourceManagement;
 using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
@@ -16,56 +18,52 @@ namespace HlyssUIDemo
 {
     class Program
     {
+        static HlyssApplication app = new HlyssApplication();
         static string caption = "HlyssUI demo";
 
         static void Main(string[] args)
         {
-            Vector2u winSize = new Vector2u(1280, 720);
+            Theme.Load("theme.ini", "light");
 
-            ContextSettings contextSettings = new ContextSettings();
-            contextSettings.AntialiasingLevel = 8;
+            HlyssApplication.InitializeStyles();
 
-            RenderWindow window = new RenderWindow(new VideoMode(winSize.X, winSize.Y), caption, Styles.Default, contextSettings);
-            window.SetVerticalSyncEnabled(true);
-            window.Closed += (object sender, EventArgs e) => { window.Close(); };
-
-            Theme.Load("theme.ini", "dark");
-
-            HlyssApp app = new HlyssApp(window);
-            app.Root.AddChild(new BasicRouter()
+            HlyssForm form = new HlyssForm()
+            {
+                Size = new Vector2u(1280, 720),
+                Title = "Cior"
+            };
+            form.Root.AddChild(new BasicRouter()
             {
                 Name = "router"
             });
+            (form.Root.GetChild("router") as Router).Navigate(Test());
+            form.Show();
 
-            (app.Root.GetChild("router") as Router).Navigate(Test());
+            app.RegisterForm("main", form);
+            app.RegisterForm("browse_folder_dialog", new MessageBox("Galactic Dissent", "Czy na pewno chcesz odinstalować ten produkt?\n• Galactic Dissent", "Nie", "Tak"));
 
-            Handle(app);
+            Handle(form);
 
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
-            window.KeyPressed += (object sender, KeyEventArgs e) =>
+            form.Window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
                 if (e.Code == Keyboard.Key.F3)
-                    HlyssApp.Debug = !HlyssApp.Debug;
+                    HlyssForm.Debug = !HlyssForm.Debug;
                 if (e.Code == Keyboard.Key.C)
                     Console.Clear();
             };
 
-            while (window.IsOpen)
+            while (form.IsOpen)
             {
-                window.Clear(Theme.GetColor("Primary"));
-                window.DispatchEvents();
-
-                app.Update();
-                app.Draw();
-
-                window.Display();
+                app.UpdateAllForms();
+                app.DrawAllForms();
 
                 fps++;
                 if (fpsTimer.ElapsedMilliseconds >= 1000)
                 {
-                    window.SetTitle($"{caption} ({fps} fps)");
+                    form.Title = $"{caption} ({fps} fps)";
                     fps = 0;
                     fpsTimer.Restart();
                 }
@@ -74,17 +72,17 @@ namespace HlyssUIDemo
             HlyssUI.Utils.Logger.SaveLog();
         }
 
-        private static void Handle(HlyssApp app)
+        private static void Handle(HlyssForm form)
         {
-            (app.Root.FindChild("ToolTip 1") as ToolTip).Target = app.Root.FindChild("Panel 1");
-            app.Root.FindChild("Panel 1").Clicked += (object sender) =>
+            (form.Root.FindChild("ToolTip 1") as ToolTip).Target = form.Root.FindChild("Panel 1");
+            form.Root.FindChild("Panel 1").Clicked += (object sender) =>
             {
-                (app.Root.FindChild("Menu 1") as Menu).Show(app.MousePosition);
+                (form.Root.FindChild("Menu 1") as Menu).Show(form.MousePosition);
             };
 
-            app.Root.FindChild("show_form").Clicked += (object sender) =>
+            form.Root.FindChild("show_form").Clicked += (object sender) =>
             {
-                
+                app.GetForm("browse_folder_dialog").Show();
             };
         }
 
@@ -263,6 +261,13 @@ namespace HlyssUIDemo
                                 SmoothImage = true,
                                 StretchMode = stretch
                             },
+                            new PictureBox(ResourceManager.GetAsync<Texture>("http://caps.fail/lonczer/images//Accounts/d/profile.png").Result)
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            }
                         }
                     }
                 }

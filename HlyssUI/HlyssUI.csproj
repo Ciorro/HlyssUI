@@ -6,12 +6,15 @@
 
   <ItemGroup>
     <Compile Remove="Components\Card.cs" />
+    <Compile Remove="Components\Form.cs" />
     <Compile Remove="Components\HScrollBar.cs" />
+    <Compile Remove="Components\MessageBox.cs" />
     <Compile Remove="Components\ScrollArea.cs" />
     <Compile Remove="Components\ScrollArea2.cs" />
     <Compile Remove="Components\ScrollBars.cs" />
     <Compile Remove="Components\VScrollBar.cs" />
     <Compile Remove="GuiScene.cs" />
+    <Compile Remove="HlyssApp.cs" />
     <Compile Remove="Layout\Box.cs" />
     <Compile Remove="Layout\Container.cs" />
     <Compile Remove="Layout\LayoutComponent.cs" />
