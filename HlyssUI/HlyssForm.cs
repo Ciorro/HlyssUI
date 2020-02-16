@@ -25,6 +25,8 @@ namespace HlyssUI
             AntialiasingLevel = 4
         };
 
+        public static uint Framerate { get; set; } = 120;
+
         public RenderWindow Window { get; private set; }
         public RootComponent Root { get; private set; } = new RootComponent();
 
@@ -175,7 +177,7 @@ namespace HlyssUI
 
             if (!_isExternalWindow)
             {
-                Window.SetVerticalSyncEnabled(true);
+                Window.SetFramerateLimit(Framerate);
                 Window.Closed += (_, __) => Hide();
                 Window.SetIcon(Icon.Size.X, Icon.Size.Y, Icon.Pixels);
             }

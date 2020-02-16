@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Components.Internals;
+using HlyssUI.Graphics;
 using HlyssUI.Layout;
 using HlyssUI.Utils;
 using SFML.Graphics;
@@ -202,13 +203,13 @@ namespace HlyssUI.Components
         public override void OnMouseEntered()
         {
             base.OnMouseEntered();
-            Form.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Text));
+            Form.Window.SetMouseCursor(Cursors.Text);
         }
 
         public override void OnMouseLeft()
         {
             base.OnMouseLeft();
-            Form.Window.SetMouseCursor(new Cursor(Cursor.CursorType.Arrow));
+            Form.Window.SetMouseCursor(Cursors.Arrow);
         }
 
         public override void OnStyleChanged()

@@ -82,6 +82,7 @@ namespace HlyssUI.Components
             if (_prevSize != TargetSize)
             {
                 CreateLines();
+                UpdateTextSize();
             }
             PlaceLines();
 

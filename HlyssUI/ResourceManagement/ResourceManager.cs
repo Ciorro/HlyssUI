@@ -65,12 +65,10 @@ namespace HlyssUI.ResourceManagement
 
             if (Uri.TryCreate(uriStr, UriKind.Absolute, out uri))
             {
-                Console.WriteLine($"Loading resource using {uri.Scheme} protocol.");
                 _resources.Add(uriStr, _creators[typeof(T)].CreateResource(_loaders[uri.Scheme].Load(uriStr.Remove(0, uri.Scheme.Length + 3))));
             }
             else
             {
-                Console.WriteLine($"Loading resource using file protocol.");
                 _resources.Add(uriStr, _creators[typeof(T)].CreateResource(_loaders["file"].Load(uriStr)));
             }
         }
@@ -81,12 +79,10 @@ namespace HlyssUI.ResourceManagement
 
             if (Uri.TryCreate(uriStr, UriKind.Absolute, out uri))
             {
-                Console.WriteLine($"Loading resource using {uri.Scheme} protocol.");
                 _resources.Add(uriStr, _creators[typeof(T)].CreateResource(await _loaders[uri.Scheme].LoadAsync(uriStr.Remove(0, uri.Scheme.Length + 3))));
             }
             else
             {
-                Console.WriteLine($"Loading resource using file protocol.");
                 _resources.Add(uriStr, _creators[typeof(T)].CreateResource(await _loaders["file"].LoadAsync(uriStr)));
             }
         }

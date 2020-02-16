@@ -68,10 +68,12 @@ namespace HlyssUI.Components.Dialogs
 
                 Root.GetChild("buttons").Children.Add(new Button(_buttons[i])
                 {
+                    Name = $"messagebox_button_{i}",
                     MarginLeft = "5px",
                     Action = () =>
                     {
                         ResultHandler?.Invoke(this, index);
+                        OnButtonClicked(index);
                         Hide();
                     }
                 });
@@ -83,5 +85,7 @@ namespace HlyssUI.Components.Dialogs
             (Root.FindChild("content") as TextArea).Text = Content;
             base.OnShown();
         }
+
+        protected virtual void OnButtonClicked(int index) { }
     }
 }
