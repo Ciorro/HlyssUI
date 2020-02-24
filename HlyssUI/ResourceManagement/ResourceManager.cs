@@ -53,8 +53,12 @@ namespace HlyssUI.ResourceManagement
 
         public static async Task<T> GetAsync<T>(string uri)
         {
-            if (!_resources.ContainsKey(uri))
-                await LoadAsync<T>(uri);
+            try
+            {
+                if (!_resources.ContainsKey(uri))
+                    await LoadAsync<T>(uri);
+            }
+            catch (ArgumentException e) { }
 
             return (T)_resources[uri];
         }

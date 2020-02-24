@@ -27,7 +27,7 @@ namespace HlyssUI.Components
         {
             Padding = "5px 10px";
 
-            GetChild("listitem_text").Expand = true;
+            Children.Add(new Spacer());
             Children.Add(new Icon(Graphics.Icons.AngleRight)
             {
                 Name = "menuitem_submenuicon",

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
+using System.Timers;
 
 namespace HlyssUIDemo
 {
@@ -20,10 +21,11 @@ namespace HlyssUIDemo
     {
         static HlyssApplication app = new HlyssApplication();
         static string caption = "HlyssUI demo";
+        static bool wide = true;
 
         static void Main(string[] args)
         {
-            Theme.Load("theme.ini", "light");
+            Theme.Load("theme.ini", "dark");
 
             HlyssApplication.InitializeStyles();
 
@@ -36,13 +38,20 @@ namespace HlyssUIDemo
             {
                 Name = "router"
             });
-            (form.Root.GetChild("router") as Router).Navigate(Test());
+            (form.Root.GetChild("router") as Router).Navigate(TestExpand());
             form.Show();
+            form.Window.SetFramerateLimit(0);
 
             app.RegisterForm("main", form);
             app.RegisterForm("browse_folder_dialog", new MessageBox("Galactic Dissent", "Czy na pewno chcesz odinstalować ten produkt?\n• Galactic Dissent", "Nie", "Tak"));
 
-            Handle(form);
+            //Handle(form);
+
+            form.Root.FindChild("left_panel").Clicked += (_) =>
+            {
+                form.Root.FindChild("left_panel").Width = wide ? "100px" : "300px";
+                wide = !wide;
+            };
 
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
@@ -269,6 +278,48 @@ namespace HlyssUIDemo
                                 StretchMode = stretch
                             }
                         }
+                    }
+                }
+            };
+        }
+
+        static Component TestExpand()
+        {
+            return new Component()
+            {
+                Width = "100%",
+                Height = "100%",
+                Name = "container",
+                Children = new List<Component>()
+                {
+                    new Panel()
+                    {
+                        Width = "300px",
+                        Height = "100%",
+                        Name = "left_panel"
+                    },
+                    new Panel()
+                    {
+                        Expand = true,
+                        Height = "100%",
+                        Padding = "50px",
+                        Layout = LayoutType.Column,
+                        Name = "middle_panel",
+                        Children = new List<Component>()
+                        {
+                            new Panel()
+                            {
+                                Width = "100%",
+                                Height = "100px",
+                                Name = "testing_panel"
+                            }
+                        }
+                    },
+                    new Panel()
+                    {
+                        Width = "200px",
+                        Height = "100%",
+                        Name = "right_panel"
                     }
                 }
             };

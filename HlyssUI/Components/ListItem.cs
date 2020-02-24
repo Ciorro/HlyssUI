@@ -27,15 +27,17 @@ namespace HlyssUI.Components
         {
             _icon = new Icon(Graphics.Icons.Empty)
             {
-                MarginRight = "10px",
-                Name = "listitem_icon"
+                Name = "listitem_icon",
+                PositionType = PositionType.Relative
             };
 
             _label = new Label(label)
             {
                 Height = "100%",
                 AutosizeToText = false,
-                Name = "listitem_text"
+                Name = "listitem_text",
+                Left = "30px",
+                PositionType = PositionType.Absolute
             };
 
             Children = new List<Component>()

@@ -148,6 +148,10 @@ namespace HlyssUI
                 Close();
                 _shouldClose = false;
             }
+            else
+            {
+                OnUpdate();
+            }
         }
 
         public void Draw()
@@ -167,6 +171,7 @@ namespace HlyssUI
         protected virtual void OnShown() { }
         protected virtual void OnClosed() { }
         protected virtual void OnInitialized() { }
+        protected virtual void OnUpdate() { }
 
         private void Init()
         {

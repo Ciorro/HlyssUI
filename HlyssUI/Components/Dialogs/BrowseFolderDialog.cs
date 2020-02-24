@@ -46,7 +46,7 @@ namespace HlyssUI.Components.Dialogs
         {
             Title = "Przeglądanie w poszukiwaniu folderu";
             Size = new Vector2u(550, 400);
-            Icon = new SFML.Graphics.Image(1,1);
+            Icon = null;
         }
 
         public void Navigate(string path)

@@ -48,8 +48,6 @@ namespace HlyssUI.Updaters
                 Compose(child);
             }
 
-            ApplyExpand(component); 
-
             LayoutController layout = LayoutResolver.GetLayout(component.Layout);
             layout.ApplyLayout(component);
             layout.ApplyAutosize(component);
@@ -83,6 +81,8 @@ namespace HlyssUI.Updaters
                 }
                 else if(child.PositionType != PositionType.Fixed && child.PositionType != PositionType.Absolute && child.Visible)
                 {
+                    child.UpdateLocalTransform();
+
                     totalWidth += child.TargetSize.X + child.TargetMargins.Horizontal;
                     totalHeight += child.TargetSize.Y + child.TargetMargins.Vertical;
                 }
