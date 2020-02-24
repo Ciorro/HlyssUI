@@ -311,7 +311,13 @@ namespace HlyssUIDemo
                             {
                                 Width = "100%",
                                 Height = "100px",
-                                Name = "testing_panel"
+                                Name = "testing_panel",
+                                Children = new List<Component>()
+                                {
+                                    new Button(),
+                                    new Spacer(),
+                                    new Button()
+                                }
                             }
                         }
                     },

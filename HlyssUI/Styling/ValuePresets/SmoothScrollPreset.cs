@@ -2,6 +2,6 @@
 {
     class SmoothScrollPreset : StyleValuePreset
     {
-        public SmoothScrollPreset() : base("smooth-scroll", "false", true) { }
+        public SmoothScrollPreset() : base("smooth-scroll", "true", true) { }
     }
 }

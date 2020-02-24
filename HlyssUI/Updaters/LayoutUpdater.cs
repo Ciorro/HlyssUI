@@ -48,6 +48,8 @@ namespace HlyssUI.Updaters
                 Compose(child);
             }
 
+            ApplyExpand(component); 
+
             LayoutController layout = LayoutResolver.GetLayout(component.Layout);
             layout.ApplyLayout(component);
             layout.ApplyAutosize(component);
