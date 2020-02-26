@@ -1,9 +1,7 @@
-﻿using System;
-using HlyssUI.Components;
+﻿using HlyssUI.Components;
 using HlyssUI.Layout;
 using HlyssUI.Layout.LayoutControllers;
-using HlyssUI.Utils;
-using SFML.Window;
+using System;
 
 namespace HlyssUI.Updaters
 {
@@ -47,8 +45,11 @@ namespace HlyssUI.Updaters
             {
                 Compose(child);
             }
-
-            ApplyExpand(component); 
+            /* TODO: SpaceSplitters
+             * - commonsplitter: normal splitter including expand behaviour
+             * - equalsplitter: every component has the same width/height
+             */
+            ApplyExpand(component);
 
             LayoutController layout = LayoutResolver.GetLayout(component.Layout);
             layout.ApplyLayout(component);
@@ -81,7 +82,7 @@ namespace HlyssUI.Updaters
                 {
                     expandedCompoentnsCount++;
                 }
-                else if(child.PositionType != PositionType.Fixed && child.PositionType != PositionType.Absolute && child.Visible)
+                else if (child.PositionType != PositionType.Fixed && child.PositionType != PositionType.Absolute && child.Visible)
                 {
                     child.UpdateLocalTransform();
 
@@ -94,7 +95,7 @@ namespace HlyssUI.Updaters
             {
                 if (child.Expand)
                 {
-                    if(component.Layout == LayoutType.Row || component.Layout == LayoutType.Absolute)
+                    if (component.Layout == LayoutType.Row || component.Layout == LayoutType.Absolute)
                     {
                         int width = (component.TargetSize.X - totalWidth) / expandedCompoentnsCount - child.TargetMargins.Horizontal;
                         child.Width = $"{Math.Max(width, 0)}px";

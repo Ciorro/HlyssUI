@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Remove="Components\Card.cs" />
+    <Compile Remove="Components\Dialog.cs" />
     <Compile Remove="Components\Form.cs" />
     <Compile Remove="Components\HScrollBar.cs" />
     <Compile Remove="Components\MessageBox.cs" />

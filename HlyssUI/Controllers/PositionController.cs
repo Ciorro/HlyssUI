@@ -6,6 +6,7 @@ namespace HlyssUI.Controllers
     class PositionController : Controller
     {
         private Vector2i _from = new Vector2i();
+        private bool _firstUse = true;
 
         public PositionController(Component component) : base(component)
         {
@@ -13,7 +14,10 @@ namespace HlyssUI.Controllers
 
         public override void Start()
         {
-            UpdateTween();
+            if (!_firstUse)
+                UpdateTween();
+
+            _firstUse = false;
 
             tween.Start();
             _from = component.RelativePosition;

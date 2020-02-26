@@ -179,6 +179,11 @@
     <primary-color>grey</primary-color>
   </style>
 
+  <!--FlipView-->
+  <style name="flipview_default">
+    <position-ease>instant</position-ease>
+  </style>
+  
   <!--FlipViewButton-->
   <style name="flipview_button_default">
     <border-radius>0</border-radius>
@@ -197,5 +202,15 @@
   <style name="mbox_icon_default">
     <font-size>25</font-size>
   </style>
+  
+  <!--TreeViewRoot icon-->
+  <style name="treeview_icon_default" state="hovered">
+    <text-color>accent</text-color>
+  </style>
+
+  <style name="treeview_icon_default" state="pressed">
+    <text-color>accent -10</text-color>
+  </style>
+  
   <!--//TODO: Add disabled styles-->
 </hss>

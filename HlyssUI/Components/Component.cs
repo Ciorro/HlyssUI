@@ -4,7 +4,6 @@ using HlyssUI.Extensions;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
 using HlyssUI.Styling;
-using HlyssUI.Themes;
 using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.System;
@@ -58,6 +57,7 @@ namespace HlyssUI.Components
         private string _style = string.Empty;
         private DebugRect _debugRect = new DebugRect();
         private Controller[] _controllers;
+        private List<Component> _children = new List<Component>();
 
         private LayoutValue _positionX = LayoutValue.Default;
         private LayoutValue _positionY = LayoutValue.Default;
@@ -78,7 +78,25 @@ namespace HlyssUI.Components
         private PositionType _positionType = PositionType.Static;
         private LayoutType _layout = LayoutType.Row;
 
-        public List<Component> Children { get; set; } = new List<Component>();
+        public List<Component> Children
+        {
+            get { return _children; }
+            set
+            {
+                if (OverwriteChildren)
+                    _children = value;
+                else
+                    _children.AddRange(value);
+            }
+        }
+
+        public List<Component> ChildrenBefore
+        {
+            set
+            {
+                _children.InsertRange(0, value);
+            }
+        }
 
         public Component Slot
         {
@@ -142,7 +160,7 @@ namespace HlyssUI.Components
         public Spacing Paddings { get; internal set; } = new Spacing();
 
         public Vector2i ScrollOffset { get; internal set; }
-        public Vector2i TargetScrollOffset { get; internal set; } 
+        public Vector2i TargetScrollOffset { get; internal set; }
 
         public IntRect Bounds => new IntRect(GlobalPosition, Size);
 
@@ -459,8 +477,7 @@ namespace HlyssUI.Components
         public bool ReversedHorizontal { get; set; }
         public bool ReversedVertical { get; set; }
         public bool Expand { get; set; }
-        public bool CascadeStyle { get; set; } = true;
-        public bool ReceiveStyle { get; set; } = true;
+        public bool OverwriteChildren { get; set; } = true;
 
         public string SlotName { get; set; } = string.Empty;
 
@@ -751,6 +768,7 @@ namespace HlyssUI.Components
             {
                 _doubleClick = true;
                 DoubleClicked?.Invoke(this);
+                OnDoubleClicked();
             }
 
             if (button == Mouse.Button.Left)
@@ -786,6 +804,8 @@ namespace HlyssUI.Components
         }
 
         public virtual void OnClicked() { }
+
+        public virtual void OnDoubleClicked() { }
 
         public virtual void OnKeyPressed(Keyboard.Key key) { }
 

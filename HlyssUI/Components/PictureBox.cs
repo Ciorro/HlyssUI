@@ -79,10 +79,13 @@ namespace HlyssUI.Components
         {
             base.OnRefresh();
 
-            _image.Position = (Vector2f)GlobalPosition;
-            _image.Size = (Vector2f)TargetSize;
+            if (Visible)
+            {
+                _image.Position = (Vector2f)GlobalPosition;
+                _image.Size = (Vector2f)TargetSize;
 
-            updateStretch();
+                updateStretch();
+            }
         }
 
         public override void OnStyleChanged()

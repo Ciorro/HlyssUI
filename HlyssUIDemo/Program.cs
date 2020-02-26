@@ -25,7 +25,7 @@ namespace HlyssUIDemo
 
         static void Main(string[] args)
         {
-            Theme.Load("theme.ini", "dark");
+            Theme.Load("theme.ini", "light");
 
             HlyssApplication.InitializeStyles();
 
@@ -38,20 +38,25 @@ namespace HlyssUIDemo
             {
                 Name = "router"
             });
-            (form.Root.GetChild("router") as Router).Navigate(TestExpand());
+            (form.Root.GetChild("router") as Router).Navigate(Test());
             form.Show();
             form.Window.SetFramerateLimit(0);
 
             app.RegisterForm("main", form);
             app.RegisterForm("browse_folder_dialog", new MessageBox("Galactic Dissent", "Czy na pewno chcesz odinstalować ten produkt?\n• Galactic Dissent", "Nie", "Tak"));
 
-            //Handle(form);
+            Handle(form);
 
-            form.Root.FindChild("left_panel").Clicked += (_) =>
+            form.Root.FindChild("show_form").ChildrenBefore = new List<Component>()
             {
-                form.Root.FindChild("left_panel").Width = wide ? "100px" : "300px";
-                wide = !wide;
+                new Icon(Icons.AngleRight)
             };
+
+            //form.Root.FindChild("left_panel").Clicked += (_) =>
+            //{
+            //    form.Root.FindChild("left_panel").Width = wide ? "100px" : "300px";
+            //    wide = !wide;
+            //};
 
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
@@ -207,75 +212,132 @@ namespace HlyssUIDemo
                         Placeholder = "Enter text here"
                     },
                     new ProgressRing(),
-                    new Panel()
+                    //new FlipView()
+                    //{
+                    //    Width = "640px",
+                    //    Height = "360px",
+                    //    Continous = true,
+                    //    Cycle = true,
+                    //    DisplayArrows = false,
+                    //    SlotContent = new List<Component>()
+                    //    {
+                    //        new PictureBox("bgs/image (1).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (2).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (3).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (4).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (5).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (6).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (7).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox(ResourceManager.GetAsync<Texture>("http://caps.fail/lonczer/images//Accounts/d/profile.png").Result)
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        }
+                    //    }
+                    //},
+                    new TreeView()
                     {
-                        Width = "500px",
+                        Width = "250px",
                         Height = "400px",
-                    },
-                    new FlipView()
-                    {
-                        Width = "640px",
-                        Height = "360px",
-                        Continous = true,
-                        Cycle = true,
-                        DisplayArrows = false,
-                        SlotContent = new List<Component>()
+                        Children = new List<Component>()
                         {
-                            new PictureBox("bgs/image (1).jpg")
+                            new TreeViewRoot("Computer")
                             {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (2).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (3).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (4).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (5).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (6).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (7).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox(ResourceManager.GetAsync<Texture>("http://caps.fail/lonczer/images//Accounts/d/profile.png").Result)
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
+                                Icon = new Texture("computer.png"),
+                                Children = new List<Component>()
+                                {
+                                    new TreeViewRoot("Documents")
+                                    {
+                                        Icon = new Texture("documents.png"),
+                                        Children = new List<Component>()
+                                        {
+                                            new TreeViewNode("document1.doc")
+                                            {
+                                                Icon = new Texture("file.png")
+                                            },
+                                            new TreeViewNode("document2.doc")
+                                            {
+                                                Icon = new Texture("file.png")
+                                            },
+                                            new TreeViewNode("document3.doc")
+                                            {
+                                                Icon = new Texture("file.png")
+                                            },
+                                        }
+                                    },
+                                    new TreeViewRoot("Music")
+                                    {
+                                        Icon = new Texture("music.png")
+                                    },
+                                    new TreeViewRoot("Pictures")
+                                    {
+                                        Icon = new Texture("pictures.png")
+                                    },
+                                    new TreeViewRoot("Downloads")
+                                    {
+                                        Icon = new Texture("downloads.png")
+                                    },
+                                    new TreeViewRoot("Videos")
+                                    {
+                                        Icon = new Texture("videos.png")
+                                    },
+                                    new TreeViewRoot("Local disk C:/")
+                                    {
+                                        Icon = new Texture("drive.png")
+                                    },
+                                    new TreeViewRoot("Local disk D:/")
+                                    {
+                                        Icon = new Texture("drive.png")
+                                    },
+                                    new TreeViewRoot("Local disk H:/")
+                                    {
+                                        Icon = new Texture("drive.png")
+                                    },
+                                }
                             }
                         }
                     }
