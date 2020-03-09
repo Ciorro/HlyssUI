@@ -161,7 +161,7 @@ namespace HlyssUI
                 return;
 
             if (!_isExternalWindow)
-                Window.Clear(Theme.GetColor("primary"));
+                Window.Clear(ThemeManager.GetColor("primary"));
 
             _renderer.Render(Root);
 
@@ -179,7 +179,7 @@ namespace HlyssUI
             Root.Form = this;
             Root.OnInitialized();
 
-            Theme.OnThemeLoaded += () => Root.StyleChanged = true;
+            ThemeManager.OnThemeChanged += () => Root.StyleChanged = true;
 
             if (!_isExternalWindow)
             {

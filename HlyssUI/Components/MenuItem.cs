@@ -43,7 +43,7 @@ namespace HlyssUI.Components
 
             if (Menu != null)
             {
-                Menu.Show(GlobalPosition + new Vector2i(TargetSize.X, -1));
+                Menu.Show(GlobalPosition + new Vector2i(TargetSize.X - 5, -2));
             }
         }
 

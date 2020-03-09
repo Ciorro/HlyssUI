@@ -63,6 +63,23 @@ namespace HlyssUI.Styling
             }
         }
 
+        public void Combine(StyleClass styleClass)
+        {
+            foreach (var value in styleClass.GetAvailableValues())
+            {
+                SetValue(value, styleClass.GetValue(value));
+            }
+        }
+
+        public List<string> GetAvailableValues()
+        {
+            List<string> values = new List<string>();
+
+            foreach (var value in _values)
+                values.Add(value.Name);
+            return values;
+        }
+
         private void Load(XmlNode node)
         {
             if (node.Attributes["state"] != null)

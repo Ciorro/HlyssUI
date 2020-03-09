@@ -7,7 +7,7 @@ namespace HlyssUI.Graphics
 {
     internal class RoundedRectangle : Shape
     {
-        private uint _radius = Theme.BorderRadius;
+        private uint _radius = ThemeManager.BorderRadius;
         private Vector2f _size = new Vector2f(100, 100);
 
         private bool _needsUpdate = false;

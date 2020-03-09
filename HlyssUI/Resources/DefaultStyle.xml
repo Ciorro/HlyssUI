@@ -181,7 +181,7 @@
 
   <!--FlipView-->
   <style name="flipview_default">
-    <position-ease>instant</position-ease>
+    <smooth-scroll>instant</smooth-scroll>
   </style>
   
   <!--FlipViewButton-->

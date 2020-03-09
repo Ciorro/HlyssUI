@@ -94,7 +94,7 @@ namespace HlyssUI.Styling
 
         public Color GetColor(string key)
         {
-            Color color = Theme.GetColor(GetValue(key));
+            Color color = ThemeManager.GetColor(GetValue(key));
 
             float opacity = GetFloat("opacity");
             if (opacity < 0) opacity = 0;

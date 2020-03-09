@@ -133,13 +133,16 @@
   <data name="Line_Awesome" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\line-awesome.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="DefaultStyle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DefaultStyle.hss;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="Progress_Ring" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\progress ring.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Empty_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EmptyImage.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DefaultStyle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DefaultStyle.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1250</value>
+  </data>
+  <data name="DefaultTheme" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DefaultTheme.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1250</value>
   </data>
 </root>

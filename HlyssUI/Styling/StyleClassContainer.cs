@@ -17,7 +17,7 @@ namespace HlyssUI.Styling
             }
             else
             {
-                //TODO: Combining classes
+                _classStates[state].Combine(styleClass);
             }
         }
 

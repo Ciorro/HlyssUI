@@ -109,6 +109,7 @@ namespace HlyssUI.Components
                 }
             };
 
+            Style = "flipview_default";
             SlotName = "flipview_content";
             _tween.OnFinish += HideViews;
             _tween.Duration = 1f;

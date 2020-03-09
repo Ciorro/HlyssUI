@@ -1,0 +1,32 @@
+<themes>
+  <theme name="light" dark="false">
+    <text>302b29</text>
+    <primary>FAFAFA</primary>
+    <secondary>d7d7d7</secondary>
+    <accent>0071c5</accent>
+    <success>00c230</success>
+    <error>d60007</error>
+    <warning>fad000</warning>
+    <information>0080db</information>
+  </theme>
+  <theme name="dark" dark="true">
+    <text>FFFFFF</text>
+    <primary>121212</primary>
+    <secondary>2D2D2D</secondary>
+    <accent>3366cc</accent>
+    <success>00c230</success>
+    <error>d60007</error>
+    <warning>fad000</warning>
+    <information>0080db</information>
+  </theme>
+  <theme name="black" dark="true">
+    <text>FFFFFF</text>
+    <primary>000000</primary>
+    <secondary>111111</secondary>
+    <accent>3366cc</accent>
+    <success>00c230</success>
+    <error>d60007</error>
+    <warning>fad000</warning>
+    <information>0080db</information>
+  </theme>
+</themes>

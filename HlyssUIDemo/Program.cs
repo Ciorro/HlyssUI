@@ -12,8 +12,7 @@ using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
-using System.Timers;
+using System.IO;
 
 namespace HlyssUIDemo
 {
@@ -25,7 +24,8 @@ namespace HlyssUIDemo
 
         static void Main(string[] args)
         {
-            Theme.Load("theme.ini", "light");
+            ThemeManager.LoadFromFile("DefaultTheme.xml");
+            ThemeManager.SetTheme("dark");
 
             HlyssApplication.InitializeStyles();
 
@@ -40,7 +40,6 @@ namespace HlyssUIDemo
             });
             (form.Root.GetChild("router") as Router).Navigate(Test());
             form.Show();
-            //form.Window.SetFramerateLimit(0);
 
             app.RegisterForm("main", form);
             app.RegisterForm("browse_folder_dialog", new MessageBox("Galactic Dissent", "Czy na pewno chcesz odinstalować ten produkt?\n• Galactic Dissent", "Nie", "Tak"));
@@ -51,12 +50,6 @@ namespace HlyssUIDemo
             {
                 new Icon(Icons.AngleRight)
             };
-
-            //form.Root.FindChild("left_panel").Clicked += (_) =>
-            //{
-            //    form.Root.FindChild("left_panel").Width = wide ? "100px" : "300px";
-            //    wide = !wide;
-            //};
 
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
@@ -82,8 +75,6 @@ namespace HlyssUIDemo
                     fpsTimer.Restart();
                 }
             }
-
-            HlyssUI.Utils.Logger.SaveLog();
         }
 
         private static void Handle(HlyssForm form)
@@ -190,8 +181,7 @@ namespace HlyssUIDemo
                         Items = new List<MenuItem>()
                         {
                             new MenuItem("MenuItem 1"),
-                            new MenuItem("MenuItem 2"),
-                            new MenuItem("MenuItem 3")
+                            new MenuItem("MenuItem 2")
                             {
                                 Menu = new Menu()
                                 {
@@ -201,7 +191,8 @@ namespace HlyssUIDemo
                                         new MenuItem("MenuItem 2"),
                                     }
                                 }
-                            }
+                            },
+                            new MenuItem("MenuItem 3")
                         }
                     },
                     new TextBox()
@@ -213,73 +204,73 @@ namespace HlyssUIDemo
                         Placeholder = "Enter text here"
                     },
                     new ProgressRing(),
-                    //new FlipView()
-                    //{
-                    //    Width = "640px",
-                    //    Height = "360px",
-                    //    Continous = true,
-                    //    Cycle = true,
-                    //    DisplayArrows = false,
-                    //    SlotContent = new List<Component>()
-                    //    {
-                    //        new PictureBox("bgs/image (1).jpg")
-                    //        {
-                    //            Width = "100%",
-                    //            Height = "100%",
-                    //            SmoothImage = true,
-                    //            StretchMode = stretch
-                    //        },
-                    //        new PictureBox("bgs/image (2).jpg")
-                    //        {
-                    //            Width = "100%",
-                    //            Height = "100%",
-                    //            SmoothImage = true,
-                    //            StretchMode = stretch
-                    //        },
-                    //        new PictureBox("bgs/image (3).jpg")
-                    //        {
-                    //            Width = "100%",
-                    //            Height = "100%",
-                    //            SmoothImage = true,
-                    //            StretchMode = stretch
-                    //        },
-                    //        new PictureBox("bgs/image (4).jpg")
-                    //        {
-                    //            Width = "100%",
-                    //            Height = "100%",
-                    //            SmoothImage = true,
-                    //            StretchMode = stretch
-                    //        },
-                    //        new PictureBox("bgs/image (5).jpg")
-                    //        {
-                    //            Width = "100%",
-                    //            Height = "100%",
-                    //            SmoothImage = true,
-                    //            StretchMode = stretch
-                    //        },
-                    //        new PictureBox("bgs/image (6).jpg")
-                    //        {
-                    //            Width = "100%",
-                    //            Height = "100%",
-                    //            SmoothImage = true,
-                    //            StretchMode = stretch
-                    //        },
-                    //        new PictureBox("bgs/image (7).jpg")
-                    //        {
-                    //            Width = "100%",
-                    //            Height = "100%",
-                    //            SmoothImage = true,
-                    //            StretchMode = stretch
-                    //        },
-                    //        new PictureBox(ResourceManager.GetAsync<Texture>("http://caps.fail/lonczer/images//Accounts/d/profile.png").Result)
-                    //        {
-                    //            Width = "100%",
-                    //            Height = "100%",
-                    //            SmoothImage = true,
-                    //            StretchMode = stretch
-                    //        }
-                    //    }
-                    //}
+                    new FlipView()
+                    {
+                        Width = "640px",
+                        Height = "360px",
+                        Continous = true,
+                        Cycle = true,
+                        DisplayArrows = false,
+                        SlotContent = new List<Component>()
+                        {
+                            new PictureBox("bgs/image (1).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (2).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (3).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (4).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (5).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (6).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox("bgs/image (7).jpg")
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            },
+                            new PictureBox(ResourceManager.GetAsync<Texture>("http://caps.fail/lonczer/images//Accounts/d/profile.png").Result)
+                            {
+                                Width = "100%",
+                                Height = "100%",
+                                SmoothImage = true,
+                                StretchMode = stretch
+                            }
+                        }
+                    }
                 }
             };
         }

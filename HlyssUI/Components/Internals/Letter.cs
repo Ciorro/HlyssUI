@@ -89,7 +89,7 @@ namespace HlyssUI.Components.Internals
 
         public Letter(char character)
         {
-            _letter = new Text(character.ToString(), Fonts.MontserratRegular, Theme.CharacterSize);
+            _letter = new Text(character.ToString(), Fonts.MontserratRegular, ThemeManager.CharacterSize);
             _selectionRect = new RectangleShape();
             _selectionRect.FillColor = new Color(153, 201, 239);
         }

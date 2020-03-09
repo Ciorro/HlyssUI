@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Styling;
+using HlyssUI.Themes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,13 @@ namespace HlyssUI
 
         public static void InitializeStyles()
         {
-            StyleBank.LoadFromString(Encoding.UTF8.GetString(Properties.Resources.DefaultStyle));
+            StyleBank.LoadFromString(Properties.Resources.DefaultStyle);
+        }
+
+        public static void LoadDefaultTheme()
+        {
+            ThemeManager.LoadFromString(Properties.Resources.DefaultTheme);
+            ThemeManager.SetTheme("light");
         }
 
         public void RegisterForm(string name, HlyssForm form)

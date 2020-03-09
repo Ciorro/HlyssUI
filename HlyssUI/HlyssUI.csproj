@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <UserSecretsId>5762191d-6712-4065-a911-85680c37a286</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,7 +41,6 @@
 
   <ItemGroup>
     <PackageReference Include="CSFML" Version="2.5.0" />
-    <PackageReference Include="ini-parser" Version="2.5.2" />
     <PackageReference Include="SFML.Graphics" Version="2.5.0" />
     <PackageReference Include="SFML.Net" Version="2.5.0" />
     <PackageReference Include="SFML.System" Version="2.5.0" />

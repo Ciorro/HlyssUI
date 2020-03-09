@@ -61,12 +61,53 @@ namespace HlyssUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to &lt;hss&gt;
+        ///  &lt;!-- Filled button --&gt;
+        ///  &lt;style name=&quot;filled_button_default&quot; state=&quot;default&quot;&gt;
+        ///    &lt;primary-color&gt;accent&lt;/primary-color&gt;
+        ///    &lt;border-thickness&gt;0&lt;/border-thickness&gt;
+        ///    &lt;text-color&gt;#FFFFFF&lt;/text-color&gt;
+        ///  &lt;/style&gt;
+        ///
+        ///  &lt;style name=&quot;filled_button_default&quot; state=&quot;hovered&quot;&gt;
+        ///    &lt;primary-color&gt;accent -20&lt;/primary-color&gt;
+        ///  &lt;/style&gt;
+        ///
+        ///  &lt;style name=&quot;filled_button_default&quot; state=&quot;pressed&quot;&gt;
+        ///    &lt;primary-color&gt;accent -40&lt;/primary-color&gt;
+        ///  &lt;/style&gt;
+        ///
+        ///  &lt;style name=&quot;filled_button_default&quot; state=&quot;disab [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static byte[] DefaultStyle {
+        internal static string DefaultStyle {
             get {
-                object obj = ResourceManager.GetObject("DefaultStyle", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("DefaultStyle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;themes&gt;
+        ///  &lt;theme name=&quot;light&quot; dark=&quot;false&quot;&gt;
+        ///    &lt;text&gt;302b29&lt;/text&gt;
+        ///    &lt;primary&gt;FAFAFA&lt;/primary&gt;
+        ///    &lt;secondary&gt;d7d7d7&lt;/secondary&gt;
+        ///    &lt;accent&gt;0071c5&lt;/accent&gt;
+        ///    &lt;success&gt;00c230&lt;/success&gt;
+        ///    &lt;error&gt;d60007&lt;/error&gt;
+        ///    &lt;warning&gt;fad000&lt;/warning&gt;
+        ///    &lt;information&gt;0080db&lt;/information&gt;
+        ///  &lt;/theme&gt;
+        ///  &lt;theme name=&quot;dark&quot; dark=&quot;true&quot;&gt;
+        ///    &lt;text&gt;FFFFFF&lt;/text&gt;
+        ///    &lt;primary&gt;121212&lt;/primary&gt;
+        ///    &lt;secondary&gt;2D2D2D&lt;/secondary&gt;
+        ///    &lt;accent&gt;3366cc&lt;/accent&gt;
+        ///    &lt;success&gt;00c230&lt;/success&gt;
+        ///    &lt;error&gt;d60007&lt;/ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DefaultTheme {
+            get {
+                return ResourceManager.GetString("DefaultTheme", resourceCulture);
             }
         }
         
