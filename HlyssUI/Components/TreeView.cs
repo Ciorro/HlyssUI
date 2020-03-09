@@ -1,8 +1,6 @@
 ﻿using HlyssUI.Graphics;
 using SFML.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HlyssUI.Components
 {
@@ -14,6 +12,44 @@ namespace HlyssUI.Components
             Layout = HlyssUI.Layout.LayoutType.Column;
             Overflow = HlyssUI.Layout.OverflowType.Scroll;
         }
+
+        public TreeViewNode GetSelectedNode()
+        {
+            List<TreeViewNode> nodes = new List<TreeViewNode>();
+            GetAllNodes(ref nodes, this);
+
+            foreach (var node in nodes)
+            {
+                if (node.IsSelected)
+                    return node;
+            }
+
+            return null;
+        }
+
+        internal void DeselectAll(Component root)
+        {
+            Component node = root;
+
+            foreach (var child in node.Children)
+            {
+                if (child is TreeViewNode)
+                    (child as TreeViewNode).IsSelected = false;
+
+                DeselectAll(child);
+            }
+        }
+
+        internal void GetAllNodes(ref List<TreeViewNode> nodes, Component root)
+        {
+            foreach (var child in root.Children)
+            {
+                if (child is TreeViewNode)
+                    nodes.Add(child as TreeViewNode);
+
+                GetAllNodes(ref nodes, child);
+            }
+        }
     }
 
     public class TreeViewNode : Component
@@ -24,16 +60,41 @@ namespace HlyssUI.Components
             set { (FindChild("treeviewnode_label") as Label).Text = value; }
         }
 
-        public Texture Icon
+        public Texture BitmapIcon
         {
             set
             {
-                PictureBox picture = FindChild("treeviewnode_picture") as PictureBox;
+                PictureBox picture = FindChild("treeviewnode_bitmap_icon") as PictureBox;
                 picture.Image = value;
                 picture.Visible = true;
                 picture.SmoothImage = true;
             }
         }
+
+        public Icons Icon
+        {
+            set
+            {
+                Icon picture = FindChild("treeviewnode_icon") as Icon;
+                picture.IconType = value;
+                picture.Visible = true;
+            }
+        }
+
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                if (value != _isSelected)
+                {
+                    FindChild("treeviewnode_panel").Style = value ? "treeview_node_selected" : "list_item_default";
+                    _isSelected = value;
+                }
+            }
+        }
+
+        private bool _isSelected = false;
 
         public TreeViewNode(string label = "")
         {
@@ -62,7 +123,7 @@ namespace HlyssUI.Components
                             {
                                 new Icon(Icons.Empty)
                                 {
-                                    Name = "treeviewnode_icon"
+                                    Name = "treeviewnode_expand_btn_icon"
                                 }
                             }
                         },
@@ -71,7 +132,14 @@ namespace HlyssUI.Components
                             Width = "16px",
                             Height = "16px",
                             MarginRight = "5px",
-                            Name = "treeviewnode_picture",
+                            Name = "treeviewnode_bitmap_icon",
+                            Visible = false
+                        },
+                        new Icon(Icons.Empty)
+                        {
+                            MarginRight = "5px",
+                            Name = "treeviewnode_icon",
+                            Style = "treeview_icon_default",
                             Visible = false
                         },
                         new Label(label)
@@ -80,6 +148,14 @@ namespace HlyssUI.Components
                         }
                     }
                 }
+            };
+
+            FindChild("treeviewnode_panel").Clicked += (_) =>
+            {
+                TreeView treeView = GetTreeView();
+                treeView.DeselectAll(treeView);
+
+                IsSelected = true;
             };
         }
 
@@ -112,13 +188,13 @@ namespace HlyssUI.Components
 
             while (!(component is TreeView))
             {
-                if (component is TreeView)
-                    return component as TreeView;
-
                 if (component.Parent != null)
                     component = component.Parent;
                 else break;
             }
+
+            if (component != null && component is TreeView)
+                return component as TreeView;
 
             return null;
         }
@@ -135,7 +211,7 @@ namespace HlyssUI.Components
             get { return _expanded; }
             set
             {
-                if(value != _expanded)
+                if (value != _expanded)
                 {
                     _expanded = value;
                     SetExpanded(value);
@@ -152,9 +228,9 @@ namespace HlyssUI.Components
         public override void OnInitialized()
         {
             base.OnInitialized();
-            
+
             FindChild("treeviewnode_expand_btn").Clicked += (_) => IsExpanded = !IsExpanded;
-            FindChild("treeviewnode_expand_btn").Style = "treeview_icon_default";
+            FindChild("treeviewnode_expand_btn").Style = "treeview_expand_btn_icon_default";
 
             SetExpanded(false);
         }
@@ -166,10 +242,13 @@ namespace HlyssUI.Components
                 Children[i].Visible = expanded;
             }
 
-            (FindChild("treeviewnode_icon") as Icon).IconType = expanded ? Icons.AngleDown : Icons.AngleRight;
+            (FindChild("treeviewnode_expand_btn_icon") as Icon).IconType = expanded ? Icons.AngleDown : Icons.AngleRight;
 
-            Expanded?.Invoke(this);
-            OnExpanded();
+            if (expanded == true)
+            {
+                Expanded?.Invoke(this);
+                OnExpanded();
+            }
         }
 
         public virtual void OnExpanded() { }

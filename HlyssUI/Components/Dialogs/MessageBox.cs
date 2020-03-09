@@ -35,7 +35,7 @@ namespace HlyssUI.Components.Dialogs
                 {
                     Width = "100%",
                     Expand = true,
-                    //Overflow = Layout.OverflowType.Hidden,
+                    Overflow = Layout.OverflowType.Hidden,
                     Children = new List<Component>()
                     {
                         new Icon(Graphics.Icons.Warning)
@@ -72,8 +72,8 @@ namespace HlyssUI.Components.Dialogs
                     MarginLeft = "5px",
                     Action = () =>
                     {
-                        ResultHandler?.Invoke(this, index);
                         OnButtonClicked(index);
+                        ResultHandler?.Invoke(this, index);
                         Hide();
                     }
                 });

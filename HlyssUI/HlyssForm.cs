@@ -27,6 +27,7 @@ namespace HlyssUI
 
         public static uint Framerate { get; set; } = 120;
 
+        public HlyssApplication Application { get; internal set; }
         public RenderWindow Window { get; private set; }
         public RootComponent Root { get; private set; } = new RootComponent();
 

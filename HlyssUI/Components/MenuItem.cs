@@ -33,6 +33,8 @@ namespace HlyssUI.Components
                 Name = "menuitem_submenuicon",
                 Visible = false
             });
+
+            FindChild("listitem_text").Left = "20px";
         }
 
         public override void OnMouseEntered()

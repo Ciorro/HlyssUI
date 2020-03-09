@@ -94,6 +94,8 @@ namespace HlyssUI.Components
         {
             set
             {
+                if (OverwriteChildren)
+                    _children.Clear();
                 _children.InsertRange(0, value);
             }
         }
@@ -853,9 +855,9 @@ namespace HlyssUI.Components
                 ScrolledOn?.Invoke(this, scroll);
 
                 if (Overflow == OverflowType.Scroll && Keyboard.IsKeyPressed(Keyboard.Key.LShift))
-                    ScrollByX((int)scroll * (int)(ContentWidth * 0.05f));
+                    ScrollByX((int)scroll * (int)(50f));
                 else if (Overflow == OverflowType.Scroll)
-                    ScrollByY((int)scroll * (int)(ContentHeight * 0.05f));
+                    ScrollByY((int)scroll * (int)(50f));
             }
         }
         #endregion

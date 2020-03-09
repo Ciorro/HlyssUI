@@ -78,6 +78,7 @@ namespace HlyssUI.Components
             UpdateValue();
 
             Style = "textbox_off_default";
+            OverwriteChildren = false;
         }
 
         public override void OnFocusGained()

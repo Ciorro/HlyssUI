@@ -5,8 +5,8 @@ namespace HlyssUI.Components.Internals
 {
     internal class FileEntry : ListItem
     {
-        private BrowseFolderDialog _browser;
-        private BrowseFolderDialog.FSEntry _entry;
+        private BrowseFileDialog _browser;
+        private BrowseFileDialog.FSEntry _entry;
         private bool _selected = false;
 
         public bool Selected
@@ -22,7 +22,7 @@ namespace HlyssUI.Components.Internals
             }
         }
 
-        public FileEntry(BrowseFolderDialog browser, BrowseFolderDialog.FSEntry entry) : base(entry.Name)
+        public FileEntry(BrowseFileDialog browser, BrowseFileDialog.FSEntry entry) : base(entry.Name)
         {
             _browser = browser;
             _entry = entry;

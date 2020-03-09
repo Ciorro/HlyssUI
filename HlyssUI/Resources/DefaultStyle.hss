@@ -203,14 +203,32 @@
     <font-size>25</font-size>
   </style>
   
+  <!--TreeViewNode selected-->
+  <style name="treeview_node_selected" state="default">
+    <border-thickness>2</border-thickness>
+    <secondary-color>accent</secondary-color>
+    <primary-color>primary -20</primary-color>
+  </style>
+
+  <style name="treeview_node_selected" state="hovered">
+    <primary-color>secondary</primary-color>
+  </style>
+
+  <style name="treeview_node_selected" state="pressed">
+    <primary-color>secondary -20</primary-color>
+  </style>
+  
   <!--TreeViewRoot icon-->
-  <style name="treeview_icon_default" state="hovered">
+  <style name="treeview_expand_btn_icon_default" state="hovered">
     <text-color>accent</text-color>
   </style>
 
-  <style name="treeview_icon_default" state="pressed">
+  <style name="treeview_expand_btn_icon_default" state="pressed">
     <text-color>accent -10</text-color>
   </style>
-  
+
+  <style name="treeview_icon_default">
+    <font-size>15</font-size>
+  </style>
   <!--//TODO: Add disabled styles-->
 </hss>

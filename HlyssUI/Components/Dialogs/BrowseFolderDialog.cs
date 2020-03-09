@@ -1,9 +1,6 @@
-﻿using HlyssUI.Components.Internals;
-using HlyssUI.Graphics;
-using HlyssUI.Layout;
-using HlyssUI.Styling;
+﻿using HlyssUI.Graphics;
 using SFML.System;
-using SFML.Window;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,193 +9,170 @@ namespace HlyssUI.Components.Dialogs
 {
     public class BrowseFolderDialog : HlyssForm
     {
-        public struct FSEntry
-        {
-            public string Name;
-            public string FullPath;
-            public bool IsDirectory;
-            public FileAttributes Attributes;
-
-            public FSEntry(string path)
-            {
-                Name = Path.GetFileName(path);
-                FullPath = path;
-                Attributes = File.GetAttributes(path);
-                IsDirectory = Attributes.HasFlag(FileAttributes.Directory);
-            }
-        }
-
-        public delegate void FileSelectedHandler(object sender, FSEntry entry);
-        public event FileSelectedHandler OnFileSelected;
-
-        private string _currentDirectory = string.Empty;
-        private List<FSEntry> _entries = new List<FSEntry>();
-
-        private string CurrentPath
-        {
-            get { return (Root.FindChild("directory_box") as TextBox).Text; }
-            set { (Root.FindChild("directory_box") as TextBox).Text = value; }
-        }
-
-        public string StartDirectory { get; set; } = "C:\\";
+        public delegate void FolderSelectedHandler(object sender, string path);
+        public event FolderSelectedHandler OnFolderSelected;
 
         public BrowseFolderDialog()
         {
             Title = "Przeglądanie w poszukiwaniu folderu";
-            Size = new Vector2u(550, 400);
-            Icon = null;
-        }
-
-        public void Navigate(string path)
-        {
-            if (Directory.Exists(path))
-            {
-                _currentDirectory = path;
-                CurrentPath = path;
-
-                _entries.Clear();
-
-                foreach (var file in Directory.GetFileSystemEntries(path))
-                {
-                    FSEntry fsEntry = new FSEntry(file);
-
-                    if (fsEntry.Attributes.HasFlag(FileAttributes.Hidden) == false
-                        && fsEntry.Attributes.HasFlag(FileAttributes.System) == false
-                        && fsEntry.IsDirectory)
-                    {
-                        _entries.Add(fsEntry);
-                    }
-                }
-
-                RefreshList();
-            }
-        }
-
-        private void RefreshList()
-        {
-            Component list = Root.FindChild("files_panel");
-            list.ScrollToY(0);
-            list.Children.Clear();
-
-            foreach (var entry in _entries)
-            {
-                list.Children.Add(new FileEntry(this, entry));
-            }
+            Size = new Vector2u(350, 400);
         }
 
         protected override void OnInitialized()
         {
-            Root.Children.Add(new Component()
+            base.OnInitialized();
+
+            Root.Padding = "5px";
+            Root.Layout = Layout.LayoutType.Column;
+
+            Root.Children = new List<Component>()
             {
-                Width = "100%",
-                Height = "100%",
-                Padding = "10px",
-                Layout = LayoutType.Column,
-                Children = new List<Component>()
+                new Label("Wybierz folder")
                 {
-                    new Component()
+                    Margin = "5px"
+                },
+                new TreeView()
+                {
+                    Width = "100%",
+                    Expand = true,
+                    Name = "treeview",
+                    Children = new List<Component>()
                     {
-                        Width = "100%",
-                        AutosizeY = true,
-                        CenterContent = true,
-                        Children = new List<Component>()
+                        new TreeViewRoot("Computer")
                         {
-                            new Button()
-                            {
-                                Padding = "10px",
-                                Children = new List<Component>()
-                                {
-                                    new Icon(Icons.AngleUp)
-                                },
-                                Name = "up_btn"
-                            },
-                            new TextBox()
-                            {
-                                Expand = true,
-                                Margin = "0px 10px",
-                                Height = "0px",
-                                Name = "directory_box"
-                            },
-                            new Dropdown()
-                            {
-                                Width = "100px",
-                                Name = "drives",
-                                Items = DriveInfo.GetDrives().Select(o => o.Name).ToList()
-                            }
-                        }
-                    },
-                    new Panel()
-                    {
-                        Width = "100%",
-                        MarginTop = "10px",
-                        Padding = "5px 1px",
-                        Expand = true,
-                        Name = "files_panel",
-                        Layout = LayoutType.Column,
-                        Overflow = OverflowType.Scroll
-                    },
-                    new Component()
-                    {
-                        Width = "100%",
-                        AutosizeY = true,
-                        Reversed = true,
-                        MarginTop = "10px",
-                        Children = new List<Component>()
-                        {
-                            new Button("Otwórz")
-                            {
-                                Appearance = Button.ButtonStyle.Filled,
-                                Name = "ok_btn"
-                            },
-                            new Button("Anuluj")
-                            {
-                                MarginRight = "5px",
-                                Name = "close_btn"
-                            }
+                            Name = "computer_node",
+                            Icon = Icons.Desktop
                         }
                     }
+                },
+                new Component()
+                {
+                    Width = "100%",
+                    MarginTop = "5px",
+                    AutosizeY = true,
+                    Children = new List<Component>()
+                    {
+                        new Button("Nowy folder")
+                        {
+                            Action = () => CreateNewFolder()
+                        },
+                        new Spacer(),
+                        new Button("Anuluj")
+                        {
+                            Action = () => Hide()
+                        },
+                        new Button("Ok")
+                        {
+                            Appearance = Button.ButtonStyle.Filled,
+                            MarginLeft = "5px",
+                            Action = () =>
+                            {
+                                TreeViewNode node = (Root.FindChild("treeview") as TreeView).GetSelectedNode();
+
+                                if (node != null && node is TreeViewDirectory)
+                                {
+                                    OnFolderSelected?.Invoke(this, (node as TreeViewDirectory).Path);
+                                }
+                                Hide();
+                            }
+                        },
+                    }
                 }
-            });
-
-            Root.FindChild("dropdown_button").Padding = "10px";
-
-            Root.FindChild("close_btn").Clicked += (object sender) =>
-            {
-                Window.Close();
             };
 
-            Root.FindChild("up_btn").Clicked += Up;
+            string[] drives = Directory.GetLogicalDrives();
+            TreeViewNode computerNode = Root.FindChild("computer_node") as TreeViewNode;
 
-            Window.KeyReleased += (object sender, KeyEventArgs e) =>
+            foreach (var drive in drives)
             {
-                if (e.Code == Keyboard.Key.Enter)
-                    Navigate(CurrentPath);
-            };
-
-            (Root.FindChild("drives") as Dropdown).OnSelected += (object sender, string text, int id) =>
-            {
-                Navigate(text);
-            };
-
-            Root.FindChild("ok_btn").Clicked += (object sender) =>
-            {
-                OnFileSelected?.Invoke(this, new FSEntry(CurrentPath));
-                Window.Close();
-            };
-
-            Navigate(StartDirectory);
+                computerNode.Children.Add(new TreeViewDirectory(drive)
+                {
+                    Icon = Icons.Hdd
+                });
+            }
         }
 
-        private void Up(object sender)
+        private void CreateNewFolder()
         {
-            if (Directory.Exists(_currentDirectory))
+            TreeViewNode node = (Root.FindChild("treeview") as TreeView).GetSelectedNode();
+
+            if (node != null && node is TreeViewDirectory)
             {
-                DirectoryInfo dInfo = new DirectoryInfo(_currentDirectory);
-                if (dInfo.Parent != null)
+                string path = (node as TreeViewDirectory).Path;
+
+                InputBox input = new InputBox("Nazwij folder", "Podaj nazwę nowego folderu:");
+                input.ResultHandler = (object sender, string text) =>
                 {
-                    Navigate(dInfo.Parent.FullName);
-                }
+                    try
+                    {
+                        Directory.CreateDirectory(Path.Combine(path, text));
+                        (node as TreeViewDirectory).LoadDirectories(true);
+                    }
+                    catch(Exception e)
+                    {
+                        Application.RegisterAndShow(new MessageBox("Error", e.Message, "Ok"));
+                    }
+                };
+
+                Application.RegisterAndShow(input);
             }
+        }
+    }
+
+    internal class TreeViewDirectory : TreeViewRoot
+    {
+        public string Path { get; private set; }
+        private bool _alreadyExpanded = false;
+
+        public TreeViewDirectory(string path = "") : base("")
+        {
+            Path = path;
+            Label = GetLastPathElement(path);
+        }
+
+        public override void OnExpanded()
+        {
+            base.OnExpanded();
+            LoadDirectories();
+        }
+
+        public void LoadDirectories(bool force = false)
+        {
+            if (_alreadyExpanded && !force)
+                return;
+
+            try
+            {
+                string[] childDirectories = Directory.GetDirectories(Path);
+
+                foreach (var dir in childDirectories)
+                {
+                    DirectoryInfo directoryInfo = new DirectoryInfo(dir);
+
+                    if (!directoryInfo.Attributes.HasFlag(FileAttributes.Hidden) &&
+                        !directoryInfo.Attributes.HasFlag(FileAttributes.System) &&
+                        Children.Where(n => (n is TreeViewDirectory && (n as TreeViewDirectory).Path == dir)).Count() == 0)
+                    {
+
+                        Children.Add(new TreeViewDirectory(dir)
+                        {
+                            Icon = Icons.Folderpen
+                        });
+                    }
+                }
+
+                _alreadyExpanded = true;
+            }
+            catch (Exception e)
+            {
+                Form.Application.RegisterAndShow(new MessageBox("Error", e.Message, "Ok"));
+            }
+        }
+
+        private string GetLastPathElement(string path)
+        {
+            string[] elements = path.Split(new char[] { System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
+            return elements[elements.Length >= 1 ? elements.Length - 1 : 0];
         }
     }
 }

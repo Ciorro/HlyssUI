@@ -17,6 +17,8 @@ namespace HlyssUI.Themes
         public static uint BorderRadius = 3;
         public static uint CharacterSize = 14;
 
+        private static bool isDarkTheme = false;
+
         public static string Name { get; private set; }
 
         public static Color GetColor(string color)
@@ -32,9 +34,9 @@ namespace HlyssUI.Themes
             }
 
             if (_colors.ContainsKey(color))
-                return _colors[color].GetModified(modifier);
+                return _colors[color].GetModified(isDarkTheme ? modifier * -1 : modifier);
             else
-                return stringToColor(color).GetModified(modifier);
+                return stringToColor(color).GetModified(isDarkTheme ? modifier * -1 : modifier);
         }
 
         public static void SetColor(string name, Color color)
@@ -53,6 +55,8 @@ namespace HlyssUI.Themes
         {
             var parser = new IniParser.FileIniDataParser();
             var data = parser.ReadFile(file);
+
+            bool.TryParse(data[theme]["IsDarkTheme"], out isDarkTheme);
 
             _colors = new Dictionary<string, Color>()
             {

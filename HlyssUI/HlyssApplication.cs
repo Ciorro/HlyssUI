@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Styling;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,25 @@ namespace HlyssUI
         public void RegisterForm(string name, HlyssForm form)
         {
             if (!_forms.ContainsKey(name))
+            {
+                form.Application = this;
                 _forms.Add(name, form);
+            }
+        }
+
+        public void RegisterAndShow(HlyssForm form)
+        {
+            string id = Guid.NewGuid().ToString();
+
+            form.Application = this;
+            _forms.Add(id, form);
+
+            form.Closed += (_) => 
+            {
+                _forms.Remove(id);
+            };
+
+            GetForm(id).Show();
         }
 
         public void UnregisterForm(string name)
@@ -57,6 +76,19 @@ namespace HlyssUI
         public HlyssForm GetForm(string name)
         {
             return _forms[name];
+        }
+
+        public bool IsAnyFormRunning()
+        {
+            bool isAnyFormRunning = false;
+
+            foreach (var form in _forms.Values)
+            {
+                if (form.IsOpen)
+                    isAnyFormRunning = true;
+            }
+
+            return isAnyFormRunning;
         }
     }
 }
