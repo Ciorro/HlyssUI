@@ -5,6 +5,7 @@ using HlyssUI.Components.Routers;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
 using HlyssUI.ResourceManagement;
+using HlyssUI.Styling;
 using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
@@ -12,7 +13,6 @@ using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 
 namespace HlyssUIDemo
 {
@@ -25,7 +25,8 @@ namespace HlyssUIDemo
         static void Main(string[] args)
         {
             ThemeManager.LoadFromFile("DefaultTheme.xml");
-            ThemeManager.SetTheme("dark");
+            ThemeManager.SetTheme("light");
+            StyleBank.LoadFromFile("style.hss");
 
             HlyssApplication.InitializeStyles();
 
@@ -50,14 +51,14 @@ namespace HlyssUIDemo
             {
                 new Icon(Icons.AngleRight)
             };
-
+            form.Window.SetFramerateLimit(0);
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
             form.Window.KeyPressed += (object sender, KeyEventArgs e) =>
             {
                 if (e.Code == Keyboard.Key.F3)
-                    HlyssForm.Debug = !HlyssForm.Debug;
+                    HlyssApplication.Debug = !HlyssApplication.Debug;
                 if (e.Code == Keyboard.Key.C)
                     Console.Clear();
             };
@@ -90,6 +91,11 @@ namespace HlyssUIDemo
                 //app.GetForm("browse_folder_dialog").Show();
                 app.RegisterAndShow(new BrowseFolderDialog());
             };
+
+            for (int i = 0; i < 1000; i++)
+            {
+                form.Root.FindChild("list").Children.Add(new Button($"ListItem {i + 4}"));
+            }
         }
 
         static Component Test()
@@ -108,6 +114,12 @@ namespace HlyssUIDemo
                     {
                         Appearance = Button.ButtonStyle.Filled,
                         Name = "show_form"
+                    },
+                    new Button("Button 2")
+                    {
+                        Appearance = Button.ButtonStyle.Filled,
+                        Style = "filled_button_default test",
+                        Name = "testbtn"
                     },
                     new CheckBox("CheckBox 1"),
                     new Dropdown()
@@ -166,11 +178,17 @@ namespace HlyssUIDemo
                     {
                         Width = "200px",
                         AutosizeY = true,
+                        MaxHeight = "200px",
                         Layout = LayoutType.Column,
                         Padding = "5px 1px",
+                        Name = "list",
+                        Overflow = OverflowType.Scroll,
                         Children = new List<Component>()
                         {
-                            new ListItem("ListItem 1"),
+                            new ListItem("ListItem 1")
+                            {
+                                Name = "listitem1"
+                            },
                             new ListItem("ListItem 2"),
                             new ListItem("ListItem 3"),
                         }

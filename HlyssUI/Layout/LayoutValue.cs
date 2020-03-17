@@ -59,6 +59,11 @@ namespace HlyssUI.Layout
                 int.TryParse(str, out value);
                 dimension.Type = ValueType.Percent;
             }
+            else
+            {
+                int.TryParse(str, out value);
+                dimension.Type = ValueType.Pixel;
+            }
 
             dimension.Value = value;
             return dimension;

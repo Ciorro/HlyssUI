@@ -21,6 +21,12 @@ namespace HlyssUI.Components
             PositionType = PositionType.Fixed;
         }
 
+        public override void Update()
+        {
+            base.Update();
+            FitInWindow();
+        }
+
         public virtual void Show(Vector2i position)
         {
             Left = $"{position.X}px";

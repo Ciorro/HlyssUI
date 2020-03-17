@@ -29,9 +29,16 @@ namespace HlyssUI.Styling
 
             while(value == null)
             {
-                value = StyleBank.GetClass(component.Style).GetValue(name, state);
+                string[] styles = GetStyleArray(component.Style);
+                bool isInheritable = StyleValueResolver.IsValueInheritable(name);
 
-                if (StyleValueResolver.IsValueInheritable(name) && component.Parent != null)
+                for (int i = styles.Length - 1; i >= 0; i--)
+                {
+                    value = StyleBank.GetClass(styles[i]).GetValue(name, state, (!isInheritable && i > 0) ? true : false);
+                    if (value != null) break;
+                }
+
+                if (isInheritable && component.Parent != null)
                     component = component.Parent;
                 else break;
             }
@@ -55,6 +62,16 @@ namespace HlyssUI.Styling
             if (_component.Hovered) return StyleState.Hovered;
 
             return StyleState.Default;
+        }
+
+        private string[] GetStyleArray(string stylesStr)
+        {
+            string[] styles = stylesStr.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (styles.Length == 0)
+                styles = new string[] { string.Empty };
+
+            return styles;
         }
 
         #region Getters

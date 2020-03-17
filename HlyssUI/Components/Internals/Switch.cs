@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Controllers.Tweens;
 using HlyssUI.Graphics;
+using HlyssUI.Layout;
 using SFML.Graphics;
 using SFML.System;
 using System.Collections.Generic;
@@ -51,11 +52,10 @@ namespace HlyssUI.Components.Internals
             base.OnRefresh();
 
             _outerBody.Size = (Vector2f)Size;
-            _outerBody.Radius = (uint)Size.Y;
+            _outerBody.BorderRadius = new BorderRadius(10);
             _outerBody.UpdateGeometry();
 
             _toggle.Radius = (Size.Y / 2) * 0.6f;
-
 
             _outerBody.Position = (Vector2f)GlobalPosition;
         }
@@ -85,7 +85,7 @@ namespace HlyssUI.Components.Internals
                 _toggledOffset = 20 + (int)(20 * -_tween.Percentage);
             }
 
-            int markOffset = (int)(_outerBody.Radius - _toggle.Radius);
+            int markOffset = (int)(Size.Y / 2 - _toggle.Radius);
             _toggle.Position = (Vector2f)GlobalPosition + new Vector2f(markOffset + _toggledOffset, markOffset);
         }
 

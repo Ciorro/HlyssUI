@@ -54,7 +54,7 @@ namespace HlyssUI.Components
         private bool _focused = false;
         private bool _enabled = true;
         private bool _visible = true;
-        private string _style = string.Empty;
+        private string _styles = string.Empty;
         private DebugRect _debugRect = new DebugRect();
         private Controller[] _controllers;
         private List<Component> _children = new List<Component>();
@@ -393,10 +393,10 @@ namespace HlyssUI.Components
         public StyleManager StyleManager;
         public string Style
         {
-            get { return _style; }
+            get { return _styles; }
             set
             {
-                _style = value;
+                _styles = value;
                 StyleChanged = true;
             }
         }
@@ -680,7 +680,8 @@ namespace HlyssUI.Components
         {
             if (IsInitialized)
             {
-                OnRefresh();
+                if (IsOnScreen)
+                    OnRefresh();
                 ClipArea.Update();
             }
         }
@@ -712,7 +713,7 @@ namespace HlyssUI.Components
 
         internal void UpdateLocalSize()
         {
-            TargetSize = new Vector2i(W, H);
+            TargetSize = new Vector2i(Math.Min(W, MaxW), Math.Min(H, MaxH));
         }
 
         internal void UpdateLocalSpacing()
@@ -908,11 +909,19 @@ namespace HlyssUI.Components
         }
         #endregion
 
+        #region Styling
+
+        public void AddStyle(string name)
+        {
+            Style += $" {name}";
+        }
+        #endregion
+
         #region Debugging
 
         public void DrawDebug()
         {
-            if (HlyssForm.Debug)
+            if (HlyssApplication.Debug)
             {
                 _debugRect.Update(this);
                 _debugRect.Draw(this);

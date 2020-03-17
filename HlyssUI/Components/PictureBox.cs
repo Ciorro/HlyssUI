@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Graphics;
+using HlyssUI.Layout;
 using SFML.Graphics;
 using SFML.System;
 
@@ -91,8 +92,7 @@ namespace HlyssUI.Components
         public override void OnStyleChanged()
         {
             base.OnStyleChanged();
-            
-            _image.Radius = StyleManager.GetUint("border-radius");
+            _image.BorderRadius = new BorderRadius(StyleManager.GetString("border-radius"));
         }
 
         public override void Draw(RenderTarget target)

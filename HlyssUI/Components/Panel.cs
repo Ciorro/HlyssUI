@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Graphics;
+using HlyssUI.Layout;
 using SFML.Graphics;
 using SFML.System;
 
@@ -30,7 +31,7 @@ namespace HlyssUI.Components
             _body.OutlineColor = StyleManager.GetColor("secondary-color");
 
             _body.OutlineThickness = StyleManager.GetUint("border-thickness") * -1;
-            _body.Radius = StyleManager.GetUint("border-radius");
+            _body.BorderRadius = new BorderRadius(StyleManager.GetString("border-radius"));
         }
 
         public override void Draw(RenderTarget target)

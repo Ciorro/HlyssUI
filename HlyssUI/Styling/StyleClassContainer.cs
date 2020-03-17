@@ -1,7 +1,4 @@
-﻿using HlyssUI.Styling.ValuePresets;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace HlyssUI.Styling
 {
@@ -21,7 +18,7 @@ namespace HlyssUI.Styling
             }
         }
 
-        public string GetValue(string name, StyleState state = StyleState.Default)
+        public string GetValue(string name, StyleState state = StyleState.Default, bool strictState = false)
         {
             if (state == StyleState.Disabled)
             {
@@ -32,7 +29,8 @@ namespace HlyssUI.Styling
                         return value;
                 }
 
-                state = StyleState.Default;
+                if (!strictState)
+                    state = StyleState.Default;
             }
 
             if (state == StyleState.Pressed)
@@ -43,8 +41,9 @@ namespace HlyssUI.Styling
                     if (value != null)
                         return value;
                 }
-                
-                state = StyleState.Hovered;
+
+                if (!strictState)
+                    state = StyleState.Hovered;
             }
 
             if (state == StyleState.Hovered)
@@ -55,13 +54,14 @@ namespace HlyssUI.Styling
                     if (value != null)
                         return value;
                 }
-                
-                state = StyleState.Default;
+
+                if (!strictState)
+                    state = StyleState.Default;
             }
-            
-            if (_classStates.ContainsKey(StyleState.Default))
+
+            if (_classStates.ContainsKey(StyleState.Default) && state == StyleState.Default)
                 return _classStates[StyleState.Default].GetValue(name);
-            
+
             return null;
         }
     }

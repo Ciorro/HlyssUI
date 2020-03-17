@@ -15,6 +15,7 @@
     <Compile Remove="Components\ScrollArea2.cs" />
     <Compile Remove="Components\ScrollBars.cs" />
     <Compile Remove="Components\VScrollBar.cs" />
+    <Compile Remove="Graphics\DropShadow.cs" />
     <Compile Remove="GuiScene.cs" />
     <Compile Remove="HlyssApp.cs" />
     <Compile Remove="Layout\Box.cs" />

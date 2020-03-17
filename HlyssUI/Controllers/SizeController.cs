@@ -14,7 +14,7 @@ namespace HlyssUI.Controllers
 
         public override void Start()
         {
-            if (!_firstUse)
+            if (!_firstUse && !tween.IsRunning)
                 UpdateTween();
 
             _firstUse = false;

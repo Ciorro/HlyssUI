@@ -14,7 +14,6 @@ namespace HlyssUI.Components
             Link = link;
         }
 
-        //TODO: loading cursors in app
         public override void OnClicked()
         {
             base.OnClicked();

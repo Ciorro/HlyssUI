@@ -1,4 +1,5 @@
-﻿using HlyssUI.Themes;
+﻿using HlyssUI.Layout;
+using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
 using System;
@@ -7,18 +8,20 @@ namespace HlyssUI.Graphics
 {
     internal class RoundedRectangle : Shape
     {
-        private uint _radius = ThemeManager.BorderRadius;
         private Vector2f _size = new Vector2f(100, 100);
-
         private bool _needsUpdate = false;
+        private BorderRadius _corners = new BorderRadius();
 
-        public uint Radius
+        public BorderRadius BorderRadius
         {
-            get { return (uint)Math.Min(Math.Min(_size.X, _size.Y) / 2, _radius); }
+            get { return _corners; }
             set
             {
-                _radius = value;
-                _needsUpdate = true;
+                if (_corners != value)
+                {
+                    _corners = value;
+                    _needsUpdate = true;
+                }
             }
         }
 
@@ -28,31 +31,48 @@ namespace HlyssUI.Graphics
             set
             {
                 _size = value;
-                Radius = _radius;
                 _needsUpdate = true;
             }
         }
 
         public override Vector2f GetPoint(uint index)
         {
-            float angle = index * 2 * (float)Math.PI / GetPointCount() - (float)Math.PI / 2;
-            float x = (float)Math.Cos(angle) * Radius;
-            float y = (float)Math.Sin(angle) * Radius;
+            //Author: Overdrivr
+            //Source: https://github.com/SFML/SFML/wiki/Source%3A-Draw-Rounded-Rectangle
 
-            if (index < GetPointCount() / 4)
-                return new Vector2f(_size.X - Radius + x, Radius + y);
-            else if (index < GetPointCount() / 2)
-                return new Vector2f(_size.X - Radius + x, _size.Y - Radius + y);
-            else if (index < GetPointCount() / 4 * 3)
-                return new Vector2f(Radius + x, _size.Y - Radius + y);
-            else
-                return new Vector2f(Radius + x, Radius + y);
+            int myCornerPointCount = (int)GetPointCount() / 4;
+
+            float deltaAngle = 90.0f / (myCornerPointCount - 1);
+            Vector2f center = new Vector2f();
+            int centerIndex = (int)index / myCornerPointCount;
+
+            uint radius = centerIndex switch
+            {
+                0 => BorderRadius.TopLeft,
+                1 => BorderRadius.TopRight,
+                2 => BorderRadius.BottomRight,
+                3 => BorderRadius.BottomLeft,
+                _ => BorderRadius.TopLeft
+            };
+
+            radius = (uint)Math.Min(Math.Min(_size.X, _size.Y) / 2, radius);
+
+            switch (centerIndex)
+            {
+                case 0: center.X = _size.X - radius; center.Y = radius; break;
+                case 1: center.X = radius; center.Y = radius; break;
+                case 2: center.X = radius; center.Y = _size.Y - radius; break;
+                case 3: center.X = _size.X - radius; center.Y = _size.Y - radius; break;
+            }
+
+            return new Vector2f(radius * (float)Math.Cos(deltaAngle * (index - centerIndex) * Math.PI / 180) + center.X,
+                                -radius * (float)Math.Sin(deltaAngle * (index - centerIndex) * Math.PI / 180) + center.Y);
         }
 
         public override uint GetPointCount()
         {
-            if (Radius == 0)
-                return 4;
+            if (BorderRadius == BorderRadius.Zero)
+                return 8;
 
             return 32;
         }

@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Controllers.Tweens;
 using HlyssUI.Graphics;
+using HlyssUI.Layout;
 using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
@@ -77,8 +78,9 @@ namespace HlyssUI.Components
             _background.FillColor = StyleManager.GetColor("secondary-color");
             _fill.FillColor = StyleManager.GetColor("accent-color");
 
-            _background.Radius = StyleManager.GetUint("border-radius");
-            _fill.Radius = StyleManager.GetUint("border-radius");
+            BorderRadius borderRadius = new BorderRadius(StyleManager.GetString("border-radius"));
+            _background.BorderRadius = borderRadius;
+            _fill.BorderRadius = borderRadius;
         }
 
         public override void Draw(RenderTarget target)

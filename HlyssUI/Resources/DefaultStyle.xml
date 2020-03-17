@@ -169,6 +169,11 @@
     <font-size>12</font-size>
   </style>
 
+  <!--Flyout-->
+  <style name="flyout_default" state="default">
+    <size-ease>out</size-ease>
+  </style>
+
   <!--Menu-->
   <style name="menu_default" state="default">
     <size-ease>out</size-ease>

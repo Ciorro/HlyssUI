@@ -11,6 +11,8 @@ namespace HlyssUI
     {
         private Dictionary<string, HlyssForm> _forms = new Dictionary<string, HlyssForm>();
 
+        public static bool Debug = false;
+
         public static void InitializeStyles()
         {
             StyleBank.LoadFromString(Properties.Resources.DefaultStyle);

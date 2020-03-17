@@ -18,8 +18,6 @@ namespace HlyssUI
         public delegate void ShowHandler(object sender);
         public event ShowHandler Shown;
 
-        public static bool Debug = false;
-
         public static ContextSettings WindowSettings = new ContextSettings()
         {
             AntialiasingLevel = 4
