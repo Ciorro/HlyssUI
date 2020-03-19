@@ -197,9 +197,7 @@ namespace HlyssUI.Components
                     int x = child.TargetRelativePosition.X + child.TargetMargins.Horizontal + child.TargetSize.X;
 
                     if (x > maxX)
-                    {
                         maxX = x;
-                    }
                 }
 
                 return maxX;

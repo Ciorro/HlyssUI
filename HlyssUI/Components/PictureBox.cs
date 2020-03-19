@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Graphics;
 using HlyssUI.Layout;
+using HlyssUI.ResourceManagement;
 using SFML.Graphics;
 using SFML.System;
 
@@ -28,7 +29,7 @@ namespace HlyssUI.Components
         {
             set
             {
-                Image = new Texture(value);
+                Image = ResourceManager.Get<Texture>(value);
             }
         }
 

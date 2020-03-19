@@ -8,7 +8,10 @@ namespace HlyssUI.ResourceManagement.ResourceCreators
 
         public override object CreateResource(byte[] bytes)
         {
-            return new Texture(bytes);
+            if (bytes != null)
+                return new Texture(bytes);
+            else
+                return null;
         }
     }
 }

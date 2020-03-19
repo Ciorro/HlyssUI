@@ -280,7 +280,7 @@ namespace HlyssUIDemo
                                 SmoothImage = true,
                                 StretchMode = stretch
                             },
-                            new PictureBox(ResourceManager.GetAsync<Texture>("http://caps.fail/lonczer/images//Accounts/d/profile.png").Result)
+                            new PictureBox(ResourceManager.GetAsync<Texture>("http://caps.fail/lonczer/images//Accounts/f/profile.png").Result)
                             {
                                 Width = "100%",
                                 Height = "100%",
