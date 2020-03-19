@@ -1,45 +1,50 @@
-﻿using System;
+﻿using HlyssUI.Components.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace HlyssUI.Components
 {
-    public class RadioMenuItem : MenuItem
+    public class RadioMenuItem : MenuItem, ISelectable
     {
-        public delegate void MarkHandler(object sender, bool isToggled);
-        public event MarkHandler Marked;
+        public event ISelectable.SelectedHandler OnSelect;
+        public event ISelectable.UnselectedHandler OnUnselect;
 
-        private bool _marked = false;
+        private bool _isSelected = false;
 
-        public bool IsMarked
+        public bool IsSelected
         {
-            get { return _marked; }
+            get { return _isSelected; }
             set
             {
-                if (value != _marked)
+                if (value != _isSelected)
                 {
                     if (value)
                     {
-                        Icon = Graphics.Icons.AngleRight;
+                        Icon = Graphics.Icons.DotCircle;
                         UnmarkOthers();
+                        OnSelect?.Invoke(this);
                     }
                     else
                     {
-                        Icon = Graphics.Icons.Empty;
+                        Icon = Graphics.Icons.Circle;
+                        OnUnselect?.Invoke(this);
                     }
 
-                    _marked = value;
-                    Marked?.Invoke(this, value);
+                    _isSelected = value;
                 }
             }
         }
 
-        public RadioMenuItem(string label = "") : base(label) { }
+        public RadioMenuItem(string label = "") : base(label) 
+        {
+            Icon = Graphics.Icons.Circle;
+        }
 
         public override void OnClicked()
         {
             base.OnClicked();
-            IsMarked = !IsMarked;
+            IsSelected = !IsSelected;
         }
 
         private void UnmarkOthers()
@@ -49,9 +54,9 @@ namespace HlyssUI.Components
 
             foreach (var parentChild in Parent.Children)
             {
-                if (parentChild.GetType() == GetType() && parentChild != this)
+                if (parentChild is ISelectable && parentChild != this)
                 {
-                    ((RadioMenuItem)parentChild).IsMarked = false;
+                    ((ISelectable)parentChild).IsSelected = false;
                 }
             }
         }

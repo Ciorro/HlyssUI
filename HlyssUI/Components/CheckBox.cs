@@ -1,4 +1,5 @@
-﻿using HlyssUI.Extensions;
+﻿using HlyssUI.Components.Interfaces;
+using HlyssUI.Extensions;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
 using HlyssUI.Themes;
@@ -6,10 +7,10 @@ using System.Collections.Generic;
 
 namespace HlyssUI.Components
 {
-    public class CheckBox : Component
+    public class CheckBox : Component, ISelectable
     {
-        public delegate void CheckHandler(object sender, bool isChecked);
-        public event CheckHandler Checked;
+        public event ISelectable.SelectedHandler OnSelect;
+        public event ISelectable.UnselectedHandler OnUnselect;
 
         private Dictionary<bool, string> _styles = new Dictionary<bool, string>()
         {
@@ -20,20 +21,24 @@ namespace HlyssUI.Components
         private Panel _box;
         private Icon _check;
         private Label _label;
-        private bool _checked = false;
+        private bool _isSelected = false;
 
-        public bool IsChecked
+        public bool IsSelected
         {
-            get { return _checked; }
+            get { return _isSelected; }
             set
             {
-                if (value != _checked)
+                if (value != _isSelected)
                 {
                     _box.Style = _styles[value];
-                    
-                    _checked = value;
-                    Checked?.Invoke(this, value);
+
+                    if (value)
+                        OnSelect?.Invoke(this);
+                    else
+                        OnUnselect?.Invoke(this);
                 }
+
+                _isSelected = value;
             }
         }
 
@@ -45,6 +50,7 @@ namespace HlyssUI.Components
                 _label.Text = value;
             }
         }
+
 
         public CheckBox(string label = "")
         {
@@ -71,14 +77,14 @@ namespace HlyssUI.Components
             };
 
             Autosize = true;
-            IsChecked = false;
+            IsSelected = false;
             _box.Style = _styles[false];
         }
 
         public override void OnClicked()
         {
             base.OnClicked();
-            IsChecked = !IsChecked;
+            IsSelected = !IsSelected;
         }
     }
 }

@@ -768,7 +768,6 @@ namespace HlyssUI.Components
             if (_doubleClickTimer.ElapsedMilliseconds <= 500 && _firstClickPos.Near(currentMPos, 0) && button == Mouse.Button.Left)
             {
                 _doubleClick = true;
-                DoubleClicked?.Invoke(this);
                 OnDoubleClicked();
             }
 
@@ -784,7 +783,6 @@ namespace HlyssUI.Components
             if (IsPressed && button == Mouse.Button.Left)
             {
                 Focused = true;
-                Clicked?.Invoke(this);
                 OnClicked();
             }
 
@@ -804,9 +802,15 @@ namespace HlyssUI.Components
             FocusLost?.Invoke(this);
         }
 
-        public virtual void OnClicked() { }
+        public virtual void OnClicked()
+        {
+            Clicked?.Invoke(this);
+        }
 
-        public virtual void OnDoubleClicked() { }
+        public virtual void OnDoubleClicked()
+        {
+            DoubleClicked?.Invoke(this);
+        }
 
         public virtual void OnKeyPressed(Keyboard.Key key) { }
 

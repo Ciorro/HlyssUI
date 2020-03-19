@@ -1,28 +1,33 @@
-﻿using HlyssUI.Components.Internals;
+﻿using HlyssUI.Components.Interfaces;
+using HlyssUI.Components.Internals;
 using HlyssUI.Layout;
 using SFML.Window;
 using System.Collections.Generic;
 
 namespace HlyssUI.Components
 {
-    public class RadioButton : Component
+    public class RadioButton : Component, ISelectable
     {
-        public delegate void MarkHandler(object sender, bool isToggled);
-        public event MarkHandler Marked;
+        public event ISelectable.SelectedHandler OnSelect;
+        public event ISelectable.UnselectedHandler OnUnselect;
 
-        public bool IsMarked
+        public bool IsSelected
         {
             get { return _mark.Marked; }
             set
             {
-                if (value)
+                if (value != _mark.Marked)
                 {
-                    UnmarkOthers();
+                    if (value)
+                    {
+                        UnmarkOthers();
+                        OnSelect?.Invoke(this);
+                    }
+                    else
+                        OnUnselect?.Invoke(this);
+
+                    _mark.Marked = value;
                 }
-
-                _mark.Marked = value;
-
-                Marked?.Invoke(this, value);
             }
         }
 
@@ -60,7 +65,7 @@ namespace HlyssUI.Components
             };
 
             Autosize = true;
-            IsMarked = false;
+            IsSelected = false;
         }
 
         public override void OnMouseEntered()
@@ -78,7 +83,7 @@ namespace HlyssUI.Components
         public override void OnClicked()
         {
             base.OnClicked();
-            IsMarked = true;
+            IsSelected = true;
         }
 
         private void UnmarkOthers()
@@ -88,9 +93,9 @@ namespace HlyssUI.Components
 
             foreach (var parentChild in Parent.Children)
             {
-                if (parentChild.GetType() == GetType() && parentChild != this)
+                if (parentChild is ISelectable && parentChild != this)
                 {
-                    ((RadioButton)parentChild).IsMarked = false;
+                    ((ISelectable)parentChild).IsSelected = false;
                 }
             }
         }

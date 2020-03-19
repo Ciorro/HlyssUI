@@ -48,14 +48,14 @@ namespace HlyssUI.Components
 
             GetChild("spinbutton_textbox").Children.AddRange(new List<Component>()
             {
-                new Button()
+                new RepeatButton()
                 {
                     Children = new List<Component>(){new Icon(Graphics.Icons.AngleUp) },
                     Padding = "10px",
                     Appearance = Button.ButtonStyle.Flat,
                     Name = "spinbutton_plus"
                 },
-                new Button()
+                new RepeatButton()
                 {
                     Children = new List<Component>(){new Icon(Graphics.Icons.AngleDown) },
                     Padding = "10px",

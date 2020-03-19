@@ -92,7 +92,7 @@ namespace HlyssUIDemo
                 app.RegisterAndShow(new BrowseFolderDialog());
             };
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 10; i++)
             {
                 form.Root.FindChild("list").Children.Add(new Button($"ListItem {i + 4}"));
             }
@@ -115,11 +115,15 @@ namespace HlyssUIDemo
                         Appearance = Button.ButtonStyle.Filled,
                         Name = "show_form"
                     },
-                    new Button("Button 2")
+                    new ToggleButton("ToggleButton 1")
                     {
+                        Name = "toggle_button 1"
+                    },
+                    new RepeatButton("RepeatButton 1")
+                    {
+                        Name = "repeat_button 1",
                         Appearance = Button.ButtonStyle.Filled,
-                        Style = "filled_button_default test",
-                        Name = "testbtn"
+                        Action = () => Console.WriteLine("RepeatButton clicked"),
                     },
                     new CheckBox("CheckBox 1"),
                     new Dropdown()
@@ -205,8 +209,12 @@ namespace HlyssUIDemo
                                 {
                                     Items = new List<MenuItem>()
                                     {
-                                        new MenuItem("MenuItem 1"),
-                                        new MenuItem("MenuItem 2"),
+                                        new RadioMenuItem("RadioMenuItem 1"),
+                                        new RadioMenuItem("RadioMenuItem 2"),
+                                        new RadioMenuItem("RadioMenuItem 3"),
+                                        new MenuDivider(),
+                                        new CheckMenuItem("CheckMenuItem 1"),
+                                        new CheckMenuItem("CheckMenuItem 2")
                                     }
                                 }
                             },
@@ -280,7 +288,7 @@ namespace HlyssUIDemo
                                 SmoothImage = true,
                                 StretchMode = stretch
                             },
-                            new PictureBox(ResourceManager.GetAsync<Texture>("http://caps.fail/lonczer/images//Accounts/f/profile.png").Result)
+                            new PictureBox(ResourceManager.GetAsync<Texture>("http://caps.fail/lonczer/images//Accounts/d/profile.png").Result)
                             {
                                 Width = "100%",
                                 Height = "100%",

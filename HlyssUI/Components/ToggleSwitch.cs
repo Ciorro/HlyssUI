@@ -1,4 +1,5 @@
-﻿using HlyssUI.Components.Internals;
+﻿using HlyssUI.Components.Interfaces;
+using HlyssUI.Components.Internals;
 using HlyssUI.Extensions;
 using HlyssUI.Layout;
 using HlyssUI.Themes;
@@ -6,18 +7,29 @@ using System.Collections.Generic;
 
 namespace HlyssUI.Components
 {
-    public class ToggleSwitch : Component
+    public class ToggleSwitch : Component, ISelectable
     {
         public delegate void ToggleHandler(object sender, bool isToggled);
-        public event ToggleHandler Toggled;
+        public event ToggleHandler OnToggle;
 
-        public bool IsToggled
+        public event ISelectable.SelectedHandler OnSelect;
+        public event ISelectable.UnselectedHandler OnUnselect;
+
+        public bool IsSelected
         {
             get { return _toggle.Toggled; }
             set
             {
-                Toggled?.Invoke(this, value);
-                _toggle.Toggled = value;
+                if (value != _toggle.Toggled)
+                {
+                    if (value)
+                        OnSelect?.Invoke(this);
+                    else
+                        OnUnselect?.Invoke(this);
+
+                    OnToggle?.Invoke(this, value);
+                    _toggle.Toggled = value;
+                }
             }
         }
 
@@ -36,12 +48,14 @@ namespace HlyssUI.Components
         public ToggleSwitch(string label = "")
         {
             Layout = LayoutType.Row;
+            Autosize = true;
 
             _toggle = new Switch()
             {
                 Width = "40px",
                 Height = "20px",
-                MarginRight = "5px"
+                MarginRight = "5px",
+                Toggled = false
             };
 
             _label = new Label(label)
@@ -53,9 +67,6 @@ namespace HlyssUI.Components
             {
                 _toggle, _label
             };
-
-            Autosize = true;
-            IsToggled = false;
         }
 
         public override void OnMouseEntered()
@@ -73,7 +84,7 @@ namespace HlyssUI.Components
         public override void OnClicked()
         {
             base.OnClicked();
-            IsToggled = !IsToggled;
+            IsSelected = !IsSelected;
         }
     }
 }
