@@ -108,7 +108,7 @@ namespace HlyssUI.Components
                 {
                     Width = "100%",
                     AutosizeY = true,
-                    Padding = "8px 10px",
+                    Padding = "6px 10px",
                     Name = "treeviewnode_panel",
                     Style = "list_item_default",
                     CenterContent = true,

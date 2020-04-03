@@ -16,7 +16,9 @@ namespace HlyssUI.Updaters
             if (_anyTransformChanged)
             {
                 Compose(component);
+                component.Form.compose = component.Form.s.ElapsedMilliseconds - component.Form.update - component.Form.style - component.Form.layout;
                 Refresh(component);
+                component.Form.refresh = component.Form.s.ElapsedMilliseconds - component.Form.update - component.Form.style - component.Form.layout - component.Form.compose;
 
                 _anyTransformChanged = false;
             }
@@ -24,9 +26,10 @@ namespace HlyssUI.Updaters
 
         private void CheckChanges(Component component)
         {
-            if (component.TransformChanged)
+            if (component.TransformChanged || _anyTransformChanged)
             {
                 _anyTransformChanged = true;
+                return;
             }
 
             foreach (var child in component.Children)

@@ -54,9 +54,22 @@ namespace HlyssUI.Components
         private bool _focused = false;
         private bool _enabled = true;
         private bool _visible = true;
-        private string _styles = string.Empty;
+        private string _style = string.Empty;
         private DebugRect _debugRect = new DebugRect();
-        private Controller[] _controllers;
+
+        private PositionController _positionController;
+        private SizeController _sizeController;
+        private MarginController _marginController;
+        private PaddingController _paddingController;
+        private ScrollController _scrollController;
+
+        private Observer<Vector2i> _tPosObserver;
+        private Observer<Vector2i> _tRelPosObserver;
+        private Observer<Vector2i> _tSizObserver;
+        private Observer<Spacing> _tMarObserver;
+        private Observer<Spacing> _tPadObserver;
+        private Observer<Vector2i> _tScrObserver;
+
         private List<Component> _children = new List<Component>();
 
         private LayoutValue _positionX = LayoutValue.Default;
@@ -161,8 +174,8 @@ namespace HlyssUI.Components
         public Spacing TargetPaddings { get; internal set; } = new Spacing();
         public Spacing Paddings { get; internal set; } = new Spacing();
 
-        public Vector2i ScrollOffset { get; internal set; }
         public Vector2i TargetScrollOffset { get; internal set; }
+        public Vector2i ScrollOffset { get; internal set; }
 
         public IntRect Bounds => new IntRect(GlobalPosition, Size);
 
@@ -235,8 +248,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _positionX = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_positionX.RawValue != value)
+                {
+                    _positionX = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -244,8 +260,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _positionY = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_positionY.RawValue != value)
+                {
+                    _positionY = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -253,8 +272,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _width = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_width.RawValue != value)
+                {
+                    _width = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -262,8 +284,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _height = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_height.RawValue != value)
+                {
+                    _height = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -271,8 +296,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _maxWidth = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_maxWidth.RawValue != value)
+                {
+                    _maxWidth = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -280,8 +308,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _maxHeight = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_maxHeight.RawValue != value)
+                {
+                    _maxHeight = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -289,8 +320,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _marginLeft = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_marginLeft.RawValue != value)
+                {
+                    _marginLeft = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -298,8 +332,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _marginRight = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_marginRight.RawValue != value)
+                {
+                    _marginRight = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -307,8 +344,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _marginTop = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_marginTop.RawValue != value)
+                {
+                    _marginTop = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -316,8 +356,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _marginBottom = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_marginBottom.RawValue != value)
+                {
+                    _marginBottom = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -339,8 +382,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _paddingLeft = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_paddingLeft.RawValue != value)
+                {
+                    _paddingLeft = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -348,8 +394,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _paddingRight = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_paddingRight.RawValue != value)
+                {
+                    _paddingRight = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -357,8 +406,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _paddingTop = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_paddingTop.RawValue != value)
+                {
+                    _paddingTop = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -366,8 +418,11 @@ namespace HlyssUI.Components
         {
             set
             {
-                _paddingBottom = LayoutValue.FromString(value);
-                TransformChanged = true;
+                if (_paddingBottom.RawValue != value)
+                {
+                    _paddingBottom = LayoutValue.FromString(value);
+                    TransformChanged = true;
+                }
             }
         }
 
@@ -391,11 +446,14 @@ namespace HlyssUI.Components
         public StyleManager StyleManager;
         public string Style
         {
-            get { return _styles; }
+            get { return _style; }
             set
             {
-                _styles = value;
-                StyleChanged = true;
+                if (_style != value)
+                {
+                    _style = value;
+                    StyleChanged = true;
+                }
             }
         }
         #endregion
@@ -536,16 +594,20 @@ namespace HlyssUI.Components
         {
             ClipArea = new ClipArea(this);
 
-            _controllers = new Controller[] {
-                new PositionController(this),
-                new SizeController(this),
-                new MarginController(this),
-                new PaddingController(this),
-                new ScrollController(this)
-            };
+            _positionController = new PositionController(this);
+            _sizeController = new SizeController(this);
+            _marginController = new MarginController(this);
+            _paddingController = new PaddingController(this);
+            _scrollController = new ScrollController(this);
+
+            _tPosObserver = new Observer<Vector2i>(TargetPosition);
+            _tRelPosObserver = new Observer<Vector2i>(TargetRelativePosition);
+            _tSizObserver = new Observer<Vector2i>(TargetSize);
+            _tMarObserver = new Observer<Spacing>(TargetMargins);
+            _tPadObserver = new Observer<Spacing>(TargetPaddings);
+            _tScrObserver = new Observer<Vector2i>(TargetScrollOffset);
 
             StyleManager = new StyleManager(this);
-
             TransformChanged = true;
             StyleChanged = true;
         }
@@ -657,11 +719,11 @@ namespace HlyssUI.Components
         {
             bool anyTransitionApplied = false;
 
-            foreach (var controller in _controllers)
-            {
-                if (controller.Update())
-                    anyTransitionApplied = true;
-            }
+            anyTransitionApplied |= _positionController.Update();
+            anyTransitionApplied |= _sizeController.Update();
+            anyTransitionApplied |= _marginController.Update();
+            anyTransitionApplied |= _paddingController.Update();
+            anyTransitionApplied |= _scrollController.Update();
 
             if (anyTransitionApplied && IsOnScreen)
             {
@@ -679,7 +741,10 @@ namespace HlyssUI.Components
             if (IsInitialized)
             {
                 if (IsOnScreen)
+                {
                     OnRefresh();
+                }
+                
                 ClipArea.Update();
             }
         }
@@ -722,10 +787,11 @@ namespace HlyssUI.Components
 
         public void ApplyTransform()
         {
-            foreach (var controller in _controllers)
-            {
-                controller.Start();
-            }
+            if (_tPosObserver.Changed(TargetPosition) || _tRelPosObserver.Changed(TargetRelativePosition)) _positionController.Start();
+            if (_tSizObserver.Changed(TargetSize)) _sizeController.Start();
+            if (_tMarObserver.Changed(TargetMargins)) _marginController.Start();
+            if (_tPadObserver.Changed(TargetPaddings)) _paddingController.Start();
+            if (_tScrObserver.Changed(TargetScrollOffset)) _scrollController.Start();
 
             TransformChanged = false;
         }
@@ -881,7 +947,8 @@ namespace HlyssUI.Components
             if (newOffset != TargetScrollOffset)
             {
                 TargetScrollOffset = newOffset;
-                ScheduleRefresh();
+                //ScheduleRefresh();
+                ApplyTransform();
             }
         }
 
@@ -915,7 +982,17 @@ namespace HlyssUI.Components
 
         public void AddStyle(string name)
         {
-            Style += $" {name}";
+            if (!Style.Contains(name))
+                Style += $" {name}";
+        }
+
+        public void RemoveStyle(string name)
+        {
+            int startIndex = Style.IndexOf(name);
+
+            if (startIndex != -1)
+                Style.Remove(startIndex, name.Length);
+
         }
         #endregion
 

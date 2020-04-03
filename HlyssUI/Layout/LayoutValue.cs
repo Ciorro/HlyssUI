@@ -9,7 +9,7 @@ namespace HlyssUI.Layout
         Pixel, Percent
     }
 
-    struct LayoutValue
+    class LayoutValue
     {
         public static LayoutValue Default
         {
@@ -21,8 +21,12 @@ namespace HlyssUI.Layout
             get { return new LayoutValue(int.MaxValue, ValueType.Pixel); }
         }
 
-        public int Value;
-        public ValueType Type;
+        public int Value { get; set; }
+        public ValueType Type { get; set; }
+
+        public string RawValue { get; set; } = string.Empty;
+
+        public LayoutValue() { }
 
         public LayoutValue(int value, ValueType type)
         {
@@ -45,7 +49,7 @@ namespace HlyssUI.Layout
         public static LayoutValue FromString(string str)
         {
             LayoutValue dimension = new LayoutValue();
-            int value = 0;
+            int value;
 
             if (str.EndsWith("px"))
             {
@@ -66,6 +70,8 @@ namespace HlyssUI.Layout
             }
 
             dimension.Value = value;
+            dimension.RawValue = str;
+
             return dimension;
         }
     }

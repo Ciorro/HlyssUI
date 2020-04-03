@@ -86,23 +86,25 @@ namespace HlyssUI.Components
                     {
                         new Button()
                         {
-                            Padding = "5px 2px",
-                            Style = "flipview_button_default",
+                            Padding = "5px 5px",
+                            MarginLeft = "5px",
+                            Style = "outline_button_default flipview_button_default",
                             Action = Previous,
                             Children = new List<Component>()
                             {
-                                new Icon(Graphics.Icons.ArrowLeft)
+                                new Icon(Graphics.Icons.AngleLeft)
                             }
                         },
                         new Spacer(),
                         new Button()
                         {
-                            Padding = "5px 2px",
-                            Style = "flipview_button_default",
+                            Padding = "5px 5px",
+                            MarginRight = "5px",
+                            Style = "outline_button_default flipview_button_default",
                             Action = Next,
                             Children = new List<Component>()
                             {
-                                new Icon(Graphics.Icons.ArrowRight)
+                                new Icon(Graphics.Icons.AngleRight)
                             }
                         }
                     }

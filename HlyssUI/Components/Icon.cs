@@ -1,5 +1,4 @@
 ﻿using HlyssUI.Graphics;
-using HlyssUI.Themes;
 using SFML.Graphics;
 using SFML.System;
 using System;
@@ -10,6 +9,7 @@ namespace HlyssUI.Components
     {
         public Icons IconType
         {
+            get { return _icon; }
             set
             {
                 if (_icon != value)
@@ -48,7 +48,7 @@ namespace HlyssUI.Components
         public override void OnRefresh()
         {
             base.OnRefresh();
-            _iconTxt.Position = new Vector2f((int)(GlobalPosition.X - (_glyph.Advance - _glyph.Bounds.Width) / 2), GlobalPosition.Y);
+            _iconTxt.Position = new Vector2f((int)(GlobalPosition.X - (_glyph.Advance - _glyph.Bounds.Width) / 2 + (Size.X - _glyph.Bounds.Width) / 2), GlobalPosition.Y);
         }
 
         public override void OnStyleChanged()
@@ -56,10 +56,11 @@ namespace HlyssUI.Components
             base.OnStyleChanged();
 
             _iconTxt.FillColor = StyleManager.GetColor("text-color");
+            uint charSize = StyleManager.GetUint("icon-size");
 
-            if (_iconTxt.CharacterSize != StyleManager.GetUint("font-size"))
+            if (_iconTxt.CharacterSize != charSize)
             {
-                _iconTxt.CharacterSize = StyleManager.GetUint("font-size") + 4;
+                _iconTxt.CharacterSize = charSize;
                 UpdateGlyph();
                 UpdateSize();
             }
@@ -84,9 +85,9 @@ namespace HlyssUI.Components
 
         private void UpdateSize()
         {
-            int size = (int)(_glyph.Bounds.Width );
+            int size = (int)(_glyph.Bounds.Width);
 
-            Width = $"{size}px";
+            Width = $"{GetHeight()}px";
             Height = $"{GetHeight()}px";
         }
 

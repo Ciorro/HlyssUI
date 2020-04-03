@@ -30,7 +30,8 @@ namespace HlyssUI.Styling.ValuePresets
             new PositionEaseDurationPreset(),
             new SizeEasePreset(),
             new SizeEaseDurationPreset(),
-            new SmoothScrollPreset()
+            new SmoothScrollPreset(),
+            new IconSizePreset()
         };
 
         public static StyleValue Get(string name, string value = "")

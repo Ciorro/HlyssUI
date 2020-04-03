@@ -7,6 +7,7 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace HlyssUI
 {
@@ -97,6 +98,14 @@ namespace HlyssUI
 
         internal List<Component> FlatComponentTree { get; private set; } = new List<Component>();
 
+        private Text t;
+        public long update = 0;
+        public long style = 0;
+        public long layout = 0;
+        public long compose = 0;
+        public long refresh = 0;
+        public Stopwatch s = Stopwatch.StartNew();
+
         public HlyssForm(RenderWindow window)
         {
             Window = window;
@@ -108,6 +117,9 @@ namespace HlyssUI
         public HlyssForm() 
         {
             Icon = null;
+
+            t = new Text("", Fonts.MontserratRegular, 12);
+            t.Position = new Vector2f(500, 500);
         }
 
         public void Show()
@@ -138,9 +150,15 @@ namespace HlyssUI
 
             FlatComponentTree = _treeFlatter.GetComponentList(Root);
 
+            update = style = layout = compose = refresh = 0;
+
+            s.Restart();
             _componentUpdater.Update(Root);
+            update = s.ElapsedMilliseconds;
             _styleUpdater.Update(Root);
+            style = s.ElapsedMilliseconds - update;
             _layoutUpdater.Update(Root);
+            layout = s.ElapsedMilliseconds - update - style;
 
             if (_shouldClose)
             {
@@ -162,6 +180,9 @@ namespace HlyssUI
                 Window.Clear(ThemeManager.GetColor("primary"));
 
             _renderer.Render(Root);
+
+            t.DisplayedString = $"Update: {update}\nStyle: {style}\nLayout: {layout}\nCompose: {compose}\nRefresh: {refresh}";
+            Window.Draw(t);
 
             if (!_isExternalWindow)
                 Window.Display();

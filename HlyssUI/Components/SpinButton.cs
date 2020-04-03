@@ -51,14 +51,14 @@ namespace HlyssUI.Components
                 new RepeatButton()
                 {
                     Children = new List<Component>(){new Icon(Graphics.Icons.AngleUp) },
-                    Padding = "10px",
+                    Padding = "6px",
                     Appearance = Button.ButtonStyle.Flat,
                     Name = "spinbutton_plus"
                 },
                 new RepeatButton()
                 {
                     Children = new List<Component>(){new Icon(Graphics.Icons.AngleDown) },
-                    Padding = "10px",
+                    Padding = "6px",
                     Appearance = Button.ButtonStyle.Flat,
                     Name = "spinbutton_minus"
                 }

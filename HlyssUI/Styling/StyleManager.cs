@@ -3,9 +3,7 @@ using HlyssUI.Styling.ValuePresets;
 using HlyssUI.Themes;
 using SFML.Graphics;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace HlyssUI.Styling
 {
@@ -27,7 +25,7 @@ namespace HlyssUI.Styling
             string value = null;
             Component component = _component;
 
-            while(value == null)
+            while (value == null)
             {
                 string[] styles = GetStyleArray(component.Style);
                 bool isInheritable = StyleValueResolver.IsValueInheritable(name);
@@ -43,7 +41,7 @@ namespace HlyssUI.Styling
                 else break;
             }
 
-            if(value == null)
+            if (value == null)
             {
                 StyleValue styleValue = StyleValueResolver.Get(name);
 
@@ -51,7 +49,7 @@ namespace HlyssUI.Styling
                     value = styleValue.Value;
                 else value = string.Empty;
             }
-            
+
             return value;
         }
 

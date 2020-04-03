@@ -1,6 +1,7 @@
 ﻿using HlyssUI;
 using HlyssUI.Components;
 using HlyssUI.Components.Dialogs;
+using HlyssUI.Components.Interfaces;
 using HlyssUI.Components.Routers;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
@@ -20,14 +21,13 @@ namespace HlyssUIDemo
     {
         static HlyssApplication app = new HlyssApplication();
         static string caption = "HlyssUI demo";
-        static bool wide = true;
 
         static void Main(string[] args)
         {
             ThemeManager.LoadFromFile("DefaultTheme.xml");
-            ThemeManager.SetTheme("light");
+            ThemeManager.SetTheme("black");
             StyleBank.LoadFromFile("style.hss");
-
+            
             HlyssApplication.InitializeStyles();
 
             HlyssForm form = new HlyssForm()
@@ -47,11 +47,7 @@ namespace HlyssUIDemo
 
             Handle(form);
 
-            form.Root.FindChild("show_form").ChildrenBefore = new List<Component>()
-            {
-                new Icon(Icons.AngleRight)
-            };
-            form.Window.SetFramerateLimit(0);
+            //form.Window.SetFramerateLimit(0);
             Stopwatch fpsTimer = Stopwatch.StartNew();
             int fps = 0;
 
@@ -80,22 +76,30 @@ namespace HlyssUIDemo
 
         private static void Handle(HlyssForm form)
         {
-            (form.Root.FindChild("ToolTip 1") as ToolTip).Target = form.Root.FindChild("Panel 1");
-            form.Root.FindChild("Panel 1").Clicked += (object sender) =>
-            {
-                (form.Root.FindChild("Menu 1") as Menu).Show(form.MousePosition);
-            };
+            //(form.Root.FindChild("ToolTip 1") as ToolTip).Target = form.Root.FindChild("Panel 1");
+            //form.Root.FindChild("Panel 1").Clicked += (object sender) =>
+            //{
+            //    (form.Root.FindChild("Menu 1") as Menu).Show(form.MousePosition);
+            //};
 
-            form.Root.FindChild("show_form").Clicked += (object sender) =>
-            {
-                //app.GetForm("browse_folder_dialog").Show();
-                app.RegisterAndShow(new BrowseFolderDialog());
-            };
+            //form.Root.FindChild("show_form").Clicked += (object sender) =>
+            //{
+            //    //app.GetForm("browse_folder_dialog").Show();
+            //    app.RegisterAndShow(new BrowseFolderDialog());
+            //};
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10000; i++)
             {
-                form.Root.FindChild("list").Children.Add(new Button($"ListItem {i + 4}"));
+                //form.Root.FindChild("list").Children.Add(new Button($"ListItem {i + 4}"));
+                form.Root.FindChild("list").Children.Add(new Panel()
+                {
+                    Width = "100px",
+                    Height = "100px"
+                });
             }
+
+            //(form.Root.FindChild("toggle") as ISelectable).OnSelect += (_) => ThemeManager.SetTheme("dark");
+            //(form.Root.FindChild("toggle") as ISelectable).OnUnselect += (_) => ThemeManager.SetTheme("light");
         }
 
         static Component Test()
@@ -110,74 +114,77 @@ namespace HlyssUIDemo
                 Layout = LayoutType.Wrap,
                 Children = new List<Component>()
                 {
-                    new Button("Button 1")
-                    {
-                        Appearance = Button.ButtonStyle.Filled,
-                        Name = "show_form"
-                    },
-                    new ToggleButton("ToggleButton 1")
-                    {
-                        Name = "toggle_button 1"
-                    },
-                    new RepeatButton("RepeatButton 1")
-                    {
-                        Name = "repeat_button 1",
-                        Appearance = Button.ButtonStyle.Filled,
-                        Action = () => Console.WriteLine("RepeatButton clicked"),
-                    },
-                    new CheckBox("CheckBox 1"),
-                    new Dropdown()
-                    {
-                        Items = new List<string>()
-                        {
-                            "Action 1", "Action 2", "Action 3"
-                        }
-                    },
-                    new ExpansionPanel()
-                    {
-                        Width = "200px",
-                        Header = "Expansion panel 1",
-                        SlotContent = new List<Component>()
-                        {
-                            new Button("Hidden button")
-                        }
-                    },
-                    new Icon(Icons.User),
-                    new Label("Label 1"),
-                    new LinkLabel("Link 1", "https://google.com"),
-                    new Panel()
-                    {
-                        Width = "100px",
-                        Height = "100px",
-                        Name = "Panel 1"
-                    },
-                    new PictureBox("img.jpg")
-                    {
-                        Width = "100px",
-                        Height = "100px"
-                    },
-                    new ProgressBar()
-                    {
-                        Intermediate = true
-                    },
-                    new RadioButton("RadioButton 1"),
-                    new RadioButton("RadioButton 2"),
-                    new SpinButton()
-                    {
-                        Width = "150px",
-                        Name = "SpinButton 1"
-                    },
-                    new ToggleSwitch("ToggleSwitch 1"),
-                    new ToolTip()
-                    {
-                        Text = "ToolTip 1",
-                        Name = "ToolTip 1"
-                    },
-                    new TrackBar()
-                    {
-                        Width = "150px",
-                        Height = "20px"
-                    },
+                    //new Button("Button 1")
+                    //{
+                    //    Appearance = Button.ButtonStyle.Filled,
+                    //    Name = "show_form"
+                    //},
+                    //new ToggleButton("ToggleButton 1")
+                    //{
+                    //    Name = "toggle_button 1"
+                    //},
+                    //new RepeatButton("RepeatButton 1")
+                    //{
+                    //    Name = "repeat_button 1",
+                    //    Appearance = Button.ButtonStyle.Filled,
+                    //    Action = () => Console.WriteLine("RepeatButton clicked"),
+                    //},
+                    //new CheckBox("CheckBox 1"),
+                    //new Dropdown()
+                    //{
+                    //    Items = new List<string>()
+                    //    {
+                    //        "Action 1", "Action 2", "Action 3"
+                    //    }
+                    //},
+                    //new ExpansionPanel()
+                    //{
+                    //    Width = "200px",
+                    //    Header = "Expansion panel 1",
+                    //    SlotContent = new List<Component>()
+                    //    {
+                    //        new Button("Hidden button")
+                    //    }
+                    //},
+                    //new Icon(Icons.User),
+                    //new Label("Label 1"),
+                    //new LinkLabel("Link 1", "https://google.com"),
+                    //new Panel()
+                    //{
+                    //    Width = "100px",
+                    //    Height = "100px",
+                    //    Name = "Panel 1"
+                    //},
+                    //new PictureBox("img.jpg")
+                    //{
+                    //    Width = "100px",
+                    //    Height = "100px"
+                    //},
+                    //new ProgressBar()
+                    //{
+                    //    Intermediate = true
+                    //},
+                    //new RadioButton("RadioButton 1"),
+                    //new RadioButton("RadioButton 2"),
+                    ////new SpinButton()
+                    ////{
+                    ////    Width = "150px",
+                    ////    Name = "SpinButton 1"
+                    ////},
+                    //new ToggleSwitch("ToggleSwitch 1")
+                    //{ 
+                    //    Name = "toggle"
+                    //},
+                    //new ToolTip()
+                    //{
+                    //    Text = "ToolTip 1",
+                    //    Name = "ToolTip 1"
+                    //},
+                    //new TrackBar()
+                    //{
+                    //    Width = "150px",
+                    //    Height = "20px"
+                    //},
                     new Panel()
                     {
                         Width = "200px",
@@ -189,164 +196,150 @@ namespace HlyssUIDemo
                         Overflow = OverflowType.Scroll,
                         Children = new List<Component>()
                         {
-                            new ListItem("ListItem 1")
-                            {
-                                Name = "listitem1"
-                            },
-                            new ListItem("ListItem 2"),
-                            new ListItem("ListItem 3"),
+                            //new ListItem("ListItem 1")
+                            //{
+                            //    Name = "listitem1"
+                            //},
+                            //new ListItem("ListItem 2"),
+                            //new ListItem("ListItem 3"),
                         }
                     },
-                    new Menu()
-                    {
-                        Name = "Menu 1",
-                        Items = new List<MenuItem>()
-                        {
-                            new MenuItem("MenuItem 1"),
-                            new MenuItem("MenuItem 2")
-                            {
-                                Menu = new Menu()
-                                {
-                                    Items = new List<MenuItem>()
-                                    {
-                                        new RadioMenuItem("RadioMenuItem 1"),
-                                        new RadioMenuItem("RadioMenuItem 2"),
-                                        new RadioMenuItem("RadioMenuItem 3"),
-                                        new MenuDivider(),
-                                        new CheckMenuItem("CheckMenuItem 1"),
-                                        new CheckMenuItem("CheckMenuItem 2")
-                                    }
-                                }
-                            },
-                            new MenuItem("MenuItem 3")
-                        }
-                    },
-                    new TextBox()
-                    {
-                        Text = "TextBox 1",
-                        Width = "200px",
-                        MaxLines = 10,
-                        SelectOnFocus = false,
-                        Placeholder = "Enter text here"
-                    },
-                    new ProgressRing(),
-                    new FlipView()
-                    {
-                        Width = "640px",
-                        Height = "360px",
-                        Continous = true,
-                        Cycle = true,
-                        DisplayArrows = false,
-                        SlotContent = new List<Component>()
-                        {
-                            new PictureBox("bgs/image (1).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (2).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (3).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (4).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (5).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (6).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox("bgs/image (7).jpg")
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            },
-                            new PictureBox(ResourceManager.GetAsync<Texture>("http://caps.fail/lonczer/images//Accounts/d/profile.png").Result)
-                            {
-                                Width = "100%",
-                                Height = "100%",
-                                SmoothImage = true,
-                                StretchMode = stretch
-                            }
-                        }
-                    }
+                    //new Menu()
+                    //{
+                    //    Name = "Menu 1",
+                    //    Items = new List<MenuItem>()
+                    //    {
+                    //        new MenuItem("MenuItem 1"),
+                    //        new MenuItem("MenuItem 2")
+                    //        {
+                    //            Menu = new Menu()
+                    //            {
+                    //                Items = new List<MenuItem>()
+                    //                {
+                    //                    new RadioMenuItem("RadioMenuItem 1"),
+                    //                    new RadioMenuItem("RadioMenuItem 2"),
+                    //                    new RadioMenuItem("RadioMenuItem 3"),
+                    //                    new MenuDivider(),
+                    //                    new CheckMenuItem("CheckMenuItem 1"),
+                    //                    new CheckMenuItem("CheckMenuItem 2")
+                    //                }
+                    //            }
+                    //        },
+                    //        new MenuItem("MenuItem 3")
+                    //    }
+                    //},
+                    //new TextBox()
+                    //{
+                    //    Text = "TextBox 1",
+                    //    Width = "200px",
+                    //    MaxLines = 10,
+                    //    SelectOnFocus = false,
+                    //    Placeholder = "Enter text here"
+                    //},
+                    //new ProgressRing(),
+                    //new FlipView()
+                    //{
+                    //    Width = "640px",
+                    //    Height = "360px",
+                    //    Continous = true,
+                    //    Cycle = true,
+                    //    SlotContent = new List<Component>()
+                    //    {
+                    //        new PictureBox("bgs/image (1).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (2).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (3).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (4).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (5).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (6).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox("bgs/image (7).jpg")
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        },
+                    //        new PictureBox(ResourceManager.GetAsync<Texture>("http://caps.fail/lonczer/images//Accounts/d/profile.png").Result)
+                    //        {
+                    //            Width = "100%",
+                    //            Height = "100%",
+                    //            SmoothImage = true,
+                    //            StretchMode = stretch
+                    //        }
+                    //    }
+                    //}
                 }
             };
         }
 
-        static Component TestExpand()
+        static Component Test2()
         {
-            return new Component()
+            Component component = new Component()
             {
                 Width = "100%",
                 Height = "100%",
-                Name = "container",
                 Children = new List<Component>()
                 {
-                    new Panel()
+                    new NavigationView()
                     {
-                        Width = "300px",
-                        Height = "100%",
-                        Name = "left_panel"
-                    },
-                    new Panel()
-                    {
-                        Expand = true,
-                        Height = "100%",
-                        Padding = "50px",
-                        Layout = LayoutType.Column,
-                        Name = "middle_panel",
-                        Children = new List<Component>()
-                        {
-                            new Panel()
-                            {
-                                Width = "100%",
-                                Height = "100px",
-                                Name = "testing_panel",
-                                Children = new List<Component>()
-                                {
-                                    new Button(),
-                                    new Spacer(),
-                                    new Button()
-                                }
-                            }
-                        }
-                    },
-                    new Panel()
-                    {
-                        Width = "200px",
-                        Height = "100%",
-                        Name = "right_panel"
+                        Header = "Header",
+                        ExpandOnHover = true,
+                        FixedMode = true,
+                        Items = new List<Component>()
+                        {                            
+                            new NavigationItem("All components", Icons.List),
+                            new Divider(),
+                            new NavigationItem("Basic input", Icons.CheckSquare),
+                            new NavigationItem("Collections", Icons.Table),
+                            new NavigationItem("Dialogs and flyouts", Icons.Comments),
+                            new NavigationItem("Media", Icons.Play),
+                            new NavigationItem("Status and info", Icons.InfoCircle),
+                            new NavigationItem("Text", Icons.Font),
+                            new NavigationItem("Others", Icons.EllipsisH),
+                            new Spacer(),
+                            new NavigationItem("Settings", Icons.Cog), 
+                        },
+                        SelectedItem = 6
                     }
                 }
             };
+
+            return component;
         }
     }
 }

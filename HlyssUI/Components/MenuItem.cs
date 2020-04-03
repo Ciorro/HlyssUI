@@ -25,16 +25,18 @@ namespace HlyssUI.Components
 
         public MenuItem(string label = "") : base(label)
         {
-            Padding = "5px 10px";
+            Padding = "4px 10px";
 
             Children.Add(new Spacer());
             Children.Add(new Icon(Graphics.Icons.AngleRight)
             {
                 Name = "menuitem_submenuicon",
+                Style = "menu_item_icon_default",
                 Visible = false
             });
 
-            FindChild("listitem_text").Left = "20px";
+            Style = "list_item_default menu_item_default";
+            IconWidth = "20px";
         }
 
         public override void OnMouseEntered()

@@ -84,6 +84,7 @@
     <border-radius>0</border-radius>
     <border-thickness>0</border-thickness>
     <primary-color>transparent</primary-color>
+    <icon-size>22</icon-size>
   </style>
 
   <style name="list_item_default" state="hovered">
@@ -92,6 +93,11 @@
 
   <style name="list_item_default" state="pressed">
     <primary-color>secondary -20</primary-color>
+  </style>
+  
+  <!--Menu item-->
+  <style name="menu_item_default">
+    <icon-size>16</icon-size>
   </style>
   
   <!--Expansion panel-->
@@ -191,19 +197,19 @@
   
   <!--FlipViewButton-->
   <style name="flipview_button_default">
-    <border-radius>0</border-radius>
-    <border-thickness>0</border-thickness>
-    <primary-color>66000000</primary-color>
-  </style>
-
-  <style name="flipview_button_default" state="hovered">
-    <primary-color>88000000</primary-color>
+    <border-radius>50</border-radius>
+    <font-size>20</font-size>
   </style>
 
   <style name="flipview_button_default" state="pressed">
-    <primary-color>AA000000</primary-color>
+    <border-radius>50</border-radius>
   </style>
 
+  <style name="flipview_button_default" state="hovered">
+    <border-radius>50</border-radius>
+  </style>
+
+  <!--MessageBox icon-->
   <style name="mbox_icon_default">
     <font-size>25</font-size>
   </style>
@@ -213,6 +219,7 @@
     <border-thickness>2</border-thickness>
     <secondary-color>accent</secondary-color>
     <primary-color>primary -20</primary-color>
+    <icon-size>22</icon-size>
   </style>
 
   <style name="treeview_node_selected" state="hovered">
@@ -224,6 +231,10 @@
   </style>
   
   <!--TreeViewRoot icon-->
+  <style name="treeview_expand_btn_icon_default">
+    <icon-size>15</icon-size>
+  </style>
+
   <style name="treeview_expand_btn_icon_default" state="hovered">
     <text-color>accent</text-color>
   </style>
@@ -231,9 +242,22 @@
   <style name="treeview_expand_btn_icon_default" state="pressed">
     <text-color>accent -10</text-color>
   </style>
+  
+  <!--Navigation-->
 
-  <style name="treeview_icon_default">
-    <font-size>15</font-size>
+  <style name="navigation_panel_default">
+    <border-thickness>0</border-thickness>
+    <border-radius>0</border-radius>
+    <primary-color>primary -10</primary-color>
+    <size-ease>out</size-ease>
+  </style>
+
+  <style name="navigation_panel_fixed_mode_default">
+    <opacity>0.9</opacity>
+  </style>
+
+  <style name="navigation_content_view_default">
+    <position-ease>out</position-ease>
   </style>
   <!--//TODO: Add disabled styles-->
 </hss>

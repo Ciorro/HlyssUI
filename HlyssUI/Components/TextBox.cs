@@ -63,7 +63,6 @@ namespace HlyssUI.Components
                 AutosizeY = true,
                 Expand = true,
                 Overflow = OverflowType.Scroll,
-                ScrollOffset = new Vector2i(20, 10),
                 Children = new List<Component>() { _text }
             };
 

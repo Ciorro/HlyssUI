@@ -1,5 +1,5 @@
-﻿using HlyssUI.Layout;
-using HlyssUI.Themes;
+﻿using HlyssUI.Graphics;
+using HlyssUI.Layout;
 using System;
 using System.Collections.Generic;
 
@@ -9,54 +9,82 @@ namespace HlyssUI.Components
     {
         public string Label
         {
-            get { return _label.Text; }
-            set { _label.Text = value; }
+            get { return (FindChild("listitem_label") as Label).Text; }
+            set
+            {
+                Label label = FindChild("listitem_label") as Label;
+
+                if (label.Text != value)
+                    label.Text = value;
+            }
         }
 
-        public Graphics.Icons Icon
+        public Icons Icon
         {
-            set { _icon.IconType = value; }
+            set
+            {
+                Icon icon = FindChild("listitem_icon") as Icon;
+
+                if (icon.IconType != value)
+                    icon.IconType = value;
+            }
         }
 
-        public Action Action { get; set; }
+        public string IconWidth
+        {
+            get { return _iconWidth; }
+            set
+            {
+                if(_iconWidth != value)
+                {
+                    FindChild("listitem_icon_container").Width = value;
+                    _iconWidth = value;
+                }
+            }
+        }
 
-        private Icon _icon;
-        private Label _label;
+        public Action<object> Action { get; set; }
+
+        private string _iconWidth = "48px";
 
         public ListItem(string label = "")
         {
-            _icon = new Icon(Graphics.Icons.Empty)
-            {
-                Name = "listitem_icon",
-                PositionType = PositionType.Relative
-            };
-
-            _label = new Label(label)
-            {
-                Height = "100%",
-                AutosizeToText = false,
-                Name = "listitem_text",
-                Left = "30px",
-                PositionType = PositionType.Absolute
-            };
-
-            Children = new List<Component>()
-            {
-                _icon, _label
-            };
-
-            Padding = "10px";
             Width = "100%";
             AutosizeY = true;
             CenterContent = true;
-            Overflow = OverflowType.Hidden;
             Style = "list_item_default";
+            Padding = "5px 0px";
+
+            Children = new List<Component>()
+            {
+                new Component()
+                {
+                    Width = "48px",
+                    AutosizeY = true,
+                    CenterContent = true,
+                    Layout = LayoutType.Column,
+                    Name = "listitem_icon_container",
+                    Children = new List<Component>()
+                    {
+                        new Icon(Icons.Empty)
+                        {
+                            Name = "listitem_icon",
+                            Style = "list_item_icon_default"
+                        }
+                    }
+                },
+                new Label(label)
+                {
+                    Name = "listitem_label",
+                    MarginLeft = "10px"
+                }
+            };
         }
 
         public override void OnClicked()
         {
             base.OnClicked();
-            Action?.Invoke();
+            Action?.Invoke(this);
         }
     }
 }

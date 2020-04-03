@@ -260,15 +260,13 @@ namespace HlyssUI.Components
 
         private void UpdateTextSize()
         {
-            //int height = getHeight();
+            int height = getHeight();
 
-            ////TODO: ...
-            //if (height == 0)
-            //    Height = "1px";
-            //else
-            //    Height = $"{height}px";
-
-            Height = $"{getHeight()}px";
+            //TODO: ...
+            if (height == 0)
+                Height = "1px";
+            else
+                Height = $"{height}px";
 
             if (!WordWrap)
                 Width = $"{(int)_lines[0].FastWidth}px";

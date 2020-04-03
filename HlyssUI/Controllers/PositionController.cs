@@ -16,7 +16,7 @@ namespace HlyssUI.Controllers
         {
             if (!_firstUse && !tween.IsRunning)
                 UpdateTween();
-
+            
             _firstUse = false;
 
             tween.Start();

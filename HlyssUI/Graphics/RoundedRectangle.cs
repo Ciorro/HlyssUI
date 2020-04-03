@@ -48,10 +48,10 @@ namespace HlyssUI.Graphics
 
             uint radius = centerIndex switch
             {
-                0 => BorderRadius.TopLeft,
-                1 => BorderRadius.TopRight,
-                2 => BorderRadius.BottomRight,
-                3 => BorderRadius.BottomLeft,
+                0 => BorderRadius.TopRight,
+                1 => BorderRadius.TopLeft,
+                2 => BorderRadius.BottomLeft,
+                3 => BorderRadius.BottomRight,
                 _ => BorderRadius.TopLeft
             };
 

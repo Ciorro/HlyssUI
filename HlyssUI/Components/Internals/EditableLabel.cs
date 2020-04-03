@@ -14,9 +14,12 @@ namespace HlyssUI.Components.Internals
             get { return _text; }
             set
             {
-                UpdateText(_text, value);
-                _text = value;
-                ScheduleRefresh();
+                if (_text != value)
+                {
+                    UpdateText(_text, value);
+                    _text = value;
+                    ScheduleRefresh();
+                }
             }
         }
 
@@ -275,8 +278,8 @@ namespace HlyssUI.Components.Internals
             }
 
             StyleChanged = true;
-            ResetSelection();
 
+            ResetSelection();
             Align();
         }
 
@@ -285,11 +288,13 @@ namespace HlyssUI.Components.Internals
             float x = GlobalPosition.X;
             float y = GlobalPosition.Y;
 
+            float lineSpacing = Font.GetLineSpacing(StyleManager.GetUint("font-size"));
+
             foreach (var letter in _letters)
             {
                 if (letter.IsNewLine)
                 {
-                    y += Font.GetLineSpacing(StyleManager.GetUint("font-size"));
+                    y += lineSpacing;
                     x = GlobalPosition.X;
                 }
 
@@ -309,7 +314,7 @@ namespace HlyssUI.Components.Internals
                 width = (int)System.Math.Max(width, letter.Position.X - GlobalPosition.X + letter.Advance);
             }
 
-            Width = $"{width}px";
+            Width = $"{(width == 0 ? 1 : width)}px";
             Height = $"{(int)(Font.GetLineSpacing(StyleManager.GetUint("font-size")) * Lines)}px";
         }
 
