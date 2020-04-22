@@ -181,8 +181,8 @@ namespace HlyssUI
 
             _renderer.Render(Root);
 
-            t.DisplayedString = $"Update: {update}\nStyle: {style}\nLayout: {layout}\nCompose: {compose}\nRefresh: {refresh}";
-            Window.Draw(t);
+            //t.DisplayedString = $"Update: {update}\nStyle: {style}\nLayout: {layout}\nCompose: {compose}\nRefresh: {refresh}";
+            //Window.Draw(t);
 
             if (!_isExternalWindow)
                 Window.Display();

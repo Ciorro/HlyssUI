@@ -25,7 +25,7 @@ namespace HlyssUIDemo
         static void Main(string[] args)
         {
             ThemeManager.LoadFromFile("DefaultTheme.xml");
-            ThemeManager.SetTheme("black");
+            ThemeManager.SetTheme("dark");
             StyleBank.LoadFromFile("style.hss");
             
             HlyssApplication.InitializeStyles();
@@ -39,13 +39,13 @@ namespace HlyssUIDemo
             {
                 Name = "router"
             });
-            (form.Root.GetChild("router") as Router).Navigate(Test());
+            (form.Root.GetChild("router") as Router).Navigate(Test2());
             form.Show();
 
             app.RegisterForm("main", form);
             app.RegisterForm("browse_folder_dialog", new MessageBox("Galactic Dissent", "Czy na pewno chcesz odinstalować ten produkt?\n• Galactic Dissent", "Nie", "Tak"));
 
-            Handle(form);
+            //Handle(form);
 
             //form.Window.SetFramerateLimit(0);
             Stopwatch fpsTimer = Stopwatch.StartNew();

@@ -176,6 +176,19 @@ namespace HlyssUI.Components
             };
 
             IsExpanded = true;
+
+            FindChild("navigation_panel").MouseEntered += MouseEnteredPanel;
+            FindChild("navigation_panel").MouseLeft += MouseLeftPanel;
+        }
+
+        private void MouseLeftPanel(object sender)
+        {
+            if (ExpandOnHover) IsExpanded = false;
+        }
+
+        private void MouseEnteredPanel(object sender)
+        {
+            if (ExpandOnHover) IsExpanded = true;
         }
 
         public override void OnKeyPressed(Keyboard.Key key)

@@ -464,10 +464,7 @@ namespace HlyssUI.Components
         {
             get
             {
-                if (PositionType != PositionType.Fixed)
-                    return Bounds.Intersects((Parent != null) ? Parent.ClipArea.Bounds : Form.Root.Bounds);
-                else
-                    return Bounds.Intersects(Form.Root.Bounds);
+                return Bounds.Intersects(Form.Root.Bounds);
             }
         }
 

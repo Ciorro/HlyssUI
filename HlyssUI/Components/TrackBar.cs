@@ -9,20 +9,7 @@ namespace HlyssUI.Components
         public delegate void Confirmed(object sender, int value);
         public event Confirmed OnConfirmed;
 
-        public int Value
-        {
-            get
-            {
-                return (int)(((float)_currentOffset / (float)Size.X) * (float)MaxValue);
-            }
-            set
-            {
-                if (_active == false)
-                {
-                    _currentOffset = (int)((float)value / ((float)MaxValue / Size.X));
-                }
-            }
-        }
+        public int Value { get; set; }
 
         private RectangleShape _bar;
         private RectangleShape _valueBar;
@@ -71,7 +58,10 @@ namespace HlyssUI.Components
                 int offset = Mouse.GetPosition(Form.Window).X - GlobalPosition.X;
                 offset = setOffsetInbounds(offset);
                 _currentOffset = offset;
+                Value = OffsetToValue(_currentOffset);
             }
+            else
+                _currentOffset = ValueToOffset(Value);
 
             _pointer.Position = new Vector2f(GlobalPosition.X + _currentOffset - _pointer.Radius, _bar.Position.Y - _pointer.Radius + 1);
 
@@ -109,6 +99,16 @@ namespace HlyssUI.Components
                 OnConfirmed?.Invoke(this, Value);
 
             _active = false;
+        }
+
+        private int ValueToOffset(int value)
+        {
+            return (int)(value / ((float)MaxValue / Size.X));
+        }
+
+        private int OffsetToValue(int offset)
+        {
+            return (int)((offset / (float)Size.X) * MaxValue);
         }
     }
 }

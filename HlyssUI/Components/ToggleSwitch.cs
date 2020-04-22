@@ -29,11 +29,15 @@ namespace HlyssUI.Components
 
                     OnToggle?.Invoke(this, value);
                     _toggle.Toggled = value;
+                    Label = value ? OnContent : OffContent;
                 }
             }
         }
 
-        public string Label
+        public string OnContent { get; set; }
+        public string OffContent { get; set; }
+
+        private string Label
         {
             get { return _label.Text; }
             set
@@ -45,8 +49,11 @@ namespace HlyssUI.Components
         private Switch _toggle;
         private Label _label;
 
-        public ToggleSwitch(string label = "")
+        public ToggleSwitch(string onContent = "", string offContent = "")
         {
+            OnContent = onContent;
+            OffContent = string.IsNullOrEmpty(offContent) ? onContent : offContent;
+
             Layout = LayoutType.Row;
             Autosize = true;
 
@@ -58,7 +65,7 @@ namespace HlyssUI.Components
                 Toggled = false
             };
 
-            _label = new Label(label)
+            _label = new Label(offContent)
             {
                 Margin = "2px"
             };
